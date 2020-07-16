@@ -1,0 +1,134 @@
+<div class="container-fluid eligibility_main_block">
+  <div class="eligibility_block">
+    <div class="row justify-content-around">
+      <div class="col-9 col-lg-9 col-md-12 col-sm-12">
+        <div class="white_eligibility_block">
+          <div class="row justify-center">
+            <div class="col-12 col-lg-12 col-md-12 col-sm-12">
+              <div class="eligibility_logo_block">
+                <div class="logo_center">
+                  <a routerLink="/login" class="float-left">
+                    <img src="assets/images/logo.png" class="img-fluid" alt="">
+                  </a>
+                  <div class="float-right text-right">
+                    <h1 class="mt-3">{{globals.commonTranslationText.header.title}}</h1>
+                    <p class="mb-1">{{globals.commonTranslationText.header.contactUs.label}}<a
+                        routerLink="/inquire">{{globals.commonTranslationText.header.contactUs.linkText}}</a></p>
+                    <a routerLink="/register"
+                      class="float-left">{{globals.commonTranslationText.eligibilityTestPage.buttons.newAccount}}</a>
+                  </div>
+                  <div class="clearfix"></div>
+                </div>
+              </div>
+            </div>
+            <form role="form" #eligibilityTestForm="ngForm" (ngSubmit)="eligibilityTestAdd(eligibilityTestForm)">
+              <div class="col-12 col-lg-12 col-md-12 col-sm-12">
+                <div class="padding_eligibility_block">
+                  <h3>{{globals.commonTranslationText.eligibilityTestPage.title}}</h3>
+                  <p class="padding_30">{{globals.commonTranslationText.eligibilityTestPage.subTitle}}</p>
+                  <div class="clearfix"></div>
+                  <div id="carousel" class="flexslider">
+                    <ul class="slides">
+                      <li *ngFor="let question of eligibilityTestList; let j = index;">
+                        <div class="questionblock" *ngFor="let que of question.row; let l = index;" id="questionblock{{(5*j)+l+1}}"
+                        [ngClass]="{complete: (que.UserEligibilityAnswer != null && que.UserEligibilityAnswer != '')}">
+                          {{(5*j)+l+1}} 
+                        </div>                        
+                      </li>
+                    </ul>
+                  </div>
+                  <div class="eligibility_test_scroll">
+                    <div id="slider" class="flexslider">
+                      <ul class="slides">
+                        <li *ngFor="let question of eligibilityTestList; let j = index;">
+                          <div class="eligibility_test" *ngFor="let que of question.row; let l = index;">
+                            <div class="question_block"><span>{{(5*j)+l+1}}</span>
+                              <p [innerHTML]="que.EligibilityItemText"></p>
+                            </div>
+                            <div class="answer_block">
+                              <div class="radio_box">
+                                <input type="radio" #UserEligibilityAnswer="ngModel" [(ngModel)]="que.UserEligibilityAnswer" name="UserEligibilityAnswer{{j}}{{l}}" id="yes{{j}}{{l}}" value="1">
+                                <label for="yes{{j}}{{l}}">Yes</label>
+                              </div>
+                              <div class="radio_box">
+                                <input type="radio" #UserEligibilityAnswer="ngModel" [(ngModel)]="que.UserEligibilityAnswer" name="UserEligibilityAnswer{{j}}{{l}}" id="no{{j}}{{l}}" value="0">
+                                <label for="no{{j}}{{l}}">No</label>
+                              </div>
+                            </div>
+                          </div>
+                          
+                        </li>
+                        
+                        
+                      </ul>
+                    </div>
+                    <div class="clearfix"></div>
+                    <div class="col-md-12 col-lg-12 text-center">
+                      <button class="all_btn theme_btn eligibility_submit" [disabled]="btn_disable">Submit</button>
+                    </div>
+                  </div>
+                  <div class="clearfix"></div>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal fade" id="eligibilitymodal" tabindex="-1" role="dialog" aria-labelledby="eligibilitymodalTitle"
+  aria-hidden="true" data-backdrop="static" data-keyboard="false">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="eligibilitymodalLongTitle">
+          {{globals.commonTranslationText.eligibilityTestPage.title}}</h5>
+      </div>
+      <form role="form" #eligibilityCredentialForm="ngForm" (ngSubmit)="eligibilityCredential(eligibilityCredentialForm)">
+      <div class="modal-body">
+          <div class="form-group">
+            <label><span>*</span> {{globals.commonTranslationText.eligibilityTestPage.modalTitles.role}}</label>
+            <div class="radio_box" *ngFor="let roles of roleList; let i = index;">
+              <input required type="radio" name="EligibilityItemFor" id="role_candidate{{i}}" (change)="radioChange(roles.ConfigurationId)" >
+              <label for="role_candidate{{i}}">{{roles.DisplayText}}</label>
+            </div>
+          </div>
+          <div class="form-group">
+            <label><span>*</span> {{globals.commonTranslationText.eligibilityTestPage.modalTitles.certificate}}</label>
+            
+            <select class="show-menu-arrow"  data-selected-text-format="count"  data-live-search="true" 
+              title="{{globals.commonTranslationText.eligibilityTestPage.modalTitles.select}}"
+              required #CertificateId="ngModel" [(ngModel)]="eligibilityCredentialEntity.CertificateId" name="CertificateId"
+              [ngClass]="{error: (CertificateId.dirty && CertificateId.invalid) || (CertificateId.pristine && submitted)}">
+                <!-- <option value="" ngSelected="eligibilityCredentialEntity.CertificateId==''">{{globals.commonTranslationText.eligibilityTestPage.modalTitles.select}}</option> -->
+                  <ng-container *ngFor="let certificate1 of certificateList">
+                    <option [value]="certificate1.CertificateId">{{certificate1.CertificateName}}</option>
+                  </ng-container>
+            </select>
+            <span class="error_class" *ngIf="(CertificateId.dirty && CertificateId.invalid) || (CertificateId.pristine && submitted)">
+                <span *ngIf="CertificateId.errors && CertificateId.errors.required">
+                  {{globals.commonTranslationText.eligibilityTestPage.modalTitles.certificateRequired}}
+                </span>
+            </span>
+          </div>
+        </div>
+          <!--<div class="form-group">
+            <label><span>*</span> First Name</label>
+            <input type="text" class="form-control" />
+          </div>
+          <div class="form-group">
+            <label><span>*</span> Last name</label>
+            <input type="text" class="form-control" />
+          </div>
+          <div class="form-group">
+            <label><span>*</span> Email</label>
+            <input type="text" class="form-control" />
+          </div>-->
+          <div class="modal-footer">
+            <button type="submit" class="all_btn theme_btn eligibility_submit">Start Test</button>
+          </div>
+        </form>
+      </div>
+  </div>
+</div>

@@ -1,0 +1,179 @@
+<div class="content_block">
+  <div class="container-fluid">
+    <div class="row">
+      <!-- Content -->
+      <div class="col-md-12 col-sm-12">
+        <div class="title_block">
+          <h2 class="float-left">
+            {{globals.adminTranslationText.discountCoupon.list.title}}</h2>
+          <div class="breadcrumb_block float-left">
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item">
+                <a routerLink="/admin/adminDashboard">
+                  <i class="fa fa-home"></i>
+                </a>
+              </li>
+              <li class="breadcrumb-item"><a
+                  routerLink="/admin/discount-coupon/list">{{globals.adminTranslationText.discountCoupon.list.breadcrumbTitle}}</a>
+              </li>
+              <li class="breadcrumb-item active" aria-current="page">
+                {{globals.adminTranslationText.discountCoupon.list.breadcrumbSubTitle}}</li>
+            </ol>
+          </div>
+          <a routerLink="/admin/discount-coupon/add"
+            class="all_btn theme_btn float-right">{{globals.adminTranslationText.discountCoupon.list.buttons.add}}</a>
+          <div class="clearfix"></div>
+        </div>
+        <div class="row d-flex justify-content-center">
+          <div class="col-md-12 col-sm-12">
+            <div class="inner_content_block">
+              <div class="table_block">
+                <!-- <table id="dataTables-example" class="table table-hover" style="width:100%;display:none;">
+                        <thead>
+                          <tr>
+                            <th class="text-center sr_no_width">{{globals.adminTranslationText.discountCoupon.list.collumns.srNo}}</th>
+                            <th>{{globals.adminTranslationText.discountCoupon.list.collumns.discountType}}</th>
+                            <th class="width_10">{{globals.adminTranslationText.discountCoupon.list.collumns.currencyType}}</th>
+                            <th class="width_10">{{globals.adminTranslationText.discountCoupon.list.collumns.couponCode}}</th>
+                            <th class="width_10">{{globals.adminTranslationText.discountCoupon.list.collumns.Value}}</th>
+                            <th class="width_15">{{globals.adminTranslationText.discountCoupon.list.collumns.validFromDate}}</th>
+                            <th class="width_15">{{globals.adminTranslationText.discountCoupon.list.collumns.validToDate}}</th>
+                            <th class="text-center active_width hide_active">{{globals.adminTranslationText.discountCoupon.list.collumns.isActive}}</th>
+                            <th class="text-center active_width">{{globals.adminTranslationText.discountCoupon.list.collumns.isActive}}</th>
+                            <th class="text-center action_width">{{globals.adminTranslationText.discountCoupon.list.collumns.actions}}</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr *ngFor="let discountCoupon of discountCouponList;let i = index">
+                            <td class="text-center">{{i+1}}</td>
+                            <td>{{discountCoupon.DiscountType}}</td>
+                            <td>{{discountCoupon.CurrencyType}}</td>
+                            <td>{{discountCoupon.CouponCode}}</td>
+                            <td>{{discountCoupon.Value}}</td>
+                            <td>{{discountCoupon.ValidFrom | date : 'MM/dd/yyyy, h:mm a'}}</td>
+                            <td>{{discountCoupon.ValidTo | date : 'MM/dd/yyyy, h:mm a'}}</td>
+                            <td class="text-center hide_active">
+                                <span *ngIf="discountCoupon.IsActive==1">Yes</span>
+                                <span *ngIf="discountCoupon.IsActive!=1">No</span>
+                             </td>  
+                            <td class="text-center">
+                              <div class="activeyes_box" data-toggle="tooltip" data-placement="top"  [attr.title]="discountCoupon.IsActive==1 ? 'Active' : 'Deactive'">
+                               <input type="checkbox" name="active{{i}}" id="active{{i}}" (change)="isActiveChange(discountCoupon,i)"
+                                 [checked]="discountCoupon.IsActive==1" value="Yes">
+                               <label for="active{{i}}"></label>
+                              </div>
+                            </td>
+                            <td class="text-center">
+                              <button  data-toggle="tooltip" data-placement="top" class="edit"  title="Edit"   type="button"  
+                                routerLink="/admin/discount-coupon/edit/{{discountCoupon.DiscountCouponId}}">
+                              <i class="fa fa-pencil" aria-hidden="true"></i></button>
+                              <button   data-toggle="tooltip" data-placement="top" class="delete"  title="Delete"   type="button"  
+                                (click)="deleteDiscountCoupon(discountCoupon)">
+                              <i class="fa fa-trash" aria-hidden="true"></i></button>
+                            </td>
+                          </tr>
+                         <tr *ngIf="discountCouponList.length<=0">
+                            <td colspan="8" >{{globals.adminTranslationText.discountCoupon.list.recordNotFound}}</td>
+                          </tr>
+                        </tbody>
+                      </table> -->
+                    <kendo-grid
+                    [data]="discountCouponList"
+                    [pageSize]="pageSize"
+                    [skip]="skip"
+                    [pageable]="true"
+                    (pageChange)="pageChange($event)"
+                    [sort]="sort"
+                    [sortable]="{
+                      allowUnsort: allowUnsort,
+                      mode: 'single'
+                      }"
+                    (sortChange)="sortChange($event)"
+                  >
+
+
+                  <ng-template kendoGridToolbarTemplate>
+                    <input placeholder="Search in all columns..." kendoTextBox
+                      (input)="onFilter($event.target.value)" />
+                    <!-- <button kendoGridExcelCommand type="button" icon="file-excel" style="float:right;"></button>
+                          <button kendoGridPDFCommand icon="file-pdf" style="float:right;"></button>
+                          <button type="button" class="k-button" icon="file-pdf" style="float:right;" (click)="excelexport.save()">Export To Excel</button> -->
+                  </ng-template>
+                  <!-- <kendo-grid-column title="{{globals.adminTranslationText.discountCoupon.list.collumns.srNo}}"
+                    [width]="50">
+                    <ng-template kendoGridCellTemplate let-dataItem let-rowIndex="rowIndex">
+                      {{rowIndex+1}}
+                    </ng-template>
+                  </kendo-grid-column> -->
+                  <kendo-grid-column field="DiscountType"
+                    title="{{globals.adminTranslationText.discountCoupon.list.collumns.discountType}}">
+                  </kendo-grid-column>
+                  <kendo-grid-column field="CurrencyType"
+                    title="{{globals.adminTranslationText.discountCoupon.list.collumns.currencyType}}">
+                  </kendo-grid-column>
+                  <kendo-grid-column field="CouponCode"
+                    title="{{globals.adminTranslationText.discountCoupon.list.collumns.couponCode}}">
+                  </kendo-grid-column>
+                  <kendo-grid-column field="Value"
+                    title="{{globals.adminTranslationText.discountCoupon.list.collumns.Value}}">
+                  </kendo-grid-column>
+                  <!-- <kendo-grid-column field="ValidatorType" title="Validator Type">
+                      </kendo-grid-column>  
+                      <kendo-grid-column field="ValidatorValue" title="Validator Value">
+                      </kendo-grid-column>      -->
+                  <kendo-grid-column field="ValidFrom"
+                    title="{{globals.adminTranslationText.discountCoupon.list.collumns.validFromDate}}">
+                    <ng-template kendoGridCellTemplate let-dataItem>
+                      {{dataItem.ValidFrom | date: 'MM/dd/yyyy'}}
+                    </ng-template>
+                  </kendo-grid-column>
+                  <kendo-grid-column field="ValidTo"
+                    title="{{globals.adminTranslationText.discountCoupon.list.collumns.validToDate}}">
+                    <ng-template kendoGridCellTemplate let-dataItem>
+                      {{dataItem.ValidTo | date: 'MM/dd/yyyy'}}
+                    </ng-template>
+                  </kendo-grid-column>
+
+                  <kendo-grid-column field="IsActive"
+                    title="{{globals.adminTranslationText.discountCoupon.list.collumns.isActive}}" class="text-center"
+                    [width]="150">
+                    <ng-template kendoGridCellTemplate let-dataItem let-rowIndex="rowIndex">
+                      <div class="activeyes_box">
+                        <kendo-switch (valueChange)="isActiveChange(dataItem,$event)" [checked]="dataItem.IsActive==1"
+                          [checked]="false" [onLabel]="'Y'" [offLabel]="'N'" [disabled]="false"></kendo-switch>
+                      </div>
+                    </ng-template>
+                  </kendo-grid-column>
+
+                  <kendo-grid-column title="Actions" [width]="150">
+                    <ng-template kendoGridCellTemplate let-dataItem let-rowIndex="rowIndex">
+                      <button kendoButton class="edit" (click)="edit(dataItem.DiscountCouponId)">
+                        <i data-toggle="tooltip" data-placement="top"
+                          title="{{globals.adminTranslationText.discountCoupon.list.buttons.edit}}"
+                          class="fa fa-edit"></i>
+                      </button>
+                      <button kendoButton class="delete" (click)="deleteDiscountCoupon(dataItem)">
+                        <i data-toggle="tooltip" data-placement="top" class="fa fa-trash-o"
+                          title="{{globals.adminTranslationText.discountCoupon.list.buttons.delete}}"
+                          [attr.title]="true ? 'Delete' : 'Discout Coupon cannot be deleted as it is already used in Order.'"></i>
+                      </button>
+                      <!-- <button kendoButton class="edit" *ngIf="(globals.todaysdate | date:'yyyy/MM/dd') > (dataItem.ValidTo | date:'yyyy/MM/dd')" [disabled]="(globals.todaysdate | date:'yyyy/MM/dd') > (dataItem.ValidTo | date:'yyyy/MM/dd')" (click)="SendModal(dataItem)">
+                            <i data-toggle="tooltip" data-placement="top" title="Discount Coupon cannot be send as it is already expired." class="fa fa-share-square-o"></i>
+                          </button>
+                          <button kendoButton class="edit" *ngIf="!((globals.todaysdate | date:'yyyy/MM/dd') > (dataItem.ValidTo | date:'yyyy/MM/dd'))" (click)="SendModal(dataItem)">
+                            <i data-toggle="tooltip" data-placement="top" title="Send Discount Coupon to Users" class="fa fa-share-square-o"></i>
+                          </button> -->
+
+                    </ng-template>
+                  </kendo-grid-column>
+                </kendo-grid>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- End Content -->
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</div>

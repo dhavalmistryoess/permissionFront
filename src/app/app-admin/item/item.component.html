@@ -1,0 +1,322 @@
+<div class="content_block">
+  <div class="container-fluid">
+    <div class="row">
+      <!-- Content -->
+      <div class="col-md-12 col-sm-12">
+        <div class="title_block">
+          <h2 class="float-left" *ngIf="itemEntity.ItemId == 0">
+            {{globals.adminTranslationText.item.form.title.add}}</h2>
+          <h2 class="float-left" *ngIf="itemEntity.ItemId != 0">
+            {{globals.adminTranslationText.item.form.title.update}}</h2>
+          <div class="breadcrumb_block float-left">
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item">
+                <a routerLink="/admin/adminDashboard">
+                  <i class="fa fa-home"></i>
+                </a>
+              </li>
+              <li class="breadcrumb-item"><a
+                  routerLink="/admin/item/list">{{globals.adminTranslationText.item.form.breadcrumbTitle}}</a>
+              </li>
+              <li class="breadcrumb-item active" aria-current="page" *ngIf="itemEntity.ItemId == 0">
+                {{globals.adminTranslationText.item.form.breadcrumbSubTitle.add}}</li>
+              <li class="breadcrumb-item active" aria-current="page" *ngIf="itemEntity.ItemId != 0">
+                {{globals.adminTranslationText.item.form.breadcrumbSubTitle.update}}</li>
+            </ol>
+          </div>
+          <a routerLink="/admin/item/list"
+            class="all_btn themeoption_btn float-right">{{globals.adminTranslationText.item.form.buttons.backToList}}</a>
+          <div class="clearfix"></div>
+        </div>
+        <div class="row d-flex justify-content-center">
+          <div class="col-md-12 col-sm-12">
+            <div class="inner_content_block">
+              <div class="paddin_form">
+                <form role="form" #itemForm="ngForm" (ngSubmit)="addUpdate(itemForm)">
+                  <div class="row">
+                    <div class="col-12 col-xl-4 col-lg-4 col-md-12 col-sm-12">
+                      <div class="form-group">
+                        <label><span>*</span> {{globals.adminTranslationText.item.form.category.label}}</label>
+                        <kendo-dropdownlist [data]="categoryList" [filterable]="false" [textField]="'CategoryName'"
+                          [valueField]="'CategoryId'" [valuePrimitive]="true" #CategoryId="ngModel"
+                          [(ngModel)]="itemEntity.CategoryId" name="CategoryId"
+                          [ngClass]="{error: (CategoryId.dirty && CategoryId.invalid) || (CategoryId.pristine && submitted) || errorEntity.CategoryId}"
+                          required></kendo-dropdownlist>
+                        <span class="error_class"
+                          *ngIf="(CategoryId.dirty && CategoryId.invalid) || (CategoryId.pristine && submitted) || errorEntity.CategoryId">
+                          <span *ngIf="CategoryId.errors && CategoryId.errors.required">
+                            {{globals.adminTranslationText.item.form.category.required}}
+                          </span>
+                          <span *ngIf="errorEntity.CategoryId != ''">
+                            {{errorEntity.CategoryId}}
+                          </span>
+                        </span>
+                      </div>
+                    </div>
+                    <div class="col-12 col-xl-4 col-lg-4 col-md-12 col-sm-12">
+                      <div class="form-group">
+                        <label class="mb-1"><span>*</span>
+                          {{globals.adminTranslationText.item.form.noScoreItem.label}}</label>
+                        <div class="activeyes_box">
+                          <kendo-switch [(ngModel)]="itemEntity.IsNoScoreItem" value="yes" #IsNoScoreItem="ngModel"
+                            name="IsNoScoreItem" [onLabel]="'Y'" [offLabel]="'N'"></kendo-switch>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-12 col-12 col-lg-12 col-sm-12">
+                      <div class="form-group">
+                        <label><span>*</span> {{globals.adminTranslationText.item.form.itemText.label}}</label>
+                        <textarea kendoTextArea #ItemText="ngModel" [(ngModel)]="itemEntity.ItemText" name="ItemText"
+                          id="ItemText" rows="10" cols="60" contenteditable="true"></textarea>
+                        <span class="error_class"
+                          *ngIf="des_valid && errorEntity.ItemText == ''">{{ globals.adminTranslationText.item.form.itemText.required }}</span>
+                        <span class="error_class"
+                          *ngIf="ItemText_valid">{{ globals.adminTranslationText.item.form.itemText.pattern }}</span>
+                        <span class="error_class" *ngIf="errorEntity.ItemText != ''">
+                          {{errorEntity.ItemText}}
+                        </span>
+                          
+                      </div>
+                    </div>
+                    <div class="col-12 col-xl-4 col-lg-4 col-md-12 col-sm-12" *ngIf="itemEntity.AnswerTypeId != 80">
+                        <div class="form-group">
+                          <label><span>*</span> {{globals.adminTranslationText.item.form.scoreWeightage.label}}</label>
+                          <input type="text" class="form-control" #ScoreWeightage="ngModel"
+                            [(ngModel)]="itemEntity.ScoreWeightage"
+                            [ngClass]="{error: (ScoreWeightage.dirty && ScoreWeightage.invalid) || (ScoreWeightage.pristine && submitted)}"
+                            name="ScoreWeightage" id="ScoreWeightage" pattern="[0-9\',\s]{1,}" maxlength="1" required>
+                          <span class="error_class"
+                            *ngIf="( (ScoreWeightage.dirty && ScoreWeightage.invalid) || (ScoreWeightage.pristine && submitted))">
+                            <span
+                              *ngIf="(ScoreWeightage.errors.required || (ScoreWeightage.pristine && submitted) ) ">{{globals.adminTranslationText.item.form.scoreWeightage.required}}
+                            </span>
+                            <span
+                              *ngIf="ScoreWeightage.errors && ScoreWeightage.errors.pattern">{{globals.adminTranslationText.item.form.scoreWeightage.pattern}}</span>
+                          </span>
+                        </div>
+                      </div>
+                    <div class="col-12 col-xl-4 col-lg-4 col-md-12 col-sm-12">
+                      <div class="form-group">
+                        <label><span>*</span> {{globals.adminTranslationText.item.form.answerType.label}}</label>
+                        <kendo-dropdownlist [data]="answerTypeList" [filterable]="false" [textField]="'DisplayText'"
+                          [valueField]="'ConfigurationId'" [valuePrimitive]="true" #AnswerTypeId="ngModel"
+                          [(ngModel)]="itemEntity.AnswerTypeId" name="AnswerTypeId"
+                          [ngClass]="{error: (AnswerTypeId.dirty && AnswerTypeId.invalid) || (AnswerTypeId.pristine && submitted)}"
+                          required (valueChange)="answerTypeChange()"></kendo-dropdownlist>
+                        <span class="error_class"
+                          *ngIf="(AnswerTypeId.dirty && AnswerTypeId.invalid) || (AnswerTypeId.pristine && submitted)">
+                          <span *ngIf="AnswerTypeId.errors && AnswerTypeId.errors.required">
+                            {{globals.adminTranslationText.item.form.answerType.required}}
+                          </span>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row" *ngIf="itemEntity.AnswerTypeId == 77">
+                    <div class="col-md-12 col-12 col-lg-12 col-sm-12">
+                      <h6 class="mb-3 float-left">{{globals.adminTranslationText.item.form.itemOptionsTitle.label}}</h6>
+                      <div class="note_item float-left">(Click on <span></span> for correct answer)</div>
+                    </div>
+                    <div class="col-12 col-xl-6 col-lg-6 col-md-12 col-sm-12" *ngFor="let item of OptionsList; let i = index;">
+                      <div class="row border_box">
+                        <div class="col-xl-10 col-lg-10 col-md-12 col-sm-12 col-12">
+                          <div class="form-group item_options_block">
+                            <label class="mb-1"><span *ngIf="i<2">*</span>
+                              Option {{i+1}}</label>
+                            <div class="radio_box">
+                              <input type="radio" name="IsCorrectOption" id="IsCorrectOption{{i}}" (change)="RadioChange(i)">
+                              <label for="IsCorrectOption{{i}}"></label>
+                              <span class="error_class"
+                                *ngIf="optioncheck_valid && OptionsList[i].OptionValue != ''">{{globals.adminTranslationText.item.form.itemOptions.optionCheck}}</span>
+                            </div>
+                            <div class="width_item">
+                              <input type="text" class="form-control" #OptionValue="ngModel"
+                                [(ngModel)]="OptionsList[i].OptionValue"
+                                [ngClass]="{error: (OptionValue.dirty && OptionValue.invalid) || (OptionValue.pristine && submitted1) && OptionsList[i].required == true}"
+                                name="OptionValue{{i}}" id="OptionValue{{i}}" maxlength="100" [required]="OptionsList[i].required == true">
+                              <span class="error_class"
+                                *ngIf="( (OptionValue.dirty && OptionValue.invalid) || (OptionValue.pristine && submitted1)) && OptionsList[i].required == true">
+                                <span
+                                  *ngIf="(OptionValue.errors.required || (OptionValue.pristine && submitted1) ) ">{{globals.adminTranslationText.item.form.itemOptions.required}}
+                                  {{i+1}}</span>
+                              </span>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12 col-12 pl_0" *ngIf="i>1">
+                          <div class="form-group">
+                            <label class="mb-1">
+                              Active ?</label>
+                            <div class="activeyes_box">
+                                <input (change)="activeChange(i)" type="checkbox" name="IsActive{{i}}" id="IsActive{{i}}"
+                                value="yes" #IsActive="ngModel" [(ngModel)]="OptionsList[i].IsActive">
+                              <label for="IsActive{{i}}"></label> 
+                              <span class="error_class"
+                                *ngIf="isActiveCheckValid && i<2">{{globals.adminTranslationText.item.form.itemOptions.isActiveCheck}}</span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row item_options_block" *ngIf = "itemEntity.AnswerTypeId == 78">
+                    <ng-container  *ngFor="let item of multiSelectOptionList; let l = index; let last = last;">
+                      <div class="col-md-12 col-12 col-lg-12 col-sm-12">
+                        <h5 class="mb-1">{{globals.adminTranslationText.item.form.itemOptionsTitle.label}}</h5>
+                      </div>
+                    <div class="col-md-6 col-6 col-lg-6 col-sm-12">
+                      <div class="form-group item_options_block">
+                        <label class="mb-1"><span>*</span> {{globals.adminTranslationText.item.form.itemOptions.label}} {{l+1}}</label>
+                        <div class="check_box">
+                          <input type="checkbox" value="yes" name="IsCorrectOption{{l}}" id="multiSelectIsCorrectOption{{l}}"  [(ngModel)]="multiSelectOptionList[l].IsCorrectOption" #IsCorrectOption="ngModel" (change)="RadioChange(l)">
+                          <label for="multiSelectIsCorrectOption{{l}}"></label>
+                          <span class="error_class" *ngIf="multiselectoptioncheck_valid && multiSelectOptionList[l].OptionValue != ''">
+                            Please select at least one correct option
+                          </span>
+                        </div>
+                        <div class="width_item">
+                          <input type="text" class="form-control" #OptionValue="ngModel" [(ngModel)]="multiSelectOptionList[l].OptionValue"
+                            [ngClass]="{error: (OptionValue.dirty && OptionValue.invalid) || (OptionValue.pristine && submitted1)}"
+                            name="OptionValue{{l}}" id="OptionValue{{l}}" maxlength="100" required>
+                          <span class="error_class"
+                            *ngIf="(OptionValue.dirty && OptionValue.invalid) || (OptionValue.pristine && submitted1)">
+                            <span
+                              *ngIf="OptionValue.errors.required || (OptionValue.pristine && submitted1)">{{globals.adminTranslationText.item.form.itemOptions.required}} {{l+1}}</span>
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-6 col-6 col-lg-6 col-sm-12" *ngIf="l>1">
+                      <div class="form-group">
+                        <label
+                          class="mb-1"><span>*</span> {{globals.adminTranslationText.item.form.active.label}}</label>
+                        <div class="activeyes_box">
+                          <input type="checkbox" name="IsActive{{l}}" id="IsActivemultiselect{{l}}" value="yes" #IsActive="ngModel"
+                            [(ngModel)]="multiSelectOptionList[l].IsActive" (change)="activeChange(l)">
+                          <label for="IsActivemultiselect{{l}}"></label>
+                        </div>
+                      </div>
+                    </div>
+                      <div class="plus_minus">
+                        <button *ngIf="last && l<5" class="fa fa-plus" [ngClass]="{
+                              first_plus :(l==1)}" type="button" (click)="AddOption(l)"></button>
+                        <button *ngIf="(l!=1 && last) || (l!=0 && !last) || (l==1 && !last) || (multiSelectOptionList.length >2)"
+                          class="fa fa-minus" type="button" (click)="RemoveOption(item)"></button>
+                      </div>
+                      </ng-container>
+                  </div>
+                  <div class="row" *ngIf="itemEntity.AnswerTypeId == 79">
+                    <div class="col-md-12 col-12 col-lg-12 col-sm-12">
+                      <h6 class="mb-3 float-left">{{globals.adminTranslationText.item.form.itemOptionsTitle.label}}</h6>
+                      <div class="note_item float-left" >(Click on <span></span> for correct answer)</div>
+                    </div>
+                    <div class="col-12 col-xl-6 col-lg-6 col-md-12 col-sm-12" *ngFor="let item of booleanWithScoringOptionList; let j = index;">
+                      <div class="row border_box">
+                        <div class="col-xl-10 col-lg-10 col-md-12 col-sm-12 col-12">
+                          <div class="form-group item_options_block">
+                            <label class="mb-1"><span>*</span>
+                              Option {{j+1}}</label>
+                            <div class="radio_box">
+                              <input type="radio" name="IsCorrectOption1" id="IsCorrectOption1{{j}}" (change)="RadioChange(j)" >
+                              <label for="IsCorrectOption1{{j}}"></label>
+                              <span class="error_class"
+                                *ngIf="booleanwithscoreoptioncheck_valid && booleanWithScoringOptionList[j].OptionValue != ''">{{globals.adminTranslationText.item.form.itemOptions.optionCheck}}</span>
+                            </div>
+                            <div class="width_item">
+                              <input type="text" class="form-control" #OptionValue="ngModel"
+                                [(ngModel)]="booleanWithScoringOptionList[j].OptionValue"
+                                [ngClass]="{error: (OptionValue.dirty && OptionValue.invalid) || (OptionValue.pristine && submitted1) && OptionValue.errors && OptionValue.errors.required}"
+                                name="OptionValue{{j}}" id="OptionValue{{j}}" maxlength="100" required>
+                              <span class="error_class"
+                                *ngIf="( (OptionValue.dirty && OptionValue.invalid) || (OptionValue.pristine && submitted1))">
+                                <span *ngIf="(OptionValue.errors && OptionValue.errors.required) ">{{globals.adminTranslationText.item.form.itemOptions.required}}
+                                  {{j+1}}</span>
+                              </span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row" *ngIf="itemEntity.AnswerTypeId == 80">
+                    <div class="col-md-12 col-12 col-lg-12 col-sm-12">
+                      <h6 class="mb-3 float-left">{{globals.adminTranslationText.item.form.itemOptionsTitle.label}}</h6>                      
+                    </div>
+                    <div class="col-12 col-xl-6 col-lg-6 col-md-12 col-sm-12" *ngFor="let item of booleanWithoutScoringOptionList; let k = index;">
+                      <div class="row border_box">
+                        <div class="col-xl-10 col-lg-10 col-md-12 col-sm-12 col-12">
+                          <div class="form-group item_options_block">
+                            <label class="mb-1"><span>*</span>
+                              Option {{k+1}}</label>
+                            <div class="width_item">
+                              <input type="text" class="form-control" #OptionValue="ngModel"
+                                [(ngModel)]="booleanWithoutScoringOptionList[k].OptionValue"
+                                [ngClass]="{error: (OptionValue.dirty && OptionValue.invalid) || (OptionValue.pristine && submitted1) && OptionValue.errors && OptionValue.errors.required}"
+                                name="OptionValue{{k}}" id="OptionValue{{k}}" maxlength="100" required>
+                              <span class="error_class"
+                                *ngIf="( (OptionValue.dirty && OptionValue.invalid) || (OptionValue.pristine && submitted1))">
+                                <span
+                                  *ngIf="(OptionValue.errors && OptionValue.errors.required) ">{{globals.adminTranslationText.item.form.itemOptions.required}}
+                                  {{k+1}}</span>
+                              </span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-12 col-xl-4 col-lg-4 col-md-12 col-sm-12">
+                      <div class="form-group">
+                        <label>Question For</label>
+                        <div class="check_box">
+                          <input type="checkbox" value="yes" name="ItemForPractice" id="ItemForPractice"  [(ngModel)]="itemEntity.ItemForPracticeTest" #ItemForPracticeTest="ngModel" (change)="QuestionFor = false">
+                          <label for="ItemForPractice">Practice Test</label>
+                        </div>
+                        <div class="check_box">
+                          <input type="checkbox" value="yes" name="ItemForAssessment" id="ItemForAssessment" [(ngModel)]="itemEntity.ItemForAssessment" #ItemForAssessment="ngModel" (change)="QuestionFor = false">
+                          <label for="ItemForAssessment">Assessment</label>
+                        </div>
+                        <span class="error_class" *ngIf="QuestionFor">
+                          Please select atleast one 
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-md-6 col-12 col-xl-2 col-lg-2 col-sm-12">
+                      <div class="form-group">
+                        <label class="mb-1">
+                          {{globals.adminTranslationText.item.form.active.label}}</label>
+                        <div class="activeyes_box">
+                          <!-- <input type="checkbox" name="IsActive" id="IsActive" value="yes" #IsActive="ngModel"
+                            [(ngModel)]="itemEntity.IsActive">
+                          <label for="IsActive"></label> -->
+                          <kendo-switch [(ngModel)]="itemEntity.IsActive" value="yes" #IsActive="ngModel"
+                            name="IsActive" [onLabel]="'Y'" [offLabel]="'N'"></kendo-switch>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-12 col-12 col-lg-12 col-sm-12 text-center">
+                      <button class="all_btn theme_btn" type="submit" [disabled]="btn_disable">
+                        <span
+                          *ngIf="itemEntity.ItemId == 0">{{globals.adminTranslationText.item.form.buttons.add}}</span>
+                        <span
+                          *ngIf="itemEntity.ItemId != 0">{{globals.adminTranslationText.item.form.buttons.update}}</span>
+                      </button>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- End Content -->
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,723 @@
+<div class="content_block">
+  <div class="container-fluid">
+    <div class="row">
+      <!-- Content -->
+      <div class="col-md-12 col-sm-12">
+        <div class="title_block">
+          <h2 class="float-left">
+            {{globals.adminTranslationText.userhistory.form.title}}</h2>
+          <div class="breadcrumb_block float-left">
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item">
+                <a routerLink="/admin/adminDashboard">
+                  <i class="fa fa-home"></i>
+                </a>
+              </li>
+              <li class="breadcrumb-item active" aria-current="page">
+                {{globals.adminTranslationText.userhistory.form.breadcrumbTitle}}</li>
+            </ol>
+          </div>
+          <div class="clearfix"></div>
+        </div>
+        <div class="row d-flex justify-content-center">
+          <div class="col-md-12 col-sm-12">
+            <div class="inner_content_block">
+              <div class="paddin_form">
+                <form class="form-validate" #SearchFilterForm="ngForm" (ngSubmit)="SearchFilter(SearchFilterForm)">
+                  <div class="filter_block">
+                    <div class="row">
+                      <div class="col-12 col-xl-4 col-lg-4 col-md-12 col-sm-12">
+                        <div class="form-group">
+                          <label>Order ID</label>
+                          <input type="text" #OrderId="ngModel" name="OrderId" pattern="^[0-9]*" class="form-control"
+                            [(ngModel)]="FilterEntity.OrderId" />
+                          <span class="error_class" *ngIf="OrderId.errors && OrderId.errors.pattern">
+                            {{globals.adminTranslationText.state.form.stateName.pattern}}</span>
+                        </div>
+                      </div>
+                      <div class="col-12 col-xl-4 col-lg-4 col-md-12 col-sm-12">
+                        <div class="form-group">
+                          <label>Order Date</label>
+
+                          <!-- <input class="form-control form_date" type="text" name="OrderDateFrom" value=""
+                        readonly  name="OrderDateFrom" id="OrderDateFrom">
+   -->
+                          <kendo-daterange>
+                              <label class="mr-3 mr-lg-2">
+                              <span class="label">Start</span>
+                              <kendo-dateinput kendoDateRangeStartInput name="OrderDateFrom" #OrderDateFrom="ngModel"
+                                [(ngModel)]="FilterEntity.OrderDateFrom"></kendo-dateinput>
+                            </label>
+                            <label>
+                              <span class="label">End</span>
+                              <kendo-dateinput kendoDateRangeEndInput name="OrderDateTo" #OrderDateTo="ngModel"
+                                [(ngModel)]="FilterEntity.OrderDateTo"></kendo-dateinput>
+                            </label>
+                          </kendo-daterange>
+                        </div>
+                      </div>
+                      <div class="col-12 col-xl-4 col-lg-4 col-md-12 col-sm-12">
+                        <div class="form-group">
+                          <label>Status</label>
+                          <!-- <select *ngFor="let status of Statuslist">
+                           
+                          <option value="status.ConfigurationId">{{status.DisplayText}}</option>
+                        
+                        </select> -->
+                          <!-- <select id="statusid" class="selectpicker" >
+                          <ng-container *ngFor = "let status of Statuslist;let i = index;" >
+                              <option value="" selected>{{globals.adminTranslationText.registerPage.tabPanel.certificate.select}}</option>
+                            <option value="{{status.ConfigurationId}}">{{status.DisplayText}}</option>
+                          </ng-container>
+                        </select> -->
+                          <!-- <select  class="show-tick show-menu-arrow" data-live-search="true" data-selected-text-format="count" 
+                          title="Select Status" #statusid="ngModel" multiple  [(ngModel)]="FilterEntity.statusid" name="statusid">
+                       
+                          <ng-container *ngFor="let status of Statuslist">
+                            <option [value]="status.ConfigurationId" *ngIf="status.ConfigurationId!=48" >{{status.DisplayText}}</option>
+                          </ng-container>
+                      </select> -->
+                          <kendo-multiselect [data]="Statuslist" [filterable]="false" [textField]="'DisplayText'"
+                            [valueField]="'ConfigurationId'" [valuePrimitive]="true" #statusid="ngModel"
+                            [(ngModel)]="FilterEntity.statusid" name="DocumentSizeUnit" placeholder="Select Status">
+                          </kendo-multiselect>
+                        </div>
+                      </div>
+                      <div class="col-12 col-xl-4 col-lg-4 col-md-12 col-sm-12" *ngIf = "id==0">
+                        <div class="form-group">
+                          <label>Candidate</label>
+
+                          <!-- <select  class="show-tick show-menu-arrow" data-live-search="true" data-selected-text-format="count" 
+                            title="Select Candidate" #UserId="ngModel"  multiple  [(ngModel)]="FilterEntity.UserId" name="UserId"
+                          >
+                            <ng-container *ngFor="let Candidate of Candidatelist">
+                              <option [value]="Candidate.UserId"  >{{Candidate.FirstName}}</option>
+                            </ng-container>
+                        </select> -->
+                          <kendo-multiselect [data]="Candidatelist" [filterable]="false" [textField]="'Name'"
+                            [valueField]="'UserId'" [valuePrimitive]="true" #UserId="ngModel"
+                            [(ngModel)]="FilterEntity.UserId" name="UserId" placeholder="Select Candidate">
+                          </kendo-multiselect>
+                        </div>
+                      </div>
+                      <div class="col-12 col-xl-4 col-lg-4 col-md-12 col-sm-12">
+                        <div class="form-group">
+                          <label>Certificate</label>
+
+                          <kendo-multiselect [data]="Certificatelist" [filterable]="false"
+                            [textField]="'CertificateName'" [valueField]="'CertificateId'" [valuePrimitive]="true"
+                            #CertificateId="ngModel" [(ngModel)]="FilterEntity.CertificateId" name="CertificateId"
+                            placeholder="Select Certificate">
+                          </kendo-multiselect>
+                        </div>
+                      </div>
+                      <div class="col-12 col-xl-4 col-lg-4 col-md-12 col-sm-12">
+                        <button class="all_btn theme_btn mt-5" type="submit">Filter</button>
+                        <button class="all_btn themeoption_btn mt-5" type="button"
+                          (click)="clearData(SearchFilterForm)">Clear</button>
+                      </div>
+                    </div>
+                  </div>
+                </form>
+                <div class="order_main_block">
+                  <div class="accordion" id="accordiondocument">
+                    <div class="card order_block" *ngFor="let orderHistory of orderHistorylist | paginate: { itemsPerPage:5, currentPage: p}; let l = index">
+                      <div class="card-header order_header" id="documentheading{{l}}">
+                        <div class="acc_header" [ngClass]="{collapsed: l!=0}" data-toggle="collapse" [attr.data-target]="'#documentcollapse'+l"
+                          aria-expanded="true" [attr.aria-controls]="'documentcollapse'+l">
+                          <i class="fa plus_minus_acc fa-plus"></i>
+                          <span class="float-left order_text"><b>Order ID</b>:
+                            {{orderHistory.OrderId}} |
+                            <b>Ordered on</b>: {{orderHistory.PaymentDate | date:'MM/dd/yyyy'}}
+                          </span>
+                          <span class="float-right status_text" [ngClass]="{
+                            completed :orderHistory.PaymentStatusId== 49,
+                            expired : (orderHistory.PaymentStatusId ==51) || (orderHistory.PaymentStatusId ==50)           
+                          }">
+              {{orderHistory.PaymentStatus}}
+            </span>
+                          <div class="clearfix"></div>
+                        </div>
+                      </div>
+                      <div id="documentcollapse{{l}}" class="collapse" [attr.aria-labelledby]="'documentheading'+l"
+                        data-parent="#accordiondocument" [ngClass]="{show:l==0}">
+                        <div class="card-body order_content">
+                          <div class="float-left">
+                            <h5>{{orderHistory.CertificateName}}</h5>
+                            <!-- <p><b>Duration:</b> 1 days<br><b>Expiration Date:</b>
+                              Feb 29, 2020<br><b>Candidate:</b> Anand Yadav<br><b>Expiration Date:</b>
+                              Feb 29, 2020</p> -->
+                              <p><b>Candidate:</b> {{orderHistory.Name}}<br>
+                                <span *ngIf="orderHistory.CertificateStatus != 64"><b>Assessment Duration:</b> {{orderHistory.diffDays}} days left<br>
+                                <b>Assessment Expiration Date:</b> {{orderHistory.assessmentExpirationDate | date: 'MM/dd/yyyy'}}<br></span>
+                                <span *ngIf="orderHistory.CertificateStatus == 64">
+                                  <b>Certificate Duration:</b> {{orderHistory.CertificationDuration}} months<br>
+                                  <span *ngIf="orderHistory.CertificationDuration != 0">
+                                <b>Certification Expiration Date:</b> {{orderHistory.CertificationEndDate | date: 'MM/dd/yyyy'}} months<br
+                                ></span>
+                                <span *ngIf="orderHistory.CertificationDuration == 0">
+                                <b>Certification Expiration Date:</b>
+                                Certificate never expires<br>
+                                </span>
+                              </span>
+                              <b>Certificate Status:</b> {{orderHistory.CertificateStatusText}}<br>
+                                </p>
+                          </div>
+                          <div class="price_block float-right"
+                          *ngIf="orderHistory.OrderAmount!='' && orderHistory.OrderAmount!=null">$
+                          {{orderHistory.OrderAmount}}</div>
+                          <div class="clearfix"></div>
+                          <div class="invoice_block float-right"><button (click)="printInvoice(orderHistory.OrderId)"><i
+                                class="fa fa-download"></i> Invoice</button>
+                            <button (click)="printReceipt(orderHistory.OrderId)"><i
+                                class="fa fa-download"></i>Receipt</button>
+                          </div>
+                          <div class="clearfix"></div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <!-- <div class="card order_block">
+                      <div class="card-header order_header" id="documentheading2">
+                        <div class="acc_header" data-toggle="collapse" data-target="#documentcollapse2"
+                          aria-expanded="true" aria-controls="documentcollapse2">
+                          <i class="fa plus_minus_acc fa-plus"></i>
+                          <span class="float-left order_text"><b>Order ID</b>:
+                            1 |
+                            <b>Ordered on</b>: 02/28/2020
+                          </span>
+                          <span class="float-right status_text completed">Payment Completed</span>
+                          <div class="clearfix"></div>
+                        </div>
+                      </div>
+                      <div id="documentcollapse2" class="collapse" aria-labelledby="documentheading2"
+                        data-parent="#accordiondocument">
+                        <div class="card-body order_content">
+                          <div class="float-left">
+                            <h5>Certificate Name</h5>
+                            <p><b>Duration:</b> 1 days<br><b>Expiration Date:</b>
+                              Feb 29, 2020<br><b>Candidate:</b> Anand Yadav<br><b>Expiration Date:</b>
+                              Feb 29, 2020</p>
+                          </div>
+                          <div class="price_block float-right">$ 855.00</div>
+                          <div class="clearfix"></div>
+                          <div class="invoice_block float-right"><button (click)="printInvoice(orderHistory.OrderId)"><i
+                                class="fa fa-download"></i> Invoice</button>
+                            <button (click)="printReceipt(orderHistory.OrderId)"><i
+                                class="fa fa-download"></i>Receipt</button>
+                          </div>
+                          <div class="clearfix"></div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="card order_block">
+                      <div class="card-header order_header" id="documentheading3">
+                        <div class="acc_header" data-toggle="collapse" data-target="#documentcollapse3"
+                          aria-expanded="true" aria-controls="documentcollapse3">
+                          <i class="fa plus_minus_acc fa-plus"></i>
+                          <span class="float-left order_text"><b>Order ID</b>:
+                            1 |
+                            <b>Ordered on</b>: 02/28/2020
+                          </span>
+                          <span class="float-right status_text expired">Expired</span>
+                          <div class="clearfix"></div>
+                        </div>
+                      </div>
+                      <div id="documentcollapse3" class="collapse" aria-labelledby="documentheading3"
+                        data-parent="#accordiondocument">
+                        <div class="card-body order_content">
+                          <div class="float-left">
+                            <h5>Certificate Name</h5>
+                            <p><b>Duration:</b> 1 days<br><b>Expiration Date:</b>
+                              Feb 29, 2020<br><b>Candidate:</b> Anand Yadav<br><b>Expiration Date:</b>
+                              Feb 29, 2020</p>
+                          </div>
+                          <div class="price_block float-right">$ 855.00</div>
+                          <div class="clearfix"></div>
+                          <div class="invoice_block float-right"><button (click)="printInvoice(orderHistory.OrderId)"><i
+                                class="fa fa-download"></i> Invoice</button>
+                            <button (click)="printReceipt(orderHistory.OrderId)"><i
+                                class="fa fa-download"></i>Receipt</button>
+                          </div>
+                          <div class="clearfix"></div>
+                        </div>
+                      </div>
+                    </div> -->
+
+                  </div>
+
+                  <div *ngIf="orderHistorylist?.length == 0">
+                    <div class="notice notice-danger">
+                      {{globals.commonTranslationText.profilePage.order.no_record_found}}
+                    </div>
+                  </div>
+                  <!-- <ng-container
+                    *ngFor="let orderHistory of orderHistorylist | paginate: { itemsPerPage:5, currentPage: p}; let l = index">
+                    <div class="order_block">
+                      <div class="order_header"><span class="float-left order_text"><b>Order ID</b>:
+                          {{orderHistory.OrderId}} |
+                          <b>Ordered on</b>: {{orderHistory.OrderDate | date:'MM/dd/yyyy'}}
+                        </span>
+                        <span class="float-right status_text pending"
+                          *ngIf="orderHistory.PaymentStatus==0">Pending</span>
+                        <span class="float-right status_text completed" *ngIf="orderHistory.PaymentStatus==1">Payment
+                          Completed</span>
+                        <span class="float-right status_text expired"
+                          *ngIf="orderHistory.PaymentStatus==2">Expired</span>
+                        <div class="clearfix"></div>
+                      </div>
+                      <div class="clearfix"></div>
+                      <div class="order_content">
+                        <div class="float-left">
+                          <!-- <h5>Certificate Name</h5>  --
+                          <h5>{{orderHistory.CertificateName}}</h5>
+                          <p><b>Duration:</b> {{orderHistory.CertificateDuration}} days<br><b>Expiration Date:</b>
+                            {{orderHistory.CertificateEndDate | date:'MMM dd, yyyy'}}</p>
+                        </div>
+                        <div class="price_block float-right"
+                          *ngIf="orderHistory.OrderAmount!='' && orderHistory.OrderAmount!=null">$
+                          {{orderHistory.OrderAmount}}</div>
+                        <div class="clearfix"></div>
+                        <div class="invoice_block float-right"><button (click)="printInvoice(orderHistory.OrderId)"><i
+                              class="fa fa-download"></i> Invoice</button>
+                          <button (click)="printReceipt(orderHistory.OrderId)"><i
+                              class="fa fa-download"></i>Receipt</button>
+                        </div>
+                        <div class="clearfix"></div>
+                      </div>
+                    </div>
+                  </ng-container> -->
+                  
+                </div>
+                <div class="row">
+                  <div class="col-md-12 col-sm-12 text-right pagination_block" *ngIf="orderHistorylist!=''">
+                    <ul class="pagination float-right">
+                      <pagination-controls (pageChange)="p=$event" previousLabel="⏴" nextLabel="⏵">
+                      </pagination-controls>
+                    </ul>
+                  </div>
+                </div>
+
+                <div class="clearfix"></div>
+              </div>
+            </div>
+            <!-- End Content -->
+            <div class="clearfix"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+<!-- Modal -->
+
+<div id="printInvoice" style="position: absolute;display: none;
+width: 21cm;  
+height: 29.7cm; 
+margin: 0 auto; 
+color: #555555;
+background: #FFFFFF; 
+font-size: 14px; ">
+  <header style="padding: 0 0 10px; margin-bottom: 20px; border-bottom: 1px solid #AAAAAA; content:'';
+    display: table;
+    clear: both; width: 100%;">
+    <div style="float: left;
+      margin-top: 0;">
+      <img style="height: 90px;" src="http://localhost/OESS_Assessment_Frontend/{{InvoiceEntity.CompanyLogo}}" alt="" />
+    </div>
+    <div style="float: right;
+      text-align: right;">
+      <h2 style="font-size: 1.4em;
+        font-weight: normal;
+        margin: 0 0 0 0; color: #555555; font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; ">
+        {{InvoiceEntity.CompanyName}}</h2>
+      <div style="color: #555555; font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; ">
+        {{InvoiceEntity.CompanyAddress}}</div>
+      <div style="color: #555555; font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; ">
+        {{InvoiceEntity.CompanyContactNumber}}</div>
+      <div><a href="mailto:info@theopeneyes.com"
+          style="color: #555555; font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; ">{{InvoiceEntity.CompanyEmailAddress}}</a>
+      </div>
+    </div>
+  </header>
+  <main>
+    <div style="margin-bottom: 30px; content:'';
+      display: table;
+      clear: both; width: 100%;">
+      <div style="padding-left: 6px;
+        border-left: 6px solid #0087C3;
+        float: left;">
+        <div style="color: #555555; font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; ">INVOICE TO:</div>
+        <h2 style="font-size: 1.4em;
+          font-weight: normal;
+          color: #555555; font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; ">
+          {{InvoiceEntity.InvoiceToName}}</h2>
+        <div style="color: #555555; font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; ">
+          {{InvoiceEntity.InvoiceToAddress}}</div>
+        <div><a href="mailto:john@example.com"
+            style="color: #555555; font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; ">{{InvoiceEntity.InvoiceToAddress}}</a>
+        </div>
+      </div>
+      <div style="float: right;
+        text-align: right;">
+        <h1 style="color: #0087C3;
+          font-size: 2.4em;
+          line-height: 1em;
+          font-weight: normal;
+          margin: 0  0 10px 0; font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; ">INVOICE
+          {{InvoiceEntity.InvoiceId}}</h1>
+        <div style=" font-size: 1.1em;
+          color: #555555; font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; ">Date of Invoice:
+          {{InvoiceEntity.DateOfInvoice | date:'MM/dd/yyyy'}}</div>
+
+        <div style=" font-size: 1.1em;
+           color: #555555; font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; ">Mode of Payment: Credit Card
+        </div>
+      </div>
+    </div>
+    <table border="0" cellspacing="0" cellpadding="0" style=" width: 100%;
+      border-collapse: collapse;
+      border-spacing: 0;
+      margin-bottom: 20px; ">
+      <thead>
+        <tr>
+          <th
+            style="padding: 20px; width:30px;
+             background: #f0f0f0;
+            text-align: center;  border: 1px solid #ddd; font-weight: normal; font-size: 20px; color: #555555; font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; ">
+            #</th>
+          <th
+            style="padding: 20px;
+            background: #f7f7f7;
+            text-align: left;
+            border: 1px solid #ddd; border-left:0; color: #555555; font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; ">
+            DESCRIPTION</th>
+          <th
+            style="padding: 20px;
+               background: #f0f0f0;
+            text-align: center;
+            border: 1px solid #ddd; border-left:0; width:80px; color: #555555; font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; ">
+            PRICE</th>
+          <!-- <th
+            style="padding: 20px;
+            background: #f7f7f7;
+            text-align: center;
+            border: 1px solid #ddd; border-left:0; width:80px; color: #555555; font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; ">
+            QUANTITY</th>
+          <th
+            style="padding: 20px;
+            text-align: right;
+            border: 1px solid #ddd; border-left:0; width:100px; background: #f0f0f0; color: #555555; font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; ">
+            TOTAL</th> -->
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td
+            style="
+            font-size: 1.6em;padding: 20px;
+            text-align: center;
+            border: 1px solid #ddd; border-top:0; background: #f0f0f0; color: #555555; font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; ">
+            01</td>
+          <td
+            style="text-align: left; padding: 20px;
+            background: #f7f7f7;
+            border: 1px solid #ddd; border-left:0; border-top:0; color: #555555; font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; ">
+            <h3 style="color: #57B223;
+              font-size: 1.2em;
+              font-weight: normal;
+              margin: 0 0 0.2em 0; ">{{InvoiceEntity.CertificateName}}</h3><span
+              [innerHTML]="InvoiceEntity.CertificateDescription"></span>
+          <td
+            style="background: #f0f0f0; font-size: 1.2em; padding: 20px;
+               background: #f0f0f0;
+            text-align: center;
+            border: 1px solid #ddd; border-left:0; border-top:0; color: #555555; font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; ">
+            ${{InvoiceEntity.CertificateAmount}}</td>
+          <!-- <td
+            style="font-size: 1.2em; padding: 20px;
+            background: #f7f7f7;
+            text-align: center;
+            border: 1px solid #ddd; border-left:0; border-top:0; color: #555555; font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; ">
+            1</td>
+          <td
+            style="font-size: 1.2em; padding: 20px;
+            text-align: right;
+            border: 1px solid #ddd; border-left:0; border-top:0; background: #f0f0f0; font-weight: bold; color: #555555; font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; ">
+            ${{InvoiceEntity.CertificateAmount}}</td> -->
+        </tr>
+      </tbody>
+      <tfoot>
+        <tr>
+          <td style="padding: 10px 20px;
+            background: #FFFFFF;
+            border-bottom: none;
+            font-size: 1.2em;
+            white-space: nowrap; 
+             border: none; " colspan="2"></td>
+          <td
+            style="padding: 10px 20px;
+            background: #FFFFFF;
+            border-bottom: none;
+            font-size: 1.2em;
+            white-space: nowrap; 
+            border: none; text-align: right; color: #555555; font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; "
+            colspan="2">SUBTOTAL</td>
+          <td
+            style="padding: 10px 20px;
+            background: #FFFFFF;
+            border-bottom: none;
+            font-size: 1.2em;
+            white-space: nowrap; 
+            border: none; text-align: right; color: #555555; font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; ">
+            ${{InvoiceEntity.SubTotalAmount}}</td>
+        </tr>
+        <tr>
+          <td style="padding: 10px 20px;
+            background: #FFFFFF;
+            border-bottom: none;
+            font-size: 1.2em;
+            white-space: nowrap; 
+            " colspan="2"></td>
+          <td
+            style="padding: 10px 20px;
+            background: #FFFFFF;
+            border-bottom: none;
+            font-size: 1.2em;
+            white-space: nowrap; 
+            border-top: 1px solid #AAAAAA; text-align: right; color: #555555; font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; "
+            colspan="2">TAX {{InvoiceEntity.TaxInPercentage}}%</td>
+          <td
+            style="padding: 10px 20px;
+            background: #FFFFFF;
+            border-bottom: none;
+            font-size: 1.2em;
+            white-space: nowrap; 
+            border-top: 1px solid #AAAAAA; text-align: right; color: #555555; font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; ">
+            ${{InvoiceEntity.TaxAmount}}</td>
+        </tr>
+        <tr>
+          <td style="padding: 10px 20px;
+            background: #FFFFFF;
+            border-bottom: none;
+            color: #57B223;
+            font-size: 1.4em;
+            white-space: nowrap; " colspan="2"></td>
+          <td style="padding: 10px 20px;
+            background: #FFFFFF;
+            border-bottom: none;
+            color: #57B223;
+            font-size: 1.4em;
+            border-top: 1px solid #57B223; 
+            white-space: nowrap; text-align: right; font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; "
+            colspan="2">GRAND TOTAL</td>
+          <td
+            style="padding: 10px 20px;
+            background: #FFFFFF;
+            border-bottom: none;
+            color: #57B223;
+            font-size: 1.4em;
+            border-top: 1px solid #57B223; 
+            white-space: nowrap; text-align: right; font-weight: bold;  font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; ">
+            ${{InvoiceEntity.TotalAmount}}</td>
+        </tr>
+      </tfoot>
+    </table>
+    <div style="font-size: 2em;
+      margin-bottom: 50px; color: #555555; font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; ">Thank you!
+    </div>
+    <div style="padding-left: 6px;
+      border-left: 6px solid #0087C3; color: #555555; font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; ">
+      <div>NOTICE:</div>
+      <div style="font-size: 1.2em;">A finance charge of 1.5% will be made on unpaid balances after 30 days.</div>
+    </div>
+  </main>
+  <footer style="
+    width: 100%;
+    height: 30px;
+    position: absolute;
+    bottom: 0;
+    border-top: 1px solid #AAAAAA;
+    padding: 8px 0;
+    text-align: center; color: #555555; font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; ">
+    Invoice was created on a computer and is valid without the signature and seal.
+  </footer>
+</div>
+<div id="printReceipt" style="position: relative; display: none;
+    width: 21cm;  
+    height: 29.7cm; 
+    margin: 0 auto; 
+    color: #555555;
+    background: #FFFFFF; 
+    font-size: 14px;">
+  <header style="padding: 0; margin-bottom: 10px; content:'';
+    display: table;
+    clear: both; width: 100%;">
+    <div style="float: left;
+      margin: 10px 15px 10px 10px;">
+      <img style="height: 90px;" CompanyLogo src="http://myopeneyes.devbyopeneyes.com/images/logo.png" alt="" />
+    </div>
+    <div style="float: left;
+      text-align: left;  margin: 5px 0 10px 0;">
+      <h2 style="font-size: 1.4em;
+                font-weight: normal;
+                margin: 0 0 0 0; color: #555555; font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; ">
+        {{ReceiptEntity.CompanyName}}</h2>
+      <div style="color: #555555; font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; ">
+        {{ReceiptEntity.CompanyAddress}}</div>
+      <div style="color: #555555; font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; ">
+        {{ReceiptEntity.CompanyContactNumber}}</div>
+      <div><a href="mailto:info@theopeneyes.com"
+          style="color: #555555; font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; ">{{ReceiptEntity.CompanyEmailAddress}}</a>
+      </div>
+    </div>
+    <div style="float: right;
+      text-align: right; position: relative; top: 55px;  margin: 10px">
+      <div style=" font-size: 1.1em;
+       color: #555555; font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; ">Receipt Number:
+        {{ReceiptEntity.ReceiptNumber}}</div>
+      <div style=" font-size: 1.1em;
+           color: #555555; font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; ">Date of Payment:
+        {{ReceiptEntity.DateOfPayment | date:'MM/dd/yyyy'}}</div>
+    </div>
+  </header>
+  <main>
+    <div style="margin-bottom: 15px; content:'';
+      display: table;
+      clear: both; width: 100%;">
+      <div style="display: block;  background: #f7f7f7; border:1px solid #f7f7f7; padding: 20px 10px 20px 10px; 
+        text-align: center;">
+        <h1 style="
+          font-size: 2.0em;
+          line-height: 1em;
+          font-weight: normal;
+          margin: 0 0 0; color: #555555; font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; ">Payment Receipt
+        </h1>
+      </div>
+    </div>
+    <table border="0" cellspacing="0" cellpadding="0" style=" width: 100%;
+      border-collapse: collapse;
+      border-spacing: 0;
+     font-size: 15px; ">
+      <tbody>
+        <tr>
+          <td style="padding: 10px;"><span
+              style="display: inline-block; color: #555555; font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; ">Received
+              From: </span>
+            <div style="border-bottom: 1px solid #ddd;
+            width: 335px;
+            display: inline-block;
+            margin-left: 10px;
+            padding: 6px 0; color: #555555; font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; ">
+              {{ReceiptEntity.ReceivedFrom}}</div>
+            <span
+              style="display: inline-block; color: #555555; font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; ">Amount:
+            </span>
+            <div
+              style="border: 1px solid #ddd;
+           width: 130px;
+           display: inline-block;
+           margin: 0 0px 0 10px;
+           padding: 6px 10px; font-weight: bold; color: #555555; font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; ">
+              ${{ReceiptEntity.Amount}}</div>
+          </td>
+        </tr>
+        <tr>
+          <td style="padding: 10px;">
+            <span style="color: #555555; font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; ">Amount in words:
+            </span>
+            <div style="border-bottom: 1px solid #ddd;
+            width: 555px;
+            display: inline-block;
+            margin-left: 10px;
+            padding: 6px 0; color: #555555; font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; ">
+              {{ReceiptEntity.Amountword}}</div>
+          </td>
+        </tr>
+        <tr>
+          <td style="padding: 10px; color: #555555; font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; ">
+            <span>For Payment of: </span>
+            <div style="border-bottom: 1px solid #ddd;
+            width: 570px;
+            display: inline-block;
+            margin-left: 10px;
+            padding: 6px 0; color: #555555; font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; ">
+              {{ReceiptEntity.ForPaymentOf}} Certificate</div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <table border="0" cellspacing="0" cellpadding="0" style=" width: 100%;
+      border-collapse: collapse;
+      border-spacing: 0;
+      margin-bottom: 10px; font-size: 15px; ">
+      <tr>
+        <td style="width: 45%; padding: 10px;">
+          <table border="0" cellspacing="0" cellpadding="0" style=" width: 100%;
+            border-collapse: collapse;
+            border-spacing: 0; font-size: 15px; border:1px solid #ddd;">
+            <tr>
+              <td
+                style="padding: 8px; text-align: left; border-right:1px solid #ddd; border-bottom:1px solid #ddd; color: #555555; font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; ">
+                SUBTOTAL</td>
+              <td
+                style="padding: 8px; text-align: right; border-bottom:1px solid #ddd; color: #555555; font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; ">
+                ${{ReceiptEntity.SubTotalAmount}}</td>
+            </tr>
+            <tr>
+              <td
+                style="padding: 8px; text-align: left; border-right:1px solid #ddd; border-bottom:1px solid #ddd;color: #555555; font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; ">
+                TAX 25%</td>
+              <td
+                style="padding: 8px; text-align: right; border-bottom:1px solid #ddd;color: #555555; font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; ">
+                ${{ReceiptEntity.TaxAmount}}</td>
+            </tr>
+            <tr>
+              <td
+                style="padding: 8px; text-align: left; border-right:1px solid #ddd; font-weight: bold;color: #555555; font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; ">
+                TOTAL</td>
+              <td
+                style="padding: 8px; text-align: right; font-weight: bold;color: #555555; font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; ">
+                ${{ReceiptEntity.TotalAmount}}</td>
+            </tr>
+          </table>
+        </td>
+        <td
+          style="padding: 10px; vertical-align: top;color: #555555; font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; ">
+          <span style="color: #555555; font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; ">Received By:
+          </span>
+          <div style="border-bottom: 1px solid #ddd;
+          width: 270px;
+          display: inline-block;
+          margin-left: 10px;
+          padding: 6px 0;color: #555555; font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; ">
+            {{ReceiptEntity.ReceivedBy}}</div><br>
+          <span style="color: #555555; font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; ">Payment Made By:
+          </span>
+          <div
+            style="border-bottom: 1px solid #ddd;
+         width: 230px;
+         display: inline-block;
+         margin: 10px 0px 0 10px;
+         padding: 6px 0; font-weight: bold; color: #555555; font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; ">
+            Credit Card</div>
+        </td>
+      </tr>
+    </table>
+  </main>
+  <footer style="
+    width: 100%;
+    height: 30px;
+    position: absolute;
+    bottom: 0;
+    border-top: 1px solid #AAAAAA;
+    padding: 8px 0;
+    text-align: center; color: #555555; font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">
+    Receipt was created on a computer and is valid without the signature and seal.
+  </footer>
+</div>

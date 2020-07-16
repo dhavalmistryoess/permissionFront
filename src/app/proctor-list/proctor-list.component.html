@@ -1,0 +1,307 @@
+<div class="content_block">
+  <div class="container-fluid">
+    <div class="row">
+      <!-- Content -->
+      <div class="col-12 col-xl-12 col-lg-12 col-md-12 col-sm-12">
+        <div class="title_block">
+          <h2 class="float-left">
+            {{globals.commonTranslationText.proctorList.title}}</h2>
+          <div class="breadcrumb_block float-left">
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item">
+                <a href="/proctorDashboard" *ngIf="globals.authData.RoleId == 2 || globals.authData.RoleId == 4">
+                  <i class="fa fa-home"></i>
+                </a>
+                <a href="/admin/adminDashboard" *ngIf="globals.authData.RoleId == 1">
+                  <i class="fa fa-home"></i>
+                </a>
+              </li>
+              <li class="breadcrumb-item active" aria-current="page">
+                {{globals.commonTranslationText.proctorList.breadcrumbTitle}}</li>
+            </ol>
+          </div>
+          <div class="clearfix"></div>
+        </div>
+        <div class="row d-flex justify-content-center">
+          <div class="col-md-12 col-sm-12">
+            <div class="inner_content_block proctor_list_block">
+              <div class="row">
+                <div class="col-xl-3 col-lg-3 col-12 col-md-12 col-sm-12">
+
+                  <div class="p_filter_block">
+                    <form #SearchFilterForm="ngForm" (ngSubmit)="SearchFilter()">
+                      <h6>{{globals.commonTranslationText.proctorList.form.showResultsFor}}</h6>
+                      <div class="form-group">
+                        <label>{{globals.commonTranslationText.proctorList.form.date}}</label>
+                        <!-- <input type="text" class="form-control form_date" name="AssignDate" id="AssignDate" readonly/> -->
+                        <kendo-daterange>
+                          <label class="mr-3">
+                            <span class="label">Start</span>
+                            <kendo-dateinput kendoDateRangeStartInput name="AssignDateFrom" #AssignDateFrom="ngModel"
+                              [(ngModel)]="filterEntity.AssignDateFrom" (valueChange)="checkboxClear()">
+                            </kendo-dateinput>
+                          </label>
+                          <label>
+                            <span class="label">End</span>
+                            <kendo-dateinput kendoDateRangeEndInput name="AssignDateTo" #AssignDateTo="ngModel"
+                              [(ngModel)]="filterEntity.AssignDateTo"></kendo-dateinput>
+                          </label>
+                        </kendo-daterange>
+                      </div>
+                      <div class="form-group">
+                        <label>{{globals.commonTranslationText.proctorList.form.location}}</label>
+                        <!-- <select class="show-menu-arrow" multiple data-live-search="true" data-selected-text-format="count"
+                          title="Select Location" #Location = "ngModel" [(ngModel)]="filterEntity.Location" name="Location" id="Location">
+                          <ng-container *ngFor="let address of addressList">
+                              <option [value]="address.City">{{address.City}}</option>
+                            </ng-container>
+                        </select> -->
+                        <kendo-multiselect [data]="addressList" [filterable]="false" [textField]="'City'"
+                          [valueField]="'City'" [valuePrimitive]="true" #Location="ngModel"
+                          [(ngModel)]="filterEntity.Location" name="Location" id="Location"
+                          placeholder="Select your location"></kendo-multiselect>
+                      </div>
+                      <div class="form-group">
+                        <label>{{globals.commonTranslationText.proctorList.form.certificateName}}</label>
+                        <!-- <select class="show-menu-arrow" multiple data-live-search="true" data-selected-text-format="count"
+                          title="Select Certificate Name" #CertificateId = "ngModel" [(ngModel)]="filterEntity.CertificateId" name="CertificateId" id="CertificateId">
+                          <ng-container *ngFor="let certificate of certificateList">
+                            <option [value]="certificate.CertificateId">{{certificate.CertificateName}}</option>
+                          </ng-container>
+                        </select> -->
+                        <kendo-multiselect [data]="certificateList" [filterable]="false" [textField]="'CertificateName'"
+                          [valueField]="'CertificateId'" [valuePrimitive]="true" #CertificateId="ngModel"
+                          [(ngModel)]="filterEntity.CertificateId" name="CertificateId" id="CertificateId"
+                          placeholder="Select certificate name"></kendo-multiselect>
+                      </div>
+                      <button class="all_btn theme_btn"
+                        type="submit">{{globals.commonTranslationText.proctorList.form.buttons.filter}}</button>
+                      <button class="all_btn themeoption_btn"
+                        (click)="clearData1(1)">{{globals.commonTranslationText.proctorList.form.buttons.clear}}</button>
+                    </form>
+                  </div>
+
+                </div>
+                <div class="col-xl-9 col-lg-9 col-12 col-md-12 col-sm-12">
+                  <div class="p_search_block">
+                    <h6>{{globals.commonTranslationText.proctorList.form.searchInFilteredCandidates}}</h6>
+                    <form #SearchFilterForm="ngForm" (ngSubmit)="SearchFilter()">
+                      <div class="row">
+                        <div class="col-12 col-xl-4 col-lg-4 col-md-12 col-sm-12">
+                          <div class="form-group">
+                            <label>{{globals.commonTranslationText.proctorList.form.candidateName}}</label>
+                            <!-- <select class="show-tick show-menu-arrow" multiple data-live-search="true" data-selected-text-format="count"
+                                title="Select Candidate Name" #UserId = "ngModel" [(ngModel)]="filterEntity.UserId" name="UserId" id="UserId">
+                                <ng-container *ngFor="let candidate of candidateList">
+                                    <option [value]="candidate.UserId">{{candidate.Name}}</option>
+                                  </ng-container>
+                                </select> -->
+                            <kendo-multiselect [data]="candidateList" [filterable]="false" [textField]="'Name'"
+                              [valueField]="'UserId'" [valuePrimitive]="true" #UserId="ngModel"
+                              [(ngModel)]="filterEntity.UserId" name="UserId" id="UserId"
+                              placeholder="Select candidate name"></kendo-multiselect>
+                          </div>
+                        </div>
+                        <div class="col-12 col-xl-4 col-lg-4 col-md-12 col-sm-12">
+                          <div class="form-group">
+                            <label>{{globals.commonTranslationText.proctorList.form.email}}</label>
+                            <input type="text" class="form-control" name="EmailAddress" #EmailAddress="ngModel"
+                              [(ngModel)]="filterEntity.EmailAddress">
+                          </div>
+                        </div>
+                        <div class="col-12 col-xl-4 col-lg-4 col-md-12 col-sm-12 mt-lg-5 mt-xl-5">
+                          <button
+                            class="all_btn theme_btn">{{globals.commonTranslationText.proctorList.form.buttons.search}}</button>
+                          <button class="all_btn themeoption_btn"
+                            (click)="clearData1(2)">{{globals.commonTranslationText.proctorList.form.buttons.clear}}</button>
+                        </div>
+                      </div>
+                    </form>
+                  </div>
+                  <!--<div class="p_filter_content_block">
+                       <label>{{globals.commonTranslationText.proctorList.form.showingResultFor}} </label>
+                      <ul>
+                        <li><span>11/12/2019</span><i class="fa fa-times"></i></li>
+                        <li><span>11/12/2019</span><i class="fa fa-times"></i></li>
+                        <li><span>11/12/2019</span><i class="fa fa-times"></i></li>
+                        <li><span>11/12/2019</span><i class="fa fa-times"></i></li>
+                        <li><span>11/12/2019</span><i class="fa fa-times"></i></li>
+                        <li><span>11/12/2019</span><i class="fa fa-times"></i></li>
+                      </ul>
+                    </div> -->
+                  <div class="p_list_block pt-5">
+                    <h5 class="float-left mb-4">{{proctorList.length}} <span
+                        *ngIf="proctorList.length >1">Candidates</span> <span
+                        *ngIf="proctorList.length ==1 || proctorList.length <=0">Candidate</span> found</h5>
+                    <div class="form-group float-right mb-0 filter_legend_block">
+                      <label
+                        class="show_title">{{globals.commonTranslationText.proctorList.form.showResultsFor}}:</label>
+                      <div class="legend_box comp">
+                        <input type="checkbox" name="legend1" id="legend1" (click)="SearchFilter()">
+                        <label for="legend1">{{globals.commonTranslationText.proctorList.form.completed}}</label>
+                      </div>
+
+                      <div class="legend_box today">
+                        <input type="checkbox" name="legend2" id="legend2" checked (click)="SearchFilter()">
+                        <label for="legend2">{{globals.commonTranslationText.proctorList.form.today}}</label>
+                      </div>
+                      <div class="legend_box upcom">
+                        <input type="checkbox" name="legend3" id="legend3" (click)="SearchFilter()">
+                        <label for="legend3">{{globals.commonTranslationText.proctorList.form.upcoming}}</label>
+                      </div>
+                    </div>
+                    <div class="clearfix"></div>
+                    <div class="row">
+                      <div class="col-md-12 col-xl-4 col-lg-6 col-12 col-sm-12"
+                        *ngFor="let proctor of proctorList | paginate: { itemsPerPage:6, currentPage: p};let i = index;">
+                        <div class="proctoring_box"
+                          [ngClass]="{completed_box: proctor.AssignDate < currentDate,today_box: proctor.AssignDate == currentDate,upcoming_box: proctor.AssignDate > currentDate}">
+                          <div class="proctor_header">{{proctor.CandidateName}} <span></span></div>
+                          <div class="address_block">
+                            <ul class="nav nav-pills" id="pills-tab" role="tablist">
+                              <li class="nav-item address_label right_border">
+                                <a class="nav-link active" id="pills-Candidate-tab{{i}}" data-toggle="pill"
+                                  href="#pills-Candidate{{i}}" role="tab" [attr.aria-controls]="'pills-Candidate'+i"
+                                  aria-selected="true">Candidate Details</a>
+                              </li>
+                              <li class="nav-item address_label">
+                                <a class="nav-link" id="pills-Assessment-tab{{i}}" data-toggle="pill"
+                                  href="#pills-Assessment{{i}}" role="tab" [attr.aria-controls]="'pills-Assessment'+i"
+                                  aria-selected="false">Assessment Details</a>
+                              </li>
+
+                            </ul>
+                            <div class="tab-content" id="pills-tabContent">
+                              <div class="tab-pane fade show active address" id="pills-Candidate{{i}}" role="tabpanel"
+                                [attr.aria-labelledby]="'pills-Candidate-tab'+i">
+                                <p><i class="fa fa-envelope"></i>{{proctor.CandidateEmail}}<br>
+                                  <i class="fa fa-phone"></i>{{proctor.CandidateContact}}<br>
+                                  <i class="fa fa-certificate"></i>{{proctor.CertificateName}}</p>
+                              </div>
+                              <div class="tab-pane fade address" id="pills-Assessment{{i}}" role="tabpanel"
+                                [attr.aria-labelledby]="'pills-Assessment-tab'+i">
+                                <p><i class="fa fa-map-marker"></i>
+                                  <span>{{proctor.Address1}}, {{proctor.Address2}}, {{proctor.Address3}},
+                                    {{proctor.City}} {{proctor.StateName}}</span>
+                                  <i
+                                    class="fa fa-calendar"></i><span>{{proctor.AssignDate | date : 'MM/dd/yyyy'}}</span>
+                                  <i class="fa fa-clock-o"></i><span>{{proctor.StartTime}}-{{proctor.EndTime}}</span>
+                                </p>
+                              </div>
+                            </div>
+
+                            <div class="clearfix"></div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-md-12 col-xl-12 col-lg-12 col-12 col-sm-12" *ngIf="proctorList.length <=0">
+                        <div class="notice notice-danger mb-5">{{globals.commonTranslationText.proctorList.form.nodata}}
+                        </div>
+                      </div>
+                      <!-- <div class="col-md-12 col-xl-4 col-lg-6 col-12 col-sm-12">
+                            <div class="proctoring_box completed_box">
+                              <div class="proctor_header">Candidate Name <span></span></div>
+                              <div class="address_block">
+                                  <ul class="nav nav-pills" id="pills-tab" role="tablist">
+                                      <li class="nav-item address_label right_border">
+                                        <a class="nav-link active" id="pills-Candidate-tab" data-toggle="pill" href="#pills-Candidate" role="tab" aria-controls="pills-Candidate" aria-selected="true">Candidate Details</a>
+                                      </li>
+                                      <li class="nav-item address_label">
+                                        <a class="nav-link" id="pills-Assessment-tab" data-toggle="pill" href="#pills-Assessment" role="tab" aria-controls="pills-Assessment" aria-selected="false">Assessment Details</a>
+                                      </li>
+                                     
+                                    </ul>
+                                    <div class="tab-content" id="pills-tabContent">
+                                      <div class="tab-pane fade show active address" id="pills-Candidate" role="tabpanel" aria-labelledby="pills-Candidate-tab"> <p><i class="fa fa-envelope"></i>krupali.mistry@theopeneyes.com<br>
+                                        <i class="fa fa-phone"></i>1234567890<br>
+                                      <i class="fa fa-certificate"></i>Basic Angular level 5</p></div>
+                                      <div class="tab-pane fade address" id="pills-Assessment" role="tabpanel" aria-labelledby="pills-Assessment-tab"> <p><i class="fa fa-map-marker"></i><span>#111, 1th Floor, Iscon Atria 1<br> Gotri Road, Vadodara 390021</span>
+                                        <i class="fa fa-calendar"></i><span>11/12/2019</span>
+                                      <i class="fa fa-clock-o"></i><span>10:00am-1:00pm</span></p></div>
+                                    </div>
+
+                                <div class="clearfix"></div>
+                              </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12 col-xl-4 col-lg-6 col-12 col-sm-12">
+                            <div class="proctoring_box upcoming_box">
+                                <div class="proctor_header">Candidate Name <span></span></div>
+                                <div class="address_block">
+                                    <ul class="nav nav-pills" id="pills-tab" role="tablist">
+                                        <li class="nav-item address_label right_border">
+                                          <a class="nav-link active" id="pills-Candidate-tab" data-toggle="pill" href="#pills-Candidate" role="tab" aria-controls="pills-Candidate" aria-selected="true">Candidate Details</a>
+                                        </li>
+                                        <li class="nav-item address_label">
+                                          <a class="nav-link" id="pills-Assessment-tab" data-toggle="pill" href="#pills-Assessment" role="tab" aria-controls="pills-Assessment" aria-selected="false">Assessment Details</a>
+                                        </li>
+                                       
+                                      </ul>
+                                      <div class="tab-content" id="pills-tabContent">
+                                        <div class="tab-pane fade show active address" id="pills-Candidate" role="tabpanel" aria-labelledby="pills-Candidate-tab"> <p><i class="fa fa-envelope"></i>krupali.mistry@theopeneyes.com<br>
+                                          <i class="fa fa-phone"></i>1234567890<br>
+                                        <i class="fa fa-certificate"></i>Basic Angular level 5</p></div>
+                                        <div class="tab-pane fade address" id="pills-Assessment" role="tabpanel" aria-labelledby="pills-Assessment-tab"> <p><i class="fa fa-map-marker"></i><span>#111, 1th Floor, Iscon Atria 1<br> Gotri Road, Vadodara 390021</span>
+                                          <i class="fa fa-calendar"></i><span>11/12/2019</span>
+                                        <i class="fa fa-clock-o"></i><span>10:00am-1:00pm</span></p></div>
+                                      </div>
+  
+                                  <div class="clearfix"></div>
+                                </div>
+                              </div>
+                        </div>
+                        <div class="col-md-12 col-xl-4 col-lg-6 col-12 col-sm-12">
+                              <div class="proctoring_box today_box">
+                                  <div class="proctor_header">Candidate Name <span></span></div>
+                                  <div class="address_block">
+                                      <ul class="nav nav-pills" id="pills-tab" role="tablist">
+                                          <li class="nav-item address_label right_border">
+                                            <a class="nav-link active" id="pills-Candidate-tab" data-toggle="pill" href="#pills-Candidate" role="tab" aria-controls="pills-Candidate" aria-selected="true">Candidate Details</a>
+                                          </li>
+                                          <li class="nav-item address_label">
+                                            <a class="nav-link" id="pills-Assessment-tab" data-toggle="pill" href="#pills-Assessment" role="tab" aria-controls="pills-Assessment" aria-selected="false">Assessment Details</a>
+                                          </li>
+                                         
+                                        </ul>
+                                        <div class="tab-content" id="pills-tabContent">
+                                          <div class="tab-pane fade show active address" id="pills-Candidate" role="tabpanel" aria-labelledby="pills-Candidate-tab"> <p><i class="fa fa-envelope"></i>krupali.mistry@theopeneyes.com<br>
+                                            <i class="fa fa-phone"></i>1234567890<br>
+                                          <i class="fa fa-certificate"></i>Basic Angular level 5</p></div>
+                                          <div class="tab-pane fade address" id="pills-Assessment" role="tabpanel" aria-labelledby="pills-Assessment-tab"> <p><i class="fa fa-map-marker"></i><span>#111, 1th Floor, Iscon Atria 1<br> Gotri Road, Vadodara 390021</span>
+                                            <i class="fa fa-calendar"></i><span>11/12/2019</span>
+                                          <i class="fa fa-clock-o"></i><span>10:00am-1:00pm</span></p></div>
+                                        </div>
+    
+                                    <div class="clearfix"></div>
+                                  </div>
+                                </div>
+                          </div>  -->
+                    </div>
+                    <div class="row">
+                      <div class="col-12">
+                        <ul class="legend_block float-left">
+                          <li> <i class="fa fa-envelope"></i> Email Address</li>
+                          <li> <i class="fa fa-phone"></i> Phone Number</li>
+                          <li> <i class="fa fa-certificate"></i> Certificate</li>
+                          <li> <i class="fa fa-map-marker"></i> Location</li>
+                          <li> <i class="fa fa-calendar"></i> Date</li>
+                          <li> <i class="fa fa-clock-o"></i> Time</li>
+                        </ul>
+                        <ul class="pagination float-right mb-5" role="navigation" aria-label="Pagination"
+                          *ngIf="proctorList!=''">
+                          <pagination-controls (pageChange)="p=$event" previousLabel="⏴" nextLabel="⏵">
+                          </pagination-controls>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="clearfix"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

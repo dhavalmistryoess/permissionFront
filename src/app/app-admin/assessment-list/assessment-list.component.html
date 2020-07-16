@@ -1,0 +1,624 @@
+<div class="content_block">
+  <div class="container-fluid">
+    <div class="row">
+      <!-- Content -->
+      <div class="col-md-12 col-sm-12">
+        <div class="title_block">
+          <h2 class="float-left">
+            {{globals.adminTranslationText.assessment.list.title}}</h2>
+          <div class="breadcrumb_block float-left">
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item">
+                <a routerLink="/admin/adminDashboard">
+                  <i class="fa fa-home"></i>
+                </a>
+              </li>
+              <li class="breadcrumb-item"><a
+                  routerLink="/admin/assessment-list">{{globals.adminTranslationText.assessment.list.breadcrumbTitle}}</a>
+              </li>
+              <li class="breadcrumb-item active" aria-current="page">
+                {{globals.adminTranslationText.assessment.list.breadcrumbSubTitle}}</li>
+            </ol>
+          </div>
+          <div class="clearfix"></div>
+        </div>
+        <div class="row d-flex justify-content-center">
+          <div class="col-md-12 col-sm-12">
+            <div class="inner_content_block">
+              <form class="form-validate" #SearchFilterForm="ngForm" (ngSubmit)="SearchFilter(SearchFilterForm)">
+                <div class="filter_block_form border_none">
+                  <div class="row">
+                    <div class="col-12 col-xl-4 col-lg-4 col-md-12 col-sm-12">
+                      <div class="form-group">
+                        <label>Certificate</label>
+                        <kendo-multiselect [data]="certificateList" [filterable]="false" [textField]="'CertificateName'"
+                          [valueField]="'CertificateId'" [valuePrimitive]="true" #CertificateId="ngModel"
+                          [(ngModel)]="FilterEntity.CertificateId" name="CertificateId"
+                          placeholder="Select Certificate">
+                        </kendo-multiselect>
+                      </div>
+                    </div>
+                    <div class="col-12 col-xl-4 col-lg-4 col-md-12 col-sm-12">
+                      <div class="form-group">
+                        <label>Candidate Name</label>
+                        <kendo-multiselect [data]="CandidatenameList" [filterable]="false" [textField]="'Name'"
+                          [valueField]="'UserId'" [valuePrimitive]="true" #UserId="ngModel"
+                          [(ngModel)]="FilterEntity.UserId" name="UserId" placeholder="Select Candidate Name">
+                        </kendo-multiselect>
+                      </div>
+                    </div>
+
+                    <div class="col-12 col-xl-4 col-lg-4 col-md-12 col-sm-12">
+                      <div class="form-group">
+                        <label>Date</label>
+                        <kendo-daterange>
+                          <label class="mr-3 mr-lg-2">
+                            <span class="label">Start</span>
+                            <kendo-dateinput kendoDateRangeStartInput name="OrderDateFrom" #OrderDateFrom="ngModel"
+                              [(ngModel)]="FilterEntity.OrderDateFrom"></kendo-dateinput>
+                          </label>
+                          <label>
+                            <span class="label">End</span>
+                            <kendo-dateinput kendoDateRangeEndInput name="OrderDateTo" #OrderDateTo="ngModel"
+                              [(ngModel)]="FilterEntity.OrderDateTo"></kendo-dateinput>
+                          </label>
+                        </kendo-daterange>
+                      </div>
+                    </div>
+                    <div class="col-12 col-xl-4 col-lg-4 col-md-12 col-sm-12">
+                      <button class="all_btn theme_btn mb-5" type="submit">Search</button>
+                      <button class="all_btn themeoption_btn mb-5" type="button"
+                        (click)="clearData(SearchFilterForm)">Clear</button>
+                    </div>
+                  </div>
+                </div>
+              </form>
+              <div class="clearfix"></div>
+              <div class="profile_step_block">
+                <ul class="nav nav-tabs" id="ProfileTab" role="tablist">
+                  <li class="nav-item">
+                    <a class="nav-link active" id="proctor-block-tab" data-toggle="tab" href="#proctor-block" role="tab"
+                      aria-controls="proctor-block" aria-selected="true"><span><img src="assets/images/proctor.png" alt="" class="img-fluid"/></span>
+                      Proctoring Assessment</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" id="nonproctor-block-tab" data-toggle="tab" href="#nonproctor-block" role="tab"
+                      aria-controls="nonproctor-block" aria-selected="false"><span><img src="assets/images/woproctor.png" alt="" class="img-fluid"/></span>
+                      Non Proctoring Assessment</a>
+                  </li>
+                </ul>
+              </div>
+              <div class="assessment_list_block">
+                <div id="accordion" class="mobile_accordion">
+                  <div class="tab-content" id="ProfileTabContent">
+                    <div class="tab-pane fade show active" id="proctor-block" role="tabpanel"
+                      aria-labelledby="proctor-block-tab">
+                      <div class="card mobile_accordion_cards">
+                        <div class="card-header mobile_header" id="headingOne">
+                          <button data-toggle="collapse" data-target="#collapseOne" aria-expanded="true"
+                            aria-controls="collapseOne">
+                            <img src="assets/images/proctor.png" alt="" class="img-fluid"/>
+                            Proctoring Assessment
+                          </button>
+                        </div>
+                        <div id="collapseOne" class="collapse show mobile_collapse" aria-labelledby="headingOne"
+                          data-parent="#accordion">
+                          <div class="card-body mobile_body">
+                            <div class="row legend_filter_block">
+                  <div class="col-12 col-xl-5 col-lg-6 col-md-12 col-sm-12 mt-3">
+                    <ul class="legend_block">
+                      <li> <i class="fa fa-user-circle-o"></i> Candidate Details</li>
+                      <li> <i class="fa fa-map-marker"></i> Location</li>
+                      <li> <i class="fa fa-user"></i> Proctor Name</li>
+                    </ul>
+                  </div>
+                  <div class="col-12 col-xl-7 col-lg-6 col-md-12 col-sm-12 text-right">
+                    <div class="form-group filter_legend_block">
+                      <div class="legend_box nosc">
+                        <input type="checkbox" name="legend1" id="legend1" checked (click)="All()">
+                        <label for="legend1">No Proctor Assign</label>
+                      </div>
+
+                      <div class="legend_box upc">
+                        <input type="checkbox" name="legend2" id="legend2" checked (click)="All()">
+                        <label for="legend2">Upcoming</label>
+                      </div>
+                      <div class="legend_box sch">
+                        <input type="checkbox" name="legend3" id="legend3" (click)="All()">
+                        <label for="legend3">Completed</label>
+                      </div>
+                      <div class="legend_box cdsc">
+                        <input type="checkbox" name="legend4" id="legend4" (click)="All()">
+                        <label for="legend4">Cancelled/Declined</label>
+                      </div>
+                      <div class="legend_box upc">
+                        <input type="checkbox" name="legend7" id="legend7" (click)="All()">
+                        <label for="legend7">Today's</label>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-12 col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                    <div class="notice notice-danger mb-5" *ngIf="assessmentList?.length == 0">
+                      {{globals.commonTranslationText.profilePage.order.no_record_found}}
+                    </div>
+                  </div>
+                  
+                  <ng-container
+                    *ngFor="let assessment of assessmentList | paginate: { id: 'pagination1',itemsPerPage:6, currentPage: p};let i=index;">
+                    <div class="col-12 col-xl-4 col-lg-6 col-md-12 col-sm-12 d-flex">
+                      <div class="assessment_list_box"
+                        [ngClass]="{scheduled: assessment.UserAssessmentId != null && assessment.ResultStatus != null,
+                        cancel_decline: (assessment.ScheduleAssessmentId != null && assessment.ScheduleAssessmentStatus == 56) || (assessment.ScheduleAssessmentId == null && assessment.ScheduleStatusId == 14),
+                        not_schedule : assessment.ScheduleAssessmentId == null && assessment.ScheduleStatusId == 15,
+                        scheduled_upcoming : (assessment.ScheduleAssessmentId != null && (assessment.ScheduleAssessmentStatus == 40 || assessment.ScheduleAssessmentStatus == 41 || assessment.ScheduleAssessmentStatus == 42 || assessment.ScheduleAssessmentStatus == 43)) || (assessment.UserAssessmentId != null && assessment.ResultStatus == null)}">
+                       
+                        <div class="candidate_name">
+                          <i class="fa fa-user-circle-o"></i>
+                          {{assessment.CandidateName}}
+                          <span>{{assessment.CandidateEmail}}</span>
+                        </div>
+                        <div class="cer_header">{{assessment.CertificateName}}</div>
+                        <div class="cer_content">
+                          <p>
+                            <i class="fa fa-calendar"></i>
+                            <span
+                              *ngIf="assessment.ScheduleAssessmentId != null">{{globals.adminTranslationText.assessment.list.assessmentDate}}:
+                              {{assessment.AssignDate | date : 'MM/dd/yyyy'}} <br></span>
+                            <span
+                              *ngIf="assessment.ScheduleAssessmentId == null">{{globals.adminTranslationText.assessment.list.preferedDates}}:
+                              {{assessment.AvailablePriorityDate1 | date : 'MM/dd/yyyy'}},
+                              {{assessment.AvailablePriorityDate2 | date : 'MM/dd/yyyy'}},
+                              {{assessment.AvailablePriorityDate3 | date : 'MM/dd/yyyy'}}<br></span>
+                            <i class="fa fa-map-marker" *ngIf="assessment.ScheduleAssessmentStatus != 56"></i><span
+                              *ngIf="assessment.ScheduleAssessmentStatus != 56">{{assessment.CandidateCity}},
+                              {{assessment.CandidateState}}<br></span>
+                            <i class="fa fa-user" *ngIf="assessment.ScheduleStatusId != 14"></i>
+                            <span
+                              [ngClass]="{red : assessment.ScheduleAssessmentId == null && assessment.ScheduleStatusId == 15}"
+                              *ngIf="assessment.ScheduleAssessmentId == null && assessment.ScheduleStatusId == 15">Not
+                              Assigned</span>
+                            <span *ngIf="assessment.ScheduleAssessmentId != null">{{assessment.ProctorName}}<br></span>
+                            <i class="fa fa-info"
+                              *ngIf="(assessment.ScheduleAssessmentId != null && (assessment.ScheduleAssessmentStatus == 56 || assessment.ScheduleAssessmentStatus == 42 || assessment.ScheduleAssessmentStatus == 43 || assessment.ScheduleAssessmentStatus == 41)) || (assessment.ScheduleAssessmentId == null && assessment.ScheduleStatusId == 14)"></i>
+                            <span
+                              [ngClass]="{red : assessment.ScheduleAssessmentId != null && assessment.ScheduleAssessmentStatus == 56}"
+                              *ngIf="assessment.ScheduleAssessmentId != null && assessment.ScheduleAssessmentStatus == 56">{{globals.adminTranslationText.assessment.list.cancelledAssessment}}</span>
+                            <span
+                              [ngClass]="{red : assessment.ScheduleAssessmentId == null && assessment.ScheduleStatusId == 14}"
+                              *ngIf="assessment.ScheduleAssessmentId == null && assessment.ScheduleStatusId == 14">{{globals.adminTranslationText.assessment.list.declineDate}}</span>
+                            <span
+                              *ngIf="assessment.ScheduleAssessmentId != null && ( assessment.ScheduleAssessmentStatus == 41 || assessment.ScheduleAssessmentStatus == 42 || assessment.ScheduleAssessmentStatus == 43)">{{assessment.AssignStatus}}</span>
+                            
+                          </p>
+                          <div
+                            *ngIf="assessment.ScheduleAssessmentId != null && assessment.UserAssessmentId != null && assessment.ResultStatus != null && assessment.ResultStatus == 17"
+                            class="round_content">
+                            {{assessment.TotalScore}}%<span>{{globals.adminTranslationText.assessment.list.score}}</span>
+                          </div>
+                          <div
+                            *ngIf="assessment.ScheduleAssessmentId != null && assessment.UserAssessmentId != null && assessment.ResultStatus != null && assessment.ResultStatus == 16"
+                            class="round_content">
+                            {{assessment.TotalScore}}%<span>{{globals.adminTranslationText.assessment.list.score}}</span>
+                          </div>
+                        </div>
+                        <div class="cer_footer">
+                          <button *ngIf="assessment.ScheduleAssessmentId == null && assessment.ScheduleStatusId == 15"
+                            (click)="assignAssessment(assessment.ScheduleAssessmentHistoryId)">{{globals.adminTranslationText.assessment.list.assignProctor}}</button>
+                          <button *ngIf="assessment.ScheduleAssessmentId == null && assessment.ScheduleStatusId == 14"
+                            (click)="viewDeclinedDetail(assessment)" data-toggle="modal"
+                            data-target="#decline_popup">{{globals.adminTranslationText.assessment.list.viewDetail}}</button>
+                          <button
+                            *ngIf="assessment.ScheduleAssessmentId != null && assessment.ScheduleAssessmentStatus == 56"
+                            (click)="viewCancelAssessmentDetail(assessment)" data-toggle="modal"
+                            data-target="#cancel_popup">{{globals.adminTranslationText.assessment.list.viewDetail}}</button>
+                          <button
+                            *ngIf="assessment.ScheduleAssessmentId != null && assessment.UserAssessmentId != null && assessment.ResultStatus != null && assessment.ScheduleAssessmentStatus == 44"
+                            (click)="assessmentDetails(assessment.UserAssessmentId,assessment.HasProctor)">{{globals.adminTranslationText.assessment.list.viewDetail}}</button>
+                          <button
+                            *ngIf="assessment.ScheduleAssessmentId != null && (assessment.ScheduleAssessmentStatus == 40 || assessment.ScheduleAssessmentStatus == 41 || assessment.ScheduleAssessmentStatus == 42 || assessment.ScheduleAssessmentStatus == 43)"
+                            (click)="viewUpcomingDetail(assessment)" data-toggle="modal"
+                            data-target="#upcoming_popup">{{globals.adminTranslationText.assessment.list.viewDetail}}</button>
+                          <div class="clearfix"></div>
+                        </div>
+                      </div>
+                    </div>
+                  </ng-container>
+                </div>
+                <div class="row">
+                  <div class="col-12 col-xl-6 col-lg-6 col-md-12 col-sm-12 mt-3">
+                    <ul class="legend_block">
+                      <li> <i class="fa fa-user-circle-o"></i> Candidate Details</li>
+                      <li> <i class="fa fa-map-marker"></i> Location</li>
+                      <li> <i class="fa fa-user"></i> Proctor Name</li>
+                    </ul>
+                  </div>
+
+                  <div class="col-12 col-xl-6 col-lg-6 col-md-12 col-sm-12 mt-3 text-right pagination_block"
+                    *ngIf="assessmentList!=''">
+                    <ul class="pagination float-right">
+                      <pagination-controls id="pagination1" (pageChange)="p=$event" previousLabel="⏴" nextLabel="⏵">
+                      </pagination-controls>
+                    </ul>
+                  </div>
+                 </div>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="clearfix"></div>
+                    </div>
+                    <div class="tab-pane fade" id="nonproctor-block" role="tabpanel" aria-labelledby="nonproctor-block-tab">
+                      <div class="card mobile_accordion_cards">
+                        <div class="card-header mobile_header" id="headingTwo">
+                          <button class="collapsed" data-toggle="collapse" data-target="#collapseTwo"
+                            aria-expanded="false" aria-controls="collapseTwo">
+                            <img src="assets/images/woproctor.png" alt="" class="img-fluid"/>
+                            Non Proctoring Assessment
+                          </button>
+                        </div>
+                        <div id="collapseTwo" class="collapse mobile_collapse" aria-labelledby="headingTwo"
+                          data-parent="#accordion">
+                          <div class="card-body mobile_body">
+                            <div class="row legend_filter_block">
+                              <div class="col-12 col-xl-5 col-lg-6 col-md-12 col-sm-12 mt-3">
+                                <ul class="legend_block">
+                                  <li> <i class="fa fa-user-circle-o"></i> Candidate Details</li>
+                                  <li> <i class="fa fa-map-marker"></i> Location</li>
+                                  <li> <i class="fa fa-info"></i> Information</li>
+                                </ul>
+                              </div>
+                              <div class="col-12 col-xl-7 col-lg-6 col-md-12 col-sm-12 text-right">
+                                <div class="form-group filter_legend_block">
+                                  <div class="legend_box upc">
+                                    <input type="checkbox" name="legend5" id="legend5" checked (click)="All2()">
+                                    <label for="legend5">InProgress</label>
+                                  </div>
+                                  <div class="legend_box sch">
+                                    <input type="checkbox" name="legend6" id="legend6" (click)="All2()">
+                                    <label for="legend6">Completed</label>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="row">
+                              <div class="col-12 col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                                <div class="notice notice-danger mb-5" *ngIf="withoutProctorAssessmentList?.length == 0">
+                                  {{globals.commonTranslationText.profilePage.order.no_record_found}}
+                                </div>
+                              </div>
+                                <ng-container
+                          *ngFor="let assessment of withoutProctorAssessmentList | paginate: {  id: 'pagination2',itemsPerPage:6, currentPage: p1};let i=index;">
+                          <div class="col-12 col-xl-4 col-lg-6 col-md-12 col-sm-12 d-flex">
+                            <div class="assessment_list_box"
+                              [ngClass]="{scheduled: assessment.UserAssessmentId != null && assessment.ResultStatus != null,
+                              scheduled_upcoming : (assessment.UserAssessmentId != null && assessment.ResultStatus == null)}">
+                            
+                              <div class="candidate_name">
+                                <i class="fa fa-user-circle-o"></i>
+                                {{assessment.CandidateName}}
+                                <span>{{assessment.CandidateEmail}}</span>
+                              </div>
+                              <div class="cer_header">{{assessment.CertificateName}}</div>
+                              <div class="cer_content">
+                                <p>
+                                  <i class="fa fa-calendar"></i>
+                                  <span
+                                    *ngIf="assessment.ResultStatus != null">{{globals.adminTranslationText.assessment.list.assessmentDate}}:
+                                    {{assessment.AssessmentEndDate | date : 'MM/dd/yyyy'}} <br></span>
+                                    <span
+                                    *ngIf="assessment.ResultStatus == null">{{globals.adminTranslationText.assessment.list.assessmentDate}}:
+                                    {{assessment.AssessmentStartDate | date : 'MM/dd/yyyy'}} <br></span>
+                                  <i class="fa fa-map-marker" *ngIf="assessment.ScheduleAssessmentStatus != 56"></i>
+                                  <span
+                                   >{{assessment.CandidateCity}},
+                                    {{assessment.CandidateState}}<br></span>
+                                    <i class="fa fa-info"></i>
+                                    <span>Completed Category: {{assessment.completedCategories}}/{{assessment.totalCategories}}</span>
+                                
+                                </p>
+                                <div
+                                  *ngIf="assessment.UserAssessmentId != null && assessment.ResultStatus != null && assessment.ResultStatus == 17"
+                                  class="round_content">
+                                  {{assessment.TotalScore}}%<span>{{globals.adminTranslationText.assessment.list.score}}</span>
+                                </div>
+                                <div
+                                  *ngIf="assessment.UserAssessmentId != null && assessment.ResultStatus != null && assessment.ResultStatus == 16"
+                                  class="round_content">
+                                  {{assessment.TotalScore}}%<span>{{globals.adminTranslationText.assessment.list.score}}</span>
+                                </div>
+                              </div>
+                              <div class="cer_footer">
+                                <button
+                                  *ngIf="assessment.UserAssessmentId != null && assessment.ResultStatus != null "
+                                  (click)="assessmentDetails(assessment.UserAssessmentId,assessment.HasProctor)">{{globals.adminTranslationText.assessment.list.viewDetail}}</button>
+                                <div class="clearfix"></div>
+                              </div>
+                            </div>
+                          </div>
+                        </ng-container>
+                               
+                            </div>
+                            <div class="row">
+                              <div class="col-12 col-xl-6 col-lg-6 col-md-12 col-sm-12 mt-3">
+                                <ul class="legend_block">
+                                  <li> <i class="fa fa-user-circle-o"></i> Candidate Details</li>
+                                  <li> <i class="fa fa-map-marker"></i> Location</li>
+                                  <li> <i class="fa fa-info"></i> Information</li>
+                                </ul>
+                              </div>
+            
+                              <div class="col-12 col-xl-6 col-lg-6 col-md-12 col-sm-12 mt-3 text-right pagination_block"
+                                *ngIf="withoutProctorAssessmentList!=''">
+                                <ul class="pagination float-right">
+                                  <pagination-controls id="pagination2" (pageChange)="p1=$event" previousLabel="⏴" nextLabel="⏵">
+                                  </pagination-controls>
+                                </ul>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="clearfix"></div>
+                    </div>
+                  </div>
+                </div>      
+
+           
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- End Content -->
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</div>
+<div class="modal fade" id="upcoming_popup" tabindex="-1" role="dialog" aria-labelledby="upcoming_popupLabel"
+  aria-hidden="true">
+  <div class="modal-dialog modal-xl modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="upcoming_popupLabel">
+          {{globals.adminTranslationText.assessment.list.upcomingPopup.assessmentDetail}}</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <h4>{{upcomingDetailEntity.CertificateName}}</h4>
+        <div class="row">
+          <div class="col-12 col-xl-4 col-lg-4 col-md-12 col-sm-12">
+            <div class="border_right">
+              <h6>{{globals.adminTranslationText.assessment.list.candidateDetails}}</h6>
+              <p class="resut_content"><i class="fa fa-user"></i>
+                {{upcomingDetailEntity.CandidateName}}<br>
+                <i class="fa fa-envelope"></i>
+                {{upcomingDetailEntity.CandidateEmail}}<br>
+                <i class="fa fa-phone"></i>
+                {{upcomingDetailEntity.CandidateContact}}
+              </p>
+            </div>
+          </div>
+          <div class="col-12 col-xl-4 col-lg-4 col-md-12 col-sm-12">
+            <div class="border_right">
+              <h6>{{globals.adminTranslationText.assessment.list.upcomingPopup.assessmentDetail}}</h6>
+              <p class="resut_content">
+                <i class="fa fa-calendar-o"></i>
+                {{upcomingDetailEntity.AssignDate | date : 'MM/dd/yyyy'}}<br>
+                <i class="fa fa-clock-o"></i>
+                {{upcomingDetailEntity.startTime}}-{{upcomingDetailEntity.endTime}}<br>
+                <i class="fa fa-map-marker"></i>
+                {{upcomingDetailEntity.Address1}},{{upcomingDetailEntity.Address2}},{{upcomingDetailEntity.Address3}},<br>
+                {{upcomingDetailEntity.City}},{{upcomingDetailEntity.StateName}} {{upcomingDetailEntity.ZipCode}}
+              </p>
+            </div>
+            <button
+              *ngIf="upcomingDetailEntity.UserAssessmentId == null && upcomingDetailEntity.ResultStatus == null && (currentDate | date : 'yyyy-MM-dd') <= (newDate | date:'yyyy-MM-dd')"
+              class="all_btn theme_btn cancel_btn mb-4" (click)="cancelAssessmentShow()">Cancel Assessment</button>
+          </div>
+          <div class="col-12 col-xl-4 col-lg-4 col-md-12 col-sm-12">
+            <div class="border_right no_border">
+              <h6>{{globals.adminTranslationText.assessment.list.upcomingPopup.proctorDetails}}</h6>
+              <p class="resut_content"><i class="fa fa-user"></i>
+                {{upcomingDetailEntity.ProctorName}}<br>
+                <i class="fa fa-envelope"></i>
+                {{upcomingDetailEntity.ProctorEmail}}<br>
+                <i class="fa fa-phone"></i>
+                {{upcomingDetailEntity.ProctorContact}}
+              </p>
+            </div>
+            <a *ngIf="upcomingDetailEntity.UserAssessmentId == null && upcomingDetailEntity.ResultStatus == null && (currentDate | date : 'yyyy-MM-dd') <= (newDate | date:'yyyy-MM-dd')"
+              class="all_btn theme_btn cancel_btn mb-4"
+              (click)="changeProctorShow(upcomingDetailEntity.CandidateId)">Change Proctor</a>
+          </div>
+          <div class="col-12 col-md-12 col-lg-12 col-sm-12">
+            <h6>Comment</h6>
+            <!--admin comment-->
+            <p class="all_detail no_line_height padding_30"><i class="fa fa-comment"></i>
+              <span *ngIf="upcomingDetailEntity.UserComment != null">{{upcomingDetailEntity.UserComment}}</span>
+              <span *ngIf="upcomingDetailEntity.UserComment == null">NA</span>
+            </p>
+          
+          </div>
+        </div>
+        <form id="cancelComment" role="form" #cancelAssessmentForm="ngForm"
+          (ngSubmit)="cancelAssessment(cancelAssessmentForm)">
+          <div class="row">
+            <div class="col-12 col-md-12 col-lg-12 col-sm-12 mb-5">
+              <div class="form-group">
+                <label><span>*</span>
+                  {{globals.adminTranslationText.assessment.list.cancelAssessment.cancellationComment}}</label>
+                <textarea kendoTextArea id="CancelComment" name="CancelComment" #CancelComment="ngModel"
+                  [(ngModel)]="cancelAssessmentEntity.CancelComment"
+                  [ngClass]="{error: (CancelComment.dirty && CancelComment.invalid) || (CancelComment.pristine && submitted) || errorEntity.CancelComment}"
+                  class="form-control" required></textarea>
+                <span class="error_class"
+                  *ngIf="(CancelComment.dirty && CancelComment.invalid) || (CancelComment.pristine && submitted)  || errorEntity.CancelComment">
+                  <span *ngIf="CancelComment.errors && CancelComment.errors.required">
+                    {{globals.adminTranslationText.assessment.list.cancelAssessment.required}}
+                  </span>
+                  <span *ngIf="errorEntity.CancelComment != ''">
+                    {{ errorEntity.CancelComment }}
+                  </span>
+                </span>
+                <div class="clearfix"></div>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer modal_minus_margin text-right">
+            <button class="all_btn theme_btn">Submit</button>
+          </div>
+        </form>
+        <form id="selectProctor" role="form" #chanageProcotrForm="ngForm"
+          (ngSubmit)="chanageProcotr(chanageProcotrForm)">
+          <div class="row">
+            <div class="col-12">
+              <div class="seacrh_proctor_main_block">
+                <h6>{{globals.adminTranslationText.assessment.list.proctorChange.searchNewProctor}}</h6>
+                <div class="row">
+                  <div class="col-md-6 col-6 col-lg-6 col-sm-12">
+                    <div class="form-group">
+                      <label><span>*</span>
+                        {{globals.adminTranslationText.assessment.list.proctorChange.selectProctor}}</label>
+                      <kendo-dropdownlist [data]="proctorList" [filterable]="false" [textField]="'Name'"
+                        [valueField]="'UserId'" [valuePrimitive]="true" #UserId="ngModel"
+                        (valueChange)="showProctorDetail($event)" [(ngModel)]="changeProctorEntity.UserId" name="UserId"
+                        [ngClass]="{error: (UserId.dirty && UserId.invalid) || (UserId.pristine && submitted1) || errorEntity.ProctorName}"
+                        required></kendo-dropdownlist>
+                      <span class="error_class"
+                        *ngIf="(UserId.dirty && UserId.invalid) || (UserId.pristine && submitted1) || errorEntity.ProctorName">
+                        <span *ngIf="UserId.errors && UserId.errors.required">
+                          {{globals.adminTranslationText.assessment.list.proctorChange.required}}
+                        </span>
+                        <span *ngIf="errorEntity.ProctorName != ''">
+                          {{ errorEntity.ProctorName }}
+                        </span>
+                      </span>
+                    </div>
+                  </div>
+                  <div class="col-md-6 col-6 col-lg-6 col-sm-12" id="selectedProctorDetails">
+                    <p><b>{{globals.adminTranslationText.assessment.list.proctorChange.selectedProctorDetails}}</b></p>
+                    <p class="padding_30 all_detail"><i class="fa fa-user"></i>{{proctorDetailEntity.Name}}<br>
+                      <i class="fa fa-envelope"></i>{{proctorDetailEntity.EmailAddress}}<br>
+                      <i class="fa fa-phone"></i>{{proctorDetailEntity.PhoneNumber}}<br>
+                      <i class="fa fa-map-marker"></i>{{proctorDetailEntity.City}}, {{proctorDetailEntity.StateName}}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer modal_minus_margin mt-0 text-right">
+            <button class="all_btn theme_btn">Submit</button>
+          </div>
+        </form>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="decline_popup" tabindex="-1" role="dialog" aria-labelledby="decline_popupLabel"
+  aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="decline_popupLabel">
+          {{globals.adminTranslationText.assessment.list.declinePopup.assessmentDetail}}</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <h4>{{declinedEntity.CertificateName}}</h4>
+        <h6>{{globals.adminTranslationText.assessment.list.candidateDetails}}</h6>
+        <p class="all_detail padding_30"><i class="fa fa-user"></i>
+          {{declinedEntity.CandidateName}}<br>
+          <i class="fa fa-envelope"></i>
+          {{declinedEntity.CandidateEmail}}<br>
+          <i class="fa fa-phone"></i>
+          {{declinedEntity.CandidateContact}}<br>
+          <i class="fa fa-calendar"></i>{{globals.adminTranslationText.assessment.list.preferedDates}}:
+          {{declinedEntity.AvailablePriorityDate1 | date : 'MM/dd/yyyy'}},
+          {{declinedEntity.AvailablePriorityDate2 | date : 'MM/dd/yyyy'}},
+          {{declinedEntity.AvailablePriorityDate3 | date : 'MM/dd/yyyy'}}<br>
+          <i class="fa fa-map-marker"></i>{{declinedEntity.CandidateCity}}, {{declinedEntity.CandidateState}}<br>
+        </p>
+        <h6>{{globals.adminTranslationText.assessment.list.declinePopup.comment}}</h6>
+        <p class="all_detail no_line_height"><i class="fa fa-comment"></i>{{declinedEntity.Comment}}</p>
+        <!--{{declinedEntity.Comment}}admin comment-->
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="modal fade" id="cancel_popup" tabindex="-1" role="dialog" aria-labelledby="cancel_popupLabel"
+  aria-hidden="true">
+  <div class="modal-dialog modal-xl modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="cancel_popupLabel">
+          {{globals.adminTranslationText.assessment.list.declinePopup.assessmentDetail}}</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <h4>{{cancelViewAssessmentEntity.CertificateName}}</h4>
+        <div class="row">
+          <div class="col-12 col-xl-4 col-lg-4 col-md-12 col-sm-12">
+            <div class="border_right">
+              <h6>{{globals.adminTranslationText.assessment.list.candidateDetails}}</h6>
+              <p class="resut_content"><i class="fa fa-user"></i>
+                {{cancelViewAssessmentEntity.CandidateName}}<br>
+                <i class="fa fa-envelope"></i>
+                {{cancelViewAssessmentEntity.CandidateEmail}}<br>
+                <i class="fa fa-phone"></i>
+                {{cancelViewAssessmentEntity.CandidateContact}}
+              </p>
+            </div>
+          </div>
+          <div class="col-12 col-xl-4 col-lg-4 col-md-12 col-sm-12">
+            <div class="border_right">
+              <h6>{{globals.adminTranslationText.assessment.list.cancelPopup.assessmentDetail}}</h6>
+              <p class="resut_content">
+                <i class="fa fa-calendar-o"></i>
+                {{cancelViewAssessmentEntity.AssignDate | date : 'MM/dd/yyyy'}}<br>
+                <i class="fa fa-clock-o"></i>
+                {{cancelViewAssessmentEntity.startTime}}-{{cancelViewAssessmentEntity.endTime}}
+                <br>
+                <i class="fa fa-map-marker"></i>
+                {{cancelViewAssessmentEntity.Address1}},{{cancelViewAssessmentEntity.Address2}},{{cancelViewAssessmentEntity.Address3}},<br>
+                {{cancelViewAssessmentEntity.City}},{{cancelViewAssessmentEntity.StateName}}
+                {{cancelViewAssessmentEntity.ZipCode}}
+              </p>
+
+            </div>
+          </div>
+          <div class="col-12 col-xl-4 col-lg-4 col-md-12 col-sm-12">
+            <div class="border_right no_border">
+              <h6>{{globals.adminTranslationText.assessment.list.cancelPopup.proctorDetails}}</h6>
+              <p class="resut_content"><i class="fa fa-user"></i>
+                {{cancelViewAssessmentEntity.ProctorName}}<br>
+                <i class="fa fa-envelope"></i>
+                {{cancelViewAssessmentEntity.ProctorEmail}}<br>
+                <i class="fa fa-phone"></i>
+                {{cancelViewAssessmentEntity.ProctorContact}}</p>
+            </div>
+          </div>
+          <div class="col-12 col-md-12 col-lg-12 col-sm-12">
+            <h6>{{globals.adminTranslationText.assessment.list.cancelPopup.cancellationComment}}</h6>
+            <p class="all_detail no_line_height padding_30"><i class="fa fa-comment"></i>
+              <span *ngIf="cancelViewAssessmentEntity.UserComment != null">{{cancelViewAssessmentEntity.UserComment}}</span>
+              <span *ngIf="cancelViewAssessmentEntity.UserComment == null">NA</span>
+            </p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,48 @@
+<div class="content_block">
+  <div class="container-fluid">
+    <div class="row">
+      <!-- Content -->
+      <div class="col-12 col-xl-12 col-lg-12 col-md-12 col-sm-12">
+        <div class="title_block">
+          <h2 class="float-left">Legal</h2>
+          <div class="breadcrumb_block float-left">
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item">
+                <a href="/proctorDashboard" *ngIf="globals.authData.RoleId == 2 || globals.authData.RoleId == 4">
+                  <i class="fa fa-home"></i>
+                </a>
+                <a href="/admin/adminDashboard" *ngIf="globals.authData.RoleId == 1">
+                  <i class="fa fa-home"></i>
+                </a>
+              </li>
+              <li class="breadcrumb-item active" aria-current="page">
+                Legal</li>
+            </ol>
+          </div>
+          <a routerLink="/proctorDashboard" class="all_btn themeoption_btn float-right"
+            *ngIf="globals.authData.RoleId == 2 || globals.authData.RoleId == 4">Back to
+            Dashboard</a>
+          <a routerLink="/admin/adminDashboard" class="all_btn themeoption_btn float-right"
+            *ngIf="globals.authData.RoleId == 1">Back to
+            Dashboard</a>
+          <div class="clearfix"></div>
+        </div>
+        <div class="row d-flex justify-content-center">
+          <div class="col-md-12 col-sm-12">
+            <div class="inner_content_block">
+              <form>
+                <div class="filter_block_form">
+                  <div class="row">
+                    In Progress
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- End Content -->
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</div>

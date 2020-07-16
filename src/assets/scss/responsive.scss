@@ -1,0 +1,844 @@
+/*--- Links --- */
+@import "fonts";
+@import "colors";
+@import "numbers";
+/*--- End Links --- */
+
+@media screen and (max-width:1700px) and (min-width: 1200px){
+    .register_step_block{
+        .role_radio_block{
+            .role_radio label{
+                height: $number250;
+            }
+        }
+    }
+    .inner_content_block{
+        .paddin_form{
+            form.certificate_form{
+                // .col-xl-4{
+                //     padding-right: $number2;
+                //     padding-left: $number2;
+                // }
+                .form-group{
+                    label{
+                        font-size: $number11;
+                    }
+                }
+            }
+        }
+    }
+    .proctor_dashboard_block{
+        .p_dashboard_count{
+            span{
+                display: block;
+            }
+        }
+    }
+}
+@media(min-width:1200px) and (max-width:1600px) {
+    .result_info_block{
+        .col-xl-3{flex: 0 0 50%; max-width: 50%;}
+        .ass_full{flex: 0 0 100%; max-width: 100%;}
+    }
+    .result_page_block{
+        .result_info_block{
+            .border_right{ border:$number0; border-bottom: $number1 solid $grey; min-height: auto;  margin-bottom: $number10; padding-bottom: $number10; }
+        } 
+    } 
+    
+    .active_menu_right_block{
+        .filter_block_form{
+            .all_btn{
+                min-width: $number60;
+            }
+        }
+    }
+    .proctor_list_block{
+        .p_list_block{
+            .col-xl-4{flex: 0 0 50%; max-width:50%;}
+        }
+    }
+}
+@media screen and (max-width:1500px) and (min-width: 1200px){
+    .proctor_list_block{
+        .all_btn{
+            min-width: $number65;
+            margin: 0 $number3;
+        }
+        .p_list_block{
+            .col-xl-4 {
+                flex: 0 0 $width50per;
+                max-width: $width50per;
+            }
+        }
+    }
+    .category_block_list{
+        .col-xl-3{flex: 0 0 33%; max-width: 33%;}
+    }
+    .assessment_list_block
+    {
+        .col-xl-4{flex: 0 0 50%; max-width: 50%;}
+    }
+    
+    .assign_assessment_bock{
+        .top_inforrmation_block{
+            .block_date_proctor {
+                min-height: $number150; 
+            }
+        }
+    }
+    .candidate_dashboard_block{
+        .certificate_block_list{
+            .col-xl-3 {
+                flex: 0 0 33.3%;
+                max-width: 33.3%;
+            }
+        }  
+    }
+    .practicetest_block{ 
+        .col-xl-2{flex: 0 0 25%; max-width: 25%;}
+    }
+}
+@media (max-width:1500px){
+    .profile_step_block {
+        padding: $number5 $number15;
+        .nav-tabs {
+            .nav-item{
+                .nav-link{
+                    padding: $number10 $number10 $number10 $number10;
+                }
+            }
+        }
+    }
+}
+@media(max-width:1400px) {
+    .uploaded_document_block {
+        .width_doc{
+            width:160px;
+        }
+    }
+}
+@media (min-width:991px) and (max-width:1420px) {
+    .legend_filter_block{
+        .col-xl-7,.col-xl-5{ flex: 0 0 100%; max-width: 100%;}
+        .filter_legend_block {
+            text-align: left;
+            margin: $number15 $number0;
+        }
+    }
+}
+@media (min-width:1260px) and (max-width:1340px) {
+    .certificate_detail_block .assessment_block .col-xl-3{
+        flex: 0 0 33.333333%;
+        max-width: 33.333333%;
+    }
+}
+@media (min-width:1200px) and (max-width:1300px) {
+    .assign_assessment_bock {
+        .suggested_proctor_main_block{
+            .col-xl-4{flex: 0 0 50%; max-width: 50%;}
+        }
+    } 
+    .category_block_list {
+        .category_block{
+            .cat_content{
+                li{font-size: $number13;}
+            }
+        }
+    }
+    
+}
+@media(max-width:1200px) {
+    .assign_assessment_bock{ 
+        .top_inforrmation_block{ margin:-$number15 $number0 $number15 $number0;
+            .block_date_proctor {
+                height: auto; min-height: $number120; border:$number0!important; border:$number1 solid $grey!important; margin: -$number1 $number0 $number0 -$number1; padding: $number15; width:$width50per;
+                p{padding: $number0!important;}
+            }
+            .block_date_proctor:after{display: none!important;}
+        }
+    }  
+}
+@media screen and (max-width:1400px) and (min-width: 992px){
+    .assessment_panel_page{
+        .legend_details_block{
+            .legends {
+                float: left !important;
+                // margin-top: 10px;
+            }
+        }
+    }
+    
+}
+
+@media screen and (max-width:1199px) and (min-width: 992px){
+    .register_step_block{
+        .role_radio_block {
+            .role_radio{
+                label{height: $number230;}
+            } 
+        }
+    } 
+    .profile_step_block {
+        .nav-tabs {
+            .nav-item{
+                .nav-link{
+                    span{display: none;}
+                }
+            }
+        }
+    }
+    table{
+        display: block;
+        width: $width100per;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        -ms-overflow-style: -ms-autohiding-scrollbar;
+    }
+    .result_page_block{
+        .result_info_block{
+            .border_right{ border:$number0; border-bottom: $number1 solid $grey; min-height: auto;  margin-bottom: $number10; padding-bottom: $number10; }
+        } 
+    } 
+    .login_register_bg{
+        .loginregister_white_block{
+            .white_login_block{
+                
+                .login_logo_block{
+                    padding: $number20 $number10;
+                }
+            }
+        }
+    }
+    // .filter_block_form,.p_search_block{
+    //     button.all_btn {
+    //         margin: 0 $number5 $number20 $number5 !important;
+    //     }
+    // }
+    .proctor_list_block{
+        .p_list_block{
+            .proctoring_box{
+                .address_block{
+                    p{
+                        font-size: $number13;
+                    }
+                }
+            }
+        }
+        .p_filter_block{
+            padding: $number20 $number15;
+            .all_btn{
+                margin: $number5;
+            }
+        }
+        .p_search_block{
+            padding: $number20 $number15 0 $number15;
+        }
+        .p_filter_content_block,.p_list_block {
+            padding: $number20 $number15 $number20 $number15;
+            margin-left: -30px;
+        }
+        .p_filter_content_block{
+            ul{
+                li{
+                    margin: $number5;
+                }
+            }
+        }
+    }
+    .candidate_dashboard_block{
+        .certificate_block_list{
+            .col-xl-3 {
+                flex: 0 0 50%;
+                max-width: 50%;
+            }
+        }  
+    }
+    .inner_content_block{
+        .assessment_list_block{
+            .col-lg-6 {
+                flex: 0 0 $width100per;
+                max-width: $width100per;
+            }
+        }
+    }
+    .title_legend_block{
+        h5{display: block; width: $width100per;}
+        .mobile_remove{display: block; width: $width100per;}
+    }
+    .practicetest_block{ 
+        .col-xl-2{flex: 0 0 33.33%; max-width: 33.33%;}
+    }
+}
+
+@media screen and (max-width:1200px) and (min-width: 768px){
+    .assessment_list_block{
+        .assessment_list_box{
+            .cer_content{
+                height: auto;
+            }
+        }
+    }
+}
+
+@media screen and (max-width:991px){
+    .login_register_bg{
+        .loginregister_white_block{
+            padding: $number15 $number0;
+            .white_login_block{min-height: auto;
+                .padding_login_block{
+                    padding: $number20;
+                }
+                .login_logo_block{min-height: auto; border-radius: $number10 $number10 $number0 $number0; width: $width100per;
+                    .logo_center{
+                        
+                        img{
+                            width: 130px;
+                        }
+                    }
+                }
+            }
+        }
+    }
+    .proctor_list_block{
+        .p_filter_block{
+            padding: $number20 $number15;
+            border-radius: $number10 $number10 $number0 $number0;
+        }
+        .p_search_block{
+            padding: $number20 $number15 0 $number15;
+            margin-left: 0px;
+            button.all_btn {
+                margin: 0 $number5 $number20 $number5 !important;
+            }
+        }
+        .p_filter_content_block {
+            padding: $number20 $number10;
+            ul{
+                li{
+                    margin: $number5;
+                }
+            }
+        }
+        .p_list_block{
+            padding: 0 $number15 $number15 $number15;
+            .proctoring_box{
+                .address_block{
+                    p{
+                        font-size: $number12;
+                    }
+                }
+            }
+        }
+    }    
+    .assessment_panel_page{
+        .legend_details_block{
+            .timer_block {
+                margin: $number10 0 $number10 0;
+                padding: 0 0 0 0;
+                border-left: none;
+                float: none !important;
+            }
+            .filter_select {
+                width: $width100per;
+                margin: 0 0 $number10 0;
+            }
+            .legends {
+                line-height: $number25;
+                float: none !important;
+            }
+            h5{
+                float: none !important;
+            }
+        }
+    }
+    .edit_profile_block_main,.certificate_tab_block,.certificate_tab,.assessment_list_block{
+        .edit_profile_name_title{border-bottom:$number1 solid $grey;}
+        .profile_step_block,.certificate_ul{display: none;}
+        .tab-content > .tab-pane {
+            display: block !important;
+            opacity: 1;
+            padding: $number0!important;
+        }
+        .mobile_accordion{
+            display: block; position: relative; width: $width100per; 
+            .mobile_accordion_cards
+            {
+                border-radius: $number0; margin: -$number2 $number0 $number0 $number0;
+                .card-header.mobile_header{
+                background: $white!important; padding: $number0!important; display: block!important; position: relative; width: $width100per!important; border-bottom:$number1 solid $grey!important; cursor: pointer;
+                    button{
+                        background: $white!important; border:$number0!important; padding: $number10!important; display: block!important; position: relative; width: $width100per!important; color:$thememaincolor!important; text-align: left;
+                        i{width: $number15; margin-right: $number5;}
+                    }
+                }
+            }
+        }
+    }
+    .uploaded_document_block{
+        .width_doc{width: 33%;}
+    } 
+    .filter_block_form,.filter_block{
+        button.all_btn {margin:$number0 $number5 $number20 $number5!important;}
+    }
+    table{
+        display: block;
+        width: $width100per;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        -ms-overflow-style: -ms-autohiding-scrollbar;
+    }
+    .pagination {
+        margin: $number10 $number0 $number0 $number0;
+        float: left!important;
+    }
+    #upcoming_popup,#cancel_popup{
+        .border_right{ border: $number0; min-height: auto; margin-bottom: $number10; }
+    }
+    .contact_block{margin: $number20 $number0 $number0 $number0;}
+    .assessment_list_block {
+        .filter_legend_block {
+            text-align: left;
+            margin: $number15 $number0;
+        }
+    }
+    .result_page_block{
+        .result_info_block{
+            .border_right{ border:$number0; border-bottom: $number1 solid $grey; min-height: auto;  margin-bottom: $number10; padding-bottom: $number10; }
+        } 
+    } 
+    .category_block_list{
+        .legend_block{float: left; margin-top: $number10;
+            li{
+                margin: $number0 $number15 $number0 $number0;
+            }
+        }
+    } 
+    .margin_placeholder{margin-bottom: $number30; margin-top: $number0;}
+    .certificate_detail_block {
+        .cat_number{background: rgba($color: $lightgrey, $alpha: 0.08); width: $number20; height: $number20; border-radius: $width100per; border:$number1 solid $grey; text-align: center; padding: $number2; font-size: $number13; line-height: $number15;margin-left: $number10; display: inline-block;}
+        .doc_status{margin:$number0 $number0 $number0 $number10;}
+        .num_ap{margin:$number0 $number0 $number0 $number10;}
+    }
+    .title_legend_block{
+        h5{display: block; width: $width100per;}
+        .mobile_remove{display: block; width: $width100per;}
+    }
+    .candidate_dashboard_block {
+        .filter_legend_block {
+            top: $number0;
+            margin-bottom: $number15;
+        }
+    }
+    .accordion{float: left; margin: $number20 $number0; clear: both; display: block;}
+    kendo-window.k-window{width: $width90per!important; min-width: $width90per!important;}
+}
+@media(min-width:991px) {
+    .edit_profile_block_main,.certificate_tab_block,.certificate_tab,.assessment_list_block{
+        .nav-tabs { display: flex;}
+        .card.mobile_accordion_cards { border: none; 
+            .card-header.mobile_header { display:none;}  
+            .collapse.mobile_collapse{ display:block;}
+            .card-body.mobile_body{padding: $number0!important;}
+        }
+        #accordiondocument{
+            .card {
+                .card-body{padding: $number15!important;}
+            }
+        }
+    }
+}
+@media screen and (max-width:767px){
+    header{
+        .mobile_logo{display: block; width: $width100per;}
+        .mobile_toggle{
+            background: url(../images/menu-button.png) center center no-repeat; height:$number35; width:$number35; background-size:$number20; border:$number0; position: relative; top: $number5; right:$number0; display: inline-block;
+        }
+        .mobile_toggle.close_toggle{
+            background: url(../images/close-button.png) center center no-repeat; background-size:$number20;
+        }
+    }
+    header.admin_header{
+        .user_dropdown{
+            .user_button{
+                .name{display: none;}
+            } 
+        } 
+        .user_dropdown.notification_block{margin: $number0;
+           ul.dropdown-menu.notification_width{width:$number300!important; right: -$number50!important;
+                &::before{right: 17%!important;}
+            }
+        }
+    } 
+   
+    .sidebar_wrap{
+        width:$width100per; top:$number60; display: block; height: $number0; visibility: hidden; transition: all 0.3s ease-out;
+        .header_logo{display: none;}
+        .sidebar_box{ 
+            .title{
+                text-align: left;
+                i{display: inline-block; width:$number30; color: $thememaincolor;}
+                    span{display: inline-block;}
+            }
+            .title_a{
+                text-align: left;
+                i{display: inline-block; width:$number30; }
+                    span{display: inline-block;}
+            }
+            li{
+                display: block;
+                a{
+                    text-align: left;
+                
+                    .minus_plus{display: inline-block;}
+                    &:hover, &:focus{ 
+                        background: rgba($color: $thememaincolor, $alpha: 0.06);
+                    }
+                }
+                ul{ 
+                    display: block;
+                    li{
+                        a{
+                            padding-left: $number65;
+                        }
+                
+                        ul{
+                            a{padding-left: $number60;}
+                        }
+                    }
+                }
+            }
+            li.active{
+                a{background:rgba($color: $thememaincolor, $alpha: 0.06);}
+            }
+        }
+        &.active_menu{ width: $width100per; transition: all 0.3s ease-out; display: block; height: $width100per; visibility: visible;} 
+    }
+    .admin_small_right_block,.content_block,header,footer {
+        width: $width100per!important;
+        left: $number0 !important;
+    }
+    .container-fluid{padding: $number0 $number15;}
+    .inner_content_block{
+        .paddin_form,.category_block_list,.assign_assessment_content,.certificate_block_list {
+            padding: $number15;
+        }
+        .table_block {
+            padding: $number15 $number0;
+        }
+        .assessment_list_block{padding: $number15;}
+        .filter_block_form{padding: $number15 $number15 $number0 $number15;}
+    } 
+    .content_block{
+        .title_block{padding: $number15 $number15 $number15 $number15; background: transparent; box-shadow: none;
+            h2 {
+                margin:  $number5 $number0 $number7 $number0!important;
+                border:$number0!important;
+                border-bottom: $number1 solid $grey!important;
+                padding: $number0 $number0 $number7 $number0!important;
+                display: block!important;
+                float: none!important;
+            }
+            .all_btn {margin-top: $number10!important; clear: both!important; float: none!important;}
+        }
+        .breadcrumb_block{
+            display: block!important; float: none!important;
+        }
+    } 
+    
+    .dataTables_wrapper 
+    {
+        .dataTables_length,.dataTables_info{padding-left: $number15!important; text-align: left!important; display: block; width: $width100per!important;}
+        .dt-buttons {
+            float: left !important; text-align: left!important; display: block;
+            margin-left: $number0!important;
+            margin-top: $number40!important; width: $width100per!important;
+        }
+        .dataTables_filter {
+            float: left!important; text-align: left!important;
+            padding-left: $number15!important;
+            margin: -$number70 $number0 $number0 $number0!important; display: block; width: $width100per!important;
+        }
+        .dataTables_paginate{padding: $number15!important; text-align: left!important;display: block; width: $width100per!important;} 
+    }
+    .edit_profile_block_main{
+        .progress_profile {display: block; width: $width100per; text-align: left; margin: $number20 $number0 $number0 $number0;
+            .circle{ margin: $number0;}
+            p{top: $number0!important;}
+        }
+    }
+   
+    .assign_assessment_bock {
+        .assign_step_block{padding: $number5 $number15;}
+    }
+    .container-fluid{
+        padding: 0 $number15;
+    }
+    .register_step_block{
+        .role_radio_block{
+            .role_radio {
+                text-align: center;
+            }
+        }
+    }
+    .order_main_block{
+        .order_block{
+            .order_content{
+                .invoice_block.float-right{
+                    float: left !important;
+                    margin-top:$number10;
+                }
+            }
+        }
+    }
+    .fc-toolbar{
+        .fc-left,.fc-right,.fc-center{
+            float: left;
+            width: $width100per;
+            margin: $number10 0;
+        }
+    }
+    .chart_block{
+        .float-left,.float-right{
+            float:none !important;
+        }
+    }
+    #calendar{
+        table{
+            display: table;
+        }
+    }
+    .proctor_dashboard_block{
+        .attendance_block{
+            //.float-left,.float-right{
+                //float:none !important;
+            //}
+            .full_sheet{ float: left!important; display: block; width: $width100per;}
+            .check_list_block{
+                position: relative;
+                float: left!important;
+                margin-left: $number15;display: block; width: $width100per;
+            }
+            .dataTables_wrapper{
+                .dataTables_filter{
+                    margin: -20px 0 0 0 !important;
+                    padding-right: 0 !important;
+                }
+            }
+        }
+    }
+    .order_main_block{
+        .order_block{
+            .order_content{
+                .price_block{margin:$number5 $number0!important; float: left!important; display: block!important; width: $width100per!important;}
+            }
+        }
+    } 
+    .proctor_list_block {
+        .p_list_block{
+            .filter_legend_block{float: left!important; margin-bottom: $number10!important;}
+        }
+    } 
+    header .header_logo{height: 50px; width: auto;}
+    header.admin_header .notification_block{width: 40px; height: 40px;}
+    .certificate_detail_block .note_cat{float: left; margin-top: 10px; display: block; width: 100%;}
+    footer{
+        padding: $number10 $number30;
+        .text-left,.text-right{ text-align: center!important; line-height: $number25;}
+    }
+    #assessment_preview_modal {
+        .modal-footer{
+            display: block;
+            span.float-left{width: $width100per; display: block; margin-bottom: $number10;}
+            button{float: left!important;}
+        }
+    }
+}
+
+@media (max-width:600px){
+    .role_block{
+        float: left!important; clear: both; display: block;
+    }
+    .assign_assessment_bock{ 
+        .top_inforrmation_block{
+            .block_date_proctor { width:$width100per;
+            }
+        }
+    }  
+    .proctor_list_block .p_list_block .proctoring_box .address_block .address_label a{font-size: $number13!important;}
+    .edit_profile_name_title,.cert_info{
+        .edit_nameemail{margin:$number10 $number0 $number0 $number0; display: block; width: $width100per;}
+    }
+    .order_main_block {
+        .order_block {
+            .acc_header {
+                .status_text{float: left!important; margin:$number10 $number0 $number0;}
+            }
+        }
+    }
+}
+@media screen and (max-width:576px){
+    .login_register_bg{
+        .loginregister_white_block{
+            .white_login_block{
+                .padding_login_block{
+                    .login_button_block{ 
+                        a.float-left,p.float-left{
+                            float: none !important;
+                            clear: both;
+                            display: block;
+                            margin: auto;
+                        }
+                        .themeoption_btn,.theme_btn{
+                            margin-top: $number0 ;
+                            margin-bottom: $number10 ;
+                            float: none !important;
+                        }
+                        .mobile_left{ float: left!important;}
+                    }
+                    form{
+                        .forgotpswd{
+                            float: left !important;
+                            margin-top: $number5;
+                        }
+                    }
+                    h3{
+                        font-size: $number20;
+                    }
+                }
+            }
+        }
+    }
+    .register_step_block{
+        .role_radio_block{
+            .role_radio label{
+                height: auto;
+            }
+        }
+        .nav-tabs{
+            display: block;
+            .nav-item{
+                .nav-link{
+                    padding: $number10 $number20 $number10 $number0;
+                    &:after {
+                        top: auto;
+                        right: auto;
+                        left: 8px;
+                        bottom: -10px;
+                        transform: rotate(90deg);
+                    }
+                }
+            }
+        }
+    }
+    .proctor_dashboard_block{
+        .p_dashboard_count{
+            b{
+                margin: 0 $number10;
+            }
+        }
+    }
+    .assessment_main_block{
+        .assessment_submit {
+            margin: $number50 0 0 0;
+        }
+        .mark_review label {
+            margin: -3px $number3 0;
+        }
+    }
+    .inner_content_block.result_page_block{
+        .paddin_form{
+            .float-right{
+                float: left !important;
+                display: block;
+                width: 100%;
+            }
+        }
+        .per_block{
+            margin-top: $number15;
+        }
+    }
+    .eligibility_main_block
+    {
+        .eligibility_block{
+            .white_eligibility_block{
+                .eligibility_logo_block{
+                    .logo_center{
+                        .float-right{
+                                float: left !important;
+                                margin: $number15 0;
+                                text-align: left !important;
+                        }
+                    }
+                }
+                .questionblock{
+                    margin: $number2;
+                }
+                .eligibility_submit {
+                    margin: $number10 0 0 0;
+                }
+            }
+        }
+    }
+    
+    header.admin_header{
+        .become_p_c{
+            button{
+                img{
+                    display: none;
+                }
+            }
+        }
+    }
+    .assessment_list_block{
+        .assessment_list_box{
+            .cer_content{
+                height: auto;
+                .round_content {
+                    position: relative;
+                    top: auto;
+                    right: auto;
+                    margin: 0 auto;
+                }
+            }
+        }
+    }
+    .uploaded_document_block{
+        .width_doc{width: 50%;}
+    }
+    .status_button{float: left; display: block; width: $width100per; margin-bottom: $number30;}
+    .role_label{display: none;}
+    
+    header.admin_header .become_p_c { margin-left: 0px;}
+    header.admin_header .become_p_c button{font-size: 13px;}
+    kendo-daterange {
+        label {
+            width: $width100per;
+            margin: $number0 $number0 $number10 $number0!important;
+        }
+    }
+}
+
+
+// parth
+
+@media screen and (min-width:1200px) and (max-width:1600px){
+    .dashboard_count_block{
+        .row{
+            .col-xl-3{
+                flex: 0 0 $width50per;
+                max-width: $width50per;
+            }
+        }
+    }
+}
+@media screen and (min-width:1601px) and (max-width:1900px){
+    .three_divide{
+        &.plus_b, &.equal_b {
+            font-size: $number12;
+            &::after{
+                right: $number5 !important;
+            }
+        }
+    }
+}

@@ -1,0 +1,218 @@
+<div class="content_block assessment_panel_page">
+  <div class="container-fluid">
+    <div class="row">
+      <!-- Content -->
+      <div class="col-md-12 col-sm-12">
+        <div class="title_block">
+          <h2 class="float-left">{{certificatename}}</h2>
+          <div class="category_name float-left">{{categoryname}}</div>
+          <div class="clearfix"></div>
+        </div>
+        <div class="row d-flex justify-content-center">
+          <div class="col-md-12 col-sm-12">
+            <div class="inner_content_block">
+              <div class="paddin_form">
+                <div class="legend_details_block">
+                  <!-- <h5 class="float-left">Total Attempts:<span> <span id="totalAnswered">0</span> /{{PracticeTotalItems}}</span></h5> -->
+                  <div class="timer_block float-left"><label>Time Remaining:</label>
+                    <div class="timer" title="{{CategoryAssessmentTime}}"></div>
+                  </div>
+                  <!-- <div class="filter_select float-right">
+                    <label>Filter</label>
+                    <kendo-multiselect [data]="dropdownList" [filterable]="false"
+                      [textField]="'filter_option_text'" [valueField]="'filter_option_id'" [valuePrimitive]="true"
+                      name="filter_type" (valueChange)="filter_practice($event)">
+                    </kendo-multiselect>
+                  </div>  -->
+                  <div class="legends float-right">
+                    <div class="mr-4"><span></span>Unanswered</div>
+                    <div class="mr-4"><span class="answered"></span>Answered</div>
+                    <div class="mr-4"><i class="fa fa-star"></i>Marked as review</div>
+                  </div>
+                  <div class="clearfix"></div>
+                </div>
+                <div class="clearfix"></div>
+                <div class="assessment_main_block">
+                  <form role="form" #assessmentTestForm="ngForm" (ngSubmit)="practiceSubmit()">
+                    <div class="thumbnail_slider_block">
+                      <div id="carousel" class="flexslider">
+                        <ul class="slides">
+                          <li *ngFor="let question of practiceTestListEntity; let j = index;">
+                            <div class="questionblock" id="questionblock{{j+1}}">
+                              {{j+1}}
+                              <span *ngIf = "question.MarkAsReview == 1">
+                              <i class="fa fa-star"></i>
+                              </span>
+                            </div>
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+                    <div class="assessment_question_block">
+                      <div id="slider" class="flexslider">
+                        <ul class="slides">
+                          <li *ngFor="let question of practiceTestListEntity; let i = index;">
+                            <div class="assessment_test">
+                              <div class="question_block"><span>{{i+1}}</span>
+                                <p [innerHTML]="question.ItemText">
+                              </div>
+                              <!-- <div class="answer_block">
+                                <div class="radio_box" *ngFor="let options of question.ItemOptions; let j = index;">
+                                  <input type="radio" name="UserItemOptionId{{i}}"
+                                    id="UserItemOptionId{{i}}{{j}}" [value]="options.ItemOptionId" (change)="addPracticeAnswer(options.ItemOptionId,question.CorrectOptionId,question.PracticeTestAnswerId,i,question.ItemId,options.Optionvalue)" #UserItemOptionId="ngModel" [(ngModel)]="question.UserItemOptionId">
+                                  <label for="UserItemOptionId{{i}}{{j}}">{{options.Optionvalue}}</label>
+                                </div>
+                              </div> -->
+                              <!-- descriptive answer -->
+                              <div class="answer_block" *ngIf="question.AnswerTypeId == 76">
+                                <textarea id="DescriptiveAnswer" name="DescriptiveAnswer{{i}}{{j}}" id="DescriptiveAnswer{{i}}{{j}}" #DescriptiveAnswer="ngModel" [(ngModel)]="question.DescriptiveAnswer"
+                                (change)="addPracticeAnswer(0,question.CorrectOptionId,question.PracticeTestAnswerId,i,question.ItemId,0,1,question.AnswerTypeId,0)"
+                                  class="form-control" ></textarea>
+                              </div>
+                              <!-- single select mcq -->
+                              <div class="answer_block" *ngIf="question.AnswerTypeId == 77">
+                                <div class="radio_box" *ngFor="let options of question.ItemOptions; let j = index;">
+                                  <input type="radio" name="UserItemOptionId{{i}}{{j}}" id="UserItemOptionId{{i}}{{j}}"
+                                    [value]="options.ItemOptionId"
+                                    (change)="addPracticeAnswer(options.ItemOptionId,question.CorrectOptionId,question.PracticeTestAnswerId,i,question.ItemId,options.Optionvalue,options.IsCorrectOption,question.AnswerTypeId,j)" #UserItemOptionId="ngModel" [(ngModel)]="question.UserItemOptionId">
+                                  <label for="UserItemOptionId{{i}}{{j}}">{{options.Optionvalue}}</label>
+                                </div>
+                              </div>
+                              <!-- Multi select mcq -->
+                              <div class="answer_block" *ngIf="question.AnswerTypeId == 78">
+                                <div class="check_box" *ngFor="let options of question.ItemOptions; let j = index;">
+                                  <input type="checkbox" name="UserItemOptionId{{i}}" id="UserItemOptionId{{i}}{{j}}"
+                                    [value]="options.ItemOptionId"
+                                    (change)="addPracticeAnswer(options.ItemOptionId,question.CorrectOptionId,question.PracticeTestAnswerId,i,question.ItemId,options.Optionvalue,options.IsCorrectOption,question.AnswerTypeId,j)" 
+                                    >
+                                  <label for="UserItemOptionId{{i}}{{j}}">{{options.Optionvalue}}</label><!-- <input type="checkbox" value="yes" name="IsCorrectOption{{l}}" id="multiSelectIsCorrectOption{{l}}"  [(ngModel)]="multiSelectOptionList[l].IsCorrectOption" #IsCorrectOption="ngModel" (change)="RadioChange(l)"> -->
+                                </div>
+                              </div>
+                              <!-- boolean with scoring -->
+                              <div class="answer_block" *ngIf="question.AnswerTypeId == 79">
+                                <div class="radio_box" *ngFor="let options of question.ItemOptions; let j = index;">
+                                  <input type="radio" name="UserItemOptionId{{i}}{{j}}" id="UserItemOptionId{{i}}{{j}}"
+                                    [value]="options.ItemOptionId"
+                                    (change)="addPracticeAnswer(options.ItemOptionId,question.CorrectOptionId,question.PracticeTestAnswerId,i,question.ItemId,options.Optionvalue,options.IsCorrectOption,question.AnswerTypeId,j)" #UserItemOptionId="ngModel" [(ngModel)]="question.UserItemOptionId">
+                                  <label for="UserItemOptionId{{i}}{{j}}">{{options.Optionvalue}}</label>
+                                </div>
+                              </div>
+                              <!-- boolean without scoring -->
+                              <div class="answer_block" *ngIf="question.AnswerTypeId == 80">
+                                <div class="radio_box" *ngFor="let options of question.ItemOptions; let j = index;">
+                                  <input type="radio" name="UserItemOptionId{{i}}{{j}}" id="UserItemOptionId{{i}}{{j}}"
+                                    [value]="options.ItemOptionId"
+                                    (change)="addPracticeAnswer(options.ItemOptionId,question.CorrectOptionId,question.PracticeTestAnswerId,i,question.ItemId,options.Optionvalue,1,question.AnswerTypeId,j)" #UserItemOptionId="ngModel" [(ngModel)]="question.UserItemOptionId">
+                                  <label for="UserItemOptionId{{i}}{{j}}">{{options.Optionvalue}}</label>
+                                </div>
+                              </div>
+                              <div class="mark_review">
+                                <label>{{globals.commonTranslationText.assessmentTestPage.markAsReview}}</label>
+                              <div class="activeyes_box">
+                                <!-- <input type="checkbox" #MarkAsReview{{i}}="ngModel" [(ngModel)]="practiceTestEntity.MarkAsReview" name="markAsReview{{i}}" id="markAsReview{{i}}" (click)="checkMarkedAsReview(i+1)" >
+                                <label for="markAsReview{{i}}"></label> -->
+                                <kendo-switch [(ngModel)]="question.MarkAsReview" value="yes" #MarkAsReview="ngModel" name="MarkAsReview{{i}}" (valueChange)="markasreview(question.CorrectOptionId,question.PracticeTestAnswerId,i,question.ItemId)" [onLabel]="'Y'"
+                      [offLabel]="'N'"></kendo-switch>
+                              </div>
+                            </div>
+                            </div>
+                          </li>
+                        </ul>
+                      </div>
+                      <div class="clearfix"></div>
+                      <div class="col-md-12 col-lg-12 text-center">
+                        <button class="all_btn theme_btn assessment_submit" id="assessment_submit">Submit</button>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal fade" id="practicecategorymodal" tabindex="-1" role="dialog"
+  aria-labelledby="assessmentcategorymodalTitle" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+  <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="assessmentcategorymodalLongTitle">
+          {{certificatename}}</h5>
+      </div>
+      <div class="modal-body">
+        <div class="category_block">
+          <div class="row">
+            <!-- <div class="col-lg-4 col-12 col-sm-12 col-md-12">
+              <div class="cat_block">
+                <div class="ct_header">Category Name</div>
+                <div class="ct_content">
+                    <p>No. of Questions: 6<br>
+                      Time: 120minutes</p>
+                </div>
+                <div class="ct_footer status">
+                    Completed
+                    <div class="clearfix"></div>
+                  </div>
+              </div>
+            </div> -->
+            <!-- note:"" -->
+            <div class="col-xl-4 col-lg-4 col-12 col-sm-12 col-md-12" *ngFor="let category of categoryList;let i =index;">
+              <div class="cat_block">
+                <div class="ct_header">{{category.CategoryName}}</div>
+                <div class="ct_content">
+                    <p>No. of Questions: {{category.PracticeTotalItems}}<br>
+                      Time: {{category.CategoryAssessmentTime}} minutes<br>
+                      Score: <span *ngIf ="category.CategoryScore!=null">{{category.CategoryScore}} %</span>
+                      <span *ngIf = "category.CategoryScore==null">NA</span>
+                    </p>
+                </div>
+                <div class="ct_footer" [ngClass] = "{status : (category.CategoryStatusId>0)}">
+                    <button *ngIf="category.CategoryStatusId==null || category.CategoryStatusId==0" (click)="addPracticeTest(i)">Start Now</button>
+                    <span *ngIf="category.CategoryStatusId>0" >Completed</span>
+                    <div class="clearfix"></div>
+                  </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <a (click)="backdashboard()" type="button"  class="all_btn themeoption_btn">Back to Certificate details</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- modal popup for preview -->
+<div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+  id="assessment_preview_modal">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="ModalLabel">Practice Preview</h5>
+        <button type="button" class="close float-right" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">×</span>
+        </button>
+      </div>
+      <div class="modal-body assessment_preview_scroll">
+        <div class="assessment_preview">
+          <div class="assessment_preview_block" *ngFor="let question of practiceTestListEntity;let i=index;">
+            <div class="number">{{i+1}}</div>
+            <div class="q_a"><b>Q.: </b><p [innerHTML]="question.ItemText"></div>
+            <div class="q_a"><b>A.: </b>{{question.UserAnswerValue}}</div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <span class="float-left">Are you sure you want to submit?</span>
+        <button class="all_btn theme_btn float-right" type="button" (click)="finalPracticeSubmit()">Yes</button>
+        <button class="all_btn themeoption_btn float-right" type="button" data-dismiss="modal">No </button>
+      </div>
+    </div>
+  </div>
+</div>
+<!--modal popup for preview-->

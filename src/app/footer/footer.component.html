@@ -1,0 +1,40 @@
+<!-- ########## FOOTER FOR COMMON - LOGGED OUT ########## -->
+<!-- <footer class="footer_register" *ngIf="globals.authData==undefined">
+  <div class="container-fluid">
+    <div class="row justify-content-around">
+      <div class="col-md-12 col-sm-12 text-center">&copy; <span class="footer_year"></span>&nbsp;
+        <a href="http://www.theopeneyes.com/" target="_blank">OpenEyes Technologies Inc.</a>
+      </div>
+    </div>
+  </div>
+</footer> -->
+
+<!-- ########## FOOTER FOR COMMON - LOGGED IN ########## -->
+<footer *ngIf="globals.authData!=undefined && globals.currentModule!='admin'">
+  <div class="row">
+    <div class="col-12 col-xl-6 col-lg-6 col-md-6 col-sm-12 text-left">© <span class="footer_year"></span>&nbsp;<a href="http://www.theopeneyes.com/" target="_blank">OpenEyes Software Solution</a>
+    </div>
+    <div class="col-12 col-xl-6 col-lg-6 col-md-6 col-sm-12 text-right"><a routerLink="privacyPolicy">Privacy Policy</a>  |  <a routerLink="cookiePolicy">Cookie Policy</a>  |  <a routerLink="termconditions">Terms of use</a>
+    </div>
+  </div>
+</footer>
+
+<!-- ########## FOOTER FOR ADMIN - LOGGED IN ########## -->
+<footer *ngIf="globals.authData!=undefined && globals.currentModule=='admin'">
+  <div class="row">
+    <div class="col-12 col-xl-6 col-lg-6 col-md-6 col-sm-12 text-left">© <span class="footer_year"></span>&nbsp;<a href="http://www.theopeneyes.com/" target="_blank">OpenEyes Software Solution</a>
+    </div>
+    <div class="col-12 col-xl-6 col-lg-6 col-md-6 col-sm-12 text-right"><a routerLink="privacyPolicy">Privacy Policy</a>  |  <a routerLink="cookiePolicy">Cookie Policy</a>  |  <a routerLink="termconditions">Terms of use</a>
+    </div>
+  </div>
+</footer>
+
+<!-- ########## FOOTER FOR COMMON - LOGGED IN ########## -->
+<footer *ngIf="globals.authData==undefined && globals.authData==null">
+  <div class="row">
+    <div class="col-12 col-xl-6 col-lg-6 col-md-6 col-sm-12 text-left">© <span class="footer_year"></span>&nbsp;<a href="http://www.theopeneyes.com/" target="_blank">OpenEyes Software Solution</a>
+    </div>
+    <div class="col-12 col-xl-6 col-lg-6 col-md-6 col-sm-12 text-right"><a routerLink="/privacyPolicy">Privacy Policy</a>  |  <a routerLink="/cookiePolicy">Cookie Policy</a>  |  <a routerLink="/termconditions">Terms of use</a>
+    </div>
+  </div>
+</footer>

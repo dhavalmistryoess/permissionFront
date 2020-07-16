@@ -1,0 +1,140 @@
+<div class="content_block">
+  <div class="container-fluid">
+    <div class="row">
+      <!-- Content -->
+      <div class="col-md-12 col-sm-12">
+        <div class="title_block">
+          <h2 class="float-left">
+            {{globals.adminTranslationText.userInvite.form.title.add}}</h2>
+          <div class="breadcrumb_block float-left">
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item">
+                <a routerLink="/admin/adminDashboard">
+                  <i class="fa fa-home"></i>
+                </a>
+              </li>
+            </ol>
+          </div>
+          <div class="clearfix"></div>
+        </div>
+        <div class="row d-flex justify-content-center">
+          <div class="col-md-12 col-sm-12">
+            <div class="inner_content_block">
+              <div class="paddin_form">
+                <form role="form" #userInviteForm="ngForm" (ngSubmit)="sendInvite(userInviteForm)">
+                  <div class="row">
+                    <div class="col-12 col-xl-4 col-lg-4 col-md-12 col-sm-12">
+                      <div class="form-group">
+                        <label><span>*</span> {{globals.adminTranslationText.userInvite.form.firstName.label}}</label>
+                        <input class="form-control" type="text" #FirstName="ngModel"
+                          [(ngModel)]="userInviteEntity.FirstName"
+                          [ngClass]="{error: (FirstName.dirty && FirstName.invalid) || (FirstName.pristine && submitted) || errorEntity.FirstName}"
+                          name="FirstName" id="FirstName" pattern="[a-zA-Z\',]{2,}" maxlength="100" required>
+
+                        <span class="error_class"
+                          *ngIf="(FirstName.dirty && FirstName.invalid) || (FirstName.pristine && submitted) || errorEntity.FirstName">
+                          <span
+                            *ngIf="FirstName.errors.required || (FirstName.pristine && submitted)">{{globals.adminTranslationText.userInvite.form.firstName.required}}</span>
+                          <span
+                            *ngIf="FirstName.errors && FirstName.errors.pattern">{{globals.adminTranslationText.userInvite.form.firstName.pattern}}</span>
+                            <span *ngIf="errorEntity.FirstName != ''">
+                              {{errorEntity.FirstName}}
+                            </span>
+                          </span>
+                         
+                      </div>
+                    </div>
+                    <div class="col-12 col-xl-4 col-lg-4 col-md-12 col-sm-12">
+                      <div class="form-group">
+                        <label><span>*</span> {{globals.adminTranslationText.userInvite.form.lastName.label}}</label>
+                        <input class="form-control" type="text" #LastName="ngModel"
+                          [(ngModel)]="userInviteEntity.LastName"
+                          [ngClass]="{error: (LastName.dirty && LastName.invalid) || (LastName.pristine && submitted) || errorEntity.LastName}"
+                          name="LastName" id="LastName" pattern="[a-zA-Z\',]{2,}" maxlength="100" required>
+
+                        <span class="error_class"
+                          *ngIf="(LastName.dirty && LastName.invalid) || (LastName.pristine && submitted) || errorEntity.LastName">
+                          <span
+                            *ngIf="LastName.errors.required || (LastName.pristine && submitted)">{{globals.adminTranslationText.userInvite.form.lastName.required}}</span>
+                          <span
+                            *ngIf="LastName.errors && LastName.errors.pattern">{{globals.adminTranslationText.userInvite.form.lastName.pattern}}</span>
+                            <span *ngIf="errorEntity.LastName != ''">
+                              {{errorEntity.LastName}}
+                            </span>
+                          </span>
+                      </div>
+                    </div>
+                    <div class="col-12 col-xl-4 col-lg-4 col-md-12 col-sm-12">
+                      <div class="form-group">
+                        <label><span>*</span>
+                          {{globals.adminTranslationText.userInvite.form.emailAddress.label}}</label>
+                        <input class="form-control" type="text" #EmailAddress="ngModel"
+                          [(ngModel)]="userInviteEntity.EmailAddress"
+                          [ngClass]="{error: (EmailAddress.dirty && EmailAddress.invalid) || (EmailAddress.pristine && submitted) || errorEntity.EmailAddress}"
+                          name="EmailAddress" id="EmailAddress"
+                          pattern="[a-zA-Z0-9.-_]{1,}@[a-zA-Z.-]{2,}[.]{1}[a-zA-Z]{2,}" maxlength="100" required>
+
+                        <span class="error_class"
+                          *ngIf="(EmailAddress.dirty && EmailAddress.invalid) || (EmailAddress.pristine && submitted)  || errorEntity.EmailAddress">
+                          <span
+                            *ngIf="EmailAddress.errors.required || (EmailAddress.pristine && submitted)">{{globals.adminTranslationText.userInvite.form.emailAddress.required}}</span>
+                          <span
+                            *ngIf="EmailAddress.errors && EmailAddress.errors.pattern">{{globals.adminTranslationText.userInvite.form.emailAddress.pattern}}</span>
+                            <span *ngIf="errorEntity.EmailAddress != ''">
+                              {{errorEntity.EmailAddress}}
+                            </span>
+                        </span>
+                      </div>
+                    </div>
+                    <div class="col-12 col-xl-4 col-lg-4 col-md-12 col-sm-12">
+                      <div class="form-group">
+                        <label><span>*</span> {{globals.adminTranslationText.userInvite.form.certificate.label}}</label>
+                        <kendo-dropdownlist  [data]="certificateList" [filterable]="false" [textField]="'CertificateName'" [valueField]="'CertificateId'"
+                    [valuePrimitive]="true" #CertificateId="ngModel"
+                    [(ngModel)]="userInviteEntity.CertificateId" name="CertificateId" [ngClass]="{error: (CertificateId.dirty && CertificateId.invalid) || (CertificateId.pristine && submitted) ||  errorEntity.CertificateId}" required></kendo-dropdownlist >
+                        <span class="error_class"
+                          *ngIf="(CertificateId.dirty && CertificateId.invalid) || (CertificateId.pristine && submitted) || errorEntity.CertificateId">
+                          <span *ngIf="CertificateId.errors && CertificateId.errors.required">
+                            {{globals.adminTranslationText.userInvite.form.certificate.required}}
+                          </span>
+                          <span *ngIf="errorEntity.CertificateId != ''">
+                            {{errorEntity.CertificateId}}
+                          </span>
+                        </span>
+                      </div>
+                    </div>
+                    <div class="col-12 col-xl-4 col-lg-4 col-md-12 col-sm-12">
+                      <div class="form-group">
+                        <label><span>*</span> {{globals.adminTranslationText.userInvite.form.role.label}}</label>
+                      
+                        <kendo-dropdownlist  [data]="roleList" [filterable]="false" [textField]="'RoleName'" [valueField]="'RoleId'"
+                    [valuePrimitive]="true" #RoleId="ngModel"
+                    [(ngModel)]="userInviteEntity.RoleId" name="RoleId" [ngClass]="{error: (RoleId.dirty && RoleId.invalid) || (RoleId.pristine && submitted) || errorEntity.RoleId}" required></kendo-dropdownlist >
+                        <span class="error_class"
+                          *ngIf="(RoleId.dirty && RoleId.invalid) || (RoleId.pristine && submitted)  || errorEntity.RoleId">
+                          <span *ngIf="RoleId.errors && RoleId.errors.required">
+                            {{globals.adminTranslationText.userInvite.form.role.required}}
+                          </span>
+                          <span *ngIf="errorEntity.RoleId != ''">
+                            {{errorEntity.RoleId}}
+                          </span>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-12 col-12 col-lg-12 col-sm-12 text-center">
+                      <button class="all_btn theme_btn" type="submit" [disabled]="btn_disable">
+                        <span>{{globals.adminTranslationText.userInvite.form.buttons.invite}}</span>
+                      </button>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

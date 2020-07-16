@@ -1,0 +1,105 @@
+<div class="content_block">
+  <div class="container-fluid">
+    <div class="row">
+      <!-- Content -->
+      <div class="col-md-12 col-sm-12">
+        <div class="title_block">
+          <h2 class="float-left">
+            {{globals.adminTranslationText.inquire.list.title}}</h2>
+          <div class="breadcrumb_block float-left">
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item">
+                <a routerLink="/admin/adminDashboard">
+                  <i class="fa fa-home"></i>
+                </a>
+              </li>
+              <li class="breadcrumb-item"><a
+                  routerLink="/admin/inquire/list">{{globals.adminTranslationText.inquire.list.breadcrumbTitle}}</a>
+              </li>
+              <li class="breadcrumb-item active" aria-current="page">
+                {{globals.adminTranslationText.inquire.list.breadcrumbSubTitle}}</li>
+            </ol>
+          </div>
+          <div class="clearfix"></div>
+        </div>
+        <div class="row d-flex justify-content-center">
+          <div class="col-md-12 col-sm-12">
+            <div class="inner_content_block">
+              <div class="table_block">
+                <!-- <table id="dataTables-example" class="table table-hover" style="width: 100%;">
+
+                  <thead>
+                    <tr>
+                      <th class="text-center sr_no_width">{{globals.adminTranslationText.inquire.list.collumns.srNo}}
+                      </th>
+                      <th class="width_15">{{globals.adminTranslationText.inquire.list.collumns.name}}</th>
+                      <th class="width_15">{{globals.adminTranslationText.inquire.list.collumns.emailAddress}}</th>
+                      <th class="width_15">{{globals.adminTranslationText.inquire.list.collumns.contactNumber}}</th>
+                      <th>{{globals.adminTranslationText.inquire.list.collumns.message}}</th>
+                      <th class="width_15">{{globals.adminTranslationText.inquire.list.collumns.createdOn}}</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let inquires of inquireList; let i = index">
+                      <td class="text-center">{{i+1}}</td>
+                      <td>{{inquires.FirstName + '&nbsp;' + inquires.LastName}}</td>
+                      <td>{{inquires.EmailAddress}}</td>
+                      <td *ngIf="inquires.PhoneNumber!=''">{{inquires.PhoneNumber}}</td>
+                      <td *ngIf="inquires.PhoneNumber==''">NA</td>
+                      <td>{{inquires.Message}}</td>
+                      <td>{{inquires.CreatedOn | date : 'MM/dd/yyyy, h:mm a'}}</td>
+                    </tr>
+                  </tbody>
+                </table> -->
+                <kendo-grid [kendoGridBinding]="inquireList" kendoGridSelectBy="id" [pageSize]="10" [pageable]="true"
+                  [groupable]="false" [reorderable]="false" [resizable]="false" [height]="auto" [sortable]="{
+                    allowUnsort: true,
+                    mode: 'single'
+                    }" [sort]="sort">
+
+                  <ng-template kendoGridToolbarTemplate>
+                    <input placeholder="Search in all columns..." kendoTextBox
+                      (input)="onFilter($event.target.value)" />
+                    <!-- <button kendoGridExcelCommand type="button" icon="file-excel" style="float:right;"></button>
+                    <button kendoGridPDFCommand icon="file-pdf" style="float:right;"></button>
+                    <button type="button" class="k-button" icon="file-pdf" style="float:right;" (click)="excelexport.save()">Export To Excel</button> -->
+                  </ng-template>
+                  <!-- <kendo-grid-column title="{{globals.adminTranslationText.inquire.list.collumns.srNo}}" [width]="50">
+                    <ng-template kendoGridCellTemplate let-dataItem let-rowIndex="rowIndex">
+                      {{rowIndex+1}}
+                    </ng-template>
+                  </kendo-grid-column> -->
+                  <kendo-grid-column field="FirstName" title="{{globals.adminTranslationText.inquire.list.collumns.name}}">
+                    <ng-template kendoGridCellTemplate let-dataItem>
+                      <span>{{dataItem.FirstName + '&nbsp;' + dataItem.LastName}}</span>
+                    </ng-template>
+                  </kendo-grid-column>
+                  <kendo-grid-column field="EmailAddress"
+                    title="{{globals.adminTranslationText.inquire.list.collumns.emailAddress}}">
+                  </kendo-grid-column>
+                  <kendo-grid-column field="PhoneNumber" title="{{globals.adminTranslationText.inquire.list.collumns.contactNumber}}">
+                    <ng-template kendoGridCellTemplate let-dataItem>
+                      <span *ngIf="dataItem.PhoneNumber != ''">{{dataItem.PhoneNumber}}</span>
+                      <span *ngIf="dataItem.PhoneNumber == ''">NA</span>
+                    </ng-template>
+                  </kendo-grid-column>
+                  <kendo-grid-column field="Message"
+                    title="{{globals.adminTranslationText.inquire.list.collumns.message}}">
+                  </kendo-grid-column>
+                  <kendo-grid-column field="CreatedOn" title="{{globals.adminTranslationText.inquire.list.collumns.createdOn}}">
+                    <ng-template kendoGridCellTemplate let-dataItem>
+                      <span>{{dataItem.CreatedOn | date : 'MM/dd/yyyy, h:mm a'}}</span>
+                    </ng-template>
+                  </kendo-grid-column>
+
+                </kendo-grid>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- End Content -->
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</div>

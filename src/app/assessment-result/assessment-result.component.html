@@ -1,0 +1,257 @@
+<div class="content_block">
+  <div class="container-fluid">
+    <div class="row">
+      <!-- Content -->
+      <div class="col-md-12 col-sm-12">
+        <div class="title_block">
+          <h2 class="float-left">
+            {{
+              globals.commonTranslationText.candidateAssessmentResultPage.title
+            }}
+          </h2>
+          <div class="breadcrumb_block float-left">
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item">
+                <a routerLink="/dashboard">
+                  <i class="fa fa-home"></i>
+                </a>
+              </li>
+              <li class="breadcrumb-item active" aria-current="page">
+                {{
+                  globals.commonTranslationText.candidateAssessmentResultPage
+                    .breadcrumbTitle
+                }}
+              </li>
+            </ol>
+          </div>
+          <a
+            routerLink="/dashboard"
+            class="all_btn themeoption_btn float-right"
+            >{{
+              globals.commonTranslationText.candidateAssessmentResultPage
+                .buttons.backToList
+            }}</a
+          >
+          <div class="clearfix"></div>
+        </div>
+        <div class="row d-flex justify-content-center">
+          <div class="col-md-12 col-sm-12">
+            <div class="inner_content_block result_page_block">
+              <div class="paddin_form">
+                <div class="float-left">
+                  <h4>{{ Certiname.CertificateName }}</h4>
+                  <p class="resut_content">
+                    <i class="fa fa-calendar-o"></i
+                    >{{
+                      globals.commonTranslationText
+                        .candidateAssessmentResultPage.assessmentDate
+                    }}: {{ Certiname.AssessmentStartDate | date: "MM/dd/yyyy"
+                    }}<br />
+                    <i class="fa fa-list-ol"></i
+                    >{{
+                      globals.commonTranslationText
+                        .candidateAssessmentResultPage.noOfCategories
+                    }}: {{ Certiname.categories }}<br />
+                    <i class="fa fa-clock-o"></i
+                    >{{
+                      globals.commonTranslationText
+                        .candidateAssessmentResultPage.totalTimeTaken
+                    }}: {{ totaltimetaken }}<br />
+                    <i class="fa fa-question"></i
+                    >{{
+                      globals.commonTranslationText
+                        .candidateAssessmentResultPage.totalAttemptsQuestion
+                    }}: {{ summary.TotalAttemptedQuestions }}/{{
+                      summary.totalQuestions
+                    }}
+                  </p>
+                </div>
+                <div class="float-right">
+                  <button
+                    *ngIf="Certiname.ResultStatus == 16"
+                    type="button"
+                    data-toggle="modal"
+                    data-target="#certificateModalCenter"
+                    (click)="certificate()"
+                    class="all_btn theme_btn mb-3"
+                  >
+                    {{
+                      globals.commonTranslationText
+                        .candidateAssessmentResultPage.buttons
+                        .downloadCertificate
+                    }}
+                  </button>
+                  <div
+                    class="per_block green_border"
+                    *ngIf="Certiname.ResultStatus == 16"
+                  >
+                    <div class="border_circle ">
+                      {{ Certiname.TotalScore }}%<span>Score</span>
+                    </div>
+                    <div class="status_result">Certified</div>
+                  </div>
+                  <div
+                    class="per_block red_border"
+                    *ngIf="Certiname.ResultStatus == 17"
+                  >
+                    <div class="border_circle ">
+                      {{ Certiname.TotalScore }}%<span>Score</span>
+                    </div>
+                    <div class="status_result">Fail</div>
+                  </div>
+                </div>
+                <div class="clearfix"></div>
+                <hr />
+                <div class="clearfix"></div>
+                <h6 class="mb-5">
+                  {{
+                    globals.commonTranslationText.candidateAssessmentResultPage
+                      .categoryWiseResult
+                  }}
+                </h6>
+                <div id="result_chart"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div
+  class="modal fade"
+  id="certificateModalCenter"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="certificateModalCenterTitle"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Certificate</h5>
+        <button
+          type="button"
+          class="close"
+          data-dismiss="modal"
+          aria-label="Close"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div
+          id="root"
+          style="
+margin:0px;width: 1122px;
+height: 791px;display: block;position: relative;
+top: 0px;
+left: 0px;
+visibility: visible;"
+        >
+          <div
+            class="SlideBackGround"
+            style="height:791px;
+    width:1122px;
+    margin:0px; 
+    background-color:#0061AF;
+    border:1px solid #ccc;
+    z-index: 2;"
+          >
+            <img
+              style="height:100%; width:100%; margin:0 auto;"
+              src="assets/images/frame.png"
+              alt=""
+            />
+          </div>
+          <div
+            class="logo_cer"
+            style=" height: 145px;
+        width: 100%;
+        position: absolute;
+        left: 0; text-align: center;
+        top: 55px;"
+          >
+            <img
+              style="height:100%; width:auto; margin:0 auto;"
+              src="assets/images/logo.png"
+              alt=""
+            />
+          </div>
+          <div
+            class="name_cer"
+            style="
+        width: 100%;
+        position: absolute; font-size: 45px;
+        left: 0; text-align: center; color: #0061AF;
+        top: 420px; font-family: 'Charmonman', cursive;"
+          >
+            {{ certificateEntity.FirstName }} {{ certificateEntity.LastName }}
+          </div>
+          <div
+            class="name_cer"
+            style="
+  width: 100%;
+  position: absolute; font-size: 21px;
+  left: 0; text-align: center; color: #000;
+  top: 540px; font-family: 'Open Sans', sans-serif;"
+          >
+            "<b style="font-family: 'Open Sans', sans-serif;">{{
+              certificateEntity.CertificateName
+            }}</b
+            >"
+          </div>
+          <div
+            class="sign_cer"
+            style="
+  width: 130px;
+    position: absolute;
+    left: 311px;
+    top: 600px;
+    text-align: center;"
+          >
+            <img style="width:100%;" src="assets/images/signature.png" alt="" />
+          </div>
+          <div
+            class="sign_text_cer"
+            style="
+  width: 350px;
+  position: absolute;
+  left: 200px; text-align: center; font-size: 17px; color: #000;
+  top: 645px; font-family: 'Open Sans', sans-serif;"
+          >
+            General Manager<span
+              style="text-transform: uppercase; display: block;"
+              >Openeyes Technologies Inc. solutions software</span
+            >
+          </div>
+          <div
+            class="date_cer"
+            style="width:195px;
+  position: absolute; font-size: 17px; left:auto;
+  right: 272px; text-align: center; color: #000;
+  top: 615px; font-family: 'Open Sans', sans-serif;"
+          >
+            <span *ngIf="certificateEntity.CertificationEndDate != null">{{
+              certificateEntity.CertificationEndDate | date: "MM-dd-yyyy"
+            }}</span>
+            <span *ngIf="certificateEntity.CertificationEndDate == null"
+              >Certificate Never Expire</span
+            >
+          </div>
+          <div
+            class="sign_text_cer"
+            style="
+  width: 150px;
+  position: absolute;
+  right: 290px; text-align: center; font-size: 17px; color: #000;
+  top: 645px; font-family: 'Open Sans', sans-serif;"
+          >
+            DATE
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

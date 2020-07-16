@@ -1,0 +1,196 @@
+<div class="content_block">
+  <div class="container-fluid">
+    <div class="row">
+      <!-- Content -->
+      <div class="col-md-12 col-sm-12">
+        <div class="title_block">
+          <h2 class="float-left">
+            {{ globals.adminTranslationText.item.list.title }}
+          </h2>
+          <div class="breadcrumb_block float-left">
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item">
+                <a routerLink="/admin/adminDashboard">
+                  <i class="fa fa-home"></i>
+                </a>
+              </li>
+              <li class="breadcrumb-item">
+                <a routerLink="/admin/item/list">{{
+                  globals.adminTranslationText.item.list.breadcrumbTitle
+                }}</a>
+              </li>
+              <li class="breadcrumb-item active" aria-current="page">
+                {{ globals.adminTranslationText.item.list.breadcrumbSubTitle }}
+              </li>
+            </ol>
+          </div>
+          <a routerLink="/admin/item/add"
+            class="all_btn theme_btn float-right">{{ globals.adminTranslationText.item.list.buttons.add }}</a>
+          <div class="clearfix"></div>
+        </div>
+        <div class="row d-flex justify-content-center">
+          <div class="col-md-12 col-sm-12">
+            <div class="inner_content_block">
+              <div class="table_block">
+                <!-- <table id="dataTables-example" class="table table-hover" style="width:100%">
+                    <thead>
+                      <tr>
+                        <th class="text-center sr_no_width">{{globals.adminTranslationText.item.list.collumns.srNo}}
+                        </th>
+                        <th class="width_15">{{globals.adminTranslationText.item.list.collumns.categoryName}}</th>
+                        <th>{{globals.adminTranslationText.item.list.collumns.description}}</th>
+                        <th>{{globals.adminTranslationText.item.list.collumns.noScore}}</th>
+                        <th class="text-center active_width hide_active">
+                          {{globals.adminTranslationText.item.list.collumns.isActive}}</th>
+                        <th class="text-center active_width">
+                          {{globals.adminTranslationText.item.list.collumns.isActive}}</th>
+                        <th class="text-center action_width">
+                          {{globals.adminTranslationText.item.list.collumns.actions}}</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let item of itemList;let i = index">
+                        <td class="text-center">{{i+1}}</td>
+                        <td>{{item.CategoryName}}</td>
+                        <td><span [innerHTML]="item.ItemText"></span></td>
+                        <td *ngIf="item.IsNoScoreItem == 0">No</td>
+                        <td *ngIf="item.IsNoScoreItem == 1">Yes</td>
+                        <td class="text-center hide_active">
+                          <span *ngIf="item.IsActive==1">Yes</span>
+                          <span *ngIf="item.IsActive!=1">No</span>
+                        </td> 
+                        <td class="text-center">
+                          <div class="activeyes_box" data-toggle="tooltip" data-placement="top"
+                            [attr.title]="item.IsActive==1 ? 'Active' : 'Deactive'">
+                            <input type="checkbox" name="active{{i}}" id="active{{i}}"
+                              (change)="isActiveChange(item,i)" [checked]="item.IsActive==1" value="Yes">
+                            <label for="active{{i}}"></label>
+                          </div>
+                        </td>
+                        <td class="text-center">
+                          <button data-toggle="tooltip" data-placement="top" class="edit" title="Edit" type="button"
+                            routerLink="/admin/item/edit/{{item.ItemId}}">
+                            <i class="fa fa-pencil" aria-hidden="true"></i></button>
+                          <button data-toggle="tooltip" data-placement="top" class="delete" title="Delete" type="button"
+                            (click)="deleteItem(item)">
+                            <i class="fa fa-trash" aria-hidden="true"></i></button>
+                        </td>
+                      </tr>
+                      <tr *ngIf="itemList.length<=0">
+                        <td colspan="8">{{globals.adminTranslationText.item.list.recordNotFound}}</td>
+                      </tr>
+                    </tbody>
+                  </table> -->
+                <kendo-grid [data]="itemList" [pageSize]="pageSize" [skip]="skip" [pageable]="true"
+                  (pageChange)="pageChange($event)" [sort]="sort" [sortable]="{
+                    allowUnsort: allowUnsort,
+                    mode: 'single'
+                  }" (sortChange)="sortChange($event)" [scrollable]="true">
+                  <ng-template kendoGridToolbarTemplate>
+                    <input placeholder="Search in all columns..." kendoTextBox
+                      (input)="onFilter($event.target.value)" />
+                    <!-- <button kendoGridExcelCommand type="button" icon="file-excel" style="float:right;"></button>
+                    <button kendoGridPDFCommand icon="file-pdf" style="float:right;"></button>
+                    <button type="button" class="k-button" icon="file-pdf" style="float:right;" (click)="excelexport.save()">Export To Excel</button> -->
+                  </ng-template>
+                  <!-- <kendo-grid-column title="{{globals.adminTranslationText.item.list.collumns.srNo}}" [width]="50">
+                    <ng-template kendoGridCellTemplate let-dataItem let-rowIndex="rowIndex">
+                      {{rowIndex+1}}
+                    </ng-template>
+                  </kendo-grid-column> -->
+                  <kendo-grid-column field="CategoryName" width="10%" title="{{
+                      globals.adminTranslationText.item.list.collumns
+                        .categoryName
+                    }}">
+                  </kendo-grid-column>
+                  <kendo-grid-column field="ItemText" width="34%" title="{{
+                      globals.adminTranslationText.item.list.collumns
+                        .description
+                    }}">
+                    <ng-template kendoGridCellTemplate let-dataItem>
+                      <span [innerHTML]="dataItem.ItemText"></span>
+                    </ng-template>
+                  </kendo-grid-column>
+                  <kendo-grid-column field="OptionValue" width="20%" title="{{
+                      globals.adminTranslationText.item.list.collumns
+                        .correctOptionValue
+                    }}">
+                    <ng-template kendoGridCellTemplate let-dataItem>
+                      <span *ngIf="dataItem.OptionValue == null"> NA </span>
+                      <span *ngIf="dataItem.OptionValue != null"> {{dataItem.OptionValue}} </span>
+                    </ng-template>
+                  </kendo-grid-column>
+                  <kendo-grid-column field="IsNoScoreItem" width="10%" title="{{
+                      globals.adminTranslationText.item.list.collumns.noScore
+                    }}">
+                    <ng-template kendoGridCellTemplate let-dataItem>
+                      <div class="activeyes_box">
+                        <kendo-switch (valueChange)="toggleValueChange(dataItem, $event)"
+                          [checked]="dataItem.IsNoScoreItem == 1" [checked]="false" [onLabel]="'Y'" [offLabel]="'N'"
+                          [disabled]="false"></kendo-switch>
+                      </div>
+                      <!-- <span *ngIf="dataItem.IsNoScoreItem == 0">No</span>
+                      <span *ngIf="dataItem.IsNoScoreItem == 1">Yes</span> -->
+                    </ng-template>
+                  </kendo-grid-column>
+                  <kendo-grid-column field="ItemFor" width="10%" title="{{
+                      globals.adminTranslationText.item.list.collumns.itemFor
+                    }}">
+                    <ng-template kendoGridCellTemplate let-dataItem>
+                      <span *ngIf="
+                          dataItem.ItemForAssessment == 1 &&
+                          dataItem.ItemForPracticeTest == 0
+                        ">Assessment</span>
+                      <span *ngIf="
+                          dataItem.ItemForPracticeTest == 1 &&
+                          dataItem.ItemForAssessment == 0
+                        ">Practice Test</span>
+                      <span *ngIf="
+                          dataItem.ItemForPracticeTest == 1 &&
+                          dataItem.ItemForAssessment == 1
+                        ">Assessment,Practice Test</span>
+                    </ng-template>
+                  </kendo-grid-column>
+
+                  <kendo-grid-column title="{{
+                      globals.adminTranslationText.item.list.collumns.isActive
+                    }}" class="text-center" width="8%" >
+                    <ng-template kendoGridCellTemplate let-dataItem let-rowIndex="rowIndex">
+                      <div class="activeyes_box">
+                        <kendo-switch (valueChange)="isActiveChange(dataItem, $event)"
+                          [checked]="dataItem.IsActive == 1" [checked]="false" [onLabel]="'Y'" [offLabel]="'N'"
+                          [disabled]="false"></kendo-switch>
+                      </div>
+                    </ng-template>
+                  </kendo-grid-column>
+
+                  <kendo-grid-column title="{{
+                      globals.adminTranslationText.item.list.collumns.actions
+                    }}" width="8%">
+                    <ng-template kendoGridCellTemplate let-dataItem let-rowIndex="rowIndex">
+                      <div kendoTooltip style="text-align: center; padding-top: 10px;">
+                      <button kendoButton class="edit" (click)="edit(dataItem.ItemId)" title="Edit">
+                        <i  class="fa fa-edit"></i>
+                      </button>
+                      <button kendoButton class="delete" (click)="deleteItem(dataItem)"
+                        [disabled]="dataItem.isUsed > 0">
+                        <i data-toggle="tooltip" data-placement="top" class="fa fa-trash-o" [attr.title]="
+                            dataItem.isUsed > 0
+                              ? 'Item can not be deleted as used in assessment.'
+                              : globals.adminTranslationText.item.list.buttons
+                                  .delete
+                          "></i>
+                      </button></div>
+                    </ng-template>
+                  </kendo-grid-column>
+                </kendo-grid>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- End Content -->
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</div>

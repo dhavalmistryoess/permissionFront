@@ -1,0 +1,236 @@
+<div class="content_block">
+  <div class="container-fluid">
+    <div class="row">
+      <!-- Content -->
+      <div class="col-md-12 col-sm-12">
+        <div class="title_block">
+          <h2 class="float-left">
+            {{globals.adminTranslationText.category.list.title}}</h2>
+          <div class="breadcrumb_block float-left">
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item">
+                <a routerLink="/admin/adminDashboard">
+                  <i class="fa fa-home"></i>
+                </a>
+              </li>
+              <li class="breadcrumb-item"><a
+                  routerLink="/admin/category/list">{{globals.adminTranslationText.category.list.breadcrumbTitle}}</a>
+              </li>
+              <li class="breadcrumb-item active" aria-current="page">
+                {{globals.adminTranslationText.category.list.breadcrumbSubTitle}}</li>
+            </ol>
+          </div>
+          <a routerLink="/admin/category/add"
+            class="all_btn theme_btn float-right">{{globals.adminTranslationText.category.list.buttons.add}}</a>
+          <div class="clearfix"></div>
+        </div>
+        <div class="row d-flex justify-content-center">
+          <div class="col-md-12 col-sm-12">
+            <div class="inner_content_block">
+              <div class="table_block">
+                <!-- <table id="dataTables-example" class="table table-hover" style="width:100%">
+                  <thead>
+                    <tr>
+                      <th class="text-center sr_no_width">{{globals.adminTranslationText.category.list.collumns.srNo}}
+                      </th>
+                      <th class="width_15">{{globals.adminTranslationText.category.list.collumns.categoryName}}</th>
+                      <th class="width_15">{{globals.adminTranslationText.category.list.collumns.parentCategoryName}}
+                      </th>
+                      <th>{{globals.adminTranslationText.category.list.collumns.description}}</th>
+                      <th class="text-center active_width hide_active">
+                        {{globals.adminTranslationText.category.list.collumns.isActive}}</th>
+                      <th class="text-center active_width">
+                        {{globals.adminTranslationText.category.list.collumns.isActive}}</th>
+                      <th class="text-center action_width">
+                        {{globals.adminTranslationText.category.list.collumns.actions}}</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let category of categoryList;let i = index">
+                      <td class="text-center">{{i+1}}</td>
+                      <td>{{category.CategoryName}}</td>
+                      <td *ngIf="category.ParentCategory!=null">{{category.ParentCategory}}</td>
+                      <td *ngIf="category.ParentCategory==null">NA</td>
+                      <td><span [innerHTML]="category.Description"></span></td>
+                      <td class="text-center hide_active">
+                        <span *ngIf="category.IsActive==1">Yes</span>
+                        <span *ngIf="category.IsActive!=1">No</span>
+                      </td>
+                      <td class="text-center">
+                        <div class="activeyes_box" data-toggle="tooltip" data-placement="top"
+                          [attr.title]="category.IsActive==1 ? 'Active' : 'Deactive'">
+                          <input type="checkbox" name="active{{i}}" id="active{{i}}"
+                            (change)="isActiveChange(category,i)" [checked]="category.IsActive==1" value="Yes">
+                          <label for="active{{i}}"></label>
+                        </div>
+                      </td>
+                      <td class="text-center">
+                        <button  class="edit" type="button"
+                          routerLink="/admin/category/edit/{{category.CategoryId}}">
+                          <i class="fa fa-pencil" aria-hidden="true" data-toggle="tooltip" data-placement="top" title="Edit"></i></button>
+                        <button  class="delete" type="button"
+                          (click)="deleteCategory(category)">
+                          <i class="fa fa-trash" aria-hidden="true" data-toggle="tooltip" data-placement="top" title="Delete"></i></button>
+                      </td>
+                    </tr>
+                    <tr *ngIf="categoryList.length<=0">
+                      <td colspan="8">{{globals.adminTranslationText.category.list.recordNotFound}}</td>
+                    </tr>
+                  </tbody>
+                </table> -->
+                <kendo-grid
+                    [data]="categoryList"
+                    [pageSize]="pageSize"
+                    [skip]="skip"
+                    [pageable]="true"
+                    (pageChange)="pageChange($event)"
+                    [sort]="sort"
+                    [sortable]="{
+                      allowUnsort: allowUnsort,
+                      mode: 'single'
+                      }"
+                    (sortChange)="sortChange($event)"
+                  >
+
+                  <ng-template kendoGridToolbarTemplate>
+                    <input placeholder="Search in all columns..." kendoTextBox
+                      (input)="onFilter($event.target.value)" />
+                    <!-- <button kendoGridExcelCommand type="button" icon="file-excel" style="float:right;"></button>
+                    <button kendoGridPDFCommand icon="file-pdf" style="float:right;"></button>
+                    <button type="button" class="k-button" icon="file-pdf" style="float:right;" (click)="excelexport.save()">Export To Excel</button> -->
+                  </ng-template>
+                  <!-- <kendo-grid-column title="{{globals.adminTranslationText.category.list.collumns.srNo}}" [width]="50">
+                    <ng-template kendoGridCellTemplate let-dataItem let-rowIndex="rowIndex">
+                      {{rowIndex+1}}
+                    </ng-template>
+                  </kendo-grid-column> -->
+                  <kendo-grid-column field="CategoryName"
+                    title="{{globals.adminTranslationText.category.list.collumns.categoryName}}">
+                  </kendo-grid-column>
+                  <!-- <kendo-grid-column field="ParentCategory"
+                    title="{{globals.adminTranslationText.category.list.collumns.parentCategoryName}}">
+                    <ng-template kendoGridCellTemplate let-dataItem>
+                      <span *ngIf="dataItem.ParentCategory!=null">{{dataItem.ParentCategory}}</span>
+                      <span *ngIf="dataItem.ParentCategory==null">NA</span>
+                    </ng-template>
+                  </kendo-grid-column> -->
+                  <kendo-grid-column field="Description"
+                    title="{{globals.adminTranslationText.category.list.collumns.description}}">
+                    <ng-template kendoGridCellTemplate let-dataItem>
+                      <span [innerHTML]="dataItem.Description"></span>
+                    </ng-template>
+                  </kendo-grid-column>
+                  <kendo-grid-column field="certificates"
+                    title="{{globals.adminTranslationText.category.list.collumns.linkCertificates}}">
+                    <ng-template kendoGridCellTemplate let-dataItem>
+                      <span *ngIf="dataItem.certificates != null">{{dataItem.certificates}}</span>
+                      <span *ngIf="dataItem.certificates == null">NA</span>
+                    </ng-template>
+                  </kendo-grid-column>
+
+                  <kendo-grid-column title="{{globals.adminTranslationText.category.list.collumns.isActive}}"
+                    class="text-center" [width]="150">
+                    <ng-template kendoGridCellTemplate let-dataItem let-rowIndex="rowIndex">
+                      <div class="activeyes_box">
+                        <kendo-switch (valueChange)="isActiveChange(dataItem,$event)" [checked]="dataItem.IsActive==1"
+                          [checked]="false" [onLabel]="'Y'" [offLabel]="'N'" [disabled]="false"></kendo-switch>
+                      </div>
+                    </ng-template>
+                  </kendo-grid-column>
+
+                  <kendo-grid-column title="{{globals.adminTranslationText.category.list.collumns.actions}}"
+                    [width]="150">
+                    <ng-template kendoGridCellTemplate let-dataItem let-rowIndex="rowIndex">
+                      <button kendoButton class="edit" (click)="edit(dataItem.CategoryId)">
+
+                        <i data-toggle="tooltip" data-placement="top"
+                          title="{{globals.adminTranslationText.category.list.buttons.edit}}" class="fa fa-edit"></i>
+                      </button>
+                      <button kendoButton class="delete" [disabled]="(dataItem.usedCategory>0) || (dataItem.isdisabled>0)"
+                        (click)="deleteCategory(dataItem)">
+                        <i data-toggle="tooltip" data-placement="top" class="fa fa-trash-o"
+                          title="{{globals.adminTranslationText.category.list.buttons.delete}}"></i>
+                      </button>
+                      <button class="edit" (click)="linkedCertificatesList(dataItem)" data-toggle="modal" [disabled]="(dataItem.AssessmentItems == 0)" >
+                        <i data-toggle="tooltip" data-placement="top" class="fa fa-link"
+                          [attr.title]="dataItem.AssessmentItems == 0 ? 'There is no any item.': globals.adminTranslationText.category.list.buttons.linkedCertificate"></i>
+                      </button>
+                      <button class="edit" (click)="unlinkedCertificatesList(dataItem)" data-toggle="modal" [disabled]="(dataItem.LinkedCertificates.length == 0)" >
+                        <i data-toggle="tooltip" data-placement="top" class="fa fa-chain-broken"
+                          [attr.title]="dataItem.LinkedCertificates.length ==0 ? 'There is no any certificate linked.' : globals.adminTranslationText.category.list.buttons.unlinkedCertificate"></i>
+                      </button>
+                    </ng-template>
+                  </kendo-grid-column>
+                </kendo-grid>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- End Content -->
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="unlinkedCategory_popup" tabindex="-1" role="dialog" aria-labelledby="unlinkedCategory_popupLabel"
+  aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="unlinkedCategory_popupLabel">
+          Unlinked Certificates List of {{unlinkedCertificateEntity.CategoryName}}</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <label>Certificates</label>
+          <kendo-dropdownlist [data]="unlinkedCertificateList" [filterable]="false" [textField]="'CertificateName'" #CertificateId = "ngModel"
+            [(ngModel)]="unlinkedCertificateEntity.CertificateId" [itemDisabled]="itemDisabled"
+            [valueField]="'CertificateId'" [valuePrimitive]="true"  name="CertificateId">
+          </kendo-dropdownlist>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="submit" class="all_btn theme_btn" (click)="unlinkCertificate(unlinkedCertificateEntity.CertificateId)">Unlink</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="linkedCategory_popup" tabindex="-1" role="dialog" aria-labelledby="link_newLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="link_newLabel">Link new certificate in {{linkedCertificateEntity.CategoryName}}</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <form role="form" #categoryLinkingForm="ngForm" (ngSubmit)="linkCertificate(categoryLinkingForm)">
+        <div class="modal-body">
+          <div class="form-group">
+            <label><span>*</span> Certificates</label>
+            <kendo-dropdownlist [data]="linkedCertificateList" [filterable]="false" [textField]="'CertificateName'"
+              [valueField]="'CertificateId'" [valuePrimitive]="true" #CertificateId="ngModel" 
+              [(ngModel)]="certificateCategoryMappingListEntity.CertificateId" name="CertificateId"
+              [ngClass]="{error: (CertificateId.dirty && CertificateId.invalid) || (CertificateId.pristine && submitted)}"
+              required>
+            </kendo-dropdownlist>
+            <span class="error_class"
+              *ngIf="(CertificateId.dirty && CertificateId.invalid) || (CertificateId.pristine && submitted)">
+              <span *ngIf="CertificateId.errors && CertificateId.errors.required">
+                Please select a certificate
+              </span>
+            </span>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="submit" class="all_btn theme_btn">Link</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

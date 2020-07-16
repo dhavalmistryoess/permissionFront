@@ -1,0 +1,288 @@
+<div class="content_block">
+  <div class="container-fluid">
+    <div class="row">
+      <!-- Content -->
+      <div class="col-md-12 col-sm-12">
+        <div class="title_block">
+          <h2 class="float-left">
+            {{globals.adminTranslationText.manageRegisterRequest.userCertificateDetails.title}}</h2>
+          <div class="breadcrumb_block float-left">
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item">
+                <a routerLink="/admin/adminDashboard">
+                  <i class="fa fa-home"></i>
+                </a>
+              </li>
+              <li class="breadcrumb-item"><a
+                  routerLink="/admin/manage-register-request">{{globals.adminTranslationText.manageRegisterRequest.breadcrumbTitle}}</a>
+              </li>
+              <li class="breadcrumb-item active" aria-current="page">
+                {{globals.adminTranslationText.manageRegisterRequest.breadcrumbSubTitle}}</li>
+            </ol>
+          </div>
+          <a *ngIf="pagename == 'registereduser'" routerLink="/admin/manage-register-request"
+            class="all_btn themeoption_btn float-right">{{globals.adminTranslationText.manageRegisterRequest.userCertificateDetails.backToList}}</a>
+          <a *ngIf="pagename == 'pendingverification'" routerLink="/admin/userPendingVerification"
+            class="all_btn themeoption_btn float-right">{{globals.adminTranslationText.manageRegisterRequest.userCertificateDetails.backToList}}</a>
+          <div class="clearfix"></div>
+        </div>
+        <div class="row d-flex justify-content-center">
+          <div class="col-md-12 col-sm-12">
+            <div class="inner_content_block">
+              <div class="paddin_form">
+                <div class="float-left">
+                  <h4>{{certificateDetail.Name}}</h4>
+                  <p class="all_detail">
+                    <i class="fa fa-envelope"></i>
+                    {{certificateDetail.EmailAddress}}<br>
+                    <i class="fa fa-phone"></i>
+                    {{certificateDetail.PhoneNumber}}<br>
+                    <i class="fa fa-map-marker"></i>
+                    {{certificateDetail.City}}, {{certificateDetail.StateName}}
+                  </p>
+                </div>
+                <div class="role_block float-right" *ngIf="certificateDetail.RoleId == 3"><img alt="" class="img-fluid"
+                    src="assets/images/candidate.png" />Candidate</div>
+                <div class="role_block float-right" *ngIf="certificateDetail.RoleId == 2"><img alt="" class="img-fluid"
+                    src="assets/images/proctor.png" />Proctor</div>
+                <div class="clearfix"></div>
+                <h6 class="mt-3">Certificate Details</h6>
+                <div class="certificate_block user_certificate_document" *ngFor="let certificate of certificateDetail.CertificateData;">
+                  <h4 class="padding_15 float-left mb-5"><b>{{certificate.CertificateName}}</b></h4> 
+                  <div class="doc_status doc_margin float-left">
+                   
+                    <label [ngClass]="{red_s : certificate.DocumentVerificationStatusId == 52,green_s : certificate.DocumentVerificationStatusId == 53,
+                      blue_s : (certificate.DocumentVerificationStatusId == 54 || certificate.DocumentVerificationStatusId == 55)}" >{{certificate.DisplayText}}</label></div>
+                    <a (click)="verifyViewDocument(certificate.UserCertificateId,certificate.CertificateName)" class="all_btn verify_btn  float-right" data-toggle="modal" data-target="#verifyModal" 
+                      *ngIf="certificate.DocumentVerificationStatusId == 54">{{globals.adminTranslationText.manageRegisterRequest.userCertificateDetails.buttons.verifyNow}}</a>
+                  <div class="clearfix"></div>
+
+                  <div class="uploaded_document_block"  *ngIf="certificate.MandatoryDocuments.length>0">
+                    <h6>{{globals.adminTranslationText.manageRegisterRequest.userCertificateDetails.uploadedMandatoryDocuments}}</h6>
+                    <ng-container *ngFor="let documents of certificate.MandatoryDocuments;let i=index;">
+                      <div class="width_doc" *ngIf="documents.flag==0">
+                        <div title="{{documents.DocumentName}}" class=" document_block new_upload_block" data-toggle="modal"
+                          (click)="certificatedocuments(certificate,documents)">
+                          <!-- {{documents.DocumentName}} -->
+                          {{documents.DocumentName.length > 15 ? documents.DocumentName.substring(0,15)+"..." : documents.DocumentName}}
+                        </div>
+                      </div>
+                    </ng-container>
+                    <ng-container
+                      *ngFor="let certificateDocument of certificate.MandatoryDocuments;let j = index;">
+                      <div title="{{certificateDocument.DocumentName}}" class="complete_uploaded_doc_block"
+                        *ngIf='certificateDocument.Ext==".pdf" || certificateDocument.Ext==".PDF"'>         
+                          <button id="adddoc_img"
+                            (click)="certificatedocuments(certificate,certificateDocument)"><i
+                              class="fa fa-pencil"></i></button>
+                          <button id="deletedoc_img"
+                            (click)="deleteDocument(certificateDocument,certificate,1)"><i
+                              class="fa fa-trash"></i></button>
+                          <a href="{{globals.baseAPIUrl+certificateDocument.DocumentUrl+certificateDetail.UserId}}/assessment/Documents/{{certificateDocument.CertificateDocumentName}}"
+                            target="_blank"><img alt="" class="img-fluid"
+                              src="assets/images/pdf.png"></a>
+                              <div *ngIf='certificateDocument.Ext==".pdf" || certificateDocument.Ext==".PDF"' class="activeyes_box" data-toggle="tooltip" data-placement="top" [attr.title]="certificateDocument.IsVerifyByAdmin==1?'Yes':'No'">
+                                <kendo-switch (valueChange)="mandatoryDocumentsStatusChange(certificateDocument,$event)" [checked]="certificateDocument.IsVerifyByAdmin==1" value="No" name="docactive" [onLabel]="'Y'"
+                                [offLabel]="'N'"></kendo-switch>
+                              </div>
+                      </div>
+                    </ng-container>
+                    <ng-container
+                      *ngFor="let certificateDocument of certificate.MandatoryDocuments;let j=index;">
+                      <div title="{{certificateDocument.DocumentName}}" class="complete_uploaded_doc_block"
+                        *ngIf='certificateDocument.Ext == ".jpg" || certificateDocument.Ext == ".jpeg" || certificateDocument.Ext == ".png" || certificateDocument.Ext == ".JPG" || certificateDocument.Ext == ".JPEG" || certificateDocument.Ext == ".PNG"'>                                            
+                          <button id="adddoc_img"
+                            (click)="certificatedocuments(certificate,certificateDocument)"><i
+                              class="fa fa-pencil"></i></button>
+                          <button id="deletedoc_img"
+                            (click)="deleteDocument(certificateDocument,certificate,1)">
+                            <!-- (click)="deleteDocument(certificateDocument.UserDocumentId,certificates.documents,j,i)" -->
+                            <i class="fa fa-trash"></i></button>
+                          <a href="{{globals.baseAPIUrl+certificateDocument.DocumentUrl+certificateDetail.UserId}}/assessment/Documents/{{certificateDocument.CertificateDocumentName}}"  target="_blank"><img
+                              src="{{globals.baseAPIUrl+certificateDocument.DocumentUrl+certificateDetail.UserId}}/assessment/Documents/{{certificateDocument.CertificateDocumentName}}"
+                              alt="" class="img-fluid" /></a>                        
+                              <div *ngIf='certificateDocument.Ext == ".jpg" || certificateDocument.Ext == ".jpeg" || certificateDocument.Ext == ".png" || certificateDocument.Ext == ".JPG" || certificateDocument.Ext == ".JPEG" || certificateDocument.Ext == ".PNG"' class="activeyes_box" data-toggle="tooltip" data-placement="top" [attr.title]="certificateDocument.IsVerifyByAdmin==1?'Yes':'No'">
+                                <kendo-switch (valueChange)="mandatoryDocumentsStatusChange(certificateDocument,$event)" [checked]="certificateDocument.IsVerifyByAdmin==1" value="No" name="docactive" [onLabel]="'Y'"
+                                [offLabel]="'N'"></kendo-switch>
+                              </div>
+                      </div>
+                    </ng-container> 
+                  
+                    
+                  <div class="mt-3 mb-5" *ngIf="certificate.DocumentVerificationComment !=null">
+                      <p><b>{{globals.adminTranslationText.manageRegisterRequest.userCertificateDetails.comments}}</b></p>
+                      <p class="all_detail no_line_height padding_15">
+                          <!-- <i class="fa fa-comment"></i>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley... -->
+                          <i class="fa fa-comment"></i>{{certificate.DocumentVerificationComment}}
+                      </p>
+                    </div>
+                  <!-- <span
+                    class="notice notice-danger" *ngIf="">{{globals.adminTranslationText.manageRegisterRequest.noCertificateDetails}}</span> -->
+                </div>
+                <div  *ngIf="certificate.MandatoryDocuments.length<=0">
+                  <div
+                    class="notice notice-danger">{{globals.adminTranslationText.manageRegisterRequest.userCertificateDetails.noAnyMandarotyDocuments}}</div>
+                </div>
+                  <div class="uploaded_document_block"  *ngIf="certificate.OptionalDocuments.length>0">
+                    <h6>{{globals.adminTranslationText.manageRegisterRequest.userCertificateDetails.uploadedOptionalDocuments}}</h6>
+                    <ng-container *ngFor="let documents of certificate.OptionalDocuments;let i=index;">
+                      <div class="width_doc" *ngIf="documents.flag==0">
+                        <div title="{{documents.DocumentName}}" class=" document_block new_upload_block" data-toggle="modal"
+                          (click)="certificatedocuments(certificate,documents)">
+                          {{documents.DocumentName.length > 15 ? documents.DocumentName.substring(0,15)+"..." : documents.DocumentName}}
+                        </div>
+                      </div>
+                    </ng-container>
+                    <ng-container
+                      *ngFor="let certificateDocument of certificate.OptionalDocuments;let j = index;">
+                      <div title="{{certificateDocument.DocumentName}}" class="complete_uploaded_doc_block"
+                        *ngIf='certificateDocument.Ext==".pdf" || certificateDocument.Ext==".PDF"'>         
+                          <button id="adddoc_img"
+                            (click)="certificatedocuments(certificate,certificateDocument)"><i
+                              class="fa fa-pencil"></i></button>
+                          <button id="deletedoc_img"
+                            (click)="deleteDocument(certificateDocument,certificate,0)"><i
+                              class="fa fa-trash"></i></button>
+                          <a href="{{globals.baseAPIUrl+certificateDocument.DocumentUrl+certificateDetail.UserId}}/assessment/Documents/{{certificateDocument.CertificateDocumentName}}"
+                            target="_blank"><img alt="" class="img-fluid"
+                              src="assets/images/pdf.png"></a>
+                              <div *ngIf='certificateDocument.Ext==".pdf" || certificateDocument.Ext==".PDF"' class="activeyes_box" data-toggle="tooltip" data-placement="top" [attr.title]="certificateDocument.IsVerifyByAdmin==1?'Yes':'No'">
+                                <kendo-switch (valueChange)="optionalDocumentsStatusChange(certificateDocument,$event)" [checked]="certificateDocument.IsVerifyByAdmin==1" value="No" name="docoptionalactive" [onLabel]="'Y'"
+                                [offLabel]="'N'"></kendo-switch>
+                              </div>
+                      </div>
+                    </ng-container>
+                    <ng-container
+                      *ngFor="let certificateDocument of certificate.OptionalDocuments;let j=index;">
+                      <div title="{{certificateDocument.DocumentName}}" class="complete_uploaded_doc_block"
+                        *ngIf='certificateDocument.Ext == ".jpg" || certificateDocument.Ext == ".jpeg" || certificateDocument.Ext == ".png" || certificateDocument.Ext == ".JPG" || certificateDocument.Ext == ".JPEG" || certificateDocument.Ext == ".PNG"'>                                            
+                          <button id="adddoc_img"
+                            (click)="certificatedocuments(certificate,certificateDocument)"><i
+                              class="fa fa-pencil"></i></button>
+                          <button id="deletedoc_img"
+                            (click)="deleteDocument(certificateDocument,certificate,0)">
+                            <!-- (click)="deleteDocument(certificateDocument.UserDocumentId,certificates.documents,j,i)" -->
+                            <i class="fa fa-trash"></i></button>
+                          <a href="{{globals.baseAPIUrl+certificateDocument.DocumentUrl+certificateDetail.UserId}}/assessment/Documents/{{certificateDocument.CertificateDocumentName}}"  target="_blank"><img
+                              src="{{globals.baseAPIUrl+certificateDocument.DocumentUrl+certificateDetail.UserId}}/assessment/Documents/{{certificateDocument.CertificateDocumentName}}"
+                              alt="" class="img-fluid" /></a>                        
+                              <div *ngIf='certificateDocument.Ext == ".jpg" || certificateDocument.Ext == ".jpeg" || certificateDocument.Ext == ".png" || certificateDocument.Ext == ".JPG" || certificateDocument.Ext == ".JPEG" || certificateDocument.Ext == ".PNG"' class="activeyes_box" data-toggle="tooltip" data-placement="top" [attr.title]="certificateDocument.IsVerifyByAdmin==1?'Yes':'No'">
+                                <kendo-switch (valueChange)="optionalDocumentsStatusChange(certificateDocument,$event)" [checked]="certificateDocument.IsVerifyByAdmin==1" value="No" name="docoptionalactive" [onLabel]="'Y'"
+                                [offLabel]="'N'"></kendo-switch>
+                              </div>
+                      </div>
+                    </ng-container> 
+                   
+                  <div class="mt-3 mb-5" *ngIf="certificate.DocumentVerificationComment !=null">
+                      <p><b>{{globals.adminTranslationText.manageRegisterRequest.userCertificateDetails.comments}}</b></p>
+                      <p class="all_detail no_line_height padding_15">
+                          <!-- <i class="fa fa-comment"></i>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley... -->
+                          <i class="fa fa-comment"></i>{{certificate.DocumentVerificationComment}}
+                      </p>
+                    </div>
+                  <!-- <span
+                    class="notice notice-danger" *ngIf="">{{globals.adminTranslationText.manageRegisterRequest.noCertificateDetails}}</span> -->
+                </div>
+                <div  *ngIf="certificate.OptionalDocuments.length<=0">
+                  <div
+                    class="notice notice-danger">{{globals.adminTranslationText.manageRegisterRequest.userCertificateDetails.noAnyOptionalDocuments}}</div>
+                </div>
+              </div>
+              <div class="certificate_block" *ngIf="certificateDetail.CertificateData.length<=0">
+                  <div class="notice notice-danger">{{globals.adminTranslationText.manageRegisterRequest.noCertificateDetails}}</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- End Content -->
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade certificate_old_doc_block" id="certificateModal" tabindex="-1" role="dialog"
+  aria-labelledby="certificateModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="certificateModalLabel">{{certificatedocumentEntity.certificatename}}</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <form role="form" #CertificatedocumentForm="ngForm" (ngSubmit)="certidocumentSubmit(CertificatedocumentForm)">
+        <div class="modal-body">
+        
+          <div class="row">
+            <div class="width_doc upload_new_doc">
+              <input type="file" id="new_upload_file" #CertificateName="ngModel" name="CertificateName"
+                [(ngModel)]="certificatedocumentEntity.CertificateName"
+                (change)="fileTypeCheck(certificatedocumentEntity.CertificateName,certificatedocumentEntity.CertiDocumentId)">
+              <div class="new_block">
+                Upload New
+              </div>
+              <div class="uploaded_doc_block">
+                <img src="" for="new_upload_file" id="uploaded_doc" />
+                <i class="fa fa-trash" id="deletedoc_img" aria-hidden="true" (click)="Removeimage()"></i>
+              </div>
+            </div>
+            <div class="or_block"><span>OR</span></div>
+            <div class="width_doc" *ngFor="let Image of certificateimage; let i = index;">
+              <div class="img_block" data-toggle="tooltip" data-placement="top" title="Aadhar Card Aadhar Card">
+
+                <a href="{{globals.baseAPIUrl+Image.DocumentUrl+globals.authData.UserId}}/assessment/Documents/{{Image.CertificateDocumentName}}"
+                  target="_blank"><img alt="" class="img-fluid" src="assets/images/pdf.png"></a>
+                <span>{{Image.DocumentName}}</span>
+              </div>
+              <div class="check_box">
+                <input type="checkbox" name="document_select" (click)="imageclick(Image,i)" id="document_select1{{i}}">
+                <label for="document_select1{{i}}"></label>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="submit" class="all_btn theme_btn">Submit</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="verifyModal" tabindex="-1" role="dialog" aria-labelledby="verifyModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="verifyModalLabel">{{globals.adminTranslationText.manageRegisterRequest.userCertificateDetails.verifyDocumentFor}} {{certificateDetail.Name}}</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        
+          <div class="modal-body">
+            <div class="form-group">
+              <label><span>*</span> {{globals.adminTranslationText.manageRegisterRequest.userCertificateDetails.comment}}</label>
+              <textarea kendoTextArea id="DocumentVerificationComment" name="DocumentVerificationComment" #DocumentVerificationComment="ngModel" [(ngModel)]="verifyEntity.DocumentVerificationComment"
+                [ngClass]="{error: (commentDisplay) || errorEntity.DocumentVerificationComment}"
+                class="form-control"  (keyup)="commentDisplay=false"></textarea>
+              <span class="error_class"
+                *ngIf="(commentDisplay) || errorEntity.DocumentVerificationComment">
+                <span *ngIf="commentDisplay">
+                  {{globals.adminTranslationText.manageRegisterRequest.userCertificateDetails.required}}
+                </span>
+                <span *ngIf="errorEntity.DocumentVerificationComment !=''">
+                  {{ errorEntity.DocumentVerificationComment }}
+                </span>
+              </span>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button class="all_btn theme_btn float-right" (click)="VerifyDocument(1)">{{globals.adminTranslationText.manageRegisterRequest.userCertificateDetails.buttons.accept}}</button>
+            <button class="all_btn red_btn float-right" (click)="VerifyDocument(0)">{{globals.adminTranslationText.manageRegisterRequest.userCertificateDetails.buttons.reject}}</button>
+          </div>
+        
+        
+      </div>
+    </div>
+  </div>

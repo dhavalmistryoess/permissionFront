@@ -1,0 +1,177 @@
+{
+  "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+  "version": 1,
+  "newProjectRoot": "projects",
+  "projects": {
+    "OESS_Assessment_Frontend": {
+      "root": "",
+      "sourceRoot": "src",
+      "projectType": "application",
+      "prefix": "app",
+      "schematics": {},
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/OESS_Assessment_Frontend",
+            "index": "src/index.html",
+            "main": "src/main.ts",
+            "polyfills": "src/polyfills.ts",
+            "tsConfig": "src/tsconfig.app.json",
+            "assets": ["src/favicon.ico", "src/assets"],
+            "styles": [
+              {
+                "input": "node_modules/@progress/kendo-theme-default/dist/all.css"
+              },
+              "src/styles.css"
+            ],
+            "scripts": [
+              "src/assets/js/jquery-1.12.0.min.js",
+              "src/assets/js/popper.min.js",
+              "src/assets/js/bootstrap.bundle.min.js",
+              "src/assets/js/bootstrap.min.js",
+              "src/assets/js/bootstrap-select.min.js",
+              "src/assets/js/tooltip.min.js",
+              "src/assets/js/dropdown.js",
+              "src/assets/js/sweetalert2.js",
+              "src/assets/js/moment.min.js",
+              "src/assets/js/daterangepicker.min.js",
+              "src/assets/js/jquery.flexslider-min.js",
+              "src/assets/js/perfect-scrollbar.js",
+              "src/assets/js/html2pdf.bundle.js",
+              "src/assets/js/jquery.dataTables.min.js",
+              "src/assets/js/dataTables.buttons.min.js",
+              "src/assets/js/buttons.html5.min.js",
+              "src/assets/js/buttons.print.min.js",
+              "src/assets/js/jszip.min.js",
+              "src/assets/js/bootstrap-datetimepicker.js",
+              "src/assets/js/circle-progress.js",
+              "src/assets/js/jquery.simple.timer.js",
+              "src/assets/js/jquery.inputpicker.js",
+              "src/assets/js/fullcalendar.min.js",
+              "src/assets/js/cookie-consent.js",
+              "src/assets/js/custom.js"
+            ],
+            "es5BrowserSupport": true
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "extractCss": true,
+              "namedChunks": false,
+              "aot": true,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "4mb",
+                  "maximumError": "5mb"
+                }
+              ]
+            },
+            "dev": {
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.ts"
+                }
+              ]
+            },
+            "local": {
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.local.ts"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "OESS_Assessment_Frontend:build"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "OESS_Assessment_Frontend:build:production"
+            },
+            "dev": {
+              "browserTarget": "OESS_Assessment_Frontend:build:dev"
+            },
+            "local": {
+              "browserTarget": "OESS_Assessment_Frontend:build:local"
+            }
+          }
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "OESS_Assessment_Frontend:build"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "src/test.ts",
+            "polyfills": "src/polyfills.ts",
+            "tsConfig": "src/tsconfig.spec.json",
+            "karmaConfig": "src/karma.conf.js",
+            "styles": [
+              {
+                "input": "node_modules/@progress/kendo-theme-default/dist/all.css"
+              },
+              "src/styles.css"
+            ],
+            "scripts": [],
+            "assets": ["src/favicon.ico", "src/assets"]
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": ["src/tsconfig.app.json", "src/tsconfig.spec.json"],
+            "exclude": ["**/node_modules/**"]
+          }
+        }
+      }
+    },
+    "OESS_Assessment_Frontend-e2e": {
+      "root": "e2e/",
+      "projectType": "application",
+      "prefix": "",
+      "architect": {
+        "e2e": {
+          "builder": "@angular-devkit/build-angular:protractor",
+          "options": {
+            "protractorConfig": "e2e/protractor.conf.js",
+            "devServerTarget": "OESS_Assessment_Frontend:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "OESS_Assessment_Frontend:serve:production"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": "e2e/tsconfig.e2e.json",
+            "exclude": ["**/node_modules/**"]
+          }
+        }
+      }
+    }
+  },
+  "defaultProject": "OESS_Assessment_Frontend"
+}

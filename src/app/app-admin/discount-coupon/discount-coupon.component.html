@@ -1,0 +1,185 @@
+<div class="content_block">
+  <div class="container-fluid">
+    <div class="row">
+      <!-- Content -->
+      <div class="col-md-12 col-sm-12">
+        <div class="title_block">
+          <h2 class="float-left" *ngIf="discountCouponEntity.DiscountCouponId == 0">
+            {{globals.adminTranslationText.discountCoupon.form.title.add}}</h2>
+          <h2 class="float-left" *ngIf="discountCouponEntity.DiscountCouponId != 0">
+            {{globals.adminTranslationText.discountCoupon.form.title.update}}</h2>
+          <div class="breadcrumb_block float-left">
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item">
+                <a routerLink="/admin/adminDashboard">
+                  <i class="fa fa-home"></i>
+                </a>
+              </li>
+              <li class="breadcrumb-item"><a
+                  routerLink="/admin/discount-coupon/list">{{globals.adminTranslationText.discountCoupon.form.breadcrumbTitle}}</a>
+              </li>
+
+
+              <li class="breadcrumb-item active" aria-current="page" *ngIf="discountCouponEntity.DiscountCouponId == 0">
+                {{globals.adminTranslationText.discountCoupon.form.breadcrumbSubTitle.add}}</li>
+              <li class="breadcrumb-item active" aria-current="page" *ngIf="discountCouponEntity.DiscountCouponId != 0">
+                {{globals.adminTranslationText.discountCoupon.form.breadcrumbSubTitle.update}}</li>
+            </ol>
+          </div>
+          <a routerLink="/admin/discount-coupon/list"
+            class="all_btn themeoption_btn float-right">{{globals.adminTranslationText.discountCoupon.form.buttons.backToList}}</a>
+          <div class="clearfix"></div>
+        </div>
+        <div class="row d-flex justify-content-center">
+          <div class="col-md-12 col-sm-12">
+            <div class="inner_content_block">
+              <div class="paddin_form">
+                <form role="form" #discountCouponForm="ngForm" (ngSubmit)="addUpdate(discountCouponForm)">
+                  <div class="row">
+                    <div class="col-12 col-xl-4 col-lg-4 col-md-12 col-sm-12">
+                      <div class="form-group">
+                        <label><span>*</span>{{globals.adminTranslationText.discountCoupon.form.discountType.label}}</label>
+                        <kendo-dropdownlist  [data]="discountTypeList" [filterable]="false" [textField]="'DisplayText'" [valueField]="'ConfigurationId'"
+                    [valuePrimitive]="true" #DiscountTypeId="ngModel"
+                    [(ngModel)]="discountCouponEntity.DiscountTypeId" name="DiscountTypeId" [ngClass]="{error: (DiscountTypeId.dirty && DiscountTypeId.invalid) || (DiscountTypeId.pristine && submitted) || errorEntity.DiscountTypeId}" required></kendo-dropdownlist>
+                   
+                        <span class="error_class"
+                          *ngIf="(DiscountTypeId.dirty && DiscountTypeId.invalid) || (DiscountTypeId.pristine && submitted)  || errorEntity.DiscountTypeId">
+                          <span *ngIf="DiscountTypeId.errors && DiscountTypeId.errors.required">
+                            {{globals.adminTranslationText.discountCoupon.form.discountType.required}}
+                          </span>
+                          <span *ngIf="errorEntity.DiscountTypeId != ''">
+                            {{errorEntity.DiscountTypeId}}
+                          </span>
+                        </span>
+                      </div>
+                    </div>
+                    <div class="col-12 col-xl-4 col-lg-4 col-md-12 col-sm-12">
+                      <div class="form-group">
+
+                        <label><span>*</span>{{globals.adminTranslationText.discountCoupon.form.currencyType.label}}</label>
+                        <kendo-dropdownlist  [data]="currencyTypeList" [filterable]="false" [textField]="'DisplayText'" [valueField]="'ConfigurationId'"
+                    [valuePrimitive]="true" #CurrencyTypeId="ngModel"
+                    [(ngModel)]="discountCouponEntity.CurrencyTypeId" name="CurrencyTypeId" [ngClass]="{error: (CurrencyTypeId.dirty && CurrencyTypeId.invalid) || (CurrencyTypeId.pristine && submitted)  || errorEntity.CurrencyTypeId}" required></kendo-dropdownlist >
+                   
+                        <span class="error_class"
+                          *ngIf="(CurrencyTypeId.dirty && CurrencyTypeId.invalid) || (CurrencyTypeId.pristine && submitted)  || errorEntity.CurrencyTypeId">
+                          <span *ngIf="CurrencyTypeId.errors && CurrencyTypeId.errors.required">
+                            {{globals.adminTranslationText.discountCoupon.form.currencyType.required}}
+                          </span>
+                          <span *ngIf="errorEntity.CurrencyTypeId != ''">
+                            {{errorEntity.DiscountTypeId}}
+                          </span>
+                        </span>
+                      </div>
+                    </div>
+                    <div class="col-12 col-xl-4 col-lg-4 col-md-12 col-sm-12">
+                      <div class="form-group">
+                        <label><span>*</span>
+                          {{globals.adminTranslationText.discountCoupon.form.couponCode.label}}</label>
+                        <input type="text" class="form-control" #CouponCode="ngModel"
+                          [(ngModel)]="discountCouponEntity.CouponCode" pattern="[a-zA-Z0-9\.',\s]{3,}"
+                          [ngClass]="{error: (CouponCode.dirty && CouponCode.invalid) || (CouponCode.pristine && submitted)  || errorEntity.CouponCode}"
+                          name="CouponCode" id="CouponCode" maxlength="100" required>
+
+                        <span class="error_class"
+                          *ngIf="(CouponCode.dirty && CouponCode.invalid) || (CouponCode.pristine && submitted)  || errorEntity.CouponCode">
+                          <span
+                            *ngIf="CouponCode.errors.required || (CouponCode.pristine && submitted)">{{globals.adminTranslationText.discountCoupon.form.couponCode.required}}</span>
+                          <span
+                            *ngIf="CouponCode.errors && CouponCode.errors.pattern">{{globals.adminTranslationText.discountCoupon.form.couponCode.pattern}}</span>
+                            <span *ngIf="errorEntity.CouponCode != ''">
+                              {{errorEntity.CouponCode}}
+                            </span>
+                        </span>
+                      </div>
+                    </div>
+                    <div class="col-12 col-xl-4 col-lg-4 col-md-12 col-sm-12">
+                      <div class="form-group">
+                        <label><span>*</span> {{globals.adminTranslationText.discountCoupon.form.value.label}}</label>
+                        <input class="form-control" type="text" #Value="ngModel"
+                          [(ngModel)]="discountCouponEntity.Value"
+                          [ngClass]="{error: (Value.dirty && Value.invalid) || (Value.pristine && submitted)  || errorEntity.Value}"
+                          name="Value" id="Value" pattern="[0-9\.',\s]{2,}" maxlength="100" required>
+
+                        <span class="error_class"
+                          *ngIf="(Value.dirty && Value.invalid) || (Value.pristine && submitted) || errorEntity.Value">
+                          <span
+                            *ngIf="Value.errors.required || (Value.pristine && submitted)">{{globals.adminTranslationText.discountCoupon.form.value.required}}</span>
+                          <span
+                            *ngIf="Value.errors && Value.errors.pattern">{{globals.adminTranslationText.discountCoupon.form.value.pattern}}</span>
+                            <span *ngIf="errorEntity.Value != ''">
+                              {{errorEntity.Value}}
+                            </span>  
+                       </span>
+                      </div>
+                    </div>
+                    <div class="col-12 col-xl-4 col-lg-4 col-md-12 col-sm-12">
+                      <div class="form-group">
+
+                        <label><span>*</span>
+                          {{globals.adminTranslationText.discountCoupon.form.validFrom.label}}</label>
+                          <kendo-datepicker [(ngModel)]="discountCouponEntity.ValidFrom" #ValidFrom="ngModel" [format]="'MM/dd/yyyy'"
+                      name="ValidFrom" id="ValidFrom" (blur)="ValidFromDate=false  || DateValid=false" [ngClass]="{'error': ValidFromDate || DateValid || errorEntity.ValidFrom}" readonly></kendo-datepicker>
+                        <span class="error_class" *ngIf="ValidFromDate || DateValid || errorEntity.ValidFrom">
+                          <span *ngIf="ValidFromDate && !DateValid">
+                            {{globals.adminTranslationText.discountCoupon.form.validFrom.required}}
+                          </span>
+                          <span *ngIf="DateValid && !ValidFromDate">
+                            {{globals.adminTranslationText.discountCoupon.form.validFrom.bigDate}}
+                          </span>
+                          <span *ngIf="errorEntity.ValidFrom != ''">
+                            {{errorEntity.ValidFrom}}
+                          </span>  
+                        </span>
+                      </div>
+                    </div>
+
+                    <div class="col-12 col-xl-4 col-lg-4 col-md-12 col-sm-12">
+                      <div class="form-group">
+                        <label><span>*</span> {{globals.adminTranslationText.discountCoupon.form.validTo.label}}</label>
+                          <kendo-datepicker [(ngModel)]="discountCouponEntity.ValidTo" #ValidTo="ngModel" [format]="'MM/dd/yyyy'"
+                      name="ValidTo" id="ValidTo" (blur)="ValidToDate=false" [ngClass]="{'error': ValidToDate || errorEntity.ValidTo}" readonly></kendo-datepicker>
+                        <span *ngIf="ValidToDate" class="error_class">
+                          {{globals.adminTranslationText.discountCoupon.form.validTo.required}}
+                        </span>
+                        <span class="error_class" *ngIf="errorEntity.ValidTo != ''">
+                          {{errorEntity.ValidTo}}
+                        </span>  
+                      </div>
+                    </div>
+                    <div class="col-md-12 col-12 col-xl-3 col-lg-6 col-sm-12">
+                      <div class="form-group">
+
+                        <label> {{globals.adminTranslationText.discountCoupon.form.active.label}}</label>
+                        <div class="activeyes_box">
+                          <kendo-switch [(ngModel)]="discountCouponEntity.IsActive" value="yes" #IsActive="ngModel" name="IsActive" [onLabel]="'Y'"
+                      [offLabel]="'N'"></kendo-switch>
+                        </div>
+
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-12 col-12 col-lg-12 col-sm-12 text-center">
+
+                      <button class="all_btn theme_btn" type="submit" [disabled]="btn_disable">
+                        <span
+                          *ngIf="discountCouponEntity.DiscountCouponId == 0">{{globals.adminTranslationText.discountCoupon.form.buttons.add}}</span>
+                        <span
+                          *ngIf="discountCouponEntity.DiscountCouponId != 0">{{globals.adminTranslationText.discountCoupon.form.buttons.update}}</span>
+
+                      </button>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- End Content -->
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,128 @@
+<div class="content_block">
+  <div class="container-fluid">
+    <div class="row">
+      <!-- Content -->
+      <div class="col-md-12 col-sm-12">
+        <div class="title_block">
+          <h2 class="float-left" *ngIf="stateEntity.StateId == 0">
+            {{globals.adminTranslationText.state.form.title.add}}</h2>
+          <h2 class="float-left" *ngIf="stateEntity.StateId != 0">
+            {{globals.adminTranslationText.state.form.title.update}}</h2>
+          <div class="breadcrumb_block float-left">
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item">
+                <a routerLink="/admin/adminDashboard">
+                  <i class="fa fa-home"></i>
+                </a>
+              </li>
+              <li class="breadcrumb-item"><a
+                  routerLink="/admin/state/list">{{globals.adminTranslationText.state.form.breadcrumbTitle}}</a>
+              </li>
+              <li class="breadcrumb-item active" aria-current="page" *ngIf="stateEntity.StateId == 0">
+                {{globals.adminTranslationText.state.form.breadcrumbSubTitle.add}}</li>
+              <li class="breadcrumb-item active" aria-current="page" *ngIf="stateEntity.StateId != 0">
+                {{globals.adminTranslationText.state.form.breadcrumbSubTitle.update}}</li>
+            </ol>
+          </div>
+          <a routerLink="/admin/state/list"
+            class="all_btn themeoption_btn float-right">{{globals.adminTranslationText.state.form.buttons.backToList}}</a>
+          <div class="clearfix"></div>
+        </div>
+        <div class="row d-flex justify-content-center">
+          <div class="col-md-12 col-sm-12">
+            <div class="inner_content_block">
+              <div class="paddin_form">
+                <form role="form" #stateForm="ngForm" (ngSubmit)="addUpdate(stateForm)">
+                  <div class="row">
+                    <div class="col-12 col-xl-4 col-lg-4 col-md-12 col-sm-12">
+                      <div class="form-group">
+                        <label><span>*</span> {{globals.adminTranslationText.state.form.stateName.label}}</label>
+                        <input type="text" class="form-control" #StateName="ngModel" [(ngModel)]="stateEntity.StateName"
+                          [ngClass]="{error: (StateName.dirty && StateName.invalid) || (StateName.pristine && submitted) || errorEntity.StateName}"
+                          name="StateName" id="StateName" pattern="^[a-zA-Z][\sa-zA-Z]*" maxlength="50" required>
+
+                        <span class="error_class"
+                          *ngIf="(StateName.dirty && StateName.invalid) || (StateName.pristine && submitted) || errorEntity.StateName">
+                          <span
+                            *ngIf="StateName.errors.required || (StateName.pristine && submitted)">{{globals.adminTranslationText.state.form.stateName.required}}</span>
+                          <span
+                            *ngIf="StateName.errors && StateName.errors.pattern">{{globals.adminTranslationText.state.form.stateName.pattern}}</span>
+                          <span *ngIf="errorEntity.StateName != ''">
+                            {{errorEntity.StateName}}
+                          </span>
+                        </span>
+                      </div>
+                    </div>
+                    <div class="col-12 col-xl-4 col-lg-4 col-md-12 col-sm-12">
+                      <div class="form-group">
+                        <label><span>*</span> {{globals.adminTranslationText.state.form.country.label}}</label>
+                        <kendo-dropdownlist  [data]="countryList" [filterable]="false" [textField]="'CountryName'" [valueField]="'CountryId'"
+                    [valuePrimitive]="true" #CountryId="ngModel"
+                    [(ngModel)]="stateEntity.CountryId" name="CountryId" [ngClass]="{error: (CountryId.dirty && CountryId.invalid) || (CountryId.pristine && submitted) || errorEntity.CountryId}" required></kendo-dropdownlist >
+                        <span class="error_class"
+                          *ngIf="(CountryId.dirty && CountryId.invalid) || (CountryId.pristine && submitted) || errorEntity.CountryId">
+                          <span
+                            *ngIf="CountryId.errors.required || (CountryId.pristine && submitted)">{{globals.adminTranslationText.state.form.country.required}}
+                          <span *ngIf="errorEntity.CountryId != ''">
+                            {{errorEntity.CountryId}}
+                          </span>
+                          </span>
+                        </span>
+                      </div>
+                    </div>
+                    <div class="col-12 col-xl-4 col-lg-4 col-md-12 col-sm-12">
+                      <div class="form-group">
+                        <label><span>*</span>
+                          {{globals.adminTranslationText.state.form.stateAbbreviation.label}}</label>
+                        <input type="text" #StateAbbreviation="ngModel" class="form-control"
+                          [(ngModel)]="stateEntity.StateAbbreviation"
+                          [ngClass]="{error: (StateAbbreviation.dirty && StateAbbreviation.invalid) || (StateAbbreviation.pristine && submitted) || errorEntity.StateAbbreviation}"
+                          name="StateAbbreviation" id="StateAbbreviation" pattern="[a-zA-Z]{2,3}" maxlength="3"
+                          required>
+
+                        <span class="error_class"
+                          *ngIf="(StateAbbreviation.dirty && StateAbbreviation.invalid) || (StateAbbreviation.pristine && submitted) || errorEntity.StateAbbreviation">
+                          <span
+                            *ngIf="StateAbbreviation.errors.required || (StateAbbreviation.pristine && submitted)">{{globals.adminTranslationText.state.form.stateAbbreviation.required}}</span>
+                          <span
+                            *ngIf="StateAbbreviation.errors && StateAbbreviation.errors.pattern">{{globals.adminTranslationText.state.form.stateAbbreviation.pattern}}</span>
+                          <span *ngIf="errorEntity.StateAbbreviation != ''">
+                            {{errorEntity.StateAbbreviation}}
+                          </span>
+                        </span>
+                      </div>
+                    </div>
+                    <div class="col-md-12 col-12 col-xl-2 col-lg-6 col-sm-12">
+                      <div class="form-group">
+                        <label class="mb-1"> {{globals.adminTranslationText.state.form.active.label}}</label>
+                        <div class="activeyes_box">
+                          <!-- <input type="checkbox" name="IsActive" id="IsActive" value="yes" #IsActive="ngModel"
+                            [(ngModel)]="stateEntity.IsActive">
+                          <label for="IsActive"></label> -->
+                          <kendo-switch [(ngModel)]="stateEntity.IsActive" value="yes" #IsActive="ngModel" name="IsActive" [onLabel]="'Y'"
+                      [offLabel]="'N'"></kendo-switch>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-12 col-12 col-lg-12 col-sm-12 text-center">
+                      <button class="all_btn theme_btn" type="submit" [disabled]="btn_disable">
+                        <span
+                          *ngIf="stateEntity.StateId == 0">{{globals.adminTranslationText.state.form.buttons.add}}</span>
+                        <span
+                          *ngIf="stateEntity.StateId != 0">{{globals.adminTranslationText.state.form.buttons.update}}</span>
+                      </button>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- End Content -->
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</div>

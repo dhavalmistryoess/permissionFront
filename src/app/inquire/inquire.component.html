@@ -1,0 +1,351 @@
+<div class="container-fluid login_register_bg" *ngIf="!this.globals.authData">
+  <div class="loginregister_white_block register_block_height">
+    <div class="row justify-content-around">
+      <div class="col-12 col-xl-8 col-lg-9 col-md-12 col-sm-12">
+        <div class="white_login_block">
+          <div class="row justify-center">
+            <div class="col-12 col-xl-4 col-lg-5 col-md-12 col-sm-12">
+              <div class="login_logo_block">
+                <div class="logo_center">
+                  <a routerLink="/login">
+                    <img src="assets/images/logo.png" class="img-fluid" alt="">
+                  </a>
+                  <h1>{{globals.commonTranslationText.header.title}}</h1>
+                  <div class="contact_block">
+                    <h4>{{globals.commonTranslationText.inquirePage.contactDetails.title}}</h4>
+                    <div class="c_address">
+                      <i class="fa fa-map-pin"></i>
+                      <span>{{defaultContactEntity.ContactAddress}}</span>
+                    </div>
+                    <div class="c_phone">
+                      <i class="fa fa-phone"></i><a
+                        href="tel:{{defaultContactEntity.PhoneNumber}}">{{defaultContactEntity.PhoneNumber}}</a>
+                      <br>
+                      <i class="fa fa-envelope"></i>
+                      <a href="mailto:{{defaultContactEntity.EmailAddress}}">{{defaultContactEntity.EmailAddress}}</a>
+                    </div>
+                    <div class="clearfix"></div>
+                  </div>
+                  <p><a routerLink="/privacyPolicy">Privacy Policy</a>  |  <a routerLink="/cookiePolicy">Cookie Policy</a>  |  <a routerLink="/termconditions">Terms of use</a></p>
+                </div>
+              </div>
+            </div>
+            <div class="col-12 col-xl-8 col-lg-7 col-md-12 col-sm-12">
+              <div class="padding_login_block">
+                <h3>{{globals.commonTranslationText.inquirePage.form.title}}</h3>
+                <p class="padding_15">{{globals.commonTranslationText.inquirePage.form.subTitle}}</p>
+                <div class="clearfix"></div>
+                <form #inquireForm="ngForm" (ngSubmit)="sendMessage(inquireForm)">
+                  <div class="row">
+                    <div class="col-12 col-xl-6 col-lg-12 col-md-12 col-sm-12">
+                      <div class="form-group">
+                        <label>
+                          <span>*</span> {{globals.commonTranslationText.inquirePage.form.firstName.label}}
+                        </label>
+                        <input type="text" class="form-control" #FirstName="ngModel" required
+                          [(ngModel)]="inquireEntity.FirstName" name="FirstName" [disabled]="isDisable"
+                          [ngClass]="{error: (FirstName.dirty && FirstName.invalid) || (FirstName.pristine && submitted) || errorEntity.FirstName}"
+                          pattern="[a-zA-Z',&.$\ ]{2,}">
+                        <span class="error_class"
+                          *ngIf="(FirstName.dirty && FirstName.invalid) || (FirstName.pristine && submitted) || errorEntity.FirstName">
+                          <span *ngIf="FirstName.errors && FirstName.errors.required">
+                            {{globals.commonTranslationText.inquirePage.form.firstName.required}}
+                          </span>
+                          <span *ngIf="FirstName.errors && FirstName.errors.pattern">
+                            {{globals.commonTranslationText.inquirePage.form.firstName.pattern}}
+                          </span>
+                          <span *ngIf="errorEntity.FirstName != ''">
+                            {{errorEntity.FirstName}}
+                          </span>  
+                        </span>
+                      </div>
+                    </div>
+                    <div class="col-12 col-xl-6 col-lg-12 col-md-12 col-sm-12">
+                      <div class="form-group">
+                        <label>
+                          <span>*</span> {{globals.commonTranslationText.inquirePage.form.lastName.label}}
+                        </label>
+                        <input type="text" class="form-control" #LastName="ngModel" [(ngModel)]="inquireEntity.LastName"
+                          name="LastName" [disabled]="isDisable"
+                          [ngClass]="{error: (LastName.dirty && LastName.invalid) || (LastName.pristine && submitted) || errorEntity.LastName}"
+                          pattern="[a-zA-Z',&.$\ ]{2,}" required>
+
+                        <span class="error_class"
+                          *ngIf="(LastName.dirty && LastName.invalid) || (LastName.pristine && submitted) || errorEntity.LastName">
+                          <span *ngIf="LastName.errors && LastName.errors.required">
+                            {{globals.commonTranslationText.inquirePage.form.lastName.required}}
+                          </span>
+                          <span *ngIf="LastName.errors && LastName.errors.pattern">
+                            {{globals.commonTranslationText.inquirePage.form.lastName.pattern}}
+                          </span>
+                          <span *ngIf="errorEntity.LastName != ''">
+                            {{errorEntity.LastName}}
+                          </span>
+                        </span>
+                      </div>
+                    </div>
+
+                    <div class="col-12 col-xl-6 col-lg-12 col-md-12 col-sm-12">
+                      <div class="form-group">
+                        <label>
+                          <span>*</span> {{globals.commonTranslationText.inquirePage.form.emailAddress.label}}
+                        </label>
+                        <input type="email" class="form-control" #EmailAddress="ngModel"
+                          [(ngModel)]="inquireEntity.EmailAddress" name="EmailAddress" id="EmailAddress"
+                          [disabled]="isDisable" pattern="[a-zA-Z0-9.-_]{1,}@[a-zA-Z.-]{2,}[.]{1}[a-zA-Z]{2,}" required
+                          [ngClass]="{error: (EmailAddress.dirty && EmailAddress.invalid) || (EmailAddress.pristine && submitted) || errorEntity.EmailAddress}">
+                        <span class="error_class"
+                          *ngIf="(EmailAddress.dirty && EmailAddress.invalid) || (EmailAddress.pristine && submitted) || errorEntity.EmailAddress">
+                          <span *ngIf="EmailAddress.errors && EmailAddress.errors.required">
+                            {{globals.commonTranslationText.inquirePage.form.emailAddress.required}}
+                          </span>
+                          <span *ngIf="EmailAddress.errors && EmailAddress.errors.pattern">
+                            {{globals.commonTranslationText.inquirePage.form.emailAddress.pattern}}
+                          </span>
+                          <span *ngIf="errorEntity.EmailAddress != ''">
+                            {{errorEntity.EmailAddress}}
+                          </span>
+                        </span>
+                      </div>
+                    </div>
+
+                    <div class="col-12 col-xl-6 col-lg-12 col-md-12 col-sm-12">
+                      <div class="form-group">
+                        <label>
+                          {{globals.commonTranslationText.inquirePage.form.contactNumber.label}} </label>
+                        <input type="text" class="form-control" #PhoneNumber="ngModel"
+                          [(ngModel)]="inquireEntity.PhoneNumber"
+                          [ngClass]="{error: (PhoneNumber.dirty && PhoneNumber.invalid)}" name="PhoneNumber"
+                          pattern="[0-9]{10,13}" maxlength="13">
+                        <span class="error_class"
+                          *ngIf="(PhoneNumber.dirty && PhoneNumber.invalid) || (PhoneNumber.pristine && submitted)">
+                          <span
+                            *ngIf="PhoneNumber.errors && PhoneNumber.errors.pattern">{{globals.commonTranslationText.inquirePage.form.contactNumber.pattern}}</span>
+                        </span>
+                      </div>
+                    </div>
+                    
+                    <div class="col-12 col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                      <div class="form-group">
+                        <label>
+                          <span>*</span> {{globals.commonTranslationText.inquirePage.form.message.label}}
+                        </label>
+                        <textarea kendoTextArea id="contact_us" class="form-control" #Message="ngModel"
+                          [(ngModel)]="inquireEntity.Message"
+                          [ngClass]="{error: (Message.dirty && Message.invalid) || (Message.pristine && submitted) || errorEntity.Message}"
+                          name="Message" maxlength="500" rows="8" required> </textarea>
+                        <span id="count_message"></span>
+                        <span class="error_class"
+                          *ngIf="(Message.dirty && Message.invalid) || (Message.pristine && submitted) || errorEntity.Message">
+                          <span *ngIf="Message.errors && Message.errors.required">
+                            {{globals.commonTranslationText.inquirePage.form.message.required}}
+                          </span>
+                          <span *ngIf="errorEntity.Message != ''">
+                            {{errorEntity.Message}}
+                          </span>
+                        </span>
+                        
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-12 col-lg-12 col-md-12">
+                        <button type="submit" [disabled]="btn_disable"
+                        class="all_btn theme_btn float-right">{{globals.commonTranslationText.inquirePage.buttons.submit}}</button>
+                        <p class="float-left"><a
+                            routerLink="/register">{{globals.commonTranslationText.inquirePage.buttons.notHaveAccount}}</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp; 
+                          <a routerLink="/login">{{globals.commonTranslationText.inquirePage.buttons.haveAccount}}</a>
+                        </p>
+                        <div class="clearfix"></div>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="content_block" *ngIf="this.globals.authData"
+  [ngClass]="{active_menu_right_block : this.globals.authData.RoleId == 1}">
+  <div class="container-fluid">
+    <div class="row">
+      <!-- Content -->
+      <div class="col-md-12 col-sm-12">
+        <div class="title_block">
+          <h2 class="float-left">
+            {{globals.commonTranslationText.inquirePage.title}}</h2>
+          <div class="breadcrumb_block float-left">
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item">
+                <a routerLink="/dashboard">
+                  <i class="fa fa-home"></i>
+                </a>
+              </li>
+              <li class="breadcrumb-item active" aria-current="page">
+                {{globals.commonTranslationText.inquirePage.breadcrumbTitle}}</li>
+            </ol>
+          </div>
+          <div class="clearfix"></div>
+        </div>
+        <div class="row d-flex justify-content-center">
+          <div class="col-md-12 col-sm-12">
+            <div class="inner_content_block">
+              <div class="paddin_form">
+                <div class="row">
+                  <div class="col-12 col-xl-3 col-lg-3 col-md-12 col-sm-12">
+                    <div class="contact_block mt-0 mb-5">
+                      <h4>{{globals.commonTranslationText.inquirePage.contactDetails.title}}</h4>
+                      <div class="c_address">
+                        <i class="fa fa-map-pin"></i>
+                        <span>{{defaultContactEntity.ContactAddress}}</span>
+                      </div>
+                      <div class="c_phone">
+                        <i class="fa fa-phone"></i><a
+                          href="tel:{{defaultContactEntity.PhoneNumber}}">{{defaultContactEntity.PhoneNumber}}</a>
+                        <br>
+                        <i class="fa fa-envelope"></i>
+                        <a href="mailto:{{defaultContactEntity.EmailAddress}}">{{defaultContactEntity.EmailAddress}}</a>
+                      </div>
+                      <div class="clearfix"></div>
+                    </div>
+                  </div>
+                  <div class="col-12 col-xl-9 col-lg-9 col-md-12 col-sm-12">
+                    <div class="contact_block mt-0">
+                      <h4>{{globals.commonTranslationText.inquirePage.contactDetails.inquireTitle}}</h4>
+                      <form #inquireForm="ngForm" (ngSubmit)="sendMessage(inquireForm)">
+                        <div class="row">
+                          <div class="col-12 col-xl-6 col-lg-12 col-md-12 col-sm-12">
+                            <div class="form-group">
+                              <label>
+                                <span>*</span> {{globals.commonTranslationText.inquirePage.form.firstName.label}}
+                              </label>
+                              <input type="text" class="form-control" #FirstName="ngModel" required
+                                [(ngModel)]="inquireEntity.FirstName" name="FirstName" [disabled]="isDisable"
+                                [ngClass]="{error: !this.globals.authData && ((FirstName.dirty && FirstName.invalid) || (FirstName.pristine && submitted) || errorEntity.FirstName)}"
+                                pattern="[a-zA-Z',&.$\ ]{2,}">
+                              <span class="error_class"
+                                *ngIf="!this.globals.authData && ((FirstName.dirty && FirstName.invalid) || (FirstName.pristine && submitted)|| errorEntity.FirstName)">
+                                <span *ngIf="FirstName.errors && FirstName.errors.required">
+                                  {{globals.commonTranslationText.inquirePage.form.firstName.required}}
+                                </span>
+                                <span *ngIf="FirstName.errors && FirstName.errors.pattern">
+                                  {{globals.commonTranslationText.inquirePage.form.firstName.pattern}}
+                                </span>
+                                <span *ngIf="errorEntity.FirstName != ''">
+                                  {{errorEntity.FirstName}}
+                                </span>
+                              </span>
+                            </div>
+                          </div>
+                          <div class="col-12 col-xl-6 col-lg-12 col-md-12 col-sm-12">
+                            <div class="form-group">
+                              <label>
+                                <span>*</span> {{globals.commonTranslationText.inquirePage.form.lastName.label}}
+                              </label>
+                              <input type="text" class="form-control" #LastName="ngModel"
+                                [(ngModel)]="inquireEntity.LastName" name="LastName" [disabled]="isDisable"
+                                [ngClass]="{error:!this.globals.authData && ((LastName.dirty && LastName.invalid) || (LastName.pristine && submitted) || errorEntity.LastName)}"
+                                pattern="[a-zA-Z',&.$\ ]{2,}" required>
+
+                              <span class="error_class"
+                                *ngIf="!this.globals.authData && ((LastName.dirty && LastName.invalid) || (LastName.pristine && submitted) || errorEntity.LastName)">
+                                <span *ngIf="LastName.errors && LastName.errors.required">
+                                  {{globals.commonTranslationText.inquirePage.form.lastName.required}}
+                                </span>
+                                <span *ngIf="LastName.errors && LastName.errors.pattern">
+                                  {{globals.commonTranslationText.inquirePage.form.lastName.pattern}}
+                                </span>
+                                <span *ngIf="errorEntity.LastName != ''">
+                                  {{errorEntity.LastName}}
+                                </span>
+                              </span>
+                            </div>
+                          </div>
+
+                          <div class="col-12 col-xl-6 col-lg-12 col-md-12 col-sm-12">
+                            <div class="form-group">
+                              <label>
+                                <span>*</span> {{globals.commonTranslationText.inquirePage.form.emailAddress.label}}
+                              </label>
+                              <input type="EmailAddress" class="form-control" #EmailAddress="ngModel"
+                                [(ngModel)]="inquireEntity.EmailAddress" name="EmailAddress" id="EmailAddress"
+                                [disabled]="isDisable" pattern="[a-zA-Z0-9.-_]{1,}@[a-zA-Z.-]{2,}[.]{1}[a-zA-Z]{2,}"
+                                required
+                                [ngClass]="{error: !this.globals.authData && ((EmailAddress.dirty && EmailAddress.invalid) || (EmailAddress.pristine && submitted) || errorEntity.EmailAddress)}">
+                              <span class="error_class"
+                                *ngIf="!this.globals.authData && ((EmailAddress.dirty && EmailAddress.invalid) || (EmailAddress.pristine && submitted) || errorEntity.EmailAddress)">
+                                <span *ngIf="EmailAddress.errors && EmailAddress.errors.required">
+                                  {{globals.commonTranslationText.inquirePage.form.emailAddress.required}}
+                                </span>
+                                <span *ngIf="EmailAddress.errors && EmailAddress.errors.pattern">
+                                  {{globals.commonTranslationText.inquirePage.form.emailAddress.pattern}}
+                                </span>
+                                <span *ngIf="errorEntity.EmailAddress != ''">
+                                  {{errorEntity.EmailAddress}}
+                                </span>
+                              </span>
+                            </div>
+                          </div>
+
+                          <div class="col-12 col-xl-6 col-lg-12 col-md-12 col-sm-12">
+                            <div class="form-group">
+                              <label>
+                                {{globals.commonTranslationText.inquirePage.form.contactNumber.label}} </label>
+                              <input type="text" class="form-control" #PhoneNumber="ngModel"
+                                [(ngModel)]="inquireEntity.PhoneNumber"
+                                [ngClass]="{error: (PhoneNumber.dirty && PhoneNumber.invalid)}" name="PhoneNumber"
+                                pattern="[0-9]{10,13}" maxlength="13">
+                              <span class="error_class"
+                                *ngIf="(PhoneNumber.dirty && PhoneNumber.invalid) || (PhoneNumber.pristine && submitted)">
+                                <span
+                                  *ngIf="PhoneNumber.errors && PhoneNumber.errors.pattern">{{globals.commonTranslationText.inquirePage.form.contactNumber.pattern}}</span>
+                              </span>
+                            </div>
+                          </div>
+
+                          <div class="col-12 col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                            <div class="form-group">
+                              <label>
+                                <span>*</span> {{globals.commonTranslationText.inquirePage.form.message.label}}
+                              </label>
+                              <textarea id="contact_us" class="form-control" #Message="ngModel"
+                                [(ngModel)]="inquireEntity.Message"
+                                [ngClass]="{error: (Message.dirty && Message.invalid) || (Message.pristine && submitted) || errorEntity.Message}"
+                                name="Message" maxlength="500" rows="8" required> </textarea>
+                              <span id="count_message"></span>
+                              <span class="error_class"
+                                *ngIf="(Message.dirty && Message.invalid) || (Message.pristine && submitted) || errorEntity.Message">
+                                <span *ngIf="Message.errors && Message.errors.required">
+                                  {{globals.commonTranslationText.inquirePage.form.message.required}}
+                                </span>
+                                <span *ngIf="errorEntity.Message != ''">
+                                  {{errorEntity.Message}}
+                                </span>
+                              </span>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col-md-12 col-12 col-lg-12 col-sm-12 text-center">
+                            <button class="all_btn theme_btn" type="submit" [disabled]="btn_disable">
+                              {{globals.commonTranslationText.inquirePage.buttons.submit}}
+                            </button>
+                          </div>
+                        </div>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- End Content -->
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</div>

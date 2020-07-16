@@ -1,0 +1,116 @@
+<div class="content_block">
+  <div class="container-fluid">
+    <div class="row">
+      <!-- Content -->
+      <div class="col-md-12 col-sm-12">
+        <div class="title_block">
+          <h2 class="float-left">{{globals.adminTranslationText.configuration.form.title}}</h2>
+          <div class="breadcrumb_block float-left">
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item">
+                <a routerLink="/admin/adminDashboard">
+                  <i class="fa fa-home"></i>
+                </a>
+              </li>
+              <li class="breadcrumb-item active" aria-current="page">
+                {{globals.adminTranslationText.configuration.form.breadcrumbTitle}}</li>
+            </ol>
+          </div>
+          <div class="clearfix"></div>
+        </div>
+        <div class="row d-flex justify-content-center">
+          <div class="col-md-12 col-sm-12">
+            <form role="form" #configurationForm="ngForm" (ngSubmit)="update(configurationForm)">
+              <div class="inner_content_block mb-5">
+                <div class="paddin_form pb-3">
+                  <div class="row">
+                    <div class="col-md-12 col-12 col-lg-12 col-sm-12">
+                      <h5>{{globals.adminTranslationText.configuration.form.smtpDetails.title}}</h5>
+                      <div class="row">
+                        <ng-container *ngFor="let smtp of configurationEntity.SMTPDetails; let i = index">
+
+                          <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12">
+                            <div class="form-group">
+                              <label>
+                                <span>*</span>
+                                {{globals.adminTranslationText.configuration.form.smtp[smtp.Key]}}</label>
+                              <input class="form-control" type="email" #SMTP="ngModel" [(ngModel)]="smtp.Value"
+                                [ngClass]="{error: (SMTP.dirty && SMTP.invalid) || (SMTP.pristine && submitted) || (errorEntity.SMTPDetails[i]) }"
+                                name="SMTP{{i}}" maxlength="100" required />
+                              <span class="error_class"
+                                *ngIf="(SMTP.dirty && SMTP.invalid) || (SMTP.pristine && submitted)">
+                                <span *ngIf="SMTP.errors && SMTP.errors.required">
+                                  {{globals.adminTranslationText.configuration.form.require}}
+                                </span>
+                                <span *ngIf="errorEntity.SMTPDetails[i] != ''">
+                                  {{errorEntity.SMTPDetails[i]}}
+                                </span>
+                              </span>
+                            </div>
+                          </div>
+                        </ng-container>
+                      </div>
+                      <div class="clearfix"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="clearfix"></div>
+              <div class="inner_content_block mb-5">
+                <div class="paddin_form pb-3">
+                  <h5>{{globals.adminTranslationText.configuration.form.documentType.title}}</h5>
+                  <div class="row">
+                    <ng-container *ngFor="let documenttype of configurationEntity.DocumentType; let i = index">
+                      <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12">
+                        <div class="form-group">
+                          <label>
+                            <span>*</span>
+                            {{globals.adminTranslationText.configuration.form.documentType.title}}{{i+1}}</label>
+                          <input class="form-control" type="text" #document="ngModel"
+                            [(ngModel)]="documenttype.DisplayText"
+                            [ngClass]="{error: (document.dirty && document.invalid) || (document.pristine && submitted) || (errorEntity.docType[i]) }"
+                            name="document{{i}}" maxlength="100" required />
+                          <span class="error_class"
+                            *ngIf="(document.dirty && document.invalid) || (document.pristine && submitted)">
+                            <span *ngIf="document.errors && document.errors.required">
+                              {{globals.adminTranslationText.configuration.form.require}}
+                            </span>
+                            <span *ngIf="errorEntity.docType[i] != ''">
+                              {{errorEntity.docType[i]}}
+                            </span>
+                          </span>
+                        </div>
+                      </div>
+                    </ng-container>
+                  </div>
+                </div>
+              </div>
+
+             
+
+              
+
+             
+
+             
+
+             
+
+              <div class="clearfix"></div>
+              <div class="row">
+                <div class="col-md-12 col-12 col-lg-12 col-sm-12 text-center">
+                  <button type="submit" class="all_btn theme_btn">
+                    {{globals.adminTranslationText.configuration.form.buttons.submit}}
+                  </button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- End Content -->
+  <div class="clearfix"></div>
+</div>

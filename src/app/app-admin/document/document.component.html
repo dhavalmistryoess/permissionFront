@@ -1,0 +1,166 @@
+<div class="content_block">
+  <div class="container-fluid">
+    <div class="row">
+      <!-- Content -->
+      <div class="col-md-12 col-sm-12">
+        <div class="title_block">
+          <h2 class="float-left" *ngIf="documentEntity.DocumentId == 0">
+            {{globals.adminTranslationText.document.form.title.add}}</h2>
+          <h2 class="float-left" *ngIf="documentEntity.DocumentId != 0">
+            {{globals.adminTranslationText.document.form.title.update}}</h2>
+          <div class="breadcrumb_block float-left">
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item">
+                <a routerLink="/admin/adminDashboard">
+                  <i class="fa fa-home"></i>
+                </a>
+              </li>
+              <li class="breadcrumb-item"><a
+                  routerLink="/admin/document/list">{{globals.adminTranslationText.document.form.breadcrumbTitle}}</a>
+              </li>
+              <li class="breadcrumb-item active" aria-current="page" *ngIf="documentEntity.DocumentId == 0">
+                {{globals.adminTranslationText.document.form.breadcrumbSubTitle.add}}</li>
+              <li class="breadcrumb-item active" aria-current="page" *ngIf="documentEntity.DocumentId != 0">
+                {{globals.adminTranslationText.document.form.breadcrumbSubTitle.update}}</li>
+            </ol>
+          </div>
+          <a routerLink="/admin/document/list"
+            class="all_btn themeoption_btn float-right">{{globals.adminTranslationText.document.form.buttons.backToList}}</a>
+          <div class="clearfix"></div>
+        </div>
+        <div class="row d-flex justify-content-center">
+          <div class="col-md-12 col-sm-12">
+            <div class="inner_content_block">
+              <div class="paddin_form">
+                <form role="form" #documentForm="ngForm" (ngSubmit)="addUpdate(documentForm)">
+                  <div class="row">
+                    <div class="col-md-12 col-12 col-xl-4 col-lg-4 col-sm-12">
+                      <div class="form-group">
+                        <label><span>*</span> {{globals.adminTranslationText.document.form.documentName.label}}</label>
+                        <input type="text" class="form-control" #DocumentName="ngModel"
+                          [(ngModel)]="documentEntity.DocumentName"
+                          [ngClass]="{error: (DocumentName.dirty && DocumentName.invalid) || (DocumentName.pristine && submitted) || errorEntity.DocumentName }"
+                          name="DocumentName" id="DocumentName" pattern="^[0-9a-zA-Z][\s0-9a-zA-Z]*" maxlength="40"
+                          required>
+
+                        <span class="error_class"
+                          *ngIf="(DocumentName.dirty && DocumentName.invalid) || (DocumentName.pristine && submitted || errorEntity.DocumentName )">
+                          <span
+                            *ngIf="DocumentName.errors.required || (DocumentName.pristine && submitted)">{{globals.adminTranslationText.document.form.documentName.required}}</span>
+                          <span
+                            *ngIf="DocumentName.errors && DocumentName.errors.pattern">{{globals.adminTranslationText.document.form.documentName.pattern}}</span>
+                            <span *ngIf="errorEntity.DocumentName != ''">
+                              {{errorEntity.DocumentName}}
+                            </span>
+                        </span>
+                      </div>
+                    </div>
+                    <div class="col-md-12 col-12 col-xl-4 col-lg-4 col-sm-12">
+                      <div class="form-group">
+                        <label><span>*</span> {{globals.adminTranslationText.document.form.documentSize.label}}</label>
+                        <input type="text" class="form-control" #DocumentSize="ngModel"
+                          [(ngModel)]="documentEntity.DocumentSize"
+                          [ngClass]="{error: (DocumentSize.dirty && DocumentSize.invalid) || (DocumentSize.pristine && submitted)  || errorEntity.DocumentSize}"
+                          name="DocumentSize" id="DocumentSize" pattern="^\d{0,3}(\.\d{1,2})?$" required>
+
+                        <span class="error_class"
+                          *ngIf="(DocumentSize.dirty && DocumentSize.invalid) || (DocumentSize.pristine && submitted) || errorEntity.DocumentSize">
+                          <span
+                            *ngIf="DocumentSize.errors.required || (DocumentSize.pristine && submitted)">{{globals.adminTranslationText.document.form.documentSize.required}}</span>
+                          <span
+                            *ngIf="DocumentSize.errors && DocumentSize.errors.pattern">{{globals.adminTranslationText.document.form.documentSize.pattern}}</span>
+                            <span *ngIf="errorEntity.DocumentSize != ''">
+                              {{errorEntity.DocumentSize}}
+                            </span>  
+                        </span>
+                      </div>
+                    </div>
+                    <div class="col-md-12 col-12 col-xl-4 col-lg-4 col-sm-12">
+                      <div class="form-group">
+                        <label><span>*</span>
+                          {{globals.adminTranslationText.document.form.documentSizeUnit.label}}</label>
+                        <kendo-dropdownlist  [data]="documentSizeUnitsList" [filterable]="false" [textField]="'DisplayText'" [valueField]="'ConfigurationId'"
+                    [valuePrimitive]="true" #DocumentSizeUnit="ngModel"
+                    [(ngModel)]="documentEntity.DocumentSizeUnit" name="DocumentSizeUnit" [ngClass]="{error: (DocumentSizeUnit.dirty && DocumentSizeUnit.invalid) || (DocumentSizeUnit.pristine && submitted) || errorEntity.DocumentSizeUnit}" required></kendo-dropdownlist >
+                        <span class="error_class"
+                          *ngIf="(DocumentSizeUnit.dirty && DocumentSizeUnit.invalid) || (DocumentSizeUnit.pristine && submitted) || errorEntity.DocumentSizeUnit">
+                          <span *ngIf="DocumentSizeUnit.errors && DocumentSizeUnit.errors.required">
+                            {{globals.adminTranslationText.document.form.documentSizeUnit.required}}
+                          </span>
+                          <span *ngIf="errorEntity.DocumentSizeUnit != ''">
+                            {{errorEntity.DocumentSizeUnit}}
+                          </span>  
+                        </span>
+                      </div>
+                    </div>
+                    <div class="col-md-12 col-12 col-xl-4 col-lg-4 col-sm-12">
+                      <div class="form-group">
+                        <label><span>*</span> {{globals.adminTranslationText.document.form.documentType.label}}</label>
+                        <kendo-multiselect  [data]="documentTypeList" [filterable]="false" [textField]="'DisplayText'" [valueField]="'ConfigurationId'"
+                    [valuePrimitive]="true" #DocumentType="ngModel"
+                    [(ngModel)]="documentEntity.DocumentType" name="DocumentType" [ngClass]="{error: (DocumentType.dirty && DocumentType.invalid) || (DocumentType.pristine && submitted) || errorEntity.DocumentType}" required></kendo-multiselect >
+                        <span class="error_class"
+                          *ngIf="(DocumentType.dirty && DocumentType.invalid) || (DocumentType.pristine && submitted) || errorEntity.DocumentType">
+                          <span *ngIf="DocumentType.errors && DocumentType.errors.required">
+                            {{globals.adminTranslationText.document.form.documentType.required}}
+                          </span>
+                          <span *ngIf="errorEntity.DocumentType != ''">
+                            {{errorEntity.DocumentType}}
+                          </span>  
+                        </span>
+                      </div>
+                    </div>
+                    <div class="col-md-12 col-12 col-xl-4 col-lg-4 col-sm-12">
+                      <div class="form-group">
+                        <label><span>*</span> {{globals.adminTranslationText.document.form.documentLevel.label}}</label>
+                        <div class="radio_box">
+                          <input type="radio" (change)="IsPrimaryDis=false" value="0" #IsPrimaryDocument='ngModel'
+                            [(ngModel)]="documentEntity.IsPrimaryDocument" name="IsPrimaryDocument" id="dates1">
+                          <label for="dates1">Personal Level Documents</label>
+                        </div>
+                        <div class="radio_box">
+                          <input type="radio" (change)="IsPrimaryDis=false" value="1" #IsPrimaryDocument='ngModel'
+                            [(ngModel)]="documentEntity.IsPrimaryDocument" name="IsPrimaryDocument" id="dates2">
+                          <label for="dates2">Certificate Level Documents</label>
+                        </div>
+                        <span class="error_class" *ngIf="IsPrimaryDis">
+                          {{globals.adminTranslationText.document.form.documentLevel.required}}
+                        </span>
+                        <span  class="error_class" *ngIf="errorEntity.IsPrimaryDocument != ''">
+                          {{errorEntity.DocumentType}}
+                        </span>  
+                      </div>
+                    </div>
+
+                    <div class="col-md-12 col-12 col-xl-4 col-lg-4 col-sm-12">
+                      <div class="form-group">
+                        <label class="mb-1">
+                          {{globals.adminTranslationText.document.form.active.label}}</label>
+                        <div class="activeyes_box">
+                          <kendo-switch [(ngModel)]="documentEntity.IsActive" value="yes" #IsActive="ngModel" name="IsActive" [onLabel]="'Y'"
+                      [offLabel]="'N'"></kendo-switch>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-12 col-12 col-lg-12 col-sm-12 text-center">
+                      <button class="all_btn theme_btn" type="submit" [disabled]="btn_disable">
+                        <span
+                          *ngIf="documentEntity.DocumentId == 0">{{globals.adminTranslationText.document.form.buttons.add}}</span>
+                        <span
+                          *ngIf="documentEntity.DocumentId != 0">{{globals.adminTranslationText.document.form.buttons.update}}</span>
+                      </button>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- End Content -->
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,36 @@
+<div class="sidebar_wrap active_menu">
+      <!--*ngIf="globals.authData.RoleId ==1"-->
+      <div class="header_logo">
+            <a *ngIf="globals.authData.RoleId == 1" routerLink="/admin/adminDashboard">
+                  <img src="assets/images/logo.png" alt="" class="img-fluid" /><span>OpenEyes <br>
+                        Software Solution</span>
+            </a>
+       
+            <button id="sidebar" class="pin_toggle"></button>
+      </div>
+      <ul id="accordion" class="sidebar_box">
+
+            <li class="title"><i class="fa fa-tachometer"></i><span class="text">Dashboard</span></li>
+            <li [ngClass]="{'active':globals.currentLink=='/admin/adminDashboard'}"><a routerLink="/admin/adminDashboard">Admin
+                        Dashboard</a>
+            </li>
+      
+            <li class="title"><i class="fa fa-sliders"></i><span class="text">Manage</span></li>
+            <li [ngClass]="{'active':globals.currentLink=='/admin/country/list'}" *ngIf="globals.hasAccess('add-country')">
+                  <a class="collapsed has_click" routerLink="/admin/country/list"><span>Country</span></a>
+            </li>
+            <li [ngClass]="{'active':globals.currentLink=='/admin/email-template/list'}"><a class="has_click"
+                        routerLink="/admin/email-template/list"><span>Email Template</span></a></li>
+            <li [ngClass]="{'active':globals.currentLink=='/admin/state/list'}"><a class="has_click"
+                        routerLink="/admin/state/list"><span>State/Province</span></a></li>
+
+            
+
+            <li class="title"><i class="fa fa-cogs"></i><span class="text">Configuration</span></li>
+            <li [ngClass]="{'active':globals.currentLink=='/admin/permission'}"><a routerLink="/admin/permission"
+                        class="has_click">
+                        <span class="text">Permissions</span></a></li>
+           
+      </ul>
+    
+</div>

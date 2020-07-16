@@ -1,0 +1,159 @@
+<div class="content_block">
+  <div class="container-fluid">
+    <div class="row">
+      <!-- Content -->
+      <div class="col-md-12 col-sm-12">
+        <div class="title_block">
+          <h2 class="float-left">{{globals.adminTranslationText.eligibilityItem.list.title}}</h2>
+          <div class="breadcrumb_block float-left">
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item">
+                <a routerLink="/admin/adminDashboard">
+                  <i class="fa fa-home"></i>
+                </a>
+              </li>
+              <li class="breadcrumb-item"><a
+                  routerLink="/admin/eligibility-item/list">{{globals.adminTranslationText.eligibilityItem.list.breadcrumbTitle}}</a>
+              </li>
+              <li class="breadcrumb-item" aria-current="page">
+                {{globals.adminTranslationText.eligibilityItem.list.breadcrumbSubTitle}}</li>
+            </ol>
+          </div>
+          <a routerLink="/admin/eligibility-item/add" class="all_btn theme_btn float-right">
+            <span>{{globals.adminTranslationText.eligibilityItem.list.buttons.add}}</span>
+          </a>
+          <div class="clearfix"></div>
+        </div>
+        <div class="row d-flex justify-content-center">
+          <div class="col-md-12 col-sm-12">
+            <div class="inner_content_block">
+              <div class="table_block">
+                <!-- <table id="dataTables-example" class="table table-hover" style="width:100%">
+                    <thead>
+                      <tr>
+                        <th class="text-center sr_no_width">{{globals.adminTranslationText.eligibilityItem.list.collumns.srNo}}</th>
+                        <th>{{globals.adminTranslationText.eligibilityItem.list.collumns.certificateName}}</th>
+                        <th>{{globals.adminTranslationText.eligibilityItem.list.collumns.eligibilityItemFor}}</th>
+                        <th>{{globals.adminTranslationText.eligibilityItem.list.collumns.eligibilityItemText}}</th>
+                        <th>{{globals.adminTranslationText.eligibilityItem.list.collumns.answer}}</th>
+                        <th class="text-center active_width hide_active">{{globals.adminTranslationText.eligibilityItem.list.collumns.isActive}}</th>
+                        <th class="text-center active_width">{{globals.adminTranslationText.eligibilityItem.list.collumns.isActive}}</th>
+                        <th class="text-center action_width">{{globals.adminTranslationText.eligibilityItem.list.collumns.actions}}</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let eligibilityItem of eligibilityItemList;let i = index">
+                        <td class="text-center">{{i+1}}</td>
+                        <td>{{eligibilityItem.CertificateName+" "+ eligibilityItem.VersionName}}</td>
+                        <td>{{eligibilityItem.EligibilityItemFor}}</td>
+                        <td><span [innerHTML]="eligibilityItem.EligibilityItemText"></span></td>
+                        <td>
+                          <span *ngIf="eligibilityItem.AnswerForEligibility==1">Yes</span>
+                          <span *ngIf="eligibilityItem.AnswerForEligibility!=1">No</span>
+                        </td>
+                        <td class="text-center hide_active">
+                          <span *ngIf="eligibilityItem.IsActive==1">Yes</span>
+                          <span *ngIf="eligibilityItem.IsActive!=1">No</span>
+                        </td>
+                        <td class="text-center">
+                          <div class="activeyes_box" data-toggle="tooltip" data-placement="top"  [attr.title]="eligibilityItem.IsActive==1 ? 'Active' : 'Deactive'">
+                            <input type="checkbox" name="active{{i}}" id="active{{i}}" (change)="isActiveChange(eligibilityItem,i)"
+                              [checked]="eligibilityItem.IsActive==1" value="Yes">
+                            <label for="active{{i}}"></label>
+                          </div>
+                        </td>
+                        <td class="text-center">
+                          <button  data-toggle="tooltip" data-placement="top"   title="Edit"   type="button"  class="edit" 
+                            routerLink="/admin/eligibility-item/edit/{{eligibilityItem.EligibilityItemId}}">
+                          <i class="fa fa-pencil" aria-hidden="true"></i></button>
+                          <button   data-toggle="tooltip" data-placement="top"   title="Delete"   type="button"  class="delete" 
+                            (click)="deleteEligibilityItem(eligibilityItem)">
+                          <i class="fa fa-trash" aria-hidden="true"></i></button>
+                        </td>
+                      </tr>
+                      <tr *ngIf="eligibilityItemList.length<=0">
+                        <td colspan="8" >{{globals.adminTranslationText.eligibilityItem.list.recordNotFound}}</td>
+                      </tr> 
+                    </tbody>
+                  </table> -->
+                <kendo-grid [kendoGridBinding]="eligibilityItemList" kendoGridSelectBy="id" [pageSize]="10"
+                  [pageable]="true" [groupable]="false" [reorderable]="false" [resizable]="false" [height]="auto"
+                  [sortable]="{
+                    allowUnsort: true,
+                    mode: 'single'
+                    }" [sort]="sort">
+
+                  <ng-template kendoGridToolbarTemplate>
+                    <input placeholder="Search in all columns..." kendoTextBox
+                      (input)="onFilter($event.target.value)" />
+                    <!-- <button kendoGridExcelCommand type="button" icon="file-excel" style="float:right;"></button>
+                      <button kendoGridPDFCommand icon="file-pdf" style="float:right;"></button>
+                      <button type="button" class="k-button" icon="file-pdf" style="float:right;" (click)="excelexport.save()">Export To Excel</button> -->
+                  </ng-template>
+                  <!-- <kendo-grid-column title="{{globals.adminTranslationText.eligibilityItem.list.collumns.srNo}}"
+                    [width]="50">
+                    <ng-template kendoGridCellTemplate let-dataItem let-rowIndex="rowIndex">
+                      {{rowIndex+1}}
+                    </ng-template>
+                  </kendo-grid-column> -->
+                  <kendo-grid-column field="CertificateName"
+                    title="{{globals.adminTranslationText.eligibilityItem.list.collumns.certificateName}}">
+                    <ng-template kendoGridCellTemplate let-dataItem>
+                      <span>{{dataItem.CertificateName+" "+ dataItem.VersionName}}</span>
+                    </ng-template>
+                  </kendo-grid-column>
+                  <kendo-grid-column field="EligibilityItemFor"
+                    title="{{globals.adminTranslationText.eligibilityItem.list.collumns.eligibilityItemFor}}">
+                  </kendo-grid-column>
+                  <kendo-grid-column field="EligibilityItemText"
+                    title="{{globals.adminTranslationText.eligibilityItem.list.collumns.eligibilityItemText}}">
+                    <ng-template kendoGridCellTemplate let-dataItem>
+                      <span [innerHTML]="dataItem.EligibilityItemText"></span>
+                    </ng-template>
+                  </kendo-grid-column>
+                  <kendo-grid-column field="AnswerForEligibility"
+                    title="{{globals.adminTranslationText.eligibilityItem.list.collumns.answer}}">
+                    <ng-template kendoGridCellTemplate let-dataItem>
+                      <div class="activeyes_box">
+                        <kendo-switch (valueChange)="toggleValueChange(dataItem,$event)" [checked]="dataItem.AnswerForEligibility==1"
+                          [checked]="false" [onLabel]="'Y'" [offLabel]="'N'" [disabled]="false"></kendo-switch>
+                      </div>
+                      <!-- <span *ngIf="dataItem.AnswerForEligibility==1">Yes</span>
+                      <span *ngIf="dataItem.AnswerForEligibility==0">No</span> -->
+                    </ng-template>
+                  </kendo-grid-column>
+                  <kendo-grid-column title="{{globals.adminTranslationText.eligibilityItem.list.collumns.isActive}}"
+                    class="text-center" [width]="150">
+                    <ng-template kendoGridCellTemplate let-dataItem let-rowIndex="rowIndex">
+                      <div class="activeyes_box">
+                        <kendo-switch (valueChange)="isActiveChange(dataItem,$event)" [checked]="dataItem.IsActive==1"
+                          [checked]="false" [onLabel]="'Y'" [offLabel]="'N'" [disabled]="false"></kendo-switch>
+                      </div>
+                    </ng-template>
+                  </kendo-grid-column>
+                  <kendo-grid-column title="{{globals.adminTranslationText.eligibilityItem.list.collumns.actions}}"
+                    [width]="150">
+                    <ng-template kendoGridCellTemplate let-dataItem let-rowIndex="rowIndex">
+                      <button kendoButton class="edit" (click)="edit(dataItem.EligibilityItemId)">
+                        <i data-toggle="tooltip" data-placement="top"
+                          title="{{globals.adminTranslationText.eligibilityItem.list.buttons.edit}}"
+                          class="fa fa-edit"></i>
+                      </button>
+                      <button kendoButton class="delete" (click)="deleteEligibilityItem(dataItem)">
+                        <i class="fa fa-trash" data-toggle="tooltip" data-placement="top"
+                          title="{{globals.adminTranslationText.eligibilityItem.list.buttons.delete}}"></i>
+                      </button>
+                    </ng-template>
+                  </kendo-grid-column>
+                </kendo-grid>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+      <!-- End Content -->
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</div>

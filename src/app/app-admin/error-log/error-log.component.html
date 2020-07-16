@@ -1,0 +1,121 @@
+<div class="content_block">
+  <div class="container-fluid">
+    <div class="row">
+      <!-- Content -->
+      <div class="col-md-12 col-sm-12">
+        <div class="title_block">
+          <h2 class="float-left">
+            {{globals.commonTranslationText.logs.errorLogList.title}}</h2>
+          <div class="breadcrumb_block float-left">
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item">
+                <a routerLink="/admin/adminDashboard">
+                  <i class="fa fa-home"></i>
+                </a>
+              </li>
+              <li class="breadcrumb-item"><a
+                  routerLink="/admin/error-log">{{globals.commonTranslationText.logs.errorLogList.breadcrumbTitle}}</a>
+              </li>
+              <li class="breadcrumb-item active" aria-current="page">
+                {{globals.commonTranslationText.logs.errorLogList.breadcrumbSubTitle}}</li>
+            </ol>
+          </div>
+          <div class="clearfix"></div>
+        </div>
+        <div class="row d-flex justify-content-center">
+          <div class="col-md-12 col-sm-12">
+            <div class="inner_content_block">
+              <div class="alert alert-{{globals.type}}" role="alert" *ngIf="globals.msgflag">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+                {{globals.message}}
+              </div>
+              <div class="table_block">
+                <!-- <table id="dataTables-example" class="table table-hover"  style="width:100%">
+                        <thead>
+                          <tr>
+                            <th class="text-center sr_no_width">{{globals.commonTranslationText.logs.errorLogList.collumns.srNo}}</th>
+                            <th class="width_15">{{globals.commonTranslationText.logs.errorLogList.collumns.errorNo}}</th>
+                            <th class="width_15">{{globals.commonTranslationText.logs.errorLogList.collumns.errorType}}</th>
+                            <th class="">{{globals.commonTranslationText.logs.errorLogList.collumns.errorString}}</th>
+                            <th class="width_15">{{globals.commonTranslationText.logs.errorLogList.collumns.errorFile}}</th>
+                            <th class="width_10">{{globals.commonTranslationText.logs.errorLogList.collumns.errorLine}}</th>
+                            <th class="">{{globals.commonTranslationText.logs.errorLogList.collumns.userAgent}}</th>
+                            <th class="width_15">{{globals.commonTranslationText.logs.errorLogList.collumns.ipAddress}}</th>
+                            <th class="width_15">{{globals.commonTranslationText.logs.errorLogList.collumns.dateTime}}</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr *ngFor="let error of errorList; let i = index">
+                            <td class="text-center">{{i+1}}</td>
+                            <td>{{error.errno}}</td>
+                            <td>{{error.errtype}}</td>
+                            <td>{{error.errstr}}</td>
+                            <td>{{error.errfile}}</td>
+                            <td>{{error.errline}}</td>
+                            <td>{{error.user_agent}}</td>
+                            <td>{{error.ip_address}}</td>
+                            <td>{{error.time | date : 'MM/dd/yyyy, h:mm a'}}</td>
+                          </tr>
+                          <tr *ngIf="errorList.length<=0">
+                            <td colspan="8">{{globals.commonTranslationText.logs.errorLogList.recordNotFound}}</td>
+                          </tr>
+                        </tbody>
+                      </table> -->
+                <kendo-grid [kendoGridBinding]="errorList" kendoGridSelectBy="id" [pageSize]="10" [pageable]="true"
+                  [groupable]="false" [reorderable]="false" [resizable]="false" [height]="auto" [sortable]="{
+                    allowUnsort: true,
+                    mode: 'single'
+                    }" [sort]="sort">
+
+                  <ng-template kendoGridToolbarTemplate>
+                    <input placeholder="Search in all columns..." kendoTextBox
+                      (input)="onFilter($event.target.value)" />
+                    <!-- <button kendoGridExcelCommand type="button" icon="file-excel" style="float:right;"></button>
+                    <button kendoGridPDFCommand icon="file-pdf" style="float:right;"></button>
+                    <button type="button" class="k-button" icon="file-pdf" style="float:right;" (click)="excelexport.save()">Export To Excel</button> -->
+                  </ng-template>
+                  <!-- <kendo-grid-column title="{{globals.commonTranslationText.logs.errorLogList.collumns.srNo}}"
+                    [width]="50">
+                    <ng-template kendoGridCellTemplate let-dataItem let-rowIndex="rowIndex">
+                      {{rowIndex+1}}
+                    </ng-template>
+                  </kendo-grid-column> -->
+                  <kendo-grid-column field="errno"
+                    title="{{globals.commonTranslationText.logs.errorLogList.collumns.errorNo}}">
+                  </kendo-grid-column>
+                  <kendo-grid-column field="errtype"
+                    title="{{globals.commonTranslationText.logs.errorLogList.collumns.errorType}}">
+                  </kendo-grid-column>
+                  <kendo-grid-column field="errstr"
+                    title="{{globals.commonTranslationText.logs.errorLogList.collumns.errorString}}">
+                  </kendo-grid-column>
+                  <kendo-grid-column field="errfile"
+                    title="{{globals.commonTranslationText.logs.errorLogList.collumns.errorFile}}">
+                  </kendo-grid-column>
+                  <kendo-grid-column field="errline"
+                    title="{{globals.commonTranslationText.logs.errorLogList.collumns.errorLine}}">
+                  </kendo-grid-column>
+                  <kendo-grid-column field="user_agent"
+                    title="{{globals.commonTranslationText.logs.errorLogList.collumns.userAgent}}">
+                  </kendo-grid-column>
+                  <kendo-grid-column field="ip_address"
+                    title="{{globals.commonTranslationText.logs.errorLogList.collumns.ipAddress}}">
+                  </kendo-grid-column>
+                  <kendo-grid-column field="time" title="{{globals.commonTranslationText.logs.errorLogList.collumns.dateTime}}">
+                    <ng-template kendoGridCellTemplate let-dataItem>
+                      <span>{{dataItem.time | date : 'MM/dd/yyyy, h:mm a'}}</span>
+                    </ng-template>
+                  </kendo-grid-column>
+                </kendo-grid>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- End Content -->
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</div>

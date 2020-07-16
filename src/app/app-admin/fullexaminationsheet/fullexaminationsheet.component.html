@@ -1,0 +1,287 @@
+<div class="content_block">
+  <div class="container-fluid">
+    <div class="row">
+      <!-- Content -->
+      <div class="col-12 col-xl-12 col-lg-12 col-md-12 col-sm-12">
+        <div class="title_block">
+          <h2 class="float-left">Attendance Sheet</h2>
+          <div class="breadcrumb_block float-left">
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item">
+                <a href="/proctorDashboard" *ngIf="globals.authData.RoleId == 2 || globals.authData.RoleId == 4">
+                  <i class="fa fa-home"></i>
+                </a>
+                <a href="/admin/adminDashboard" *ngIf="globals.authData.RoleId == 1">
+                  <i class="fa fa-home"></i>
+                </a>
+              </li>
+              <li class="breadcrumb-item active" aria-current="page">
+                Attendance Sheet</li>
+            </ol>
+          </div>
+          <a routerLink="/proctorDashboard" class="all_btn themeoption_btn float-right"
+            *ngIf="globals.authData.RoleId == 2 || globals.authData.RoleId == 4">Back to
+            Dashboard</a>
+          <a routerLink="/admin/adminDashboard" class="all_btn themeoption_btn float-right"
+            *ngIf="globals.authData.RoleId == 1">Back to
+            Dashboard</a>
+          <div class="clearfix"></div>
+        </div>
+        <div class="row d-flex justify-content-center">
+          <div class="col-md-12 col-sm-12">
+            <div class="inner_content_block">
+              <form class="form-validate" #SearchFilterForm="ngForm" (ngSubmit)="SearchFilter(SearchFilterForm)">
+                <div class="filter_block_form">
+                  <div class="row">
+                    <div class="col-12 col-xl-4 col-lg-4 col-md-12 col-sm-12" *ngIf="globals.authData.RoleId == 1">
+                      <div class="form-group">
+                        <label>Proctor Name</label>
+                        <!-- <select class="show-tick show-menu-arrow" data-live-search="true"
+                          data-selected-text-format="count" title="Select Proctor Name" #ProctorId="ngModel"
+                          [(ngModel)]="filterEntity.ProctorId" name="ProctorId">
+                          <ng-container *ngFor="let proctor of proctorList">
+                            <option [value]="proctor.UserId">{{proctor.FirstName}} {{proctor.LastName}}</option>
+                          </ng-container>
+                        </select> -->
+                        <kendo-dropdownlist [data]="proctorList" [filterable]="false" [textField]="'Name'"
+                          [valueField]="'UserId'" [valuePrimitive]="true" #ProctorId="ngModel"
+                          [(ngModel)]="filterEntity.ProctorId" name="ProctorId"></kendo-dropdownlist>
+
+                      </div>
+                    </div>
+                    <div class="col-12 col-xl-4 col-lg-4 col-md-12 col-sm-12">
+                      <div class="form-group">
+                        <label>Location</label>
+                        <!-- <select class="show-tick show-menu-arrow" multiple data-live-search="true"
+                          data-selected-text-format="count" title="Select Location" #Location="ngModel"
+                          [(ngModel)]="filterEntity.Location" name="Location" id="Location"
+                          (change)="showFilterLocation(filterEntity.Location)">
+                          <ng-container *ngFor="let address of addressList">
+                            <option [value]="address.City">{{address.City}}</option>
+                          </ng-container>
+                        </select> -->
+                        <kendo-multiselect [data]="addressList" [filterable]="false" [textField]="'City'"
+                          [valueField]="'City'" [valuePrimitive]="true" #Location="ngModel"
+                         [(ngModel)]="filterEntity.Location"
+                          name="Location" id="Location" placeholder="Select your location"></kendo-multiselect>
+
+                      </div>
+                    </div>
+                    <div class="col-12 col-xl-4 col-lg-4 col-md-12 col-sm-12">
+                      <div class="form-group">
+                        <label>Date</label>
+                        <!-- <input class="form-control form_date" (change)="showFilterDate()" name="AssignDate"
+                          id="AssignDate" type="text" value="" readonly /> -->
+                        <kendo-datepicker [(ngModel)]="filterEntity.AssignDate" #AssignDate="ngModel"
+                          [format]="'MM/dd/yyyy'" name="AssignDate" id="AssignDate"></kendo-datepicker>
+                      </div>
+                    </div>
+                    <div class="col-12 col-xl-4 col-lg-4 col-md-12 col-sm-12">
+                      <div class="form-group">
+                        <label>Time Slot</label>
+                        <!-- <select multiple class="show-tick show-menu-arrow" data-live-search="true"
+                          data-selected-text-format="count" title="Select Time Slot" #shiftFilters="ngModel"
+                          [(ngModel)]="filterEntity.shiftFilters" name="shiftFilters"
+                          (change)="showFilterShift(filterEntity.shiftFilters)">
+                          <option value="12:00:00">Morning</option>
+                          <option value="17:00:00">Afternoon</option>
+                          <option value="20:00:00">Evening</option>
+                        </select> -->
+                        <kendo-multiselect [data]="shiftFilterList" [filterable]="false" [textField]="'label'"
+                          [valueField]="'value'" [valuePrimitive]="true" #shiftFilters="ngModel"
+                          [(ngModel)]="filterEntity.shiftFilters" name="shiftFilters" id="shiftFilters"
+                          placeholder="Select your time slot"></kendo-multiselect>
+                      </div>
+                    </div>
+                    <div class="col-12 col-xl-4 col-lg-4 col-md-12 col-sm-12">
+                      <button class="all_btn theme_btn mt-5" type="submit">Search</button>
+                      <button class="all_btn themeoption_btn mt-5" type="button"
+                        (click)="clearData(SearchFilterForm)">Clear</button>
+                    </div>
+                  </div>
+                </div>
+              </form>
+              <div class="attendance_table_block">
+                <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                  <div class="p_filter_content_block">
+                    <!-- <label>Showing result for: </label> -->
+                    <!-- <ul>
+                      <li><span>{{showFilterEntity}}</span><i class="fa fa-times"></i></li>
+                      <li><span>Vadodara</span><i class="fa fa-times"></i></li>
+                    </ul> -->
+                    <!-- <ul>
+                      <li *ngFor="let filter of showFilterLocationEntity"><span>{{filter}}</span><i class="fa fa-times" (click)="removelocation(filter)"></i></li>
+                      <li><span>{{this.filterEntity.AssignDate}}</span><i class="fa fa-times" (click)="removelocation(filter)"></i></li>
+                      <li *ngFor="let filter of showFilterShiftEntity"><span>{{filter}}</span><i class="fa fa-times" (click)="removeshift(filter)"></i></li>
+                      <li *ngFor="let filter of showFilterCandidateEntity"><span>{{filter}}</span><i class="fa fa-times" (click)="removecandidate(filter)"></i></li>
+                    </ul> -->
+                  </div>
+                </div>
+
+                <!--<table id="dataTables-example" class="table table-hover attendance_table" style="width:100%">
+                  <thead>
+                    <tr>
+                      <!-- <th class="text-center sr_no_width">Sr No.</th>
+                      <th>Candidate Name</th>
+                      <th class="width_15">Email</th>
+                      <th class="width_15">Phone Number</th>
+                      <th class="width_10">Date</th>
+                      <th class="width_10">Time</th>
+                      <th>Certificate Name</th>
+                      <th class="width_10 text-center">Status</th>
+                      <th class="text-center active_width hide_active">Is Present?</th>
+                      <th class="text-center active_width">Is Present?</th>
+                      <th class="text-center action_width">Action</th> --
+                      <th class="text-center sr_no_width">
+                        {{globals.commonTranslationText.proctorDashboard.attendanceSheet.list.srNo}}</th>
+                      <th>{{globals.commonTranslationText.proctorDashboard.attendanceSheet.list.candidateName}}
+                      </th>
+                      <th class="width_15">
+                        {{globals.commonTranslationText.proctorDashboard.attendanceSheet.list.email}}</th>
+                      <th class="width_15">
+                        {{globals.commonTranslationText.proctorDashboard.attendanceSheet.list.phoneNumber}}</th>
+                      <th class="width_10">
+                        {{globals.commonTranslationText.proctorDashboard.attendanceSheet.list.date}}</th>
+                      <th class="width_10">
+                        {{globals.commonTranslationText.proctorDashboard.attendanceSheet.list.time}}</th>
+                      <th>{{globals.commonTranslationText.proctorDashboard.attendanceSheet.list.certificateName}}
+                      </th>
+                      <th class="width_10 text-center">
+                        {{globals.commonTranslationText.proctorDashboard.attendanceSheet.list.status}}</th>
+                      <th class="text-center active_width hide_active">
+                        {{globals.commonTranslationText.proctorDashboard.attendanceSheet.list.isPresent}}</th>
+                      <th class="text-center active_width">
+                        {{globals.commonTranslationText.proctorDashboard.attendanceSheet.list.isPresent}}</th>
+                      <th class="text-center action_width">
+                        {{globals.commonTranslationText.proctorDashboard.attendanceSheet.list.action}}</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let attendance of attendanceSheetList;let i=index;">
+                      <td class="text-center">{{i+1}}</td>
+                      <td>{{attendance.CandidateName}}</td>
+                      <td>{{attendance.EmailAddress}}</td>
+                      <td>{{attendance.PhoneNumber}}</td>
+                      <td>{{attendance.AssignDate | date : 'MM/dd/yyyy'}}</td>
+                      <td>{{attendance.StartTime }}-{{attendance.EndTime }}</td>
+                      <!--11am-2pm--
+                      <td>{{attendance.CertificateName}}</td>
+                      <td class="text-center">{{attendance.DisplayText}}</td>
+                      <td class="text-center hide_active">
+                        <span *ngIf="attendance.ScheduleAssessmentStatus != 39">Yes</span>
+                        <span *ngIf="attendance.ScheduleAssessmentStatus == 39">No</span>
+                      </td>
+                      <!--Document Verified--
+                      <td class="text-center">
+                        <div class="activeyes_box" data-toggle="tooltip" data-placement="top" title="Yes">
+                          <input type="checkbox"
+                            [disabled]="(currentDate | date:'yyyy-MM-dd') != (attendance.AssignDate)"
+                            (change)="ChangePresentStatus(attendance,i)" name="active{{i}}" id="active{{i}}" value="Yes"
+                            [checked]="attendance.ScheduleAssessmentStatus != 39">
+                          <label for="active{{i}}"></label>
+                        </div>
+                      </td>
+                      <td class="text-center">
+                        <button
+                          [disabled]="((currentDate | date:'yyyy-MM-dd') != (attendance.AssignDate)) || attendance.ScheduleAssessmentStatus == 39"
+                          *ngIf="attendance.ScheduleAssessmentStatus != 44" data-toggle="modal"
+                          data-target="#document_verify" type="button" class="edit"
+                          (click)="documentVerificationShow(attendance,i)">
+                          <i class="fa fa-file-text-o" aria-hidden="true" data-toggle="tooltip" data-placement="top"
+                            title="Document Verification"></i>
+                        </button>
+                        <button
+                          [disabled]="((currentDate | date:'yyyy-MM-dd') > (attendance.AssignDate) && (currentDate | date:'yyyy-MM-dd HH:mm') > (attendance.addedDate | date:'yyyy-MM-dd HH:mm')) || (currentDate | date:'yyyy-MM-dd') < (attendance.AssignDate)"
+                          *ngIf="(currentDate | date:'yyyy-MM-dd HH:mm') < (attendance.addedDate | date:'yyyy-MM-dd HH:mm')"
+                          type="button" class="blue_icon" data-toggle="modal" data-target="#FeedbackModal"
+                          (click)="finalFeedbackShow(attendance)">
+                          <i class="fa fa-comment-o" aria-hidden="true" data-toggle="tooltip" data-placement="top"
+                            title="Your Feedback"></i>
+                        </button>
+                        <button [disabled]="(currentDate | date:'yyyy-MM-dd') != (attendance.AssignDate)"
+                          *ngIf="attendance.ScheduleAssessmentStatus == 43" type="button" class="green_icon"
+                          (click)="resumeAssessment(attendance)">
+                          <i class="fa fa-play" aria-hidden="true" data-toggle="tooltip" data-placement="top"
+                            title="Resume"></i>
+                        </button>
+                        <button [disabled]="(currentDate | date:'yyyy-MM-dd') != (attendance.AssignDate)"
+                          *ngIf="attendance.ScheduleAssessmentStatus == 41" type="button" data-toggle="modal"
+                          data-target="#StopModal" (click)="stopAssessmentShow(attendance)" class="delete">
+                          <!--disabled when start time is not coming --
+                          <i class="fa fa-ban" aria-hidden="true" data-toggle="tooltip" data-placement="top"
+                            title="Stop"></i>
+                        </button>
+                      </td>
+                    </tr>
+                    <tr *ngIf="attendanceSheetList.length<=0">
+                      <td class="text-center" colspan="10">
+                        {{globals.commonTranslationText.proctorDashboard.attendanceSheet.list.noRecordFound}}</td>
+                    </tr>
+                  </tbody>
+                </table>-->
+
+                <kendo-grid [kendoGridBinding]="examinationSheetList" kendoGridSelectBy="id" [selectedKeys]="mySelection"
+                  [pageSize]="10" [pageable]="true" [groupable]="false" [reorderable]="false" [resizable]="false"
+                   [sortable]="{
+                    allowUnsort: true,
+                    mode: 'single'
+                    }" [sort]="sort">
+
+                  <ng-template kendoGridToolbarTemplate>
+                    <input placeholder="Search in all columns..." kendoTextBox
+                      (input)="onFilter($event.target.value)" />
+                  </ng-template>
+                  <!-- <kendo-grid-column field="UserId" title="{{globals.commonTranslationText.proctorDashboard.attendanceSheet.list.srNo}}" [width]="50">
+                      <ng-template kendoGridCellTemplate let-dataItem let-rowIndex="rowIndex">
+                          {{rowIndex+1}} 
+                      </ng-template>  
+                  </kendo-grid-column> -->
+                  
+                  <kendo-grid-column field="CountryName"
+                  title="{{globals.adminTranslationText.adminDashboard.todaysExamination.country}}">
+                </kendo-grid-column>
+                <kendo-grid-column field="StateName"
+                  title="{{globals.adminTranslationText.adminDashboard.todaysExamination.state}}">
+                </kendo-grid-column>
+                <kendo-grid-column field="City"
+                  title="{{globals.adminTranslationText.adminDashboard.todaysExamination.city}}">
+                </kendo-grid-column>
+                <kendo-grid-column field="Address1"
+                  title="{{globals.adminTranslationText.adminDashboard.todaysExamination.location}}">
+                  <ng-template kendoGridCellTemplate let-dataItem let-rowIndex="rowIndex">
+                    {{dataItem.Address1}},{{dataItem.Address2}}
+                  </ng-template>
+                </kendo-grid-column>
+                <kendo-grid-column field="AssignDate"
+                  title="{{globals.adminTranslationText.adminDashboard.todaysExamination.assignDate}}">
+                  <ng-template kendoGridCellTemplate let-dataItem let-rowIndex="rowIndex">
+                    {{dataItem.AssignDate | date:'MM/dd/yyyy'}}
+                  </ng-template>
+                </kendo-grid-column>
+                <kendo-grid-column field="StartTime"
+                  title="{{globals.adminTranslationText.adminDashboard.todaysExamination.time}}">
+                  <ng-template kendoGridCellTemplate let-dataItem let-rowIndex="rowIndex">
+                    {{dataItem.startTime}}-{{dataItem.endTime}}
+                  </ng-template>
+                </kendo-grid-column>
+                <kendo-grid-column field="ProctorName"
+                title="{{globals.adminTranslationText.adminDashboard.todaysExamination.proctorName}}">
+              </kendo-grid-column>
+              <kendo-grid-column field="PhoneNumber"
+                  title="{{globals.adminTranslationText.adminDashboard.todaysExamination.phone}}">
+                </kendo-grid-column>
+                <kendo-grid-column field="candidates"
+                title="{{globals.adminTranslationText.adminDashboard.todaysExamination.numberOfCandidates}}">
+              </kendo-grid-column>
+
+                </kendo-grid>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- End Content -->
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,124 @@
+<div class="content_block">
+  <div class="container-fluid">
+    <div class="row">
+      <!-- Content -->
+      <div class="col-md-12 col-sm-12">
+        <div class="title_block">
+          <h2 class="float-left" *ngIf="categoryEntity.CategoryId == 0">
+            {{globals.adminTranslationText.category.form.title.add}}</h2>
+          <h2 class="float-left" *ngIf="categoryEntity.CategoryId != 0">
+            {{globals.adminTranslationText.category.form.title.update}}</h2>
+          <div class="breadcrumb_block float-left">
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item">
+                <a routerLink="/admin/adminDashboard">
+                  <i class="fa fa-home"></i>
+                </a>
+              </li>
+              <li class="breadcrumb-item"><a
+                  routerLink="/admin/category/list">{{globals.adminTranslationText.category.form.breadcrumbTitle}}</a>
+              </li>
+              <li class="breadcrumb-item active" aria-current="page" *ngIf="categoryEntity.CategoryId == 0">
+                {{globals.adminTranslationText.category.form.breadcrumbSubTitle.add}}</li>
+              <li class="breadcrumb-item active" aria-current="page" *ngIf="categoryEntity.CategoryId != 0">
+                {{globals.adminTranslationText.category.form.breadcrumbSubTitle.update}}</li>
+            </ol>
+          </div>
+          <a routerLink="/admin/category/list"
+            class="all_btn themeoption_btn float-right">{{globals.adminTranslationText.category.form.buttons.backToList}}</a>
+          <div class="clearfix"></div>
+        </div>
+        <div class="row d-flex justify-content-center">
+          <div class="col-md-12 col-sm-12">
+            <div class="inner_content_block">
+              <div class="paddin_form">
+                <form role="form" #categoryForm="ngForm" (ngSubmit)="addUpdate(categoryForm)">
+                  <div class="row">
+                    <!-- <div class="col-12 col-xl-4 col-lg-4 col-md-12 col-sm-12">
+                      <div class="form-group">
+                        <label>{{globals.adminTranslationText.category.form.parentCatgory.label}}</label> -->
+                        <!-- <select class="show-menu-arrow" data-selected-text-format="count" data-live-search="true"
+                          #ParentId="ngModel" [(ngModel)]="categoryEntity.ParentId" name="ParentId">
+                          <option value="0" ngSelected="categoryEntity.ParentId==''">
+                            {{globals.adminTranslationText.category.form.parentCatgory.select}}</option>
+                          <ng-container *ngFor="let parentCatgory of parentCategoryList">
+                            <option [value]="parentCatgory.CategoryId"
+                              [selected]="categoryEntity.ParentId==parentCatgory.CategoryId">
+                              {{parentCatgory.CategoryName}}</option>
+                          </ng-container>
+                        </select> -->
+                        <!-- <kendo-dropdownlist  [data]="parentCategoryList" [filterable]="false" [textField]="'CategoryName'" [valueField]="'CategoryId'"
+                    [valuePrimitive]="true" #ParentId="ngModel"
+                    [(ngModel)]="categoryEntity.ParentId" name="ParentId" ></kendo-dropdownlist >
+                      </div>
+                    </div> -->
+                    <div class="col-12 col-xl-4 col-lg-4 col-md-12 col-sm-12">
+                      <div class="form-group">
+                        <label><span>*</span> {{globals.adminTranslationText.category.form.categoryName.label}}</label>
+                        <input type="text" class="form-control" #CategoryName="ngModel"
+                          [(ngModel)]="categoryEntity.CategoryName"
+                          [ngClass]="{error: (CategoryName.dirty && CategoryName.invalid) || (CategoryName.pristine && submitted)}"
+                          name="CategoryName" id="CategoryName" pattern="[a-zA-Z0-9\-.',\s]{2,}" maxlength="40"
+                          required>
+                        <span class="error_class"
+                          *ngIf="(CategoryName.dirty && CategoryName.invalid) || (CategoryName.pristine && submitted) || (errorEntity.CategoryName)">
+                          <span
+                            *ngIf="CategoryName.errors.required || (CategoryName.pristine && submitted)">{{globals.adminTranslationText.category.form.categoryName.required}}</span>
+                          <span
+                            *ngIf="CategoryName.errors && CategoryName.errors.pattern">{{globals.adminTranslationText.category.form.categoryName.pattern}}</span>
+                          <span *ngIf="errorEntity.CategoryName != ''">
+                            {{errorEntity.CategoryName}}
+                          </span>
+                        </span>
+                      </div>
+                    </div>
+                    <div class="col-md-12 col-12 col-xl-12 col-lg-12 col-sm-12">
+                      <div class="form-group">
+                        <label><span>*</span>
+                          {{globals.adminTranslationText.category.form.categoryDescription.label}}</label>
+                        <textarea kendoTextArea #Description="ngModel" [(ngModel)]="categoryEntity.Description" name="Description"
+                          id="Description" rows="10" cols="60" contenteditable="true"></textarea>
+                        <span class="error_class"
+                          *ngIf="des_valid && errorEntity.Description == ''">{{ globals.adminTranslationText.category.form.categoryDescription.required}}</span>
+                        <span class="error_class"
+                          *ngIf="Description_valid">{{ globals.adminTranslationText.category.form.categoryDescription.pattern}}</span>
+                          <span class="error_class" *ngIf="errorEntity.Description != ''">
+                            {{errorEntity.Description}}
+                          </span>
+                      </div>
+                    </div>
+                    <div class="col-12 col-xl-2 col-lg-2 col-md-12 col-sm-12">
+                      <div class="form-group">
+                        <label class="mb-1">
+                          {{globals.adminTranslationText.category.form.active.label}}</label>
+                        <div class="activeyes_box">
+                          <!-- <input type="checkbox" name="IsActive" id="IsActive" value="yes" #IsActive="ngModel"
+                            [(ngModel)]="categoryEntity.IsActive">
+                          <label for="IsActive"></label> -->
+                          <kendo-switch [(ngModel)]="categoryEntity.IsActive" value="yes" #IsActive="ngModel" name="IsActive" [onLabel]="'Y'"
+                          [offLabel]="'N'"></kendo-switch>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-12 col-12 col-lg-12 col-sm-12 text-center">
+                      <button class="all_btn theme_btn" type="submit" [disabled]="btn_disable">
+                        <span
+                          *ngIf="categoryEntity.CategoryId == 0">{{globals.adminTranslationText.category.form.buttons.add}}</span>
+                        <span
+                          *ngIf="categoryEntity.CategoryId != 0">{{globals.adminTranslationText.category.form.buttons.update}}</span>
+                      </button>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- End Content -->
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</div>

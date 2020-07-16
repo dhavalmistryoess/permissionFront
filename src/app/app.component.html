@@ -1,0 +1,8 @@
+<div class="loader_new" *ngIf="globals.isLoading">
+  <div class="img_loader"><img src="../assets/images/loader.gif" alt="" /></div>
+</div>
+
+<app-header *ngIf="globals.authData!=undefined"></app-header>
+<router-outlet></router-outlet>
+<app-sidebar *ngIf="globals.authData!=undefined "></app-sidebar>
+<app-footer *ngIf="globals.authData!=undefined"></app-footer>

@@ -1,0 +1,99 @@
+<div class="content_block">
+  <div class="container-fluid">
+    <div class="row">
+      <!-- Content -->
+      <div class="col-md-12 col-sm-12">
+        <div class="title_block">
+          <h2 class="float-left">
+            {{globals.adminTranslationText.country.list.title}}</h2>
+          <div class="breadcrumb_block float-left">
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item">
+                <a routerLink="/admin/adminDashboard">
+                  <i class="fa fa-home"></i>
+                </a>
+              </li>
+              <li class="breadcrumb-item"><a
+                  routerLink="/admin/country/list">{{globals.adminTranslationText.country.list.breadcrumbTitle}}</a>
+              </li>
+              <li class="breadcrumb-item active" aria-current="page">
+                {{globals.adminTranslationText.country.list.breadcrumbSubTitle}}</li>
+            </ol>
+          </div>
+          <a routerLink="/admin/country/add"
+            class="all_btn theme_btn float-right">{{globals.adminTranslationText.country.list.buttons.add}}</a>
+          <div class="clearfix"></div>
+        </div>
+        <div class="row d-flex justify-content-center">
+          <div class="col-md-12 col-sm-12">
+            <div class="inner_content_block">
+              <div class="table_block">
+                   <kendo-grid
+                    [data]="countryList"
+                    [pageSize]="pageSize"
+                    [skip]="skip"
+                    [pageable]="true"
+                    (pageChange)="pageChange($event)"
+                    [sort]="sort"
+                    [sortable]="{
+                      allowUnsort: allowUnsort,
+                      mode: 'single'
+                      }"
+                    (sortChange)="sortChange($event)"
+                  >
+                 
+                <!-- <kendo-grid  [data]="gridView" kendoGridSelectBy="id" [pageSize]="2" [pageable]="true"
+                  [groupable]="false" [reorderable]="false" [resizable]="false" [height]="auto" [sortable]="{
+                    allowUnsort: true,
+                    mode: 'single'
+                    }" [sort]="sort" pageChanged ="pageChange($event)"> -->
+
+                  <ng-template kendoGridToolbarTemplate>
+                    <input placeholder="Search in all columns..." kendoTextBox
+                      (input)="onFilter($event.target.value)" />
+                  </ng-template>
+                  <kendo-grid-column field="CountryName"
+                    title="{{globals.adminTranslationText.country.list.collumns.country}}">
+                  </kendo-grid-column>
+                  <kendo-grid-column field="CountryAbbreviation"
+                    title="{{globals.adminTranslationText.country.list.collumns.countryAbbreviation}}">
+                  </kendo-grid-column>
+                  <kendo-grid-column field="PhonePrefix"
+                    title="{{globals.adminTranslationText.country.list.collumns.phonePrefix}}">
+                  </kendo-grid-column>
+
+                  <kendo-grid-column title="{{globals.adminTranslationText.country.list.collumns.isActive}}"
+                    class="text-center" [width]="150">
+                    <ng-template kendoGridCellTemplate let-dataItem let-rowIndex="rowIndex">
+                      <div class="activeyes_box">
+                        <kendo-switch (valueChange)="isActiveChange(dataItem,$event)" [checked]="dataItem.IsActive==1"
+                          [checked]="false" [onLabel]="'Y'" [offLabel]="'N'" [disabled]="false"></kendo-switch>
+                      </div>
+                    </ng-template>
+                  </kendo-grid-column>
+
+                  <kendo-grid-column title="{{globals.adminTranslationText.country.list.collumns.actions}}"
+                    [width]="150">
+                    <ng-template kendoGridCellTemplate let-dataItem let-rowIndex="rowIndex">
+                      <button kendoButton class="edit" (click)="edit(dataItem.CountryId)">
+                        <i data-toggle="tooltip" data-placement="top"
+                          title="{{globals.adminTranslationText.country.list.buttons.edit}}" class="fa fa-edit"></i>
+                      </button>
+                      <button kendoButton class="delete" (click)="deleteItem(dataItem)">
+                        <i data-toggle="tooltip" data-placement="top" class="fa fa-trash-o"
+                          title="{{globals.adminTranslationText.country.list.buttons.delete}}"></i>
+                      </button>
+                    
+                    </ng-template>
+                  </kendo-grid-column>
+                </kendo-grid>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- End Content -->
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</div>

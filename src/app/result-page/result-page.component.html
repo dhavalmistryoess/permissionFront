@@ -1,0 +1,67 @@
+<div class="content_block">
+  <div class="container-fluid">
+    <div class="row">
+      <!-- Content -->
+      <div class="col-md-12 col-sm-12">
+        <div class="title_block">
+          <h2 class="float-left">
+            {{globals.commonTranslationText.candidateResultPage.title}}</h2>
+          <div class="breadcrumb_block float-left">
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item">
+                <a routerLink="/dashboard">
+                  <i class="fa fa-home"></i>
+                </a>
+              </li>
+              <li class="breadcrumb-item active" aria-current="page">
+                {{globals.commonTranslationText.candidateResultPage.breadcrumbTitle}}</li>
+            </ol>
+          </div>
+          <a routerLink="/dashboard"
+            class="all_btn themeoption_btn float-right">{{globals.commonTranslationText.candidateResultPage.buttons.backToList}}</a>
+          <div class="clearfix"></div>
+        </div>
+        <div class="row d-flex justify-content-center">
+          <div class="col-md-12 col-sm-12">
+            <div class="inner_content_block result_page_block">
+              <div class="paddin_form">
+                <div class="float-left">
+                  <h4>{{Certiname.CertificateName}}</h4>
+                  <p class="resut_content"><i
+                      class="fa fa-calendar-o"></i>{{globals.commonTranslationText.candidateResultPage.assessmentDate}}:
+                    {{Certiname.PracticeTestStartDate | date:'MM/dd/yyyy'}}<br>
+                    <i class="fa fa-list-ol"></i>{{globals.commonTranslationText.candidateResultPage.noOfCategories}}:
+                    {{Certiname.categories}}<br>
+                    <i class="fa fa-clock-o"></i>{{globals.commonTranslationText.candidateResultPage.totalTimeTaken}}:
+                    {{totaltimetaken}}<br>
+                    <i
+                      class="fa fa-question"></i>{{globals.commonTranslationText.candidateResultPage.totalAttemptsQuestion}}:
+                      {{summary.TotalAttemptedQuestions}}/{{summary.totalQuestions}}</p>
+                </div>
+                <div class="float-right">
+                  <!-- <div class="per_block green_border">
+                      <div class="border_circle ">{{Certiname.TotalScore}}<span>Score</span></div>
+                      <div class="status_result">Certified</div>
+                    </div> -->
+                  <div class="per_block green_border" *ngIf="Certiname.ResultStatus==59">
+                    <div class="border_circle ">{{Certiname.TotalScore}}%<span>Score</span></div>
+                    <div class="status_result">Pass</div>
+                  </div>
+                  <div class="per_block red_border" *ngIf="Certiname.ResultStatus==17">
+                    <div class="border_circle ">{{Certiname.TotalScore}}%<span>Score</span></div>
+                    <div class="status_result">Fail</div>
+                  </div>
+                </div>
+                <div class="clearfix"></div>
+                <hr>
+                <div class="clearfix"></div>
+                <h6 class="mb-5">{{globals.commonTranslationText.candidateResultPage.categoryWiseResult}}</h6>
+                <div id="result_chart"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

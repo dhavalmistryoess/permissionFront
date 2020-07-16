@@ -1,0 +1,133 @@
+<div class="content_block">
+  <div class="container-fluid">
+    <div class="row">
+      <!-- Content -->
+      <div class="col-md-12 col-sm-12">
+        <div class="title_block">
+          <h2 class="float-left" *ngIf="countryEntity.CountryId == 0">
+            {{globals.adminTranslationText.country.form.title.add}}</h2>
+          <h2 class="float-left" *ngIf="countryEntity.CountryId != 0">
+            {{globals.adminTranslationText.country.form.title.update}}</h2>
+          <div class="breadcrumb_block float-left">
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item">
+                <a routerLink="/admin/adminDashboard">
+                  <i class="fa fa-home"></i>
+                </a>
+              </li>
+              <li class="breadcrumb-item"><a
+                  routerLink="/admin/country/list">{{globals.adminTranslationText.country.form.breadcrumbTitle}}</a>
+              </li>
+              <li class="breadcrumb-item active" aria-current="page" *ngIf="countryEntity.CountryId == 0">
+                {{globals.adminTranslationText.country.form.breadcrumbSubTitle.add}}</li>
+              <li class="breadcrumb-item active" aria-current="page" *ngIf="countryEntity.CountryId != 0">
+                {{globals.adminTranslationText.country.form.breadcrumbSubTitle.update}}</li>
+            </ol>
+          </div>
+          <a routerLink="/admin/country/list"
+            class="all_btn themeoption_btn  float-right">{{globals.adminTranslationText.country.form.buttons.backToList}}</a>
+          <div class="clearfix"></div>
+        </div>
+        <div class="row d-flex justify-content-center">
+          <div class="col-md-12 col-sm-12">
+            <div class="inner_content_block">
+              <div class="paddin_form">
+                <form role="form" #countryForm="ngForm" (ngSubmit)="addUpdate(countryForm)">
+                  <div class="row">
+                    <div class="col-12 col-xl-4 col-lg-4 col-md-12 col-sm-12">
+                      <div class="form-group">
+                        <label><span>*</span> {{globals.adminTranslationText.country.form.countryName.label}}</label>
+                        <input type="text" #CountryName="ngModel" class="form-control"
+                          [(ngModel)]="countryEntity.CountryName"
+                          [ngClass]="{error: (CountryName.dirty && CountryName.invalid) || (CountryName.pristine && submitted) || errorEntity.CountryName}"
+                          name="CountryName" id="CountryName" pattern="^[a-zA-Z][\sa-zA-Z]*" maxlength="100" required>
+
+                        <span class="error_class"
+                          *ngIf="(CountryName.dirty && CountryName.invalid) || (CountryName.pristine && submitted) || errorEntity.CountryName">
+                          <span
+                            *ngIf="CountryName.errors.required || (CountryName.pristine && submitted)">{{globals.adminTranslationText.country.form.countryName.required}}</span>
+                          <span
+                            *ngIf="CountryName.errors && CountryName.errors.pattern">{{globals.adminTranslationText.country.form.countryName.pattern}}</span>
+                          <span *ngIf="errorEntity.CountryName != ''">
+                            {{errorEntity.CountryName}}
+                          </span>
+                        </span>
+                      </div>
+                    </div>
+                    <div class="col-12 col-xl-4 col-lg-4 col-md-12 col-sm-12">
+                      <div class="form-group">
+                        <label><span>*</span>
+                          {{globals.adminTranslationText.country.form.countryAbbreviation.label}}</label>
+                        <input type="text" #CountryAbbreviation="ngModel" class="form-control"
+                          [(ngModel)]="countryEntity.CountryAbbreviation"
+                          [ngClass]="{error: (CountryAbbreviation.dirty && CountryAbbreviation.invalid) || (CountryAbbreviation.pristine && submitted) || errorEntity.CountryAbbreviation}"
+                          name="CountryAbbreviation" id="CountryAbbreviation" pattern="[a-zA-Z]{2,}" maxlength="3"
+                          required>
+
+                        <span class="error_class"
+                          *ngIf="(CountryAbbreviation.dirty && CountryAbbreviation.invalid) || (CountryAbbreviation.pristine && submitted) || errorEntity.CountryAbbreviation">
+                          <span
+                            *ngIf="CountryAbbreviation.errors.required || (CountryAbbreviation.pristine && submitted)">{{globals.adminTranslationText.country.form.countryAbbreviation.required}}</span>
+                          <span
+                            *ngIf="CountryAbbreviation.errors && CountryAbbreviation.errors.pattern">{{globals.adminTranslationText.country.form.countryAbbreviation.pattern}}</span>
+                          <span *ngIf="errorEntity.CountryAbbreviation != ''">
+                            {{errorEntity.CountryAbbreviation}}
+                          </span>
+                        </span>
+                      </div>
+                    </div>
+                    <div class="col-12 col-xl-4 col-lg-4 col-md-12 col-sm-12">
+                      <div class="form-group">
+                        <label><span>*</span> {{globals.adminTranslationText.country.form.phonePrefix.label}}</label>
+                        <input type="text" #PhonePrefix="ngModel" class="form-control"
+                          [(ngModel)]="countryEntity.PhonePrefix"
+                          [ngClass]="{error: (PhonePrefix.dirty && PhonePrefix.invalid) || (PhonePrefix.pristine && submitted) || errorEntity.PhonePrefix}"
+                          name="PhonePrefix" id="PhonePrefix" pattern="[0-9+]{1,}" maxlength="11" required>
+
+                        <span class="error_class"
+                          *ngIf="(PhonePrefix.dirty && PhonePrefix.invalid) || (PhonePrefix.pristine && submitted) || errorEntity.PhonePrefix">
+                          <span
+                            *ngIf="PhonePrefix.errors.required || (PhonePrefix.pristine && submitted)">{{globals.adminTranslationText.country.form.phonePrefix.required}}</span>
+                          <span
+                            *ngIf="PhonePrefix.errors && PhonePrefix.errors.pattern">{{globals.adminTranslationText.country.form.phonePrefix.pattern}}</span>
+                          <span *ngIf="errorEntity.PhonePrefix != ''">
+                            {{errorEntity.PhonePrefix}}
+                          </span>
+                        </span>
+                      </div>
+                    </div>
+                    <div class="col-xl-2 col-lg-6 col-md-12 col-sm-12 col-12">
+                      <div class="form-group">
+                        <label class="mb-1">
+                          {{globals.adminTranslationText.country.form.active.label}}</label>
+                        <div class="activeyes_box">
+                          <!-- <input type="checkbox" name="IsActive" id="IsActive" value="yes" #IsActive="ngModel"
+                            [(ngModel)]="countryEntity.IsActive">
+                          <label for="IsActive"></label> -->
+                          <kendo-switch [(ngModel)]="countryEntity.IsActive" value="yes" #IsActive="ngModel" name="IsActive" [onLabel]="'Y'"
+                      [offLabel]="'N'"></kendo-switch>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-12 col-12 col-lg-12 col-sm-12 text-center">
+                      <button class="all_btn theme_btn" type="submit" [disabled]="btn_disable">
+                        <span
+                          *ngIf="countryEntity.CountryId == 0">{{globals.adminTranslationText.country.form.buttons.add}}</span>
+                        <span
+                          *ngIf="countryEntity.CountryId != 0">{{globals.adminTranslationText.country.form.buttons.update}}</span>
+                      </button>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- End Content -->
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,601 @@
+<div class="content_block">
+  <div class="container-fluid">
+    <div class="row">
+      <!-- Content -->
+      <div class="col-md-12 col-sm-12">
+        <div class="title_block">
+          <h2 class="float-left">
+            {{globals.adminTranslationText.assignAssessment.title}}</h2>
+          <div class="breadcrumb_block float-left">
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item">
+                <a routerLink="/admin/adminDashboard">
+                  <i class="fa fa-home"></i>
+                </a>
+              </li>
+              <li class="breadcrumb-item active" aria-current="page">
+                {{globals.adminTranslationText.assignAssessment.breadcrumbTitle}}</li>
+            </ol>
+          </div>
+          <a routerLink="/admin/assessment-list"
+            class="all_btn themeoption_btn float-right">{{globals.adminTranslationText.assignAssessment.form.buttons.backToList}}</a>
+          <div class="clearfix"></div>
+        </div>
+        <div class="row d-flex justify-content-center">
+          <div class="col-md-12 col-sm-12">
+            <div class="inner_content_block assign_assessment_bock">
+              <div class="assign_assessment_content">
+                <h4>{{scheduleAssessmentEntity.CertificateName}} </h4>
+                <p><i class="fa fa-user"></i>{{globals.adminTranslationText.assignAssessment.form.candidateName}}: {{scheduleAssessmentEntity.Name}}
+                  <br>
+                  <i class="fa fa-envelope"></i>{{globals.adminTranslationText.assignAssessment.form.emailAddress}}:
+                  {{scheduleAssessmentEntity.EmailAddress}}<br>
+                  <i class="fa fa-map-marker"></i>{{globals.adminTranslationText.assignAssessment.form.location.title}}:
+                  {{scheduleAssessmentEntity.candidateCity}}, {{scheduleAssessmentEntity.StateName}}</p>
+                <div class="clearfix"></div>
+              </div>
+              <div class="clearfix"></div>
+              <div class="assign_step_block">
+                <ul class="nav nav-tabs" id="AssessmentTab" role="tablist">
+                  <li class="nav-item">
+                    <a class="nav-link active" id="date-tab" data-toggle="tab" href="#date" role="tab"
+                      aria-controls="date" aria-selected="true"><span>1</span>
+                      Date</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" id="proctor-tab" data-toggle="tab" href="#proctor" role="tab"
+                      aria-controls="proctor" aria-selected="false"><span>2</span>
+                      Proctor</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" id="address-tab" data-toggle="tab" href="#address" role="tab"
+                      aria-controls="address" aria-selected="false"><span>3</span>
+                      Address</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" id="comment-tab" data-toggle="tab" href="#comment" role="tab"
+                      aria-controls="comment" aria-selected="false"><span>4</span>
+                      Comment</a>
+                  </li>
+                </ul>
+              </div>
+              <div class="paddin_form">
+                <div class="tab-content" id="AssessmentTabContent">
+                  <div class="tab-pane fade show active" id="date" role="tabpanel" aria-labelledby="date-tab">
+                    <form role="form" #assignAssessmentForm1="ngForm" (ngSubmit)="assignAssessmentSubmit1(assignAssessmentForm1)">
+                      <h6>Fill the details to search the Proctor for above Candidate.</h6>
+                      <div class="assign_form_step1">
+                        <div class="row">
+                          <div class="col-12 col-xl-4 col-lg-6 col-md-12 col-sm-12">
+                            <div class="form-group">
+                              <label><span>*</span> {{globals.adminTranslationText.assignAssessment.form.location.title}}</label>
+                              <select title="Select Location" class="show-menu-arrow" data-selected-text-format="count" data-live-search="true"  required #CityCandidate="ngModel" [(ngModel)]="assignAssessmentEntity1.CityCandidate"
+                                name="CityCandidate" id="CityCandidate" [ngClass]="{error:  (CityCandidate.errors && CityCandidate.errors.required && submitted1)  ||  errorEntity.CityCandidate}">
+                          
+                          <ng-container *ngFor="let address of addressList">
+                            <option [value]="address.City"
+                              [selected]="scheduleAssessmentEntity.candidateCity==address.City">
+                              {{address.City}}</option>
+                          </ng-container>
+                          <ng-container *ngIf="addressList.length <=0">
+                              <option [value]="scheduleAssessmentEntity.candidateCity" [selected]="scheduleAssessmentEntity.candidateCity" >{{scheduleAssessmentEntity.candidateCity}}</option>
+                          </ng-container>
+                        </select>
+                     
+                        <span class="error_class"
+                          *ngIf="(CityCandidate.dirty && CityCandidate.invalid) || (CityCandidate.pristine && submitted1) || errorEntity.CityCandidate ">
+                          <span *ngIf="CityCandidate.errors && CityCandidate.errors.required">
+                            {{globals.adminTranslationText.assignAssessment.form.location.required}}
+                          </span>
+                          <span *ngIf="errorEntity.CityCandidate != ''">
+                            {{errorEntity.CityCandidate}}
+                          </span>
+                        </span>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col-12 col-xl-4 col-lg-4 col-md-12 col-sm-12">
+                            <div class="form-group">
+                              <label><span>*</span> {{globals.adminTranslationText.assignAssessment.form.candidateSelectedDates.title}}</label>
+                              <div class="radio_box" id="radio1">
+                                <input type="radio" (change)="AssignDateValid=false" value="{{scheduleAssessmentEntity.AvailablePriorityDate1}}" #AssignDate = 'ngModel' [(ngModel)]="assignAssessmentEntity1.AssignDate" name="AssignDate" id="dates1">
+                                <label for="dates1">{{scheduleAssessmentEntity.AvailablePriorityDate1 | date : 'MM/dd/yyyy'}}</label>
+                              </div>
+                              <div class="radio_box" id="radio2">
+                                <input type="radio" (change)="AssignDateValid=false" value="{{scheduleAssessmentEntity.AvailablePriorityDate2}}" #AssignDate = 'ngModel' [(ngModel)]="assignAssessmentEntity1.AssignDate" name="AssignDate" id="dates2">
+                                <label for="dates2">{{scheduleAssessmentEntity.AvailablePriorityDate2 | date : 'MM/dd/yyyy'}}</label>
+                              </div>
+                              <div class="radio_box" id="radio3">
+                                <input type="radio" (change)="AssignDateValid=false" value="{{scheduleAssessmentEntity.AvailablePriorityDate3}}" #AssignDate = 'ngModel' [(ngModel)]="assignAssessmentEntity1.AssignDate" name="AssignDate" id="dates3">
+                                <label for="dates3">{{scheduleAssessmentEntity.AvailablePriorityDate3 | date : 'MM/dd/yyyy'}}</label>
+                              </div>
+                              <span class="error_class" *ngIf="AssignDateValid">
+                                {{globals.adminTranslationText.assignAssessment.form.candidateSelectedDates.required}}
+                              </span>
+                              <span  class="error_class" *ngIf="errorEntity.AssignDate != ''">
+                                {{errorEntity.AssignDate}}
+                              </span>
+                            </div>
+                          </div>
+                          <div class="col-12 col-xl-4 col-lg-4 col-md-12 col-sm-12">
+                            <div class="form-group">
+                              <label>Select time range</label>
+                              <div class="check_box">
+                                <input type="checkbox" value="12:00:00" name="TimeRange1" id="TimeRange1">
+                                <label for="TimeRange1">{{globals.adminTranslationText.assignAssessment.form.morning}}</label>
+                              </div>
+                              <div class="check_box">
+                                <input type="checkbox" value="17:00:00" name="TimeRange2" id="TimeRange2">
+                                <label for="TimeRange2">{{globals.adminTranslationText.assignAssessment.form.afternoon}}</label>
+                              </div>
+                              <div class="check_box">
+                                <input type="checkbox" value="20:00:00" name="TimeRange3" id="TimeRange3">
+                                <label for="TimeRange3">{{globals.adminTranslationText.assignAssessment.form.evening}}</label>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-12 col-xl-4 col-lg-4 col-md-12 col-sm-12">
+                            <div class="form-group">
+                              <label><span>*</span> {{globals.adminTranslationText.assignAssessment.form.scheduleWith.title}}</label>
+                              <div class="radio_box">
+                                <input type="radio" (change)="scheduleWithValid=false" value="0" #ScheduleWith = 'ngModel' [(ngModel)]="assignAssessmentEntity1.ScheduleWith" name="schedule" id="schedule1">
+                                <label for="schedule1">{{globals.adminTranslationText.assignAssessment.form.scheduleWith.suggestedProctors}}</label>
+                              </div>
+                              <div class="radio_box">
+                                <input type="radio" (change)="scheduleWithValid=false" value="1" #ScheduleWith = 'ngModel' [(ngModel)]="assignAssessmentEntity1.ScheduleWith" name="schedule" id="schedule2">
+                                <label for="schedule2">{{globals.adminTranslationText.assignAssessment.form.scheduleWith.newProctor}}</label>
+                              </div>
+                              <span class="error_class" *ngIf="scheduleWithValid">
+                                {{globals.adminTranslationText.assignAssessment.form.scheduleWith.required}}
+                              </span>
+                              <span  class="error_class" *ngIf="errorEntity.ScheduleWith != ''">
+                                {{errorEntity.ScheduleWith}}
+                              </span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-md-12 col-12 col-lg-12 col-sm-12">
+                          <button class="all_btn theme_btn float-right" type="submit">
+                            Next
+                          </button>
+                          <div class="clearfix"></div>
+                        </div>
+                      </div>
+                  </form>
+                  </div>
+                  <div class="tab-pane fade" id="proctor" role="tabpanel" aria-labelledby="proctor-tab">
+                    <div class="top_inforrmation_block">
+                      <div class="block_date_proctor no_arrow">
+                        <p class="padding_30 assign_details">{{globals.adminTranslationText.assignAssessment.form.selectedDate}}: {{assignAssessmentEntity1.AssignDate | date : 'MM/dd/yyyy'}}<br>
+                          {{globals.adminTranslationText.assignAssessment.form.preferedTime}}: 
+                            <span *ngIf="preferedTime.length >0">{{preferedTime}}</span>
+                            <span *ngIf="preferedTime.length == '0'">NA</span>
+                            
+                            <br>
+                          {{globals.adminTranslationText.assignAssessment.form.location.title}}: {{assignAssessmentEntity1.CityCandidate}}</p>
+                      </div>
+                      <div class="clearfix"></div>
+                    </div>
+                    <form id="suggested_proctor_block" role="form" #assignAssessmentForm2="ngForm" (ngSubmit)="assignAssessmentSubmit2(assignAssessmentForm2)">
+                     
+                     <div class="suggested_proctor_main_block" >
+                      <h6>{{globals.adminTranslationText.assignAssessment.form.suggestedProctors.title}}</h6>
+                      <div class="notice notice-danger" *ngIf="suggestedselectedProctorValid">{{globals.adminTranslationText.assignAssessment.form.suggestedProctors.required}}</div>
+                      <div class="row">
+                        <div class="col-12 col-xl-4 col-lg-6 col-md-12 col-sm-12" *ngFor="let proctor of proctorEntity | paginate: { itemsPerPage:6, currentPage: p};let i = index;">
+                          <div class="suggested_proctor_block" id="suggestedProctors{{i}}">
+                            <div class="proctor_header">
+                              <h6>{{proctor.ProctorName}}</h6>
+                              <p><i class="fa fa-envelope"></i>{{proctor.EmailAddress}}<br>
+                                <i class="fa fa-phone"></i>{{proctor.PhoneNumber}}</p>
+                            </div>
+                            <div class="address_block">
+                              <div class="address_label " (change)="addressChange(i,j)" [ngClass]="{right_border : j==0,one_address : proctor.Addresses.length == 1}" *ngFor="let address of proctor.Addresses;let j=index;">
+                                <input type="radio" id="address{{i}}{{j}}" name="address{{i}}" [checked]="j==0" />
+                                <label for="address{{i}}{{j}}">Address {{j+1}}</label>
+                              </div>
+                              <ng-container *ngFor="let address of proctor.Addresses;let k=index;">
+                                <div class="address address_{{i}}{{k}}" [ngStyle]="{'display': (k==1) ? 'none' : 'block'}"
+                                >
+                                   <p><i class="fa fa-map-marker"></i>
+                                     <span id="addressSelected{{i}}{{k}}">{{address.Address1}}, {{address.Address2}}, {{address.Address3}}<br>
+                                     {{address.City}} {{address.ZipCode}}</span><br>
+                                     <i class="fa fa-clock-o"></i><span>{{address.min_start}}-{{address.max_end}}</span></p>
+                                 </div>
+                              </ng-container>
+                             
+                              <div class="clearfix"></div>
+                            </div>
+                            <div class="proctor_footer"><button type="button" value=0 id="selectedSuggestedProctor{{i}}" (click)="suggestedProctorSelect(i)" >Select</button></div>
+                          </div>
+                        </div>
+                         
+                      </div>
+                      <div class="row">
+                          
+                        <div class="col-12 col-md-12 col-sm-12" *ngIf="proctorEntity!=''">
+                            <ul class="pagination float-right">
+                                <pagination-controls (pageChange)="p=$event" previousLabel="⏴" nextLabel="⏵"></pagination-controls>
+                              </ul>
+                        </div>
+                      </div>
+                    </div> 
+                    <div class="row">
+                      <div class="col-md-12 col-12 col-lg-12 col-sm-12">
+                        <button (click)="previous1()" class="all_btn themeoption_btn float-left" type="button">
+                          Previous
+                        </button>
+                        <button class="all_btn theme_btn float-right" type="submit">
+                          Next
+                        </button>
+                        <button class="all_btn red_btn float-right" type="button" (click)="DeclineAssignAssessment()">
+                          Decline
+                        </button>
+                        <div class="clearfix"></div>
+                      </div>
+                    </div>
+                    </form>
+                    <form id="seacrh_proctor_main_block" role="form" #assignAssessmentForm3="ngForm" (ngSubmit)="assignAssessmentSubmit3(assignAssessmentForm3)">
+                   <div class="seacrh_proctor_main_block" >
+                      <h6>{{globals.adminTranslationText.assignAssessment.form.searchNewProctor.searchNewProctor}}</h6>
+                      <div class="row">
+                        <div class="col-12 col-xl-4 col-lg-6 col-md-12 col-sm-12">
+                          <div class="form-group">
+                            <label><span>*</span> {{globals.adminTranslationText.assignAssessment.form.searchNewProctor.selectProctor}}</label>
+                              <kendo-dropdownlist  [data]="proctorList" [filterable]="false" [textField]="'Name'" [valueField]="'UserId'"
+                        [valuePrimitive]="true" #ProctorId="ngModel" (valueChange) = "showProctorDetail($event)"
+                        [(ngModel)]="assignAssessmentEntity1.ProctorId" name="ProctorId" [ngClass]="{error: (ProctorId.dirty && ProctorId.invalid) || (ProctorId.pristine && submitted2) || errorEntity.ProctorId}" required></kendo-dropdownlist >
+                              <span class="error_class" *ngIf="(ProctorId.dirty && ProctorId.invalid) || (ProctorId.pristine && submitted2) || errorEntity.ProctorId">
+                                <span *ngIf="ProctorId.errors && ProctorId.errors.required">
+                                    {{globals.adminTranslationText.assessment.list.proctorChange.required}}
+                                </span>
+                                <span *ngIf="errorEntity.ProctorId != ''">
+                                  {{errorEntity.ProctorId}}
+                                </span>
+                              </span>
+                          </div>
+                          <div id="selectedProctorDetails">
+                          <p><b>{{globals.adminTranslationText.assignAssessment.form.searchNewProctor.selectedProctorDetails}}</b></p>
+                          <p class="padding_30 all_detail"><i class="fa fa-user"></i> {{proctorEntity.Name}}<br>
+                            <i class="fa fa-envelope"></i> {{proctorEntity.EmailAddress}}<br>
+                            <i class="fa fa-phone"></i> {{proctorEntity.PhoneNumber}}<br>
+                            <i class="fa fa-map-marker"></i> {{proctorEntity.City}}, {{proctorEntity.StateName}}
+                          </p>
+                          </div>
+                        </div>
+                      </div>
+                    </div> 
+                    <div class="row">
+                      <div class="col-md-12 col-12 col-lg-12 col-sm-12">
+                        <button (click)="previous1()" class="all_btn themeoption_btn float-left" type="button">
+                          Previous
+                        </button>
+                        <button class="all_btn theme_btn float-right" type="submit">
+                          Next
+                        </button>
+                        <button class="all_btn red_btn float-right" type="button" (click)="DeclineAssignAssessment()">
+                          Decline
+                        </button>
+                        <div class="clearfix"></div>
+                      </div>
+                    </div>
+                  </form>
+                  </div>
+                  <div class="tab-pane fade" id="address" role="tabpanel" aria-labelledby="address-tab">
+                    <div class="top_inforrmation_block">
+                      <div class="block_date_proctor">
+                        <p class="padding_30 assign_details">{{globals.adminTranslationText.assignAssessment.form.selectedDate}}: {{assignAssessmentEntity1.AssignDate | date : 'MM/dd/yyyy'}}<br>
+                          {{globals.adminTranslationText.assignAssessment.form.location.title}}: {{assignAssessmentEntity1.CityCandidate}}</p>
+                      </div>
+                      <div class="block_date_proctor no_arrow">
+                        <p class="padding_30 assign_details">{{globals.adminTranslationText.assignAssessment.form.addressTab.proctoName}}: {{assignAssessmentEntity1.ProctorName}}<br>
+                          {{globals.adminTranslationText.assignAssessment.form.addressTab.emailAddress}}: {{assignAssessmentEntity1.ProctorEmailAddress}}<br>
+                          {{globals.adminTranslationText.assignAssessment.form.addressTab.phoneNumber}}: {{assignAssessmentEntity1.PhoneNumber}}
+                        </p>
+                      </div>
+                      <div class="clearfix"></div>
+                    </div>
+                    <div id="suggestedproctorAddress">
+                      <h6>{{globals.adminTranslationText.assignAssessment.form.addressTab.selectedAddressDetails}}</h6>
+                      <p class="padding_30 assign_details">
+                        {{assignAssessmentEntity1.Address}}                        
+                        <a (click)="changeAddress()">Change of address?</a>
+                      </p>
+                    </div>
+                    <form role="form" #assignAssessmentForm4 = "ngForm" (ngSubmit)="assignAssessmentSubmit4(assignAssessmentForm4)">
+                    <div id="newProctorAddress" >
+                    <div class="row">
+                      <div class="col-12 col-xl-4 col-lg-4 col-md-12 col-sm-12">
+                        <div class="form-group">
+                          <label>{{globals.adminTranslationText.assignAssessment.form.addressTab.selectNewAddress.label}}</label>
+                          <input class="form-control" id="address_new" name="Address" 
+                            #Address="ngModel" [(ngModel)]="assignAssessmentEntity1.Address" />
+                            
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-12 col-xl-4 col-lg-4 col-md-12 col-sm-12">
+                        <div class="form-group">
+                          <label><span>*</span> {{globals.adminTranslationText.assignAssessment.form.addressTab.address1.label}}</label>
+                          <input class="form-control" type="text" required  name="Address1" id="Address1"
+                            #Address1="ngModel" [(ngModel)]="assignAssessmentEntity1.Address1"                            
+                            [ngClass]="{error: (Address1.dirty && Address1.invalid) || (Address1.pristine && submitted3 && Address1.errors && Address1.errors.required) || errorEntity.Address1}"
+                            pattern="[a-zA-Z0-9',&.$\ ]{2,}"/>
+                          <span class="error_class"
+                            *ngIf="(Address1.dirty && Address1.invalid) || (Address1.pristine && submitted3) || errorEntity.Address1">
+                            <span *ngIf="Address1.errors && Address1.errors.required">
+                              {{globals.adminTranslationText.assignAssessment.form.addressTab.address1.required}}
+                            </span>
+                            <span *ngIf="Address1.errors && Address1.errors.pattern">
+                              {{globals.adminTranslationText.assignAssessment.form.addressTab.address1.pattern}}
+                            </span>
+                            <span *ngIf="errorEntity.Address1 != ''">
+                              {{errorEntity.Address1}}
+                            </span>
+                          </span>
+                        </div>
+                      </div>
+                      <div class="col-12 col-xl-4 col-lg-4 col-md-12 col-sm-12">
+                        <div class="form-group">
+                          <label>{{globals.adminTranslationText.assignAssessment.form.addressTab.address2.label}}</label>
+                          <input class="form-control" type="text"   name="Address2" id="Address2" 
+                            #Address2="ngModel" [(ngModel)]="assignAssessmentEntity1.Address2"                            
+                            [ngClass]="{error: (Address2.dirty && Address2.invalid)}"
+                            pattern="[a-zA-Z0-9',&.$\ ]{2,}"/>
+                          <span class="error_class"
+                            *ngIf="(Address2.dirty && Address2.invalid)">                              
+                            <span *ngIf="Address2.errors && Address2.errors.pattern">
+                              {{globals.adminTranslationText.assignAssessment.form.addressTab.address2.pattern}}
+                            </span>
+                          </span>
+                          
+                        </div>
+                      </div>
+                  
+                      <div class="col-12 col-xl-4 col-lg-4 col-md-12 col-sm-12">
+                        <div class="form-group">
+                          <label><span>*</span> {{globals.adminTranslationText.assignAssessment.form.addressTab.country.label}}</label>                        
+                          <kendo-dropdownlist  [data]="countryList" [filterable]="false" [textField]="'CountryName'" [valueField]="'CountryId'"
+                        [valuePrimitive]="true" #CountryId="ngModel" (valueChange) = "getStateListadd(assignAssessmentForm4)"
+                        [(ngModel)]="assignAssessmentEntity1.CountryId" name="CountryId" id="CountryId" [ngClass]="{error: (CountryId.dirty && CountryId.invalid) || (CountryId.pristine && submitted3 && CountryId.errors && CountryId.errors.required) || errorEntity.CountryId}" required></kendo-dropdownlist >
+                          <span class="error_class"
+                            *ngIf="(CountryId.dirty && CountryId.invalid) || (CountryId.pristine && submitted3) || errorEntity.CountryId">
+                            <span *ngIf="CountryId.errors && CountryId.errors.required">
+                              {{globals.adminTranslationText.assignAssessment.form.addressTab.country.required}}
+                            </span>
+                            <span *ngIf="errorEntity.CountryId != ''">
+                              {{errorEntity.CountryId}}
+                            </span>
+                            
+                        </span>
+                        </div>
+                      </div>
+                      <div class="col-12 col-xl-4 col-lg-4 col-md-12 col-sm-12">
+                        <div class="form-group">
+                          <label><span>*</span> State</label>
+                          <kendo-dropdownlist  [data]="stateList" [filterable]="false" [textField]="'StateName'" [valueField]="'StateId'"
+                          [valuePrimitive]="true" #StateId="ngModel" (valueChange)="stateNameChange($event)"
+                          [(ngModel)]="assignAssessmentEntity1.StateId" name="StateId" id="StateId" [ngClass]="{error: (StateId.dirty && StateId.invalid || (StateId.pristine && submitted3 && StateId.errors && StateId.errors.required)) || errorEntity.StateId}" required></kendo-dropdownlist >
+                          <span class="error_class"
+                            *ngIf="(StateId.dirty && StateId.invalid) || (StateId.pristine && submitted3) || errorEntity.StateId">
+                            <span *ngIf="StateId.errors && StateId.errors.required">
+                              {{globals.adminTranslationText.assignAssessment.form.addressTab.state.required}}
+                            </span>
+                            <span *ngIf="errorEntity.StateId != ''">
+                              {{errorEntity.StateId}}
+                            </span>
+                          </span>
+                        </div>
+                      </div>
+                   
+                      <div class="col-12 col-xl-4 col-lg-4 col-md-12 col-sm-12">
+                        <div class="form-group">
+                          <label><span>*</span> {{globals.adminTranslationText.assignAssessment.form.addressTab.city.label}}</label>
+                          <input required class="form-control" type="text" name="City" id="City"
+                            #City="ngModel" [(ngModel)]="assignAssessmentEntity1.City"                            
+                            [ngClass]="{error: (City.dirty && City.invalid) || (City.pristine && submitted3 && City.errors && City.errors.required)  || errorEntity.City }"
+                            pattern="[a-zA-Z0-9',&.$\ ]{2,}" />
+                            <span class="error_class"
+                              *ngIf="(City.dirty && City.invalid) || (City.pristine && submitted3) || errorEntity.City">
+                              <span *ngIf="City.errors && City.errors.required ">
+                                {{globals.adminTranslationText.assignAssessment.form.addressTab.city.required}}
+                              </span>
+                              <span *ngIf="City.errors && City.errors.pattern">
+                                {{globals.commonTranslationText.profilePage.addressInformationForm.city.pattern}}
+                              </span>
+                              <span *ngIf="errorEntity.City != ''">
+                                {{errorEntity.StateId}}
+                              </span>
+                            </span>
+                        </div>
+                      </div>
+                      <div class="col-12 col-xl-4 col-lg-4 col-md-12 col-sm-12">
+                        <div class="form-group">
+                          <label><span>*</span> {{globals.adminTranslationText.assignAssessment.form.addressTab.zipCode.label}}</label>
+                          <input required class="form-control" type="text" name="ZipCode" id="ZipCode" 
+                            #ZipCode="ngModel" [(ngModel)]="assignAssessmentEntity1.ZipCode"                            
+                            [ngClass]="{error: (ZipCode.dirty && ZipCode.invalid) || (ZipCode.pristine && submitted3 && ZipCode.errors && ZipCode.errors.required) || errorEntity.ZipCode}"
+                            pattern="[0-9',&.$\ ]{2,}" />
+                            <span class="error_class"
+                              *ngIf="(ZipCode.dirty && ZipCode.invalid) || (ZipCode.pristine && submitted3)  || errorEntity.ZipCode">
+                              <span *ngIf="ZipCode.errors && ZipCode.errors.required ">
+                                {{globals.adminTranslationText.assignAssessment.form.addressTab.zipCode.required}}
+                              </span>
+                              <span *ngIf="ZipCode.errors && ZipCode.errors.pattern">
+                                {{globals.commonTranslationText.profilePage.addressInformationForm.zipCode.pattern}}
+                              </span>
+                              <span *ngIf="errorEntity.ZipCode != ''">
+                                {{errorEntity.ZipCode}}
+                              </span>
+                            </span>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-12 col-xl-4 col-lg-4 col-md-12 col-sm-12">
+                        <div class="form-group">
+                          <label><span>*</span> {{globals.adminTranslationText.assignAssessment.form.addressTab.addressName.label}}</label>
+                          <input required class="form-control" type="text" name="AddressName" id="AddressName"
+                          #AddressName="ngModel" [(ngModel)]="assignAssessmentEntity1.AddressName"                            
+                          [ngClass]="{error: (AddressName.dirty && AddressName.invalid) || (AddressName.pristine && submitted3 && AddressName.errors && AddressName.errors.required ) || errorEntity.AddressName}"
+                          pattern="[a-zA-Z][a-zA-Z0-9-_.]{1,50}" />
+                          <span class="error_class"
+                            *ngIf="(AddressName.dirty && AddressName.invalid) || (AddressName.pristine && submitted3) || errorEntity.AddressName">
+                            <span *ngIf="AddressName.errors && AddressName.errors.required ">
+                              {{globals.adminTranslationText.assignAssessment.form.addressTab.addressName.required}}
+                            </span>
+                            <span *ngIf="AddressName.errors && AddressName.errors.pattern">
+                              {{globals.adminTranslationText.assignAssessment.form.addressTab.addressName.pattern}}
+                            </span>
+                            <span *ngIf="errorEntity.AddressName != ''">
+                              {{errorEntity.AddressName}}
+                            </span>
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-12 col-xl-4 col-lg-4 col-md-12 col-sm-12">
+                        <div class="form-group">
+                          <label><span>*</span> {{globals.adminTranslationText.assignAssessment.form.addressTab.startTime.label}}</label>
+                            <kendo-timepicker
+                                name="StartTime"
+                                #StartTime="ngModel" [(ngModel)]="assignAssessmentEntity1.StartTime"                            
+                                [ngClass]="{error: startTimeCheck || startTimeValid || errorEntity.StartTime1}"
+                                [format]="'HH:mm'"
+                                (blur)="startTimeCheck=false || startTimeValid = false"
+                            ></kendo-timepicker>
+                            <span class="error_class" *ngIf="startTimeCheck && !startTimeValid">
+                              {{globals.adminTranslationText.assignAssessment.form.addressTab.startTime.required}}
+                            </span>
+                            <span class="error_class" *ngIf="startTimeValid && !startTimeCheck">
+                              {{globals.adminTranslationText.assignAssessment.form.addressTab.startTime.valid}}
+                            </span>
+                            <span  class="error_class" *ngIf="errorEntity.StartTime1 != ''">
+                              {{errorEntity.StartTime1}}
+                            </span>
+                        </div>
+                      </div>
+                      <div class="col-12 col-xl-4 col-lg-4 col-md-12 col-sm-12">
+                        <div class="form-group">
+                          <label><span>*</span> End Time</label>
+                            <kendo-timepicker
+                                name="EndTime"
+                                #EndTime="ngModel" [(ngModel)]="assignAssessmentEntity1.EndTime"                            
+                                [ngClass]="{error: endTimeCheck|| errorEntity.EndTime1}"
+                                [format]="'HH:mm'"
+                                (blur)="endTimeCheck=false"
+                            ></kendo-timepicker>
+                            <span class="error_class" *ngIf="endTimeCheck">
+                              {{globals.adminTranslationText.assignAssessment.form.addressTab.endTime.required}}
+                            </span>
+                            <span  class="error_class" *ngIf="errorEntity.EndTime1 != ''">
+                              {{errorEntity.EndTime1}}
+                            </span>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-12 col-12 col-lg-12 col-sm-12">
+                        <button class="all_btn themeoption_btn float-left" type="button" (click)="previous2()">
+                          Previous
+                        </button>
+                        <button class="all_btn theme_btn float-right" type="submit">
+                          Next
+                        </button>
+                        <div class="clearfix"></div>
+                      </div>
+                    </div>
+                  </form>
+                  </div>
+                  <div class="tab-pane fade" id="comment" role="tabpanel" aria-labelledby="comment-tab">
+                      <div class="top_inforrmation_block"  >
+                          <div class="block_date_proctor" [ngClass]="{no_arrow: assignAssessmentEntity1.AssignStatus == 0 }">
+                            <p class="padding_30 assign_details">{{globals.adminTranslationText.assignAssessment.form.selectedDate}}: {{assignAssessmentEntity1.AssignDate | date : 'MM/dd/yyyy'}}<br>
+                              {{globals.adminTranslationText.assignAssessment.form.location.title}}: {{assignAssessmentEntity1.CityCandidate}}</p>
+                          </div>
+                          <div *ngIf="assignAssessmentEntity1.AssignStatus == 1">
+                          <div class="block_date_proctor">
+                            <p class="padding_30 assign_details">{{globals.adminTranslationText.assignAssessment.form.addressTab.proctoName}}: {{assignAssessmentEntity1.ProctorName}}<br>
+                              {{globals.adminTranslationText.assignAssessment.form.addressTab.emailAddress}}: {{assignAssessmentEntity1.ProctorEmailAddress}}<br>
+                              {{globals.adminTranslationText.assignAssessment.form.addressTab.phoneNumber}}: {{assignAssessmentEntity1.PhoneNumber}}
+                            </p>
+                          </div>
+                          <div class="block_date_proctor" >
+                              <p class="padding_30 assign_details">Address: {{assignAssessmentEntity1.Address1}}, {{assignAssessmentEntity1.Address2}}, {{assignAssessmentEntity1.Address3}}
+                                  {{assignAssessmentEntity1.City}},<br>
+                                  {{assignAssessmentEntity1.StateName}}-{{assignAssessmentEntity1.ZipCode}}, {{assignAssessmentEntity1.CountryName}}
+                              </p>
+                            </div>
+                            <div class="block_date_proctor no_arrow">
+                                <p class="padding_30 assign_details">
+                                  Time: {{time}} to {{time2}}
+                                </p>
+                              </div>
+                              </div>
+                          <div class="clearfix"></div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12 col-12 col-lg-12 col-sm-12">
+                              <div class="form-group">
+                                <label><span>*</span> {{globals.adminTranslationText.assignAssessment.form.commentTab.comment}}</label>
+                                <textarea id="AdminComment" name="AdminComment" #AdminComment="ngModel" [(ngModel)]="assignAssessmentEntity1.AdminComment"
+                                  [ngClass]="{error: (commentDisplay) || errorEntity.AdminComment}"
+                                  class="form-control"  (keyup)="commentDisplay=false"></textarea>
+                                <span class="error_class" *ngIf="commentDisplay">
+                                  {{globals.adminTranslationText.assignAssessment.form.commentTab.required}}
+                                </span>
+                                <span  class="error_class" *ngIf="errorEntity.AdminComment != ''">
+                                  {{errorEntity.AdminComment}}
+                                </span>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="row">
+                            <div class="col-md-12 col-12 col-lg-12 col-sm-12">
+                              <button class="all_btn themeoption_btn float-left" type="button" (click)="previous3()">
+                                Previous
+                              </button>
+                              <button class="all_btn theme_btn float-right" type="button" (click)="FinalAssignAssessmentSubmit(assignAssessmentEntity1.AssignStatus)">
+                                Submit
+                              </button>
+                              <div class="clearfix"></div>
+                            </div>
+                          </div>
+                  </div>
+                </div>
+              </div>
+
+
+              <!--<form role="form" >
+                  <div class="row" >                    
+                    <div class="col-md-3 col-4 col-lg-4 col-sm-12 d-flex" *ngFor="let user of userList;let i=index;">
+                      <div class="dash_certificate_block">
+                        <div class="cer_header">{{globals.adminTranslationText.assignAssessment.form.candidateName}} : {{user.Name}} </div>
+                        <div class="cer_header">{{globals.adminTranslationText.assignAssessment.form.certificateName}} : {{user.CertificateName}} </div>
+                        <div>
+                          {{globals.adminTranslationText.assignAssessment.form.dates}} : {{user.AvailablePriorityDate1}},{{user.AvailablePriorityDate2}},{{user.AvailablePriorityDate3}}
+                        </div>
+                        <div class="cer_footer">
+                          <button class="width_btn_30" >Schedule Now</button>
+                           (click)="viewSchedule(i)" data-toggle="modal" data-target="#schedule"
+                          
+                          <div class="clearfix"></div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </form> -->
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

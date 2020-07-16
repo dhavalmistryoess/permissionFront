@@ -1,0 +1,722 @@
+<div class="content_block">
+  <div class="container-fluid">
+    <div class="row">
+      <!-- Content -->
+      <div class="col-12 col-xl-12 col-lg-12 col-md-12 col-sm-12">
+        <div class="title_block">
+          <h2 class="float-left">Attendance Sheet</h2>
+          <div class="breadcrumb_block float-left">
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item">
+                <a href="/proctorDashboard" *ngIf="globals.authData.RoleId == 2 || globals.authData.RoleId == 4">
+                  <i class="fa fa-home"></i>
+                </a>
+                <a href="/admin/adminDashboard" *ngIf="globals.authData.RoleId == 1">
+                  <i class="fa fa-home"></i>
+                </a>
+              </li>
+              <li class="breadcrumb-item active" aria-current="page">
+                Attendance Sheet</li>
+            </ol>
+          </div>
+          <a routerLink="/proctorDashboard" class="all_btn themeoption_btn float-right"
+            *ngIf="globals.authData.RoleId == 2 || globals.authData.RoleId == 4">Back to
+            Dashboard</a>
+          <a routerLink="/admin/adminDashboard" class="all_btn themeoption_btn float-right"
+            *ngIf="globals.authData.RoleId == 1">Back to
+            Dashboard</a>
+          <div class="clearfix"></div>
+        </div>
+        <div class="row d-flex justify-content-center">
+          <div class="col-md-12 col-sm-12">
+            <div class="inner_content_block">
+              <form class="form-validate" #SearchFilterForm="ngForm" (ngSubmit)="SearchFilter(SearchFilterForm)">
+                <div class="filter_block_form">
+                  <div class="row">
+                    <div class="col-12 col-xl-4 col-lg-4 col-md-12 col-sm-12" *ngIf="globals.authData.RoleId == 1">
+                      <div class="form-group">
+                        <label>Proctor Name</label>
+                        <!-- <select class="show-tick show-menu-arrow" data-live-search="true"
+                          data-selected-text-format="count" title="Select Proctor Name" #ProctorId="ngModel"
+                          [(ngModel)]="filterEntity.ProctorId" name="ProctorId">
+                          <ng-container *ngFor="let proctor of proctorList">
+                            <option [value]="proctor.UserId">{{proctor.FirstName}} {{proctor.LastName}}</option>
+                          </ng-container>
+                        </select> -->
+                        <kendo-dropdownlist [data]="proctorList" [filterable]="false" [textField]="'Name'"
+                          [valueField]="'UserId'" [valuePrimitive]="true" #ProctorId="ngModel"
+                          [(ngModel)]="filterEntity.ProctorId" name="ProctorId"></kendo-dropdownlist>
+
+                      </div>
+                    </div>
+                    <div class="col-12 col-xl-4 col-lg-4 col-md-12 col-sm-12">
+                      <div class="form-group">
+                        <label>Location</label>
+                        <!-- <select class="show-tick show-menu-arrow" multiple data-live-search="true"
+                          data-selected-text-format="count" title="Select Location" #Location="ngModel"
+                          [(ngModel)]="filterEntity.Location" name="Location" id="Location"
+                          (change)="showFilterLocation(filterEntity.Location)">
+                          <ng-container *ngFor="let address of addressList">
+                            <option [value]="address.City">{{address.City}}</option>
+                          </ng-container>
+                        </select> -->
+                        <kendo-multiselect [data]="addressList" [filterable]="false" [textField]="'City'"
+                          [valueField]="'City'" [valuePrimitive]="true" #Location="ngModel"
+                          (valueChange)="showFilterLocation(filterEntity.Location)" [(ngModel)]="filterEntity.Location"
+                          name="Location" id="Location" placeholder="Select your location"></kendo-multiselect>
+
+                      </div>
+                    </div>
+                    <div class="col-12 col-xl-4 col-lg-4 col-md-12 col-sm-12">
+                      <div class="form-group">
+                        <label>Date</label>
+                        <!-- <input class="form-control form_date" (change)="showFilterDate()" name="AssignDate"
+                          id="AssignDate" type="text" value="" readonly /> -->
+                        <kendo-datepicker [(ngModel)]="filterEntity.AssignDate" #AssignDate="ngModel"
+                          [format]="'MM/dd/yyyy'" name="AssignDate" id="AssignDate"></kendo-datepicker>
+                      </div>
+                    </div>
+                    <div class="col-12 col-xl-4 col-lg-4 col-md-12 col-sm-12">
+                      <div class="form-group">
+                        <label>Time Slot</label>
+                        <!-- <select multiple class="show-tick show-menu-arrow" data-live-search="true"
+                          data-selected-text-format="count" title="Select Time Slot" #shiftFilters="ngModel"
+                          [(ngModel)]="filterEntity.shiftFilters" name="shiftFilters"
+                          (change)="showFilterShift(filterEntity.shiftFilters)">
+                          <option value="12:00:00">Morning</option>
+                          <option value="17:00:00">Afternoon</option>
+                          <option value="20:00:00">Evening</option>
+                        </select> -->
+                        <kendo-multiselect [data]="shiftFilterList" [filterable]="false" [textField]="'label'"
+                          [valueField]="'value'" [valuePrimitive]="true" #shiftFilters="ngModel"
+                          (valueChange)="showFilterShift(filterEntity.shiftFilters)"
+                          [(ngModel)]="filterEntity.shiftFilters" name="shiftFilters" id="shiftFilters"
+                          placeholder="Select your time slot"></kendo-multiselect>
+                      </div>
+                    </div>
+                    <div class="col-12 col-xl-4 col-lg-4 col-md-12 col-sm-12">
+                      <div class="form-group">
+                        <label>Candidate Name</label>
+                        <!-- <select class="show-tick show-menu-arrow" multiple data-live-search="true"
+                          data-selected-text-format="count" title="Select Candidate Name" #UserId="ngModel"
+                          [(ngModel)]="filterEntity.UserId" name="UserId"
+                          (change)="showFilterCandidate(filterEntity.UserId)">
+                          <ng-container *ngFor="let candidate of candidateList">
+                            <option [value]="candidate.UserId">{{candidate.Name}}</option>
+                          </ng-container>
+                        </select> -->
+                        <kendo-multiselect [data]="candidateList" [filterable]="false" [textField]="'Name'"
+                          [valueField]="'UserId'" [valuePrimitive]="true" #UserId="ngModel"
+                          (valueChange)="showFilterCandidate(filterEntity.UserId)" [(ngModel)]="filterEntity.UserId"
+                          name="UserId" id="UserId" placeholder="Select candidate name"></kendo-multiselect>
+                      </div>
+                    </div>
+                    <div class="col-12 col-xl-4 col-lg-4 col-md-12 col-sm-12">
+                      <button class="all_btn theme_btn mt-5" type="submit">Search</button>
+                      <button class="all_btn themeoption_btn mt-5" type="button"
+                        (click)="clearData(SearchFilterForm)">Clear</button>
+                    </div>
+                  </div>
+                </div>
+              </form>
+              <div class="attendance_table_block">
+                <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                  <div class="p_filter_content_block">
+                    <!-- <label>Showing result for: </label> -->
+                    <!-- <ul>
+                      <li><span>{{showFilterEntity}}</span><i class="fa fa-times"></i></li>
+                      <li><span>Vadodara</span><i class="fa fa-times"></i></li>
+                    </ul> -->
+                    <!-- <ul>
+                      <li *ngFor="let filter of showFilterLocationEntity"><span>{{filter}}</span><i class="fa fa-times" (click)="removelocation(filter)"></i></li>
+                      <li><span>{{this.filterEntity.AssignDate}}</span><i class="fa fa-times" (click)="removelocation(filter)"></i></li>
+                      <li *ngFor="let filter of showFilterShiftEntity"><span>{{filter}}</span><i class="fa fa-times" (click)="removeshift(filter)"></i></li>
+                      <li *ngFor="let filter of showFilterCandidateEntity"><span>{{filter}}</span><i class="fa fa-times" (click)="removecandidate(filter)"></i></li>
+                    </ul> -->
+                  </div>
+                </div>
+
+                <!--<table id="dataTables-example" class="table table-hover attendance_table" style="width:100%">
+                  <thead>
+                    <tr>
+                      <!-- <th class="text-center sr_no_width">Sr No.</th>
+                      <th>Candidate Name</th>
+                      <th class="width_15">Email</th>
+                      <th class="width_15">Phone Number</th>
+                      <th class="width_10">Date</th>
+                      <th class="width_10">Time</th>
+                      <th>Certificate Name</th>
+                      <th class="width_10 text-center">Status</th>
+                      <th class="text-center active_width hide_active">Is Present?</th>
+                      <th class="text-center active_width">Is Present?</th>
+                      <th class="text-center action_width">Action</th> --
+                      <th class="text-center sr_no_width">
+                        {{globals.commonTranslationText.proctorDashboard.attendanceSheet.list.srNo}}</th>
+                      <th>{{globals.commonTranslationText.proctorDashboard.attendanceSheet.list.candidateName}}
+                      </th>
+                      <th class="width_15">
+                        {{globals.commonTranslationText.proctorDashboard.attendanceSheet.list.email}}</th>
+                      <th class="width_15">
+                        {{globals.commonTranslationText.proctorDashboard.attendanceSheet.list.phoneNumber}}</th>
+                      <th class="width_10">
+                        {{globals.commonTranslationText.proctorDashboard.attendanceSheet.list.date}}</th>
+                      <th class="width_10">
+                        {{globals.commonTranslationText.proctorDashboard.attendanceSheet.list.time}}</th>
+                      <th>{{globals.commonTranslationText.proctorDashboard.attendanceSheet.list.certificateName}}
+                      </th>
+                      <th class="width_10 text-center">
+                        {{globals.commonTranslationText.proctorDashboard.attendanceSheet.list.status}}</th>
+                      <th class="text-center active_width hide_active">
+                        {{globals.commonTranslationText.proctorDashboard.attendanceSheet.list.isPresent}}</th>
+                      <th class="text-center active_width">
+                        {{globals.commonTranslationText.proctorDashboard.attendanceSheet.list.isPresent}}</th>
+                      <th class="text-center action_width">
+                        {{globals.commonTranslationText.proctorDashboard.attendanceSheet.list.action}}</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let attendance of attendanceSheetList;let i=index;">
+                      <td class="text-center">{{i+1}}</td>
+                      <td>{{attendance.CandidateName}}</td>
+                      <td>{{attendance.EmailAddress}}</td>
+                      <td>{{attendance.PhoneNumber}}</td>
+                      <td>{{attendance.AssignDate | date : 'MM/dd/yyyy'}}</td>
+                      <td>{{attendance.StartTime }}-{{attendance.EndTime }}</td>
+                      <!--11am-2pm--
+                      <td>{{attendance.CertificateName}}</td>
+                      <td class="text-center">{{attendance.DisplayText}}</td>
+                      <td class="text-center hide_active">
+                        <span *ngIf="attendance.ScheduleAssessmentStatus != 39">Yes</span>
+                        <span *ngIf="attendance.ScheduleAssessmentStatus == 39">No</span>
+                      </td>
+                      <!--Document Verified--
+                      <td class="text-center">
+                        <div class="activeyes_box" data-toggle="tooltip" data-placement="top" title="Yes">
+                          <input type="checkbox"
+                            [disabled]="(currentDate | date:'yyyy-MM-dd') != (attendance.AssignDate)"
+                            (change)="ChangePresentStatus(attendance,i)" name="active{{i}}" id="active{{i}}" value="Yes"
+                            [checked]="attendance.ScheduleAssessmentStatus != 39">
+                          <label for="active{{i}}"></label>
+                        </div>
+                      </td>
+                      <td class="text-center">
+                        <button
+                          [disabled]="((currentDate | date:'yyyy-MM-dd') != (attendance.AssignDate)) || attendance.ScheduleAssessmentStatus == 39"
+                          *ngIf="attendance.ScheduleAssessmentStatus != 44" data-toggle="modal"
+                          data-target="#document_verify" type="button" class="edit"
+                          (click)="documentVerificationShow(attendance,i)">
+                          <i class="fa fa-file-text-o" aria-hidden="true" data-toggle="tooltip" data-placement="top"
+                            title="Document Verification"></i>
+                        </button>
+                        <button
+                          [disabled]="((currentDate | date:'yyyy-MM-dd') > (attendance.AssignDate) && (currentDate | date:'yyyy-MM-dd HH:mm') > (attendance.addedDate | date:'yyyy-MM-dd HH:mm')) || (currentDate | date:'yyyy-MM-dd') < (attendance.AssignDate)"
+                          *ngIf="(currentDate | date:'yyyy-MM-dd HH:mm') < (attendance.addedDate | date:'yyyy-MM-dd HH:mm')"
+                          type="button" class="blue_icon" data-toggle="modal" data-target="#FeedbackModal"
+                          (click)="finalFeedbackShow(attendance)">
+                          <i class="fa fa-comment-o" aria-hidden="true" data-toggle="tooltip" data-placement="top"
+                            title="Your Feedback"></i>
+                        </button>
+                        <button [disabled]="(currentDate | date:'yyyy-MM-dd') != (attendance.AssignDate)"
+                          *ngIf="attendance.ScheduleAssessmentStatus == 43" type="button" class="green_icon"
+                          (click)="resumeAssessment(attendance)">
+                          <i class="fa fa-play" aria-hidden="true" data-toggle="tooltip" data-placement="top"
+                            title="Resume"></i>
+                        </button>
+                        <button [disabled]="(currentDate | date:'yyyy-MM-dd') != (attendance.AssignDate)"
+                          *ngIf="attendance.ScheduleAssessmentStatus == 41" type="button" data-toggle="modal"
+                          data-target="#StopModal" (click)="stopAssessmentShow(attendance)" class="delete">
+                          <!--disabled when start time is not coming --
+                          <i class="fa fa-ban" aria-hidden="true" data-toggle="tooltip" data-placement="top"
+                            title="Stop"></i>
+                        </button>
+                      </td>
+                    </tr>
+                    <tr *ngIf="attendanceSheetList.length<=0">
+                      <td class="text-center" colspan="10">
+                        {{globals.commonTranslationText.proctorDashboard.attendanceSheet.list.noRecordFound}}</td>
+                    </tr>
+                  </tbody>
+                </table>-->
+
+                <kendo-grid [kendoGridBinding]="attendanceSheetList" kendoGridSelectBy="id" [selectedKeys]="mySelection"
+                  [pageSize]="10" [pageable]="true" [groupable]="false" [reorderable]="false" [resizable]="false"
+                  [height]="auto" [sortable]="{
+                    allowUnsort: true,
+                    mode: 'single'
+                    }" [sort]="sort">
+
+                  <ng-template kendoGridToolbarTemplate>
+                    <input placeholder="Search in all columns..." kendoTextBox
+                      (input)="onFilter($event.target.value)" />
+                  </ng-template>
+                  <!-- <kendo-grid-column field="UserId" title="{{globals.commonTranslationText.proctorDashboard.attendanceSheet.list.srNo}}" [width]="50">
+                      <ng-template kendoGridCellTemplate let-dataItem let-rowIndex="rowIndex">
+                          {{rowIndex+1}} 
+                      </ng-template>  
+                  </kendo-grid-column> -->
+                  <kendo-grid-column field="CandidateName"
+                    title="{{globals.commonTranslationText.proctorDashboard.attendanceSheet.list.candidateName}}">
+                  </kendo-grid-column>
+                  <kendo-grid-column field="EmailAddress"
+                    title="{{globals.commonTranslationText.proctorDashboard.attendanceSheet.list.email}}">
+                  </kendo-grid-column>
+                  <kendo-grid-column field="PhoneNumber"
+                    title="{{globals.commonTranslationText.proctorDashboard.attendanceSheet.list.phoneNumber}}">
+                  </kendo-grid-column>
+                  <kendo-grid-column field="AssignDate"
+                    title="{{globals.commonTranslationText.proctorDashboard.attendanceSheet.list.date}}">
+                    <ng-template kendoGridCellTemplate let-dataItem let-rowIndex="rowIndex">
+                      {{dataItem.AssignDate | date : 'MM/dd/yyyy'}}
+                    </ng-template>
+                  </kendo-grid-column>
+                  <kendo-grid-column field="StartTime"
+                    title="{{globals.commonTranslationText.proctorDashboard.attendanceSheet.list.time}}">
+                    <ng-template kendoGridCellTemplate let-dataItem let-rowIndex="rowIndex">
+                      {{dataItem.startTime }}-{{dataItem.endTime }}
+                    </ng-template>
+                  </kendo-grid-column>
+                  <kendo-grid-column field="CertificateName"
+                    title="{{globals.commonTranslationText.proctorDashboard.attendanceSheet.list.certificateName}}">
+                  </kendo-grid-column>
+                  <kendo-grid-column field="DisplayText"
+                    title="{{globals.commonTranslationText.proctorDashboard.attendanceSheet.list.status}}">
+                  </kendo-grid-column>
+                  <kendo-grid-column 
+                    title="{{globals.commonTranslationText.proctorDashboard.attendanceSheet.list.isPresent}}">
+                    <ng-template kendoGridCellTemplate let-dataItem let-rowIndex="rowIndex">
+                      <div class="activeyes_box">
+                        <kendo-switch (valueChange)="ChangePresentStatus(dataItem,$event)"
+                          [checked]="dataItem.ScheduleAssessmentStatus != 39" [checked]="false" [onLabel]="'Y'"
+                          [offLabel]="'N'" name="active" id="active"
+                          [disabled]="(currentDate | date:'yyyy-MM-dd') != (dataItem.AssignDate)"></kendo-switch>
+                      </div>
+                    </ng-template>
+                  </kendo-grid-column>
+
+                  <kendo-grid-column
+                    title="{{globals.commonTranslationText.proctorDashboard.attendanceSheet.list.action}}"
+                    [width]="150">
+                    <ng-template kendoGridCellTemplate let-dataItem let-rowIndex="rowIndex">
+                      <button kendoButton
+                        [disabled]="((currentDate | date:'yyyy-MM-dd') != (dataItem.AssignDate)) || dataItem.ScheduleAssessmentStatus == 39 || !dataItem.assessmentbtndisplay"
+                        *ngIf="dataItem.ScheduleAssessmentStatus != 44 " data-toggle="modal"
+                        data-target="#document_verify" type="button" class="edit"
+                        (click)="documentVerificationShow(dataItem)">
+                        <i class="fa fa-file-text-o" aria-hidden="true" data-toggle="tooltip" data-placement="top"
+                          title="Document Verification"></i>
+                        <!-- [disabled]="((currentDate | date:'yyyy-MM-dd') != (dataItem.AssignDate)) || dataItem.ScheduleAssessmentStatus == 39" -->
+                      </button>
+                      <button kendoButton
+                        [disabled]="((currentDate | date:'yyyy-MM-dd') > (dataItem.AssignDate) && (currentDate | date:'yyyy-MM-dd HH:mm') > (dataItem.addedDate | date:'yyyy-MM-dd HH:mm')) || (currentDate | date:'yyyy-MM-dd') < (dataItem.AssignDate)"
+                        *ngIf="(currentDate | date:'yyyy-MM-dd HH:mm') < (dataItem.addedDate | date:'yyyy-MM-dd HH:mm')"
+                        type="button" class="blue_icon" data-toggle="modal" data-target="#FeedbackModal"
+                        (click)="finalFeedbackShow(dataItem)">
+                        <i class="fa fa-comment-o" aria-hidden="true" data-toggle="tooltip" data-placement="top"
+                          title="Your Feedback"></i>
+                      </button>
+                      <button kendoButton [disabled]="((currentDate | date:'yyyy-MM-dd') != (dataItem.AssignDate)) || !dataItem.assessmentbtndisplay"
+                        *ngIf="dataItem.ScheduleAssessmentStatus == 43 " type="button" class="green_icon"
+                        (click)="resumeAssessment(dataItem)">
+                        <i class="fa fa-play" aria-hidden="true" data-toggle="tooltip" data-placement="top"
+                          title="Resume"></i>
+                      </button>
+                      <button kendoButton [disabled]="((currentDate | date:'yyyy-MM-dd') != (dataItem.AssignDate)) || !dataItem.assessmentbtndisplay"
+                        *ngIf="dataItem.ScheduleAssessmentStatus == 41" type="button" data-toggle="modal"
+                        data-target="#StopModal" (click)="stopAssessmentShow(dataItem)" class="delete">
+                        <!--disabled when start time is not coming -->
+                        <i class="fa fa-ban" aria-hidden="true" data-toggle="tooltip" data-placement="top"
+                          title="Stop"></i>
+                      </button>
+                    </ng-template>
+                  </kendo-grid-column>
+
+                </kendo-grid>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- End Content -->
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</div>
+
+
+<div class="modal fade" id="document_verify" tabindex="-1" role="dialog" aria-labelledby="document_verifyLabel"
+  aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="document_verifyLabel">
+          {{globals.commonTranslationText.proctorDashboard.attendanceSheet.list.documentsVerification.docuentVerificationOf}}
+          <b>{{documentVerificationEntity.CandidateName}}</b></h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <h6>
+          {{globals.commonTranslationText.proctorDashboard.attendanceSheet.list.documentsVerification.candidateDetails}}
+        </h6>
+        <p class="all_detail padding_30">
+          <i class="fa fa-envelope"></i>{{documentVerificationEntity.EmailAddress}}<br>
+          <i class="fa fa-phone"></i>
+          {{documentVerificationEntity.PhoneNumber}}<br>
+          <i class="fa fa-map-marker"></i>
+          {{documentVerificationEntity.City}}, {{documentVerificationEntity.StateName}}
+        </p>
+        <div class="clearfix"></div>
+        <h6>
+          {{globals.commonTranslationText.proctorDashboard.attendanceSheet.list.documentsVerification.certificateDetails}}
+          "{{documentVerificationEntity.CertificateName}}"</h6>
+        <p class="padding_15">
+          <b>{{globals.commonTranslationText.proctorDashboard.attendanceSheet.list.documentsVerification.mandatoryDocuments}}</b>
+        </p>
+        <!-- <div class="documents_block">
+          <div class="uploaded_image">
+            <div class="doc_block_verify" *ngFor="let mandatoryDocuments of mandatoryDocumentsList;let i=index;">
+              <div class="img_block" data-toggle="tooltip" data-placement="top"
+                title="{{mandatoryDocuments.DocumentName}}"><a
+                  href="{{globals.baseAPIUrl+mandatoryDocuments.DocumentUrl+documentVerificationEntity.UserId}}/assessment/Documents/{{mandatoryDocuments.CertificateDocumentName}}"
+                  target="_blank"><img alt="" class="img-fluid"
+                    src="{{globals.baseAPIUrl+mandatoryDocuments.DocumentUrl+documentVerificationEntity.UserId}}/assessment/Documents/{{mandatoryDocuments.CertificateDocumentName}}" /><span>{{mandatoryDocuments.DocumentName}}</span></a>
+              </div>
+              <label>Verified?</label>
+              <div class="activeyes_box" data-toggle="tooltip" data-placement="top"
+                [attr.title]="mandatoryDocuments.IsVerifyByProctor==1?'Yes':'No'">
+                <!-- <input type="checkbox" (change)="mandatoryDocumentsStatusChange(mandatoryDocuments,i)"
+                  [checked]="mandatoryDocuments.IsVerifyByProctor==1" name="docactive" id="docactive{{i}}" value="No">
+                <label for="docactive{{i}}"></label> --
+                <kendo-switch (valueChange)="mandatoryDocumentsStatusChange(mandatoryDocuments,$event)"
+                  [checked]="mandatoryDocuments.IsVerifyByProctor==1" name="docactive" id="docactive{{i}}"
+                  [onLabel]="'Y'" [offLabel]="'N'"></kendo-switch>
+              </div>
+            </div>
+            <div class="notice notice-danger" *ngIf="mandatoryDocumentsList.length<=0">
+              {{globals.adminTranslationText.manageRegisterRequest.userCertificateDetails.noAnyDocuments}}</div>
+          </div>
+        </div> -->
+
+        <!-- new document chabnges -->
+        <!-- mandatory documents -->
+        <div class="uploaded_document_block">
+          <div class="row">
+            <ng-container *ngFor="let documents of mandatoryDocumentsList;let i=index;">
+              <div class="width_doc" *ngIf="documents.flag==0">
+                <div title="{{documents.DocumentName}}" class=" document_block new_upload_block" data-toggle="modal"
+                  (click)="certificatedocuments(0,1,documents.DocumentId,0)">
+                  {{documents.DocumentName.length > 15 ? documents.DocumentName.substring(0,15)+"..." : documents.DocumentName}}
+                </div>
+              </div>
+            </ng-container>
+            
+            <ng-container *ngFor="let mandatoryDocuments of mandatoryDocumentsList;let i=index;">
+              
+              <div title="{{mandatoryDocuments.DocumentName}}" class="complete_uploaded_doc_block"
+                *ngIf="mandatoryDocuments.Ext == '.pdf' || mandatoryDocuments.Ext == '.PDF'">
+                <a href="{{globals.baseAPIUrl+mandatoryDocuments.DocumentUrl+documentVerificationEntity.UserId}}/assessment/Documents/{{mandatoryDocuments.CertificateDocumentName}}"
+                  target="_blank"><img alt="" class="img-fluid" src="assets/images/pdf.png"></a>
+                <button id="adddoc_img"
+                  (click)="certificatedocuments(mandatoryDocuments,1,mandatoryDocuments.DocumentId,1)">
+                  <i class="fa fa-pencil" aria-hidden="true"></i>
+                </button>
+                <button id="deletedoc_img"
+                  (click)="deleteDocument(mandatoryDocuments,1)">
+                  <i class="fa fa-trash" aria-hidden="true"></i>
+                </button>
+
+                <label *ngIf="mandatoryDocuments.Ext == '.pdf' || mandatoryDocuments.Ext == '.PDF'">Verified?</label>
+                <div *ngIf="mandatoryDocuments.Ext == '.pdf' || mandatoryDocuments.Ext == '.PDF'" class="activeyes_box" data-toggle="tooltip" data-placement="top"
+                  [attr.title]="mandatoryDocuments.IsVerifyByProctor==1?'Yes':'No'">
+                  <!-- <input type="checkbox" (change)="mandatoryDocumentsStatusChange(mandatoryDocuments,i)" [checked]="mandatoryDocuments.IsVerifyByProctor==1" name="docactive" id="docactive{{i}}" value="No">
+                  <label for="docactive{{i}}"></label> -->
+                  <kendo-switch (valueChange)="mandatoryDocumentsStatusChange(mandatoryDocuments,$event)"
+                    [checked]="mandatoryDocuments.IsVerifyByProctor==1" name="docactive" id="docactive{{i}}"
+                    [onLabel]="'Y'" [offLabel]="'N'"></kendo-switch>
+                </div>
+              </div>
+            </ng-container>
+            <ng-container *ngFor="let mandatoryDocuments of mandatoryDocumentsList;let i=index;">
+              
+              <div title="{{mandatoryDocuments.DocumentName}}" class="complete_uploaded_doc_block"
+                *ngIf="mandatoryDocuments.Ext == '.jpg' || mandatoryDocuments.Ext == '.jpeg' || mandatoryDocuments.Ext == '.png' || mandatoryDocuments.Ext == '.JPG' || mandatoryDocuments.Ext == '.JPEG' || mandatoryDocuments.Ext == '.PNG'">
+               <!--data-toggle="modal" data-target="#lightboxdocumentmodal"-->
+                <a target="_blank" href="{{globals.baseAPIUrl+mandatoryDocuments.DocumentUrl+documentVerificationEntity.UserId}}/assessment/Documents/{{mandatoryDocuments.CertificateDocumentName}}"><img
+                    src="{{globals.baseAPIUrl+mandatoryDocuments.DocumentUrl+documentVerificationEntity.UserId}}/assessment/Documents/{{mandatoryDocuments.CertificateDocumentName}}"
+                    alt="" class="img-fluid" /></a>
+                <button id="adddoc_img"
+                  (click)="certificatedocuments(mandatoryDocuments,1,mandatoryDocuments.DocumentId,1)">
+                  <i class="fa fa-pencil" aria-hidden="true"></i>
+                </button>
+                <button id="deletedoc_img"
+                  (click)="deleteDocument(mandatoryDocuments,1)">
+                  <i class="fa fa-trash" aria-hidden="true"></i>
+                </button>
+
+                <label *ngIf="mandatoryDocuments.Ext == '.jpg' || mandatoryDocuments.Ext == '.jpeg' || mandatoryDocuments.Ext == '.png' || mandatoryDocuments.Ext == '.JPG' || mandatoryDocuments.Ext == '.JPEG' || mandatoryDocuments.Ext == '.PNG'">Verified?</label>
+                <div *ngIf="mandatoryDocuments.Ext == '.jpg' || mandatoryDocuments.Ext == '.jpeg' || mandatoryDocuments.Ext == '.png' || mandatoryDocuments.Ext == '.JPG' || mandatoryDocuments.Ext == '.JPEG' || mandatoryDocuments.Ext == '.PNG'" class="activeyes_box" data-toggle="tooltip" data-placement="top"
+                  [attr.title]="mandatoryDocuments.IsVerifyByProctor==1?'Yes':'No'">
+                  <!-- <input type="checkbox" (change)="mandatoryDocumentsStatusChange(mandatoryDocuments,i)" [checked]="mandatoryDocuments.IsVerifyByProctor==1" name="docactive" id="docactive{{i}}" value="No">
+                  <label for="docactive{{i}}"></label> -->
+                  <kendo-switch (valueChange)="mandatoryDocumentsStatusChange(mandatoryDocuments,$event)"
+                    [checked]="mandatoryDocuments.IsVerifyByProctor==1" name="docactive" id="docactive{{i}}"
+                    [onLabel]="'Y'" [offLabel]="'N'"></kendo-switch>
+                </div>
+              </div>
+            </ng-container>
+          </div>
+          <div class="notice notice-danger" *ngIf="mandatoryDocumentsList.length<=0">
+            {{globals.commonTranslationText.certificateDetailPage.documents.noAnyMandarotyDocuments}}
+          </div>
+        </div>
+        <div class="clearfix"></div>
+        <p class="padding_15">
+          <b>{{globals.commonTranslationText.proctorDashboard.attendanceSheet.list.documentsVerification.optionalDocuments}}</b>
+        </p>
+        <div class="uploaded_document_block">
+          <div class="row">
+            <ng-container *ngFor="let documents of optionalDocumentsList;let i=index;">
+              <div class="width_doc" *ngIf="documents.flag==0">
+                <div title="{{documents.DocumentName}}" class=" document_block new_upload_block" data-toggle="modal"
+                  (click)="certificatedocuments(0,0,documents.DocumentId,0)">
+                  {{documents.DocumentName.length > 15 ? documents.DocumentName.substring(0,15)+"..." : documents.DocumentName}}
+                </div>
+              </div>
+            </ng-container>
+            <ng-container *ngFor="let optionalDocuments of optionalDocumentsList;let i = index;">
+              <div title="{{optionalDocuments.DocumentName}}" class="complete_uploaded_doc_block"
+                *ngIf="optionalDocuments.Ext == '.pdf' || optionalDocuments.Ext == '.PDF'">
+                <a href="{{globals.baseAPIUrl+optionalDocuments.DocumentUrl+documentVerificationEntity.UserId}}/assessment/Documents/{{optionalDocuments.CertificateDocumentName}}"
+                  target="_blank">
+                  <img src="assets/images/pdf.png" alt="" class="img-fluid" /></a>
+                <button id="adddoc_img"
+                  (click)="certificatedocuments(optionalDocuments,0,optionalDocuments.DocumentId,1)">
+                  <i class="fa fa-pencil" aria-hidden="true"></i>
+                </button>
+                <button id="deletedoc_img"
+                  (click)="deleteDocument(optionalDocuments,0)">
+                  <i class="fa fa-trash" aria-hidden="true"></i>
+                </button>
+
+                <label *ngIf="optionalDocuments.Ext == '.pdf' || optionalDocuments.Ext == '.PDF'">Verified?</label>
+                <div *ngIf="optionalDocuments.Ext == '.pdf' || optionalDocuments.Ext == '.PDF'" class="activeyes_box" data-toggle="tooltip" data-placement="top"
+                  [attr.title]="optionalDocuments.IsVerifyByProctor==1?'Yes':'No'">
+                  <!-- <input type="checkbox" (change)="optionalDocumentsStatusChange(optionalDocuments,i)" [checked]="optionalDocuments.IsVerifyByProctor==1"   name="docoptionalactive" id="docoptionalactive{{i}}" value="yes">
+                  <label for="docoptionalactive{{i}}"></label> -->
+                  <kendo-switch (valueChange)="optionalDocumentsStatusChange(optionalDocuments,$event)"
+                    [checked]="optionalDocuments.IsVerifyByProctor==1" name="docoptionalactive"
+                    id="docoptionalactive{{i}}" [onLabel]="'Y'" [offLabel]="'N'"></kendo-switch>
+                </div>
+              </div>
+            </ng-container>
+            <ng-container *ngFor="let optionalDocuments of optionalDocumentsList;let i = index;">
+              <div title="{{optionalDocuments.DocumentName}}" class="complete_uploaded_doc_block"
+                *ngIf="optionalDocuments.Ext == '.jpg' || optionalDocuments.Ext == '.jpeg' || optionalDocuments.Ext == '.png' || optionalDocuments.Ext == '.JPG' || optionalDocuments.Ext == '.JPEG' || optionalDocuments.Ext == '.PNG'">
+                <!--data-toggle="modal" data-target="#lightboxdocumentmodal"-->
+                <a target="_blank" href="{{globals.baseAPIUrl+optionalDocuments.DocumentUrl+documentVerificationEntity.UserId}}/assessment/Documents/{{optionalDocuments.CertificateDocumentName}}">
+                  <img src="{{globals.baseAPIUrl+optionalDocuments.DocumentUrl+documentVerificationEntity.UserId}}/assessment/Documents/{{optionalDocuments.CertificateDocumentName}}"
+                    alt="" class="img-fluid" />
+                </a>
+                <button id="adddoc_img"
+                  (click)="certificatedocuments(optionalDocuments,0,optionalDocuments.DocumentId,1)">
+                  <i class="fa fa-pencil" aria-hidden="true"></i>
+                </button>
+                <button id="deletedoc_img"
+                  (click)="deleteDocument(optionalDocuments,0)">
+                  <i class="fa fa-trash" aria-hidden="true"></i>
+                </button>
+
+                <label *ngIf="optionalDocuments.Ext == '.jpg' || optionalDocuments.Ext == '.jpeg' || optionalDocuments.Ext == '.png' || optionalDocuments.Ext == '.JPG' || optionalDocuments.Ext == '.JPEG' || optionalDocuments.Ext == '.PNG'">Verified?</label>
+                <div *ngIf="optionalDocuments.Ext == '.jpg' || optionalDocuments.Ext == '.jpeg' || optionalDocuments.Ext == '.png' || optionalDocuments.Ext == '.JPG' || optionalDocuments.Ext == '.JPEG' || optionalDocuments.Ext == '.PNG'" class="activeyes_box" data-toggle="tooltip" data-placement="top"
+                  [attr.title]="optionalDocuments.IsVerifyByProctor==1?'Yes':'No'">
+                  <kendo-switch (valueChange)="optionalDocumentsStatusChange(optionalDocuments,$event)"
+                    [checked]="optionalDocuments.IsVerifyByProctor==1" name="docoptionalactive"
+                    id="docoptionalactive{{i}}" [onLabel]="'Y'" [offLabel]="'N'"></kendo-switch>
+                </div>
+              </div>
+            </ng-container>
+          </div>
+          <div class="notice notice-danger" *ngIf="optionalDocumentsList.length<=0">
+            {{globals.commonTranslationText.certificateDetailPage.documents.noAnyOptionalDocuments}}</div>
+        </div>
+        <!-- <div class="documents_block">
+          <div class="uploaded_image">
+            <div class="doc_block_verify" *ngFor="let optionalDocuments of optionalDocumentsList;let i = index;">
+              <!-- <div class="img_block" data-toggle="tooltip" data-placement="top" title="Aadhar Card Aadhar Card"><a
+                  href="assets/images/pdf.png" target="_blank"><img alt="" class="img-fluid"
+                    src="assets/images/pdf.png" /><span>Aadhar Card</span></a></div> --
+              <div class="img_block" data-toggle="tooltip" data-placement="top"
+                title="{{optionalDocuments.DocumentName}}"><a
+                  href="{{globals.baseAPIUrl+optionalDocuments.DocumentUrl+documentVerificationEntity.UserId}}/assessment/Documents/{{optionalDocuments.CertificateDocumentName}}"
+                  target="_blank"><img alt="" class="img-fluid"
+                    src="{{globals.baseAPIUrl+optionalDocuments.DocumentUrl+documentVerificationEntity.UserId}}/assessment/Documents/{{optionalDocuments.CertificateDocumentName}}" /><span>{{optionalDocuments.DocumentName}}</span></a>
+              </div>
+              <label>Verified?</label>
+              <div class="activeyes_box" data-toggle="tooltip" data-placement="top"
+                [attr.title]="optionalDocuments.IsVerifyByProctor==1?'Yes':'No'">
+                <!-- <input type="checkbox" (change)="optionalDocumentsStatusChange(optionalDocuments,i)"
+                  [checked]="optionalDocuments.IsVerifyByProctor==1" name="docoptionalactive"
+                  id="docoptionalactive{{i}}" value="yes">
+                <label for="docoptionalactive{{i}}"></label> --
+                <kendo-switch (valueChange)="optionalDocumentsStatusChange(optionalDocuments,$event)"
+                  [checked]="optionalDocuments.IsVerifyByProctor==1" name="docoptionalactive"
+                  id="docoptionalactive{{i}}" [onLabel]="'Y'" [offLabel]="'N'"></kendo-switch>
+              </div>
+            </div>
+          </div>
+        </div> -->
+        <h6><span class="red_text">*</span> Comments</h6>
+        <div class="form-group">
+          <textarea kendoTextArea id="DocumentVerificationComment" name="DocumentVerificationComment"
+            #DocumentVerificationComment="ngModel" [(ngModel)]="documentVerificationEntity.DocumentVerificationComment"
+            [ngClass]="{error: (commentDisplay)}" class="form-control" (keyup)="commentDisplay=false"></textarea>
+          <span class="error_class" *ngIf="(commentDisplay)">
+            <span *ngIf="commentDisplay">
+              {{globals.adminTranslationText.manageRegisterRequest.userCertificateDetails.required}}
+            </span>
+          </span>
+        </div>
+      </div>
+      <div class="modal-footer" *ngIf="documentVerificationEntity.ScheduleAssessmentStatus == 40">
+        <button class="all_btn theme_btn" (click)="DocumentVerificationStatus(1)">Accept</button>
+        <button class="all_btn red_btn" (click)="DocumentVerificationStatus(0)">Decline</button>
+      </div>
+      <div class="modal-footer" *ngIf="documentVerificationEntity.ScheduleAssessmentStatus == 41"><!--Document accepted status 41-->
+        <button class="all_btn red_btn" (click)="DocumentVerificationStatus(0)">Decline</button>
+      </div>
+      <div class="modal-footer" *ngIf="documentVerificationEntity.ScheduleAssessmentStatus == 42"><!--Document rejected status 41-->
+        <button class="all_btn theme_btn" (click)="DocumentVerificationStatus(1)">Accept</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade certificate_old_doc_block"  data-backdrop="static" data-keyboard="false" id="uploaddocumentModal" tabindex="-1" role="dialog"
+      aria-labelledby="certificateModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="certificateModalLabel">Upload Documents for
+              {{documentVerificationEntity.CertificateName}}
+            </h5>
+            <button type="button" (click)="documentClose()" class="close" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <form role="form" #CertificatedocumentForm="ngForm" (ngSubmit)="certidocumentSubmit(CertificatedocumentForm)">
+            <div class="modal-body">
+              <div class="row">
+                <div class="width_doc upload_new_doc">
+                  <input type="file" id="new_upload_file" #CertificateName="ngModel" name="CertificateName"
+                    [(ngModel)]="certificatedocumentEntity.CertificateName"
+                    (change)="fileTypeCheck(certificatedocumentEntity.CertificateName,certificatedocumentEntity.CertiDocumentId)">
+                  <!--(change)="fileTypeCheck(this.value)"-->
+                  <div class="new_block">
+                    Upload New
+                  </div>
+                  <div class="uploaded_doc_block">
+                    <img src="" for="new_upload_file" id="uploaded_doc" />
+                    <i class="fa fa-trash" id="deletedoc_img" aria-hidden="true" (click)="Removeimage()"></i>
+                  </div>
+                </div>
+                <div class="or_block"><span>OR</span></div>
+                <div class="width_doc" *ngFor="let Image of certificateimage; let i = index;">
+                  <div class="img_block" data-toggle="tooltip" data-placement="top" title="Aadhar Card Aadhar Card">
+
+                    <a href="{{globals.baseAPIUrl+Image.DocumentUrl+globals.authData.UserId}}/assessment/Documents/{{Image.CertificateDocumentName}}"
+                      target="_blank"><img alt="" class="img-fluid" src="assets/images/pdf.png"></a>
+                    <span>{{Image.DocumentName}}</span>
+                  </div>
+                  <div class="check_box">
+                    <input type="checkbox" name="document_select" (click)="imageclick(Image,i)"
+                      id="document_select1{{i}}">
+                    <label for="document_select1{{i}}"></label>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="submit" class="all_btn theme_btn">Submit</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    
+<div class="modal fade" id="FeedbackModal" tabindex="-1" role="dialog" aria-labelledby="FeedbackModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">
+          {{globals.commonTranslationText.proctorDashboard.attendanceSheet.list.finalFeedback.feedbackFor}}
+          <b>{{finalFeedbackEntity.CandidateName}}</b></h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <form id="finalFeedback" role="form" #finalFeedbackForm="ngForm"
+        (ngSubmit)="finalFeedbackSubmit(finalFeedbackForm)">
+        <div class="modal-body">
+          <div class="form-group">
+            <label><span>*</span>
+              {{globals.commonTranslationText.proctorDashboard.attendanceSheet.list.finalFeedback.comments}}</label>
+            <textarea kendoTextArea id="ProctorFeedbackComment" name="ProctorFeedbackComment"
+              #ProctorFeedbackComment="ngModel" [(ngModel)]="finalFeedbackEntity.ProctorFeedbackComment"
+              [ngClass]="{error: (ProctorFeedbackComment.dirty && ProctorFeedbackComment.invalid) || (ProctorFeedbackComment.pristine && submitted1)}"
+              class="form-control" required></textarea>
+            <span class="error_class"
+              *ngIf="(ProctorFeedbackComment.dirty && ProctorFeedbackComment.invalid) || (ProctorFeedbackComment.pristine && submitted1)">
+              <span *ngIf="ProctorFeedbackComment.errors && ProctorFeedbackComment.errors.required">
+                {{globals.commonTranslationText.proctorDashboard.attendanceSheet.list.finalFeedback.required}}
+              </span>
+            </span>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button class="all_btn theme_btn float-right" type="submit">Submit</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+<div class="modal fade" id="StopModal" tabindex="-1" role="dialog" aria-labelledby="StopModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">
+          {{globals.commonTranslationText.proctorDashboard.attendanceSheet.list.stopAssessment.stopAssessmentFor}}
+          <b>{{stopAssessmentEntity.CandidateName}}</b></h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <form id="stopAssessment" role="form" #stopAssessmentForm="ngForm"
+        (ngSubmit)="stopAssessmentSubmit(stopAssessmentForm)">
+        <div class="modal-body">
+          <div class="form-group">
+            <label><span>*</span>
+              {{globals.commonTranslationText.proctorDashboard.attendanceSheet.list.stopAssessment.comments}}</label>
+
+            <textarea kendoTextArea id="StopAssessmentComment" name="StopAssessmentComment"
+              #StopAssessmentComment="ngModel" [(ngModel)]="stopAssessmentEntity.StopAssessmentComment"
+              [ngClass]="{error: (StopAssessmentComment.dirty && StopAssessmentComment.invalid) || (StopAssessmentComment.pristine && submitted2)}"
+              class="form-control" required></textarea>
+            <span class="error_class"
+              *ngIf="(StopAssessmentComment.dirty && StopAssessmentComment.invalid) || (StopAssessmentComment.pristine && submitted2)">
+              <span *ngIf="StopAssessmentComment.errors && StopAssessmentComment.errors.required">
+                {{globals.commonTranslationText.proctorDashboard.attendanceSheet.list.stopAssessment.required}}
+              </span>
+            </span>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <span class="float-left text-right">Are you sure you want to stop this assessment?</span>
+          <button class="all_btn theme_btn float-right">Yes</button>
+          <button class="all_btn red_btn float-right" type="button" data-dismiss="modal">No</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

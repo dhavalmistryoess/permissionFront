@@ -1,0 +1,187 @@
+<div class="content_block">
+  <div class="container-fluid">
+    <div class="row">
+      <!-- Content -->
+      <div class="col-md-12 col-sm-12">
+        <div class="title_block">
+          <h2 class="float-left" *ngIf="emailEntity.EmailTemplateId==0">
+            {{globals.adminTranslationText.emailTemplate.form.title.add}}</h2>
+          <h2 class="float-left" *ngIf="emailEntity.EmailTemplateId!=0">
+            {{globals.adminTranslationText.emailTemplate.form.title.update}}</h2>
+          <div class="breadcrumb_block float-left">
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item">
+                <a routerLink="/admin/adminDashboard">
+                  <i class="fa fa-home"></i>
+                </a>
+              </li>
+              <li class="breadcrumb-item"><a
+                  routerLink="/admin/email-template/list">{{globals.adminTranslationText.emailTemplate.form.breadcrumbTitle}}</a>
+              </li>
+              <li class="breadcrumb-item active" aria-current="page" *ngIf="emailEntity.EmailTemplateId==0">
+                {{ globals.adminTranslationText.emailTemplate.form.breadcrumbSubTitle.add }}</li>
+              <li class="breadcrumb-item active" aria-current="page" *ngIf="emailEntity.EmailTemplateId!=0">
+                {{ globals.adminTranslationText.emailTemplate.form.breadcrumbSubTitle.update }}</li>
+            </ol>
+          </div>
+          <a routerLink="/admin/email-template/list"
+            class="all_btn themeoption_btn float-right">{{ globals.adminTranslationText.emailTemplate.form.buttons.backToList }}</a>
+          <div class="clearfix"></div>
+        </div>
+        <div class="row d-flex justify-content-center">
+          <div class="col-md-12 col-sm-12">
+            <div class="inner_content_block">
+              <div class="paddin_form">
+                <form role="form" #EmailForm="ngForm" (ngSubmit)="addEmailTemplate(EmailForm)">
+                  <div class="row">
+                    <div class="col-12 col-xl-4 col-lg-4 col-md-12 col-sm-12">
+                      <div class="form-group">
+                        <label><span>*</span>
+                          {{ globals.adminTranslationText.emailTemplate.form.emailToken.label }}</label>
+                        <kendo-dropdownlist  [data]="tokenList" [filterable]="false" [textField]="'DisplayText'" [valueField]="'TokenId'"
+                    [valuePrimitive]="true" #TokenId="ngModel"
+                    [(ngModel)]="emailEntity.TokenId" name="TokenId" [ngClass]="{error: (TokenId.dirty && TokenId.invalid) || (TokenId.pristine && submitted) || errorEntity.TokenId}" required></kendo-dropdownlist >
+                        <span class="error_class"
+                          *ngIf="(TokenId.dirty && TokenId.invalid) || (TokenId.pristine && submitted) || errorEntity.TokenId">
+                          <span
+                            *ngIf="TokenId.errors.required || (TokenId.pristine && submitted)">{{ globals.adminTranslationText.emailTemplate.form.emailToken.required }}</span>
+                          <span *ngIf="errorEntity.TokenId != ''">
+                            {{errorEntity.TokenId}}
+                          </span>
+                        </span>
+                        
+                      </div>
+                    </div>
+                    <div class="col-12 col-xl-4 col-lg-4 col-md-12 col-sm-12">
+                      <div class="form-group">
+                        <label>
+                          <span>*</span> {{ globals.adminTranslationText.emailTemplate.form.subject.label }}<small
+                            *ngIf="(emailEntity.TokenId=='Registration' || emailEntity.TokenId=='Complete Assessment') && (emailEntity.To==1 || emailEntity.To==2 )">
+                            (Company name is appended dynamically in subject field)</small>
+                        </label>
+                        <input class="form-control" type="text" #Subject="ngModel" [(ngModel)]="emailEntity.Subject"
+                          name="Subject" pattern="[a-zA-Z0-9/\-_{}@!#$() ]{1,500}"
+                          [ngClass]="{error: (Subject.dirty && Subject.invalid) || (Subject.pristine && submitted) || errorEntity.Subject}"
+                          required />
+                        <span class="error_class"
+                          *ngIf="(Subject.dirty && Subject.invalid) || (Subject.pristine && submitted) || errorEntity.Subject">
+                          <span
+                            *ngIf="Subject.errors.required || (Subject.pristine && submitted)">{{ globals.adminTranslationText.emailTemplate.form.subject.required }}</span>
+                          <span
+                            *ngIf="Subject.errors && Subject.errors.pattern">{{ globals.adminTranslationText.emailTemplate.form.subject.pattern }}</span>
+                          <span *ngIf="errorEntity.Subject != ''">
+                            {{errorEntity.Subject}}
+                          </span>
+                        </span>
+                      </div>
+                    </div>
+                    <div class="col-md-12 col-12 col-xl-12 col-lg-12 col-sm-12">
+                      <div class="row">
+                        <div class="col-md-12 col-12 col-xl-9 col-lg-9 col-sm-12">
+                          <div class="form-group">
+                            <label>{{ globals.adminTranslationText.emailTemplate.form.emailBody.label }}</label>
+                            <textarea kendoTextArea #EmailBody="ngModel" [(ngModel)]="emailEntity.EmailBody" name="EmailBody"
+                              id="EmailBody" rows="10" cols="60" contenteditable="true"></textarea>
+                            <span class="error_class"
+                              *ngIf="des_valid && errorEntity.EmailBody == ''">{{ globals.adminTranslationText.emailTemplate.form.emailBody.required }}</span>
+                            <span class="error_class" *ngIf="errorEntity.EmailBody != ''">
+                              {{errorEntity.EmailBody}}
+                            </span>
+                          </div>
+                        </div>
+                        <div class="col-md-12 col-12 col-xl-3 col-lg-3 col-sm-12">
+                          <div class="card margin_placeholder">
+                            <div class="card-header">
+                              Placeholder List
+                            </div>
+                            <div class="card-body">
+                              <blockquote class="blockquote mb-0">
+                                <div class="contacts">
+                                  <div id="contactList">
+                                    <div *ngFor="let ph of placeholderList" class="contact h-card" data-contact="0"
+                                      draggable="true" tabindex="0" title="Drag And Drop">
+                                      {{ph.PlaceholderName}}
+                                    </div>
+                                  </div>
+                                </div>
+                              </blockquote>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-12 col-xl-4 col-lg-4 col-md-12 col-sm-12">
+                      <div class="form-group">
+                        <label><span>*</span> {{ globals.adminTranslationText.emailTemplate.form.to.label }}</label>
+                        <kendo-dropdownlist  [data]="roleList" [filterable]="false" [textField]="'RoleName'" [valueField]="'RoleId'"
+                    [valuePrimitive]="true" #To="ngModel"
+                    [(ngModel)]="emailEntity.To" name="To" [ngClass]="{error: (To.dirty && To.invalid) || (To.pristine && submitted) || errorEntity.To}" required></kendo-dropdownlist >
+                        <span class="error_class" *ngIf="(To.dirty && To.invalid) || (To.pristine && submitted) || errorEntity.To">
+                          <span
+                            *ngIf="(To.errors.required) || (To.pristine && submitted)">{{ globals.adminTranslationText.emailTemplate.form.to.required }}</span>
+                          <span *ngIf="errorEntity.To != ''">
+                            {{errorEntity.To}}
+                          </span>
+                        </span>
+                      </div>
+                    </div>
+                    <div class="col-12 col-xl-4 col-lg-4 col-md-12 col-sm-12">
+                      <div class="form-group">
+                        <label>{{ globals.adminTranslationText.emailTemplate.form.cc.label }}</label>
+                        <kendo-dropdownlist  [data]="roleList1" [filterable]="false" [textField]="'RoleName'" [valueField]="'RoleId'"
+                    [valuePrimitive]="true" #Cc="ngModel"
+                    [(ngModel)]="emailEntity.Cc" name="Cc"></kendo-dropdownlist >
+                      </div>
+                    </div>
+                    <div class="col-12 col-xl-4 col-lg-4 col-md-12 col-sm-12">
+                      <div class="form-group">
+                        <label>{{ globals.adminTranslationText.emailTemplate.form.bcc.label }}</label>
+                        <kendo-dropdownlist [data]="roleList2" [filterable]="false" [textField]="'RoleName'" [valueField]="'RoleId'"
+                    [valuePrimitive]="true" #Bcc="ngModel"
+                    [(ngModel)]="emailEntity.Bcc" name="Bcc" ></kendo-dropdownlist >
+                      </div>
+                    </div>
+                    <div class="col-12 col-xl-4 col-lg-4 col-md-12 col-sm-12">
+                      <div class="form-group">
+                        <label>{{ globals.adminTranslationText.emailTemplate.form.emailAddress.label }}</label>
+                        <input type="text" class="form-control" #BccEmail="ngModel" [(ngModel)]="emailEntity.BccEmail"
+                          name="BccEmail" pattern="[a-zA-Z0-9.-_]{1,}@[a-zA-Z.-]{2,}[.]{1}[a-zA-Z]{2,}"
+                          [ngClass]="{error: (BccEmail.dirty && BccEmail.invalid)}" />
+                        <span class="error_class" *ngIf="(BccEmail.dirty && BccEmail.invalid)">
+                          <span
+                            *ngIf="BccEmail.errors && BccEmail.errors.pattern">{{ globals.adminTranslationText.emailTemplate.form.emailAddress.pattern }}</span>
+                        </span>
+                      </div>
+                    </div>
+                    <div class="col-12 col-xl-4 col-lg-4 col-md-12 col-sm-12">
+                      <div class="form-group">
+                        <label class="mb-1">
+                          {{globals.adminTranslationText.emailTemplate.form.active.label}}</label>
+                        <div class="activeyes_box">
+                          <kendo-switch [(ngModel)]="emailEntity.IsActive" value="yes" #IsActive="ngModel" name="IsActive" [onLabel]="'Y'"
+                          [offLabel]="'N'"></kendo-switch>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-12 col-12 col-lg-12 col-sm-12 text-center">
+                      <button class="all_btn theme_btn" type="submit" [disabled]="btn_disable">
+                        <span
+                          *ngIf="emailEntity.EmailTemplateId == 0">{{ globals.adminTranslationText.emailTemplate.form.buttons.add }}</span>
+                        <span
+                          *ngIf="emailEntity.EmailTemplateId != 0">{{ globals.adminTranslationText.emailTemplate.form.buttons.update }}</span>
+                      </button>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- End Content -->
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</div>

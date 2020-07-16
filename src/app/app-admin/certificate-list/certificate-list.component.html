@@ -1,0 +1,342 @@
+<div class="content_block">
+  <div class="container-fluid">
+    <div class="row">
+      <!-- Content -->
+      <div class="col-md-12 col-sm-12">
+        <div class="title_block">
+          <h2 class="float-left">
+            {{globals.adminTranslationText.certificate.list.title}}</h2>
+          <div class="breadcrumb_block float-left">
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item">
+                <a routerLink="/admin/adminDashboard">
+                  <i class="fa fa-home"></i>
+                </a>
+              </li>
+              <li class="breadcrumb-item"><a
+                  routerLink="/admin/certificate/list">{{globals.adminTranslationText.certificate.list.breadcrumbTitle}}</a>
+              </li>
+              <li class="breadcrumb-item active" aria-current="page">
+                {{globals.adminTranslationText.certificate.list.breadcrumbSubTitle}}</li>
+            </ol>
+          </div>
+          <a routerLink="/admin/certificate/add"
+            class="all_btn theme_btn float-right">{{globals.adminTranslationText.certificate.list.buttons.add}}</a>
+          <div class="clearfix"></div>
+        </div>
+        <div class="row d-flex justify-content-center">
+          <div class="col-md-12 col-sm-12">
+            <div class="inner_content_block">
+              <div class="table_block">
+                <!-- <table id="dataTables-example" class="table table-hover" style="width:100%">
+                  <thead>
+                    <tr>
+                      <th class="text-center sr_no_width">{{globals.adminTranslationText.certificate.list.collumns.srNo}}
+                      </th>
+                      <th class="width_15">{{globals.adminTranslationText.certificate.list.collumns.certificateName}}</th>
+                      <th class="width_15 text-right">{{globals.adminTranslationText.certificate.list.collumns.price}}
+                      </th>
+                      <th>{{globals.adminTranslationText.certificate.list.collumns.hasProctor}}</th>
+                      <th>{{globals.adminTranslationText.certificate.list.collumns.certificationDuration}}</th>
+                      <th>{{globals.adminTranslationText.certificate.list.collumns.assessmentDuration}}</th>
+                      <th class="text-center active_width hide_active">
+                        {{globals.adminTranslationText.certificate.list.collumns.isActive}}</th>
+                      <th class="text-center active_width">
+                        {{globals.adminTranslationText.certificate.list.collumns.isActive}}</th>
+                      <th class="text-center action_width">
+                        {{globals.adminTranslationText.certificate.list.collumns.actions}}</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let certificate of certificateList;let i = index">
+                      <td class="text-center">{{i+1}}</td>
+                      <td>{{certificate.CertificateName +" "+ certificate.VersionName}}</td>
+                      <td class=" text-right">{{certificate.USDPrice}}</td>
+                      <td *ngIf="certificate.HasProctor==1">Yes</td>
+                      <td *ngIf="certificate.HasProctor!=1">No</td>
+                      <td>{{certificate.CertificationDuration}} days</td>
+                      <td>{{certificate.AssessmentDuration}} days</td>
+                      <td class="text-center hide_active">
+                        <span *ngIf="certificate.IsActive==1">Yes</span>
+                        <span *ngIf="certificate.IsActive!=1">No</span>
+                      </td>
+                      <td class="text-center">
+                        <div class="activeyes_box" data-toggle="tooltip" data-placement="top"
+                          [attr.title]="certificate.IsActive==1 ? 'Active' : 'Deactive'">
+                          <input type="checkbox" name="active{{i}}" id="active{{i}}"
+                            (change)="isActiveChange(certificate,i)" [checked]="certificate.IsActive==1" value="Yes">
+                          <label for="active{{i}}"></label>
+                        </div>
+                      </td>
+                      <td class="text-center">
+                        <button data-toggle="tooltip" data-placement="top" class="edit" title="Edit" type="button"
+                          routerLink="/admin/certificate/edit/{{certificate.CertificateId}}">
+                          <i class="fa fa-pencil" aria-hidden="true"></i></button>
+                        <button data-toggle="tooltip" data-placement="top" class="delete" title="Delete" type="button"
+                          (click)="deleteCertificate(certificate)">
+                          <i class="fa fa-trash" aria-hidden="true"></i></button>
+                      </td>
+                    </tr>
+                    <tr *ngIf="certificateList.length<=0">
+                      <td colspan="8">{{globals.adminTranslationText.certificate.list.recordNotFound}}</td>
+                    </tr>
+                  </tbody>
+                </table> -->
+                                <kendo-grid
+                    [data]="certificateList"
+                    [pageSize]="pageSize"
+                    [skip]="skip"
+                    [pageable]="true"
+                    (pageChange)="pageChange($event)"
+                    [sort]="sort"
+                    [sortable]="{
+                      allowUnsort: allowUnsort,
+                      mode: 'single'
+                      }"
+                    (sortChange)="sortChange($event)"
+                  >
+
+                  <ng-template kendoGridToolbarTemplate>
+                    <input placeholder="Search in all columns..." kendoTextBox
+                      (input)="onFilter($event.target.value)" />
+                    <!-- <button kendoGridExcelCommand type="button" icon="file-excel" style="float:right;"></button>
+                    <button kendoGridPDFCommand icon="file-pdf" style="float:right;"></button>
+                    <button type="button" class="k-button" icon="file-pdf" style="float:right;" (click)="excelexport.save()">Export To Excel</button> -->
+                  </ng-template>
+                  <!-- <kendo-grid-column title="{{globals.adminTranslationText.certificate.list.collumns.srNo}}"
+                    [width]="50">
+                    <ng-template kendoGridCellTemplate let-dataItem let-rowIndex="rowIndex">
+                      {{rowIndex+1}}
+                    </ng-template>
+                  </kendo-grid-column> -->
+                  <kendo-grid-column field="CertificateName"
+                    title="{{globals.adminTranslationText.certificate.list.collumns.certificateName}}">
+                    <ng-template kendoGridCellTemplate let-dataItem>
+                      <span>{{dataItem.CertificateName +" "+ dataItem.VersionName}}</span>
+                    </ng-template>
+                  </kendo-grid-column>
+                  <kendo-grid-column field="USDPrice"
+                    title="{{globals.adminTranslationText.certificate.list.collumns.price}}">
+                    <ng-template kendoGridCellTemplate let-dataItem>
+                      <span *ngIf = "dataItem.USDPrice!=null">$ {{dataItem.USDPrice}}</span>
+                      <span *ngIf = "dataItem.USDPrice==null">NA</span>
+                    </ng-template>
+                  </kendo-grid-column>
+                  <kendo-grid-column field="HasProctor"
+                    title="{{globals.adminTranslationText.certificate.list.collumns.hasProctor}}">
+                    <ng-template kendoGridCellTemplate let-dataItem>
+                      <span *ngIf="dataItem.HasProctor==1">Yes</span>
+                      <span *ngIf="dataItem.HasProctor==0">No</span>
+                    </ng-template>
+                  </kendo-grid-column>
+                  <kendo-grid-column field="CertificationDuration"
+                    title="{{globals.adminTranslationText.certificate.list.collumns.certificationDuration}}">
+                    <ng-template kendoGridCellTemplate let-dataItem>
+                      {{dataItem.CertificationDuration}} months
+                    </ng-template>
+                  </kendo-grid-column>
+                  <kendo-grid-column field="AssessmentDuration"
+                    title="{{globals.adminTranslationText.certificate.list.collumns.assessmentDuration}}">
+                    <ng-template kendoGridCellTemplate let-dataItem>
+                      {{dataItem.AssessmentDuration}} months
+                    </ng-template>
+                  </kendo-grid-column>
+
+                  <kendo-grid-column title="{{globals.adminTranslationText.certificate.list.collumns.isActive}}"
+                    class="text-center" [width]="150">
+                    <ng-template kendoGridCellTemplate let-dataItem let-rowIndex="rowIndex">
+                      <div class="activeyes_box">
+                        <kendo-switch (valueChange)="isActiveChange(dataItem,$event)" [checked]="dataItem.IsActive==1"
+                          [checked]="false" [onLabel]="'Y'" [offLabel]="'N'" [disabled]="false"></kendo-switch>
+                      </div>
+                    </ng-template>
+                  </kendo-grid-column>
+
+                  <kendo-grid-column title="{{globals.adminTranslationText.certificate.list.collumns.actions}}"
+                    [width]="150">
+                    <ng-template kendoGridCellTemplate let-dataItem let-rowIndex="rowIndex">
+                      <!-- [disabled]="(todaysDate | date:'yyyy-MM-dd') >= (dataItem.ReleaseDate)" -->
+                      <button kendoButton class="edit" (click)="edit(dataItem.CertificateId)">
+                        <i data-toggle="tooltip" data-placement="top"
+                          title="{{globals.adminTranslationText.certificate.list.buttons.edit}}" class="fa fa-edit"></i>
+                      </button>
+                      <button class="delete" (click)="deleteCertificate(dataItem)" [disabled]="dataItem.isDisabled>0">
+                        <i data-toggle="tooltip" data-placement="top" class="fa fa-trash-o"
+                          [attr.title]="dataItem.isDisabled>0 ? 'Certificate cannot be deleted as it is sold.' : globals.adminTranslationText.certificate.list.buttons.delete"></i>
+                      </button>
+                      <button class="edit" (click)="viewAlldDetail(dataItem)" data-toggle="modal"
+                        data-target="#detail_popup">
+                        <i data-toggle="tooltip" data-placement="top" class="fa fa-eye"
+                          title="{{globals.adminTranslationText.certificate.list.buttons.viee}}"></i>
+                      </button>
+                      <button class="edit" (click)="linkedCategoriesList(dataItem)" data-toggle="modal" [disabled]="dataItem.UnlinkedCategories.length == 0 || dataItem.IsActive == 0">
+                        <i data-toggle="tooltip" data-placement="top" class="fa fa-link"
+                          [attr.title]="(dataItem.UnlinkedCategories.length == 0) ? 'All categories are linked.' : (dataItem.IsActive == 0 ? 'Certificate is not active so you can not be linked': globals.adminTranslationText.certificate.list.buttons.linkedCategory)"></i>
+                      </button>
+                      <button class="edit" (click)="unlinkedCategoriesList(dataItem)" data-toggle="modal" [disabled]="dataItem.LinkedCategories.length == 0">
+                        <i data-toggle="tooltip" data-placement="top" class="fa fa-chain-broken"
+                          [attr.title]="dataItem.LinkedCategories.length == 0 ? 'There is no any category linked.' : globals.adminTranslationText.certificate.list.buttons.unlinkedCategory"></i>
+                      </button>
+                    </ng-template>
+                  </kendo-grid-column>
+                </kendo-grid>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- End Content -->
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="unlinkedCategory_popup" tabindex="-1" role="dialog" aria-labelledby="unlinkedCategory_popupLabel"
+  aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="unlinkedCategory_popupLabel">
+          {{globals.adminTranslationText.certificate.unlinkedCategory.unlinkedCategoryList}} {{unlinkedCategoryEntity.CertificateName}}</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <label>Category</label>
+          <kendo-dropdownlist [data]="unlinkedCategoryList" [filterable]="false" [textField]="'CategoryName'" #CategoryId = "ngModel"
+            [(ngModel)]="unlinkedCategoryEntity.CategoryId" [itemDisabled]="itemDisabled"
+            [valueField]="'CategoryId'" [valuePrimitive]="true"  name="CategoryId">
+          </kendo-dropdownlist>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="submit" class="all_btn theme_btn" (click)="unlinkCategory(unlinkedCategoryEntity.CategoryId)">Unlink</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="modal fade" id="linkedCategory_popup" tabindex="-1" role="dialog" aria-labelledby="link_newLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="link_newLabel">Link new category of {{linkedCategoryEntity.CertificateName}}</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <form role="form" #categoryLinkingForm="ngForm" (ngSubmit)="linkCategory(categoryLinkingForm)">
+        <div class="modal-body">
+          <div class="form-group">
+            <label><span>*</span> Category</label>
+            <kendo-dropdownlist [data]="linkedCategoryList" [filterable]="false" [textField]="'CategoryName'"
+              [valueField]="'CategoryId'" [valuePrimitive]="true" #CategoryId="ngModel" [itemDisabled]="itemDisabled1"
+              [(ngModel)]="certificateCategoryMappingListEntity.CategoryId" name="CategoryId"
+              [ngClass]="{error: (CategoryId.dirty && CategoryId.invalid) || (CategoryId.pristine && submitted)}"
+              required>
+              <ng-template kendoDropDownListItemTemplate let-dataItem>
+                {{ dataItem.CategoryName }} (items: {{dataItem.AssessmentItems}})
+              </ng-template>
+            </kendo-dropdownlist>
+            <span class="error_class"
+              *ngIf="(CategoryId.dirty && CategoryId.invalid) || (CategoryId.pristine && submitted)">
+              <span *ngIf="CategoryId.errors && CategoryId.errors.required">
+                {{globals.adminTranslationText.certificateCategoryMapping.list.category.required}}
+              </span>
+            </span>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="submit" class="all_btn theme_btn">Link</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="detail_popup" tabindex="-1" role="dialog" aria-labelledby="detail_popupLabel"
+  aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="detail_popupLabel">
+          {{certificateEntity.CertificateName}} : {{globals.adminTranslationText.certificate.detail.title}}</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p class="all_detail padding_30">
+          <label>{{globals.adminTranslationText.certificate.detail.labels.versionName}}</label>
+          {{certificateEntity.VersionName}}<br>
+          <label>{{globals.adminTranslationText.certificate.detail.labels.releaseDate}}</label>
+          {{certificateEntity.ReleaseDate | date:'MM/dd/yyyy'}}<br>
+          <label>{{globals.adminTranslationText.certificate.detail.labels.description}}</label>
+          <span [innerHTML]="certificateEntity.Description"></span><br>
+          <label>{{globals.adminTranslationText.certificate.detail.labels.features}}</label>
+          <span [innerHTML]="certificateEntity.Features"></span><br>
+          <label>{{globals.adminTranslationText.certificate.detail.labels.documents}}</label>
+          {{certificateEntity.Documents}}<br>
+          <label>{{globals.adminTranslationText.certificate.detail.labels.usdPrice}}</label>
+          $ {{certificateEntity.USDPrice}}<br>
+          <label>{{globals.adminTranslationText.certificate.detail.labels.inrPrice}}</label>
+          ₹ {{certificateEntity.INRPrice}}<br>
+          <label>{{globals.adminTranslationText.certificate.detail.labels.eurPrice}}</label>
+          € {{certificateEntity.EURPrice}}<br>
+          <label>{{globals.adminTranslationText.certificate.detail.labels.renewalUsdPrice}}</label>
+          $ {{certificateEntity.RenewalUSDPrice}}<br>
+          <label>{{globals.adminTranslationText.certificate.detail.labels.renewalInrPrice}}</label>
+          ₹ {{certificateEntity.RenewalINRPrice}}<br>
+          <label>{{globals.adminTranslationText.certificate.detail.labels.renewalEurPrice}}</label>
+          € {{certificateEntity.RenewalEURPrice}}<br>
+          <label>{{globals.adminTranslationText.certificate.detail.labels.certificationDuration}}</label>
+          {{certificateEntity.CertificationDuration}}<br>
+          <label>{{globals.adminTranslationText.certificate.detail.labels.assessmentDuration}}</label>
+          {{certificateEntity.AssessmentDuration}}<br>
+          <label>{{globals.adminTranslationText.certificate.detail.labels.beforeRenewbuttonDisplay}}</label>
+          {{certificateEntity.BeforeRenewbuttonDisplay}}<br>
+          <label>{{globals.adminTranslationText.certificate.detail.labels.afterRenewButtonDisplay}}</label>
+          {{certificateEntity.AfterRenewButtonDisplay}}<br>
+          <label>{{globals.adminTranslationText.certificate.detail.labels.coolingPeriod}}</label>
+          {{certificateEntity.CoolingPeriod}}<br>
+          <label>{{globals.adminTranslationText.certificate.detail.labels.hasSubCertificate}}</label>
+          <span *ngIf="certificateEntity.HasSubCertificate == 0">NO</span>
+          <span *ngIf="certificateEntity.HasSubCertificate == 1">YES</span><br>
+          <label>{{globals.adminTranslationText.certificate.detail.labels.practiceExamAttempts}}</label>
+          {{certificateEntity.PracticeExamAttempts}}<br>
+          <label>{{globals.adminTranslationText.certificate.detail.labels.scheduleAfterDaysForProctor}}</label>
+          {{certificateEntity.ScheduleAfterDaysForProctor}}<br>
+          <label>{{globals.adminTranslationText.certificate.detail.labels.scheduleAfterDaysForCandidate}}</label>
+          {{certificateEntity.ScheduleAfterDaysForCandidate}}<br>
+          <label>{{globals.adminTranslationText.certificate.detail.labels.hasProctor}}</label>
+          <span *ngIf="certificateEntity.HasProctor == 0">NO</span>
+          <span *ngIf="certificateEntity.HasProctor == 1">YES</span><br>
+          <label>{{globals.adminTranslationText.certificate.detail.labels.hasDisplayCandidateInfo}}</label>
+          <span *ngIf="certificateEntity.HasDisplayCandidateInfo == 0">NO</span>
+          <span *ngIf="certificateEntity.HasDisplayCandidateInfo == 1">YES</span><br>
+          <label>{{globals.adminTranslationText.certificate.detail.labels.hasDisplayProctorInfo}}</label>
+          <span *ngIf="certificateEntity.HasDisplayProctorInfo == 0">NO</span>
+          <span *ngIf="certificateEntity.HasDisplayProctorInfo == 1">YES</span><br>
+          <label>{{globals.adminTranslationText.certificate.detail.labels.eligibilityCriteria}}</label>
+          {{certificateEntity.EligibilityCriteria}}<br>
+          <label>{{globals.adminTranslationText.certificate.detail.labels.rescheduleAssessment}}</label>
+          {{certificateEntity.RescheduleAssessment}}<br>
+          <label>{{globals.adminTranslationText.certificate.detail.labels.isRenewable}}</label>
+          <span *ngIf="certificateEntity.IsRenewable == 0">NO</span>
+          <span *ngIf="certificateEntity.IsRenewable == 1">YES</span><br>
+          <label>{{globals.adminTranslationText.certificate.detail.labels.certificatePassingPercentage}}</label>
+          {{certificateEntity.CertificatePassingPercentage}}<br>
+          <label>{{globals.adminTranslationText.certificate.detail.labels.passingPerCategory}}</label>
+          <span *ngIf="certificateEntity.PassingPerCategory == 0">NO</span>
+          <span *ngIf="certificateEntity.PassingPerCategory == 1">YES</span><br>
+          <label>{{globals.adminTranslationText.certificate.detail.labels.isDocumentVerificationRequired}}</label>
+          <span *ngIf="certificateEntity.IsDocumentVerificationRequired == 0">NO</span>
+          <span *ngIf="certificateEntity.IsDocumentVerificationRequired == 1">YES</span><br>
+        </p>
+      </div>
+    </div>
+  </div>
+</div>

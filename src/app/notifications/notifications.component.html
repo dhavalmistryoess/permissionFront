@@ -1,0 +1,140 @@
+<div class="content_block">
+  <div class="container-fluid">
+    <div class="row">
+      <!-- Content -->
+      <div class="col-md-12 col-sm-12">
+        <div class="title_block">
+          <h2 class="float-left">
+            {{globals.commonTranslationText.notification.title}}</h2>
+          <div class="breadcrumb_block float-left">
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item">
+                <a routerLink="/admin/adminDashboard" *ngIf="globals.authData.RoleId == 1">
+                  <i class="fa fa-home"></i>
+                </a>
+                <a routerLink="/proctorDashboard" *ngIf="globals.authData.RoleId == 2 || globals.authData.RoleId == 4">
+                  <i class="fa fa-home"></i>
+                </a>
+                <a routerLink="/dashboard" *ngIf="globals.authData.RoleId == 3">
+                  <i class="fa fa-home"></i>
+                </a>
+              </li>
+              <li class="breadcrumb-item"><a
+                  routerLink="/notifications">{{globals.commonTranslationText.notification.breadcrumbTitle}}</a>
+              </li>
+              <li class="breadcrumb-item active" aria-current="page">
+                {{globals.commonTranslationText.notification.breadcrumbSubTitle}}</li>
+            </ol>
+          </div>
+
+          <div class="clearfix"></div>
+        </div>
+        <div class="row d-flex justify-content-center">
+          <div class="col-md-12 col-sm-12">
+            <div class="inner_content_block">
+              <div class="table_block">
+                <div class="alert alert-{{globals.type}}" role="alert" *ngIf="globals.msgflag">
+                  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                  {{globals.message}}
+                </div>
+                <div class="clearfix"></div>
+                <!-- <table id="dataTables-example" class="table table-hover" style="width:100%">
+                          <thead>
+                            <tr>
+                              <th class="text-center sr_no_width">{{globals.commonTranslationText.notification.collumns.srNo}}</th>
+                              <th>{{globals.commonTranslationText.notification.collumns.notifications}}</th>
+                              <th class="width_15">{{globals.commonTranslationText.notification.collumns.dateTime}}</th>
+                              <th class="text-center action_width">{{globals.commonTranslationText.notification.collumns.actions}}</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr *ngFor="let notifications of notificationList; let i = index">
+                              <td class="text-center">{{i+1}}</td>
+                              <td>{{notifications.NotificationText}}</td>
+                              <td>
+                                <span
+                                  *ngIf="(currentDate | date : 'yyyy/MM/dd') == (notifications.CreatedOn | date : 'yyyy/MM/dd')">{{notifications.CreatedOn | date : 'h:mm a'}}</span>
+                                <span
+                                  *ngIf="(yesterdayDate | date : 'yyyy/MM/dd') == (notifications.CreatedOn | date : 'yyyy/MM/dd')">Yesterday,
+                                  {{notifications.CreatedOn | date : 'h:mm a'}}</span>
+                                <span
+                                  *ngIf="((yesterdayDate | date : 'yyyy/MM/dd') != (notifications.CreatedOn | date : 'yyyy/MM/dd')) && ((currentDate | date : 'yyyy/MM/dd') != (notifications.CreatedOn | date : 'yyyy/MM/dd')) && ((beforeWeekDate | date : 'yyyy/MM/dd') <= (notifications.CreatedOn | date : 'yyyy/MM/dd'))">
+                                  {{notifications.CreatedOn | date : 'EEE, h:mm a'}}</span>
+                                <span
+                                  *ngIf="((beforeWeekDate | date : 'yyyy/MM/dd') > (notifications.CreatedOn | date : 'yyyy/MM/dd'))">
+                                  {{notifications.CreatedOn | date : 'MMM dd, yyyy, h:mm a'}}</span>
+                              </td>
+                              <td class="text-center">
+                                <button target="_blank" routerLink="/{{notifications.ActionURL}}"  data-toggle="tooltip"
+                                  data-placement="top" title="Redirect"><i class="fa fa-external-link"></i></button>
+                                <button (click)="dismissNotification(notifications)" data-toggle="tooltip"
+                                  data-placement="top" title="Dismiss"><i class="fa fa-times"> </i></button>
+                              </td>
+                            </tr>
+                            <tr *ngIf="notificationList.length<=0">
+                              <td colspan="4" class="text-center">{{globals.commonTranslationText.notification.noRecord}}</td>
+                            </tr> 
+                          </tbody>
+                        </table> -->
+                <kendo-grid [kendoGridBinding]="notificationList" kendoGridSelectBy="id" [pageSize]="10"
+                  [pageable]="true" [groupable]="false" [reorderable]="false" [resizable]="false" [height]="auto"
+                  [sortable]="{
+                    allowUnsort: true,
+                    mode: 'single'
+                    }" [sort]="sort">
+
+                  <ng-template kendoGridToolbarTemplate>
+                    <input placeholder="Search in all columns..." kendoTextBox
+                      (input)="onFilter($event.target.value)" />
+                    <!-- <button kendoGridExcelCommand type="button" icon="file-excel" style="float:right;"></button>
+                            <button kendoGridPDFCommand icon="file-pdf" style="float:right;"></button>
+                            <button type="button" class="k-button" icon="file-pdf" style="float:right;" (click)="excelexport.save()">Export To Excel</button> -->
+                  </ng-template>
+                  <!-- <kendo-grid-column title="{{globals.commonTranslationText.notification.collumns.srNo}}" [width]="50">
+                    <ng-template kendoGridCellTemplate let-dataItem let-rowIndex="rowIndex">
+                      {{rowIndex+1}}
+                    </ng-template>
+                  </kendo-grid-column> -->
+                  <kendo-grid-column field="NotificationText"
+                    title="{{globals.commonTranslationText.notification.collumns.notifications}}">
+                  </kendo-grid-column>
+                  <kendo-grid-column title="{{globals.commonTranslationText.notification.collumns.dateTime}}">
+                    <ng-template kendoGridCellTemplate let-dataItem>
+                      <span
+                        *ngIf="(currentDate | date : 'yyyy/MM/dd') == (dataItem.CreatedOn | date : 'yyyy/MM/dd')">{{dataItem.CreatedOn | date : 'h:mm a'}}</span>
+                      <span
+                        *ngIf="(yesterdayDate | date : 'yyyy/MM/dd') == (dataItem.CreatedOn | date : 'yyyy/MM/dd')">Yesterday,
+                        {{dataItem.CreatedOn | date : 'h:mm a'}}</span>
+                      <span
+                        *ngIf="((yesterdayDate | date : 'yyyy/MM/dd') != (dataItem.CreatedOn | date : 'yyyy/MM/dd')) && ((currentDate | date : 'yyyy/MM/dd') != (dataItem.CreatedOn | date : 'yyyy/MM/dd')) && ((beforeWeekDate | date : 'yyyy/MM/dd') <= (dataItem.CreatedOn | date : 'yyyy/MM/dd'))">
+                        {{dataItem.CreatedOn | date : 'EEE, h:mm a'}}</span>
+                      <span
+                        *ngIf="((beforeWeekDate | date : 'yyyy/MM/dd') > (dataItem.CreatedOn | date : 'yyyy/MM/dd'))">
+                        {{dataItem.CreatedOn | date : 'MMM dd, yyyy, h:mm a'}}</span>
+                    </ng-template>
+                  </kendo-grid-column>
+                  <kendo-grid-column title="{{globals.commonTranslationText.notification.collumns.actions}}"
+                    [width]="150">
+                    <ng-template kendoGridCellTemplate let-dataItem let-rowIndex="rowIndex">
+                      <button kendoButton class="edit" target="_blank" routerLink="/{{dataItem.ActionURL}}" >
+                        <i data-toggle="tooltip" data-placement="top" title="Redirect"class="fa fa-external-link"></i>
+                      </button>
+                      <button kendoButton class="delete" (click)="dismissNotification(dataItem)">
+                        <i  data-toggle="tooltip" data-placement="top" title="Dismiss" class="fa fa-times"> </i>
+                      </button>
+                    </ng-template>
+                  </kendo-grid-column>
+
+                </kendo-grid>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- End Content -->
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</div>

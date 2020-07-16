@@ -1,0 +1,302 @@
+<div class="sidebar_wrap active_menu" *ngIf="globals.authData.RoleId ==1">
+      <div class="header_logo"><a routerLink="/admin/assessment-list"><img src="assets/images/logo.png" alt=""
+                        class="img-fluid" /><span>OpenEyes <br>
+                        Software Solution</span></a><button id="sidebar" class="pin_toggle"></button>
+      </div>
+      <ul id="accordion" class="sidebar_box">
+
+            <!-- <li class="title"><i class="fa fa-tachometer"></i><span class="text">Dashboard</span></li> -->
+            <!-- <li [ngClass]="{'active':globals.currentLink=='/admin/adminDashboard'}"><a routerLink="/admin/adminDashboard"></a>
+                  </li> -->
+            <!-- <li><a><span class="text">Admin Dashboard</span></a></li> -->
+            <!-- <li class="title"><i class="fa fa-sliders"></i><span class="text">Manage</span></li>
+            <li>
+                  <div id="heading1">
+                        <a data-toggle="collapse" class="collapsed" data-target="#collapse1" aria-expanded="true"
+                              aria-controls="collapse1">
+                              <span class="text">Country</span><span class="minus_plus"></span>
+                        </a> </div>
+                  <div id="collapse1" class="collapse" aria-labelledby="heading1" data-parent="#accordion">
+                        <ul class="sub_menu" id="child1">
+                              <li (click)="closecollapse()"
+                                    [ngClass]="{'active':globals.currentLink=='/admin/country/add'}">
+                                    <a class="collapsed has_click" routerLink="/admin/country/add"><span>Add</span></a>
+                              </li>
+                              <li (click)="closecollapse()"
+                                    [ngClass]="{'active':globals.currentLink=='/admin/country/list'}">
+                                    <a routerLink="/admin/country/list" class="has_click"><span>List</span></a></li>
+                        </ul>
+                  </div>
+            </li>
+            <li>
+                  <div id="heading2">
+                        <a data-toggle="collapse" class="collapsed" data-target="#collapse2" aria-expanded="true"
+                              aria-controls="collapse2">
+                              <span class="text">State/Province</span><span class="minus_plus"></span>
+                        </a> </div>
+                  <div id="collapse2" class="collapse" aria-labelledby="heading2" data-parent="#accordion">
+                        <ul class="sub_menu" id="child2">
+                              <li (click)="closecollapse()"
+                                    [ngClass]="{'active':globals.currentLink=='/admin/state/add'}"><a class="has_click"
+                                          routerLink="/admin/state/add"><span>Add</span></a></li>
+                              <li (click)="closecollapse()"
+                                    [ngClass]="{'active':globals.currentLink=='/admin/state/list'}"><a class="has_click"
+                                          routerLink="/admin/state/list"><span>List</span></a></li>
+                        </ul>
+                  </div>
+            </li>
+            <li>
+                  <div id="heading5">
+                        <a data-toggle="collapse" class="collapsed" data-target="#collapse3" aria-expanded="true"
+                              aria-controls="collapse3">
+                              <span class="text">Email Template</span><span class="minus_plus"></span>
+                        </a> </div>
+                  <div id="collapse3" class="collapse" aria-labelledby="heading5" data-parent="#accordion">
+                        <ul class="sub_menu" id="child5">
+                              <li (click)="closecollapse()"
+                                    [ngClass]="{'active':globals.currentLink=='/admin/email-template/add'}"><a class="has_click"
+                                          routerLink="/admin/email-template/add"><span>Add</span></a></li>
+                              <li (click)="closecollapse()"
+                                    [ngClass]="{'active':globals.currentLink=='/admin/email-template/list'}"><a class="has_click"
+                                          routerLink="/admin/email-template/list"><span>List</span></a></li>
+                        </ul>
+                  </div>
+            </li>
+            <li>
+                  <div id="heading5">
+                        <a data-toggle="collapse" class="collapsed" data-target="#collapse4" aria-expanded="true"
+                              aria-controls="collapse4">
+                              <span class="text">Discount Coupon</span><span class="minus_plus"></span>
+                        </a> </div>
+                  <div id="collapse4" class="collapse" aria-labelledby="heading5" data-parent="#accordion">
+                        <ul class="sub_menu" id="child5">
+                              <li (click)="closecollapse()"
+                                    [ngClass]="{'active':globals.currentLink=='/admin/discount-coupon/add'}"><a class="has_click"
+                                          routerLink="/admin/discount-coupon/add"><span>Add</span></a></li>
+                              <li (click)="closecollapse()"
+                                    [ngClass]="{'active':globals.currentLink=='/admin/discount-coupon/list'}"><a class="has_click"
+                                          routerLink="/admin/discount-coupon/list"><span>List</span></a></li>
+                        </ul>
+                  </div>
+            </li>
+            <li>
+                  <div id="heading5">
+                        <a data-toggle="collapse" class="collapsed" data-target="#collapse5" aria-expanded="true"
+                              aria-controls="collapse5">
+                              <span class="text">Document</span><span class="minus_plus"></span>
+                        </a> </div>
+                  <div id="collapse5" class="collapse" aria-labelledby="heading5" data-parent="#accordion">
+                        <ul class="sub_menu" id="child5">
+                              <li (click)="closecollapse()"
+                                    [ngClass]="{'active':globals.currentLink=='/admin/document/add'}"><a class="has_click"
+                                          routerLink="/admin/document/add"><span>Add</span></a></li>
+                              <li (click)="closecollapse()"
+                                    [ngClass]="{'active':globals.currentLink=='/admin/document/list'}"><a class="has_click"
+                                          routerLink="/admin/document/list"><span>List</span></a></li>
+                        </ul>
+                  </div>
+            </li>
+            <li>
+                  <div id="heading5">
+                        <a data-toggle="collapse" class="collapsed" data-target="#collapse6" aria-expanded="true"
+                              aria-controls="collapse6">
+                              <span class="text">Eligibility Item</span><span class="minus_plus"></span>
+                        </a> </div>
+                  <div id="collapse6" class="collapse" aria-labelledby="heading5" data-parent="#accordion">
+                        <ul class="sub_menu" id="child5">
+                              <li (click)="closecollapse()"
+                                    [ngClass]="{'active':globals.currentLink=='/admin/eligibility-item/add'}"><a class="has_click"
+                                          routerLink="/admin/eligibility-item/add"><span>Add</span></a></li>
+                              <li (click)="closecollapse()"
+                                    [ngClass]="{'active':globals.currentLink=='/admin/eligibility-item/list'}"><a class="has_click"
+                                          routerLink="/admin/eligibility-item/list"><span>List</span></a></li>
+                        </ul>
+                  </div>
+            </li>
+            <li>
+                  <div id="heading5">
+                        <a data-toggle="collapse" class="collapsed" data-target="#collapse7" aria-expanded="true"
+                              aria-controls="collapse7">
+                              <span class="text">Items</span><span class="minus_plus"></span>
+                        </a> </div>
+                  <div id="collapse7" class="collapse" aria-labelledby="heading5" data-parent="#accordion">
+                        <ul class="sub_menu" id="child5">
+                              <li (click)="closecollapse()"
+                                    [ngClass]="{'active':globals.currentLink=='/admin/item/add'}"><a class="has_click"
+                                          routerLink="/admin/item/add"><span>Add</span></a></li>
+                              <li (click)="closecollapse()"
+                                    [ngClass]="{'active':globals.currentLink=='/admin/item/list'}"><a class="has_click"
+                                          routerLink="/admin/item/list"><span>List</span></a></li>
+                        </ul>
+                  </div>
+            </li>
+            <li>
+                  <div id="heading5">
+                        <a data-toggle="collapse" class="collapsed" data-target="#collapse8" aria-expanded="true"
+                              aria-controls="collapse8">
+                              <span class="text">Certificate</span><span class="minus_plus"></span>
+                        </a> </div>
+                  <div id="collapse8" class="collapse" aria-labelledby="heading5" data-parent="#accordion">
+                        <ul class="sub_menu" id="child5">
+                              <li (click)="closecollapse()"
+                                    [ngClass]="{'active':globals.currentLink=='/admin/certificate/add'}"><a class="has_click"
+                                          routerLink="/admin/certificate/add"><span>Add</span></a></li>
+                              <li (click)="closecollapse()"
+                                    [ngClass]="{'active':globals.currentLink=='/admin/certificate/list'}"><a class="has_click"
+                                          routerLink="/admin/certificate/list"><span>List</span></a></li>
+                        </ul>
+                  </div>
+            </li>
+            <li>
+                  <div id="heading5">
+                        <a data-toggle="collapse" class="collapsed" data-target="#collapse9" aria-expanded="true"
+                              aria-controls="collapse9">
+                              <span class="text">Category</span><span class="minus_plus"></span>
+                        </a> </div>
+                  <div id="collapse9" class="collapse" aria-labelledby="heading5" data-parent="#accordion">
+                        <ul class="sub_menu" id="child5">
+                              <li (click)="closecollapse()"
+                                    [ngClass]="{'active':globals.currentLink=='/admin/category/add'}"><a class="has_click"
+                                          routerLink="/admin/category/add"><span>Add</span></a></li>
+                              <li (click)="closecollapse()"
+                                    [ngClass]="{'active':globals.currentLink=='/admin/category/list'}"><a class="has_click"
+                                          routerLink="/admin/category/list"><span>List</span></a></li>
+                        </ul>
+                  </div>
+            </li>
+            
+            
+            <li [ngClass]="{'active':globals.currentLink=='/admin/certificate-category-mapping/list'}"><a routerLink="/admin/certificate-category-mapping/list" class="has_click">
+                  <span class="text">Category Linking</span></a></li>
+            <li [ngClass]="{'active':globals.currentLink=='/admin/user-invite'}"><a routerLink="/admin/user-invite" class="has_click">
+                  <span class="text">User Invite</span></a></li>
+            <li [ngClass]="{'active':globals.currentLink=='/admin/manage-register-request'}"><a routerLink="/admin/manage-register-request" class="has_click">
+                  <span class="text">Registered Users</span></a></li>
+            <li [ngClass]="{'active':globals.currentLink=='/admin/userPendingVerification'}"><a routerLink="/admin/userPendingVerification">
+                  <span class="text" class="has_click">Document Verification</span></a></li>
+            <li [ngClass]="{'active':globals.currentLink=='/admin/userHistory'}"><a routerLink="/admin/userHistory" class="has_click">
+                        <span class="text">User History</span></a></li>
+            <li [ngClass]="{'active':globals.currentLink=='/admin/assessment-list'}"><a class="has_click" routerLink="/admin/assessment-list">
+                        <span class="text">Assessment List</span></a></li> -->
+
+
+
+            <li class="title"><i class="fa fa-sliders"></i><span class="text">Manage</span></li>
+            <li [ngClass]="{'active':globals.currentLink=='/admin/assessment-list'}"><a class="has_click"
+                        routerLink="/admin/assessment-list">
+                        <span class="text">Assessment List</span></a></li>
+            <li [ngClass]="{'active':globals.currentLink=='/admin/country/list'}">
+                  <a class="collapsed has_click" routerLink="/admin/country/list"><span>Country</span></a>
+            </li>
+            <li [ngClass]="{'active':globals.currentLink=='/admin/email-template/list'}"><a class="has_click"
+                        routerLink="/admin/email-template/list"><span>Email Template</span></a></li>
+            <li [ngClass]="{'active':globals.currentLink=='/admin/state/list'}"><a class="has_click"
+                        routerLink="/admin/state/list"><span>State/Province</span></a></li>
+
+            <li class="title"><i class="fa fa-question"></i><span class="text">Item</span></li>
+            <li [ngClass]="{'active':globals.currentLink=='/admin/eligibility-item/list'}"><a class="has_click"
+                        routerLink="/admin/eligibility-item/list"><span>Eligibility Item</span></a></li>
+            <li [ngClass]="{'active':globals.currentLink=='/admin/item/list'}"><a class="has_click"
+                        routerLink="/admin/item/list"><span>Items</span></a></li>
+
+            <li class="title"><i class="fa fa-sitemap"></i><span class="text">Category</span></li>
+            <li [ngClass]="{'active':globals.currentLink=='/admin/category/list'}"><a class="has_click"
+                        routerLink="/admin/category/list"><span>Category</span></a></li>
+            <li [ngClass]="{'active':globals.currentLink=='/admin/certificate-category-mapping/list'}"><a
+                        routerLink="/admin/certificate-category-mapping/list" class="has_click">
+                        <span class="text">Category Linking</span></a></li>
+
+            <li class="title"><i class="fa fa-certificate"></i><span class="text">Certificate</span></li>
+            <li [ngClass]="{'active':globals.currentLink=='/admin/certificate/list'}"><a class="has_click"
+                        routerLink="/admin/certificate/list"><span>Certificate</span></a></li>
+
+            <li class="title"><i class="fa fa-ticket"></i><span class="text">Discount</span></li>
+            <li [ngClass]="{'active':globals.currentLink=='/admin/discount-coupon/list'}"><a class="has_click"
+                        routerLink="/admin/discount-coupon/list"><span>Discount Coupon</span></a></li>
+
+            <li class="title"><i class="fa fa-file-text"></i><span class="text">Document</span></li>
+            <li [ngClass]="{'active':globals.currentLink=='/admin/document/list'}"><a class="has_click"
+                        routerLink="/admin/document/list"><span>Document</span></a></li>
+            <li [ngClass]="{'active':globals.currentLink=='/admin/userPendingVerification'}"><a
+                        routerLink="/admin/userPendingVerification">
+                        <span class="text" class="has_click">Document Verification</span></a></li>
+
+            <li class="title"><i class="fa fa-user"></i><span class="text">User</span></li>
+            <li [ngClass]="{'active':globals.currentLink=='/admin/manage-register-request'}"><a
+                        routerLink="/admin/manage-register-request" class="has_click">
+                        <span class="text">Registered Users</span></a></li>
+            <li [ngClass]="{'active':globals.currentLink=='/admin/userHistory'}"><a routerLink="/admin/userHistory"
+                        class="has_click">
+                        <span class="text">User History</span></a></li>
+            <li [ngClass]="{'active':globals.currentLink=='/admin/user-invite'}"><a routerLink="/admin/user-invite"
+                        class="has_click">
+                        <span class="text">User Invite</span></a></li>
+
+            <!-- <li>
+                  <div id="heading5">
+                        <a data-toggle="collapse" class="collapsed" data-target="#collapse12" aria-expanded="true"
+                              aria-controls="collapse12">
+                              <span class="text">Category Linking</span><span class="minus_plus"></span>
+                        </a> </div>
+                  <div id="collapse12" class="collapse" aria-labelledby="heading5" data-parent="#accordion">
+                        <ul class="sub_menu" id="child5">
+                              <li (click)="closecollapse()"
+                                    [ngClass]="{'active':globals.currentLink=='/admin/certificate-category-mapping/add'}"><a
+                                          routerLink="/admin/certificate-category-mapping/add"><span>Add</span></a></li>
+                              <li (click)="closecollapse()"
+                                    [ngClass]="{'active':globals.currentLink=='/admin/certificate-category-mapping/list'}"><a
+                                          routerLink="/admin/certificate-category-mapping/list"><span>List</span></a></li>
+                        </ul>
+                  </div>
+            </li> -->
+
+            <!-- 
+            <li>
+                        <div id="heading5">
+                              <a data-toggle="collapse" class="collapsed" data-target="#collapse14" aria-expanded="true"
+                                    aria-controls="collapse14">
+                                    <span class="text">Assessment</span><span class="minus_plus"></span>
+                              </a> </div>
+                        <div id="collapse14" class="collapse" aria-labelledby="heading5" data-parent="#accordion">
+                              <ul class="sub_menu" id="child5">
+                                    <li (click)="closecollapse()"
+                                          [ngClass]="{'active':globals.currentLink=='/admin/assessment-list'}"><a class="has_click"
+                                                routerLink="/admin/assessment-list"><span>Assessment List</span></a></li>
+                                    <!-- <li (click)="closecollapse()"
+                                          [ngClass]="{'active':globals.currentLink=='/admin/assessmentDetails'}"><a
+                                                routerLink="/admin/assessmentDetails"><span>Assessment Details</span></a></li>
+                        </ul>
+                  </div>
+            </li> -->
+
+            <li class="title"><i class="fa fa-cogs"></i><span class="text">Configuration</span></li>
+            <li [ngClass]="{'active':globals.currentLink=='/admin/settings'}"><a routerLink="/admin/settings"
+                        class="has_click">
+                        <span class="text">Settings</span></a></li>
+            <li [ngClass]="{'active':globals.currentLink=='/admin/inquire/list'}"><a routerLink="/admin/inquire/list"
+                        class="has_click">
+                        <span class="text">Inquire List</span></a></li>
+
+            <li>
+                  <div id="heading5">
+                        <a data-toggle="collapse" class="collapsed" data-target="#collapse10" aria-expanded="true"
+                              aria-controls="collapse10">
+                              <span class="text">Logs</span><span class="minus_plus"></span>
+                        </a> </div>
+                  <div id="collapse10" class="collapse" aria-labelledby="heading5" data-parent="#accordion">
+                        <ul class="sub_menu" id="child5">
+                              <li (click)="closecollapse()"
+                                    [ngClass]="{'active':globals.currentLink=='/admin/activity-log'}"><a
+                                          class="has_click" routerLink="/admin/activity-log"><span>Activity
+                                                logs</span></a></li>
+                              <li (click)="closecollapse()"
+                                    [ngClass]="{'active':globals.currentLink=='/admin/error-log'}"><a class="has_click"
+                                          routerLink="/admin/error-log"><span>Error logs</span></a></li>
+                              <li (click)="closecollapse()"
+                                    [ngClass]="{'active':globals.currentLink=='/admin/email-log'}"><a class="has_click"
+                                          routerLink="/admin/email-log"><span>Email logs</span></a></li>
+                        </ul>
+                  </div>
+            </li>
+      </ul>
+</div>

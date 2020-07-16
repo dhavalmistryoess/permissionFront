@@ -1,0 +1,1183 @@
+{
+    "common": {
+        "buttons": {
+            "add": "Add",
+            "update": "Update"
+        },
+        "alerts": {
+            "somethingWrong": {
+                "type": "error",
+                "title": "Oops...",
+                "text": "Something went wrong."
+            }
+        },
+        "label": {
+            "today": "Today",
+            "yesterday": "Yesterday",
+            "tomorrow": "Tomorrow",
+            "by": "by"
+        }
+    },
+    "header": {
+        "title": "Assessment",
+        "profileDropdown": {
+            "profile": "Profile",
+            "contact": "Inquire",
+            "logout": "Sign Out"
+        },
+        "logs": {
+            "title": "Logs",
+            "activity": {
+                "title": "Activity",
+                "notFound": "No logs found.",
+                "view": "View All"
+            },
+            "error": {
+                "title": "Error",
+                "notFound": "No logs found.",
+                "view": "View All"
+            },
+            "email": {
+                "title": "Email",
+                "notFound": "No logs found.",
+                "view": "View All"
+            }
+        },
+        "notification": {
+            "title": "Notifications",
+            "newNotification": "New",
+            "noRecentNotification": "No recent notifications",
+            "viewOlderNotification": "View older notifications",
+            "clearAllNotification": "Clear All"
+        },
+        "contactUs": {
+            "label": "Need Help? ",
+            "linkText": "Contact Us Here"
+        },
+        "settings": {
+            "title": "Settings"
+        },
+        "modules": {}
+    },
+    "registerPage": {
+        "title": "Registration",
+        "subTitle": "Enter your details to Register:",
+        "tabPanel": {
+            "role": {
+                "tabName": "Role",
+                "title": "Select your Role",
+                "candidate": {
+                    "title": "Candidate",
+                    "text": "Lorem Ipsum is simply dummy text of the printing and typesetting industry."
+                },
+                "proctor": {
+                    "title": "Proctor",
+                    "text": "Lorem Ipsum is simply dummy text of the printing and typesetting industry."
+                },
+                "required": "Please select your role"
+            },
+            "certificate": {
+                "tabName": "Certificate",
+                "title": "Select Certificate for",
+                "select": "Select Certificate",
+                "required": "Please select a Certificate"
+            },
+            "personalInformation": {
+                "tabName": "Personal Information",
+                "title": "Personal Information for"
+            },
+            "documents": {
+                "tabName": "Documents",
+                "title": "Upload Documents for",
+                "required": "Please Upload a Document",
+                "selectDocument": "Please select a document"
+            }
+        },
+        "form": {
+            "firstName": {
+                "label": "First Name",
+                "required": "Please enter your first name",
+                "pattern": "Please enter your valid first name and doesn't allow space"
+            },
+            "middleName": {
+                "label": "Middle Name",
+                "required": "Please enter your middle name",
+                "pattern": "Please enter your valid middle name and doesn't allow space"
+            },
+            "lastName": {
+                "label": "Last Name",
+                "required": "Please enter your last name",
+                "pattern": "Please enter your valid last name and doesn't allow space"
+            },
+            "emailAddress": {
+                "label": "Email Address",
+                "required": "Please enter your email address",
+                "pattern": "Please enter your valid email address"
+            },
+            "phoneNumber": {
+                "label": "Phone Number",
+                "required": "Please enter your phone number",
+                "pattern": "Please enter your valid phone number"
+            },
+            "newPassword": {
+                "label": "New Password",
+                "required": "Please enter a password",
+                "pattern": "Password must be 8 characters or more"
+            },
+            "confirmPassword": {
+                "label": "Confirm Password",
+                "required": "Please enter a confirm password",
+                "pattern": "Please input a valid password",
+                "match": "Passwords didn't match"
+            },
+            "idProof": {
+                "label": "ID Proof",
+                "select": "Select ID proof",
+                "required": "Please select your ID Proof",
+                "requiredDocument": "Please upload your document"
+            },
+            "uploadidProof": {
+                "label": "Upload ID Proof",
+                "select": "Upload ID proof",
+                "required": "Please upload your ID Proof",
+                "requiredDocument": "Please upload your document"
+            },
+            "certificateDoc": {
+                "label": "Certificate Document",
+                "required": "Please enter your certificate document"
+            },
+            "privacyPolicy": {
+                "label_part1": "I have read and agree with privacy policy and, ",
+                "label_part2": "terms and conditions.",
+                "required": "Please check privacy policy"
+            },
+            "certificate": {
+                "label": "Certificate",
+                "required": "Please select atleast one certificate"
+            },
+            "proctorPrice": {
+                "label": "Proctoring Price",
+                "required": "Please enter your proctoring price",
+                "pattern": "Please enter your valid proctoring price"
+            },
+            "alerts": {
+                "duplicateEmail": "Email Address already exists please login.",
+                "type": "success",
+                "title": "Congratulations...!!!",
+                "text": " Your details is submitted successfully. Please check your Email for activate your account."
+            },
+            "successActivateAccount": {
+                "type": "success",
+                "title": "Active Successfully",
+                "text": "Your account has been activated successfully, now you can login."
+            },
+            "alerts1": {
+                "type": "warning",
+                "title": "Certificate",
+                "text": "Please select atleast one certificate"
+            }
+        },
+        "buttons": {
+            "next": "Next",
+            "previous": "Previous",
+            "skip": "Skip & Submit",
+            "submit": "Submit",
+            "haveAccount": "Already have account? Login",
+            "notHaveAccount": "Create an account"
+        }
+    },
+    "loginPage": {
+        "title": "Sign In",
+        "subTitle": "Enter your details to Sign In:",
+        "form": {
+            "emailAddress": {
+                "label": "Email Address",
+                "required": "Please enter your email address",
+                "pattern": "Please enter your valid email address"
+            },
+            "password": {
+                "label": "Password",
+                "required": "Please enter your password",
+                "pattern": "Please enter your valid password"
+            }
+        },
+        "buttons": {
+            "submit": "Sign In",
+            "forgotPassword": "Forgot Password?",
+            "rememberMe": "Remember me",
+            "newAccount": "New to Assessment? Create an account"
+        },
+        "alerts": {
+            "invalidCredential": {
+                "type": "warning",
+                "title": "Invalid Login",
+                "text": "Your Login Credentials are incorrect."
+            },
+            "userBaned": {
+                "type": "warning",
+                "title": "You're Baned",
+                "text": "You can't login.You are Baned."
+            },
+            "userInActiveByAdmin": {
+                "type": "warning",
+                "title": "You're not active",
+                "text": "You can not login. you are inactive by admin."
+            },
+            "userInActive": {
+                "type": "warning",
+                "title": "You're not active",
+                "text": "You can not login. Kindly activate your account from your registered email and then login."
+            },
+            "invalidEmail": {
+                "type": "warning",
+                "title": "Invalid Login",
+                "text": "Your Login Credentials are incorrect."
+            },
+            "userLocked": {
+                "type": "warning",
+                "title": "You are Locked",
+                "text": "You can't login.Please try after  "
+            }
+        }
+    },
+    "forgotPasswordPage": {
+        "title": "Forgot Password?",
+        "subTitle": "Enter your Registered Email Address:",
+        "form": {
+            "emailAddress": {
+                "label": "Email Address",
+                "required": "Please enter your email address",
+                "pattern": "Please enter your valid email address"
+            }
+        },
+        "buttons": {
+            "submit": "Submit",
+            "signInPage": "Back to Sign In"
+        },
+        "alerts": {
+            "invalidCredential": {
+                "type": "warning",
+                "title": "Invalid Email Address",
+                "text": "Email Address is incorrect."
+            },
+            "lockUser": {
+                "type": "warning",
+                "title": "You are Locked",
+                "text": "Please try after "
+            },
+            "success": {
+                "type": "success",
+                "title": "Password reset link sent",
+                "text": "Password reset link has been sent."
+            }
+        }
+    },
+    "resetPasswordPage": {
+        "title": "Password Recovery",
+        "subTitle": "Enter your new Password:",
+        "welcomeTitle": "Welcome back,",
+        "form": {
+            "newPassword": {
+                "label": "New Password",
+                "required": "Please enter a password",
+                "pattern": "Password must be 8 characters or more"
+            },
+            "confirmPassword": {
+                "label": "Confirm Password",
+                "required": "Please enter a confirm password",
+                "pattern": "Please input a valid password",
+                "match": "Passwords didn't match"
+            }
+        },
+        "buttons": {
+            "submit": "Reset Password"
+        },
+        "alerts": {
+            "invalidLink": {
+                "type": "warning",
+                "title": "Invalid Reset Link",
+                "text": "Your password reset link is not valid or already used."
+            },
+            "success": {
+                "type": "success",
+                "title": "Password Reset",
+                "text": "Your password has been reset successfully"
+            }
+        }
+    },
+    "profilePage": {
+        "title": "Profile",
+        "breadcrumbTitle": "Profile",
+        "tabs": {
+            "personalInformation": "Personal Information",
+            "addressDetail": "Address Information",
+            "changePassword": "Change Password",
+            "document": "Manage Documents",
+            "orderHistory": "Order History"
+        },
+        "personalInformationForm": {
+            "firstName": {
+                "label": "First Name",
+                "required": "Please enter your first name",
+                "pattern": "Please enter your valid first name and doesn't allow space"
+            },
+            "middleName": {
+                "label": "Middle Name",
+                "required": "Please enter your middle name",
+                "pattern": "Please enter your valid middle name and doesn't allow space"
+            },
+            "lastName": {
+                "label": "Last Name",
+                "required": "Please enter your last name",
+                "pattern": "Please enter your valid last name and doesn't allow space"
+            },
+            "emailAddress": {
+                "label": "Email Address",
+                "required": "Please enter your email address",
+                "pattern": "Please enter your valid email address"
+            },
+            "phoneNumber": {
+                "label": "Phone Number",
+                "required": "Please enter your phone number",
+                "pattern": "Please enter your valid phone number"
+            }
+        },
+        "addressInformationForm": {
+            "address1": {
+                "label": "Address Line 1",
+                "required": "Please enter your address line 1",
+                "pattern": "Please enter your valid address line 1"
+            },
+            "address2": {
+                "label": "Address Line 2",
+                "required": "Please enter your address line 2",
+                "pattern": "Please enter your valid address line 2"
+            },
+            "country": {
+                "label": "Country",
+                "select": "Select Country",
+                "required": "Please select your country",
+                "pattern": "Please select your valid country"
+            },
+            "state": {
+                "label": "State",
+                "select": "Select State",
+                "required": "Please select your state",
+                "pattern": "Please select your valid state"
+            },
+            "city": {
+                "label": "City",
+                "required": "Please enter your city",
+                "pattern": "Please enter your valid city"
+            },
+            "zipCode": {
+                "label": "Zip Code",
+                "required": "Please enter your zip code",
+                "pattern": "Please enter your valid zip code"
+            }
+        },
+        "changePasswordForm": {
+            "oldPassword": {
+                "label": "Old Password",
+                "required": "Please enter your old password",
+                "pattern": "Password must be 8 characters or more and doesn't allow space"
+            },
+            "newPassword": {
+                "label": "New Password",
+                "required": "Please enter your new password",
+                "pattern": "Password must be 8 characters or more and doesn't allow space",
+                "different": "Please enter different password than current password"
+            },
+            "confirmPassword": {
+                "label": "Confirm Password",
+                "required": "Please enter a confirm password",
+                "pattern": "Password must be 8 characters or more and doesn't allow space",
+                "match": "Passwords didn't match"
+            }
+        },
+        "CertificateDocuments": {
+            "Documents": {
+                "label": "Certificate Documents",
+                "required": "Please enter a certificate documents",
+                "Norecord": "No Submit Document"
+            }
+        },
+        "order": {
+            "no_record_found": "No data found"
+        },
+        "documents": {
+            "select": "Select Document",
+            "required": "Please select a document"
+        },
+        "buttons": {
+            "changePassword": "Save Changes",
+            "save": "Save"
+        },
+        "alerts": {
+            "wrongOldPassword": {
+                "type": "warning",
+                "title": "Incorrect Old Password",
+                "text": "Your old password is not correct"
+            },
+            "changePasswordSuccess": {
+                "type": "success",
+                "title": "Password Reset",
+                "text": "Your password has been reset successfully"
+            },
+            "profile": {
+                "type": "success",
+                "title": "Personal Information",
+                "text": "Your personal information has been updated successfully"
+            },
+            "address": {
+                "type": "success",
+                "title": "Address Information",
+                "text": "Your address information has been updated successfully"
+            },
+            "profileImage": {
+                "type": "success",
+                "title": "Profile Picture Upload",
+                "text": "Profile picture has been uploaded successfully"
+            },
+            "deleteProfileImage": {
+                "type": "success",
+                "title": "Profile Picture Deleted",
+                "text": "Profile picture has been deleted successfully"
+            },
+            "document": {
+                "type": "success",
+                "title": "Document Upload",
+                "text": "Document has been uploaded successfully",
+                "oldtext": "Your document upload has been updated successfully"
+            },
+            "deleteConfirm": {
+                "type": "warning",
+                "title": "Delete Document",
+                "text": "Are you sure, you want to delete this document?"
+            },
+            "deleteSuccess": {
+                "type": "success",
+                "title": "Document Deleted",
+                "text": "Document has been deleted successfully"
+            },
+            "alreadyUseDocument": {
+                "type": "warning",
+                "title": "Already Use Document",
+                "text": "You can't delete the document its already used"
+            }
+        }
+    },
+    "inquirePage": {
+        "title": "Contact Us",
+        "breadcrumbTitle": "Contact Us",
+        "contactDetails": {
+            "title": "Contact Details",
+            "inquireTitle": "Inquire Now",
+            "address": "#405, 4th Floor, Iscon Atria 1 Gotri Road, Vadodara 390021",
+            "contactNumber": "123-456-7890",
+            "emailAddress": "info@myopeneyes.com",
+            "mapLat": "22.3148",
+            "mapLng": "73.1425"
+        },
+        "form": {
+            "title": "Get in Touch",
+            "subTitle": "If you’re considering us or would like to Get in Touch, please fill the form below, Thank you!",
+            "firstName": {
+                "label": "First Name",
+                "required": "Please enter your First Name",
+                "pattern": "Please enter your valid First Name"
+            },
+            "lastName": {
+                "label": "Last Name",
+                "required": "Please enter your Last Name",
+                "pattern": "Please enter your valid Last Name"
+            },
+            "emailAddress": {
+                "label": "Email Address",
+                "required": "Please enter your Email Address",
+                "pattern": "Please enter your valid Email Address"
+            },
+            "contactNumber": {
+                "label": "Contact Number",
+                "required": "Please enter your contact number",
+                "pattern": "Please enter your valid contact number"
+            },
+            "message": {
+                "label": "Message",
+                "required": "Please enter your message",
+                "pattern": "Please enter your valid contact number"
+            }
+        },
+        "buttons": {
+            "submit": "Send Message",
+            "haveAccount": "Login",
+            "notHaveAccount": "Create an account"
+        },
+        "alerts": {
+            "success": {
+                "type": "success",
+                "title": "Thank You",
+                "text": "Thank you for contact us."
+            }
+        }
+    },
+    "eligibilityTestPage": {
+        "title": "Eligibility Test",
+        "subTitle": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
+        "modalTitles": {
+            "certificate": "Cerificate",
+            "select": "Select Certificate",
+            "certificateRequired": "Please select certificate",
+            "role": "Role"
+        },
+        "alerts": {
+            "type": "warning",
+            "title": "Oops...",
+            "text": "Please attempt all the questions!",
+            "eligible": {
+                "type": "success",
+                "title": "Eligible",
+                "text": "You are eligible for this certificate"
+            },
+            "notEligible": {
+                "type": "success",
+                "title": "Not Eligible",
+                "text": "You are not eligible for this certificate"
+            },
+            "noRecordFound": {
+                "type": "warning",
+                "title": "Oops...",
+                "text": "No any questions in this certificate, please select another certificate!"
+            }
+        },
+        "notFound": "No any questions in this certificate",
+        "buttons": {
+            "submit": "Submit",
+            "newAccount": "New to Assessment? Create an account"
+        }
+    },
+    "candidateDashboardPage": {
+        "title": "Dashboard",
+        "breadcrumbTitle": "Dashboard",
+        "noPracticeTest": "No Practice Test",
+        "status": {
+            "unpaid": "Unpaid",
+            "paymentFailed": "Payment Failed",
+            "notScheduled": "Not Scheduled",
+            "scheduleInprogress": "Schedule Inprogress",
+            "scheduled": "Scheduled",
+            "startAssessment": "Start Assessment",
+            "rejected": "Rejected",
+            "fail": "Fail",
+            "certified": "Certified",
+            "expired": "Expired"
+        },
+        "buttons": {
+            "payNow": "Pay Now",
+            "practiceTest": "Practice Test",
+            "practiceHistory": "Practice Test",
+            "scheduleNow": "Schedule Now",
+            "scheduled": "Scheduled",
+            "startNow": "Start Now",
+            "rescheduleNow": "Reschedule Now",
+            "viewResults": "View Results",
+            "viewDetails": "View Details",
+            "renewNow": "Renew Now",
+            "continue": "Continue",
+            "subAssessment": "Sub Assessment",
+            "continueSubAssessment": "Continue Sub Assessment"
+        },
+        "scheduleAssessment": {
+            "schedule": "Schedule Assessment",
+            "certificateName": "Certificate Name",
+            "noCategory": "No of Categories",
+            "scheduleDate1": {
+                "label": "Schedule Date 1",
+                "required": "Please enter a schedule date 1"
+            },
+            "scheduleDate2": {
+                "label": "Schedule Date 2",
+                "required": "Please enter a schedule date 2"
+            },
+            "scheduleDate3": {
+                "label": "Schedule Date 3",
+                "required": "Please enter a schedule date 3"
+            },
+            "alerts": {
+                "type": "success",
+                "title": "Schedule assessment",
+                "text": "Your assessment has been scheduled successfully"
+            }
+        },
+        "rescheduleAssessment": {
+            "reschedule": "Reschedule Assessment",
+            "certificateName": "Certificate Name",
+            "noCategory": "No of Categories",
+            "lastScheduleAssessment": "Last Scheduled Assessment Details",
+            "scheduleDate1": {
+                "label": "Schedule Date 1",
+                "required": "Please enter a schedule date 1"
+            },
+            "scheduleDate2": {
+                "label": "Schedule Date 2",
+                "required": "Please enter a schedule date 2"
+            },
+            "scheduleDate3": {
+                "label": "Schedule Date 3",
+                "required": "Please enter a schedule date 3"
+            },
+            "alerts": {
+                "type": "success",
+                "title": "Reschedule assessment",
+                "text": "Your assessment has been rescheduled successfully"
+            }
+        },
+        "practicetestAssessment": {
+            "title": "Practice Test",
+            "certificateName": "Certificate Name",
+            "noCategory": "No of Categories"
+        },
+        "alerts": {
+            "addressDocumentNotAvailable": {
+                "type": "warning",
+                "title": "Address and Document Fill",
+                "text": "Before scheduling assessment <br>1. Add your address from your profile</br> <br>2. Upload certificate document </br>"
+            },
+            "addressNotAvailable": {
+                "type": "warning",
+                "title": "Address Fill",
+                "text": "Address is needed for schedule so please add this."
+            },
+            "addressNotAvailableVerificationProgress": {
+                "type": "warning",
+                "title": "Address Fill",
+                "text": "Address is needed for schedule so please add this and Your document verification is in progress."
+            },
+            "addressNotAvailableDocmunetnotVerified": {
+                "type": "warning",
+                "title": "Address Fill",
+                "text": "Address is needed for schedule so please add this and Your documents are not verified."
+            },
+            "docmunetnotVerified": {
+                "type": "warning",
+                "title": "Documnets are not verified",
+                "text": "Upload documents are not verfiy. Check your certificate details for more detail."
+            },
+            "docmunetVerificationProgress": {
+                "type": "warning",
+                "title": "Verification is in progress",
+                "text": "Your documents are under verification. Please try after sometime."
+            },
+            "docmunetsNotUpload": {
+                "type": "warning",
+                "title": "Documents are not uploaded",
+                "text": "Your documents are not uploaded,Are you sure you want add?"
+            },
+            "paymentSuccess": {
+                "type": "success",
+                "title": "Payment Successfully",
+                "text": "Your payment has been submitted successfully"
+            },
+            "recertification": {
+                "type": "warning",
+                "title": "Recertification",
+                "text": "Are you sure you want to recertified your certificate?"
+            },
+            "recertificationSuccess": {
+                "type": "success",
+                "title": "Recertification Successfully",
+                "text": "Your recertification has been submitted successfully"
+            },
+            "renew": {
+                "type": "success",
+                "title": "Renew Successfully",
+                "text": "Your certificate renew successfully"
+            }
+        }
+    },
+    "proctorDashboard": {
+        "completedProctoring": "Completed Proctoring",
+        "upcomingProctoring": "Upcoming Proctoring",
+        "attendanceSheet": {
+            "todaysAttendanceSheet": "Today's Attendance Sheet",
+            "viewFullSheet": "View full sheet",
+            "incompleteAssessment": "Incomplete Assessment",
+            "list": {
+                "srNo": "Id",
+                "candidateName": "Candidate Name",
+                "email": "Email",
+                "phoneNumber": "Phone Number",
+                "date": "Date",
+                "time": "Time",
+                "certificateName": "Certificate Name",
+                "status": "Status",
+                "isPresent": "Is Present?",
+                "action": "Action",
+                "noRecordFound": "No record Found",
+                "changePresentStatus": {
+                    "alerts": {
+                        "presentSuccess": {
+                            "type": "success",
+                            "title": "Candidate Present",
+                            "text": "Candidate present successfully"
+                        },
+                        "absentSuccess": {
+                            "type": "success",
+                            "title": "Candidate Absent",
+                            "text": "Candidate absent successfully"
+                        }
+                    }
+                },
+                "finalFeedback": {
+                    "feedbackFor": "Feedback for",
+                    "comments": "Comments",
+                    "required": "Please enter a comment",
+                    "alerts": {
+                        "type": "success",
+                        "title": "Feedback Success",
+                        "text": "Feedback sent successfully"
+                    }
+                },
+                "resumeAssessment": {
+                    "alerts": {
+                        "confirmResume": {
+                            "type": "warning",
+                            "title": "Resume Assessment",
+                            "text": "Are you sure you want to resume this assessment?"
+                        },
+                        "successResumeAssessment": {
+                            "type": "success",
+                            "title": "Resume Assessment Success",
+                            "text": "Resume assessment successfully"
+                        }
+                    }
+                },
+                "stopAssessment": {
+                    "stopAssessmentFor": "Stop Assessment for",
+                    "comments": "Comments",
+                    "required": "Please enter a comment",
+                    "alerts": {
+                        "type": "success",
+                        "title": "Stop Assessment",
+                        "text": "Stop assessment successfully"
+                    }
+                },
+                "documentsVerification": {
+                    "docuentVerificationOf": "Documents Verification of",
+                    "candidateDetails": "Candidate Details",
+                    "certificateDetails": "Certificate Details",
+                    "docmentsFor": "Documents for",
+                    "mandatoryDocuments": "Mandatory Documents",
+                    "optionalDocuments": "Optional Documents",
+                    "noAnyMandarotyDocuments": "No any mandatory document uploaded",
+                    "noAnyOptionalDocuments": "No any optional documents uploaded",
+                    "alerts": {
+                        "mandatoryDocumentVerify": {
+                            "type": "success",
+                            "title": "Mandatory Doument Verified",
+                            "text": "Mandatory document has been verified successfully"
+                        },
+                        "mandatoryDocumentNotVerify": {
+                            "type": "success",
+                            "title": "Mandatory Doument Not Verified",
+                            "text": "Mandatory document has not been verified successfully"
+                        },
+                        "optionalDocumentVerify": {
+                            "type": "success",
+                            "title": "Optional Doument Verified",
+                            "text": "Optional document has been verified successfully"
+                        },
+                        "optionalDocumentNotVerify": {
+                            "type": "success",
+                            "title": "Optional Doument Not Verified",
+                            "text": "Optional document has not been verified successfully"
+                        },
+                        "documentVerified": {
+                            "type": "success",
+                            "title": "Documents",
+                            "text": "document"
+                        },
+                        "documentacceptproctormessage": {
+                            "type": "warning",
+                            "title": "Documents are not verified",
+                            "text": "All mandatory documents are not verified. Are you sure want to accept it ?"
+                        },
+                        "alldocumentverifiedacceptproctormessage": {
+                            "type": "warning",
+                            "title": "Documents are verified",
+                            "text": "All mandatory documents are verified. Are you sure want to accept it ?"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "adminDashboard": {
+        "completedProctoring": "Completed Proctoring",
+        "upcomingProctoring": "Upcoming Proctoring",
+        "attendanceSheet": {
+            "todaysAttendanceSheet": "Today's Attendance Sheet",
+            "viewFullSheet": "View full sheet",
+            "incompleteAssessment": "Incomplete Assessment",
+            "list": {
+                "srNo": "Sr No.",
+                "candidateName": "Candidate Name",
+                "email": "Email",
+                "phoneNumber": "Phone Number",
+                "date": "Date",
+                "time": "Time",
+                "certificateName": "Certificate Name",
+                "status": "Status",
+                "isPresent": "Is Present?",
+                "action": "Action",
+                "noRecordFound": "No record Found",
+                "changePresentStatus": {
+                    "alerts": {
+                        "presentSuccess": {
+                            "type": "success",
+                            "title": "Candidate Present",
+                            "text": "Candidate present successfully"
+                        },
+                        "absentSuccess": {
+                            "type": "success",
+                            "title": "Candidate Absent",
+                            "text": "Candidate absent successfully"
+                        }
+                    }
+                },
+                "finalFeedback": {
+                    "feedbackFor": "Feedback for",
+                    "comments": "Comments",
+                    "required": "Please enter a comment",
+                    "alerts": {
+                        "type": "success",
+                        "title": "Feedback Success",
+                        "text": "Feedback sent successfully"
+                    }
+                },
+                "resumeAssessment": {
+                    "alerts": {
+                        "confirmResume": {
+                            "type": "warning",
+                            "title": "Resume Assessment",
+                            "text": "Are you sure you want to resume this assessment?"
+                        },
+                        "successResumeAssessment": {
+                            "type": "success",
+                            "title": "Resume Assessment Success",
+                            "text": "Resume assessment successfully"
+                        }
+                    }
+                },
+                "stopAssessment": {
+                    "stopAssessmentFor": "Stop Assessment for",
+                    "comments": "Comments",
+                    "required": "Please enter a comment",
+                    "alerts": {
+                        "type": "success",
+                        "title": "Stop Assessment",
+                        "text": "Stop assessment successfully"
+                    }
+                },
+                "documentsVerification": {
+                    "docuentVerificationOf": "Documents Verification of",
+                    "candidateDetails": "Candidate Details",
+                    "certificateDetails": "Certificate Details",
+                    "docmentsFor": "Documents for",
+                    "mandatoryDocuments": "Mandatory Documents",
+                    "optionalDocuments": "Optional Documents",
+                    "alerts": {
+                        "mandatoryDocumentVerify": {
+                            "type": "success",
+                            "title": "Mandatory Doument Verified",
+                            "text": "Mandatory document has been verified successfully"
+                        },
+                        "mandatoryDocumentNotVerify": {
+                            "type": "success",
+                            "title": "Mandatory Doument Not Verified",
+                            "text": "Mandatory document has not been verified successfully"
+                        },
+                        "optionalDocumentVerify": {
+                            "type": "success",
+                            "title": "Optional Doument Verified",
+                            "text": "Optional document has been verified successfully"
+                        },
+                        "optionalDocumentNotVerify": {
+                            "type": "success",
+                            "title": "Optional Doument Not Verified",
+                            "text": "Optional document has not been verified successfully"
+                        },
+                        "documentVerified": {
+                            "type": "success",
+                            "title": "Documents",
+                            "text": "document"
+                        },
+                        "documentacceptproctormessage": {
+                            "type": "warning",
+                            "title": "Documents are not verified",
+                            "text": "All mandatory documents are not verified. Are you sure want to accept it ?"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "proctorList": {
+        "title": "List of Proctoring",
+        "breadcrumbTitle": "List of Proctoring",
+        "form": {
+            "date": "Date",
+            "location": "Location",
+            "certificateName": "Certificate Name",
+            "searchInFilteredCandidates": "Search in filtered candidates",
+            "candidateName": "Candidate name",
+            "email": "Email",
+            "showingResultFor": "Showing result for:",
+            "showResultsFor": "Show results for",
+            "completed": "Completed",
+            "today": "Today's",
+            "upcoming": "Upcoming",
+            "nodata": "No Data Found",
+            "buttons": {
+                "filter": "Filter",
+                "clear": "Clear",
+                "search": "Search"
+            }
+        }
+    },
+    "certificateDetailPage": {
+        "title": "Certificate Detail",
+        "breadcrumbTitle": "Certificate Detail",
+        "buttons": {
+            "backToList": "Back to List",
+            "cancelAssessment": "Cancel Assessment",
+            "payNow": "Pay Now",
+            "Recertification": "Recertification",
+            "renew": "Renew"
+        },
+        "aboutCertificate": "About Certificate",
+        "certificateDuration": "Certificate Duration",
+        "assessmentDuration": "Assessment Duration",
+        "assessmentExpirationDate": "Assessment Expiration Date",
+        "expirationDate": "Certificate Expiration Date",
+        "category": "Categories",
+        "paymentDate": "Payment Date",
+        "cancelAssessment": {
+            "cancellationComment": "Cancellation Comment",
+            "required": "Please enter a cancellation comment",
+            "alerts": {
+                "type": "success",
+                "title": "Cancel Assessment",
+                "text": "Your cancel assessment successfully"
+            }
+        },
+        "practiceTest": {
+            "startNewPracticeTest": "Start New Practice Test",
+            "attemptedDate": "Attempted Date",
+            "startDate": "Start Date",
+            "endDate": "End Date",
+            "viewResult": "View Result",
+            "continue": "Continue"
+        },
+        "documents": {
+            "comments": "Comments",
+            "mandatoryDocuments": "Mandatory Documents",
+            "uploadedMandatoryDocuments": "Uploaded Mandatory Documents",
+            "uploadedOptionalDocuments": "Uploaded Optional Documents",
+            "noAnyMandarotyDocuments": "No any mandatory document uploaded",
+            "noAnyOptionalDocuments": "No any optional document available",
+            "alerts": {
+                "type": "success",
+                "title": "Document Verify Request",
+                "text": "Your document verification request send successfully"
+            }
+        },
+        "assessment": {}
+    },
+    "candidateResultPage": {
+        "title": "Practice Test Result",
+        "breadcrumbTitle": "Practice Test Result",
+        "buttons": {
+            "backToList": "Back to Dashboard",
+            "downloadCertificate": "Download Certificate"
+        },
+        "candidateName": "Candidate Name",
+        "assessmentDate": "Practice Test Date",
+        "noOfCategories": "Number of Categories",
+        "totalTimeTaken": "Total Time Taken",
+        "totalAttemptsQuestion": "Total number of Items",
+        "categoryWiseResult": "Category Wise Result"
+    },
+    "candidateAssessmentResultPage": {
+        "title": "Assessment Result",
+        "breadcrumbTitle": "Assessment Result",
+        "buttons": {
+            "backToList": "Back to Dashboard",
+            "downloadCertificate": "Download Certificate"
+        },
+        "candidateName": "Candidate Name",
+        "assessmentDate": "Assessment Date",
+        "noOfCategories": "Number of Categories",
+        "totalTimeTaken": "Total Time Taken",
+        "totalAttemptsQuestion": "Total number of Items",
+        "categoryWiseResult": "Category Wise Result"
+    },
+    "logs": {
+        "activityLogList": {
+            "title": "Activity Logs",
+            "breadcrumbTitle": "Activity Log",
+            "breadcrumbSubTitle": "List",
+            "collumns": {
+                "srNo": "Id",
+                "user": "User",
+                "module": "Module",
+                "activity": "Activity",
+                "dateTime": "Date/Time"
+            },
+            "recordNotFound": "There is no record found."
+        },
+        "errorLogList": {
+            "title": "Error Logs",
+            "breadcrumbTitle": "Error Logs",
+            "breadcrumbSubTitle": "List",
+            "collumns": {
+                "srNo": "Id",
+                "errorNo": "Error No",
+                "errorType": "Error Type",
+                "errorString": "Error String",
+                "errorFile": "Error File",
+                "errorLine": "Error Line",
+                "userAgent": "User Agent",
+                "ipAddress": "IP Address",
+                "dateTime": "Date/Time"
+            },
+            "recordNotFound": "There is no record found."
+        },
+        "emailLogList": {
+            "title": "Email Logs",
+            "breadcrumbTitle": "Email Logs",
+            "breadcrumbSubTitle": "List",
+            "collumns": {
+                "srNo": "Id",
+                "from": "From",
+                "to": "To",
+                "subject": "Subject",
+                "dateTime": "Date/Time"
+            },
+            "recordNotFound": "There is no record found."
+        }
+    },
+    "notification": {
+        "title": "Notifications",
+        "breadcrumbTitle": "Notifications",
+        "breadcrumbSubTitle": "List",
+        "collumns": {
+            "srNo": "Id",
+            "notifications": "Notifications",
+            "actions": "Actions",
+            "dateTime": "Date/Time"
+        },
+        "noRecord": "There is no record found."
+    },
+    "assessmentTestPage": {
+        "title": "Assessment",
+        "breadcrumbTitle": "Assessment",
+        "breadcrumbSubTitle": "Test",
+        "cerificateName": "Cerificate Name",
+        "markAsReview": "Mark As Review",
+        "modalTitles": {
+            "certificate": "Cerificate",
+            "select": "Select Certificate",
+            "certificateRequired": "Please select certificate",
+            "role": "Role"
+        },
+        "alerts": {
+            "type": "warning",
+            "title": "Oops...",
+            "text": "Please attempt all the questions!",
+            "eligible": {
+                "type": "success",
+                "title": "Eligible",
+                "text": "You are eligible for this certificate"
+            },
+            "notEligible": {
+                "type": "success",
+                "title": "Not Eligible",
+                "text": "You are not eligible for this certificate"
+            },
+            "noRecordFound": {
+                "type": "warning",
+                "title": "Oops...",
+                "text": "No any questions in this certificate, please select another certificate!"
+            }
+        },
+        "notFound": "No any questions in this certificate",
+        "buttons": {
+            "submit": "Submit",
+            "newAccount": "New to Assessment? Create an account"
+        }
+    },
+    "certificate": {
+        "list": {
+            "title": "Certificates",
+            "breadcrumbTitle": "Certificate",
+            "breadcrumbSubTitle": "List",
+            "recordNotFound": "There is no record found.",
+            "collumns": {
+                "srNo": "#",
+                "Certificate": "Certificate Name",
+                "Price": "Price",
+                "hasProctor": "Has Proctor",
+                "validity": "Validity",
+                "externalLink": "External Link"
+            },
+            "buttons": {
+                "add": "Add a Certificate",
+                "edit": "Edit",
+                "delete": "Delete",
+                "active": "Active",
+                "deactive": "Deactive",
+                "export": "Export to Excel",
+                "print": "Print"
+            },
+            "alerts": {
+                "deleteConfirm": {
+                    "type": "warning",
+                    "title": "Delete Certificate",
+                    "text": "Are you sure, you want to delete this Certificate?"
+                },
+                "paymentConfirm": {
+                    "type": "success",
+                    "title": "Certificate Add",
+                    "text": "Certificate has been added successfully"
+                },
+                "deleteSuccess": {
+                    "type": "success",
+                    "title": "Certificate Deleted",
+                    "text": "Certificate has been deleted successfully"
+                },
+                "activeSuccess": {
+                    "type": "success",
+                    "title": "Certificate Activated",
+                    "text": "Certificate has been activated successfully"
+                },
+                "deactiveSuccess": {
+                    "type": "success",
+                    "title": "Certificate Deactivated",
+                    "text": "Certificate has been deactivated successfully"
+                },
+                "checkboxalert": {
+                    "type": "warning",
+                    "title": "Please select at least one Certificate"
+                }
+            }
+        }
+    },
+    "practiceTest": {
+        "alerts": {
+            "type": "warning",
+            "title": "Back To Details Page",
+            "text": "Are you sure you want to back to the certificate details page?"
+        }
+    }
+}

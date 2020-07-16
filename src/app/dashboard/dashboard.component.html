@@ -1,0 +1,351 @@
+<div class="content_block">
+  <div class="container-fluid">
+    <div class="row">
+      <!-- Content -->
+      <div class="col-md-12 col-sm-12">
+        <div class="title_block">
+          <h2 class="float-left">
+            {{globals.commonTranslationText.candidateDashboardPage.title}}</h2>
+          <div class="breadcrumb_block float-left">
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item">
+                <a>
+                  <i class="fa fa-home"></i>
+                </a>
+              </li>
+              <li class="breadcrumb-item active" aria-current="page">
+                {{globals.commonTranslationText.candidateDashboardPage.breadcrumbTitle}}</li>
+            </ol>
+          </div>
+          <div class="clearfix"></div>
+        </div>
+        <div class="row d-flex justify-content-center">
+          <div class="col-md-12 col-sm-12">
+            <div class="inner_content_block candidate_dashboard_block">
+              <form class="form-validate" #SearchFilterForm="ngForm" (ngSubmit)="SearchFilter(SearchFilterForm)">
+                <div class="filter_block_form">
+                  <div class="row">
+                    <div class="col-12 col-xl-3 col-lg-3 col-md-12 col-sm-12">
+                      <div class="form-group">
+                        <label>Certificate Name</label>
+                        <!-- <select class="show-tick show-menu-arrow" data-live-search="true" multiple
+                          title="Select Certificate Name" #CertificateId="ngModel"
+                          [(ngModel)]="FilterEntity.CertificateId" name="CertificateId"
+                          data-selected-text-format="count">
+                          <ng-container *ngFor="let Certificat of Certificatesnamelist">
+                            <option [value]="Certificat.CertificateId">{{Certificat.CertificateName}}</option>
+                          </ng-container>
+                        </select> -->
+                        <kendo-multiselect [data]="Certificatesnamelist" [filterable]="false"
+                          [textField]="'CertificateName'" [valueField]="'CertificateId'" [valuePrimitive]="true"
+                          #CertificateId="ngModel" [(ngModel)]="FilterEntity.CertificateId" name="CertificateId"
+                          placeholder="Select Certificate"></kendo-multiselect>
+                      </div>
+                    </div>
+                    <div class="col-12 col-xl-3 col-lg-3 col-md-12 col-sm-12">
+                      <div class="form-group">
+                        <label>Status</label>
+                        <!-- <select class="show-tick show-menu-arrow" data-live-search="true" multiple title="Select Status"
+                          #statusid="ngModel" [(ngModel)]="FilterEntity.statusid" name="statusid"
+                          data-selected-text-format="count">
+                          <ng-container *ngFor="let status of Statuslist">
+                            <option [value]="status.ConfigurationId">{{status.DisplayText}}</option>
+                          </ng-container>
+                        </select> -->
+                        <kendo-multiselect [data]="Statuslist" [filterable]="false" [textField]="'DisplayText'"
+                          [valueField]="'ConfigurationId'" [valuePrimitive]="true" #statusid="ngModel"
+                          [(ngModel)]="FilterEntity.statusid" name="statusid" placeholder="Select Status">
+                        </kendo-multiselect>
+                      </div>
+                    </div>
+                    <!-- <div class="col-12 col-xl-3 col-lg-4 col-md-12 col-sm-12">
+                    <div class="form-group">
+                      <label>Status</label>
+                      <select class="selectpicker show-menu-arrow" multiple data-live-search="true"
+                        data-selected-text-format="count">
+                        <option>Status 1</option>
+                        <option>Status 2</option>
+                        <option>Status 3</option>
+                      </select>
+                    </div>
+                  </div> -->
+                    <div class="col-12 col-xl-6 col-lg-6 col-md-12 col-sm-12">
+                      <div class="form-group">
+                        <label>Date</label>
+                        <!-- <i class="fa fa-info-circle float-right note_i_block"
+                          data-toggle="tooltip" data-placement="top" title="Note"></i> -->
+                        <!-- <input class="form-control form_date" type="text" name="OrderDateFrom" value="" readonly
+                          name="OrderDateFrom" id="OrderDateFrom"> -->
+                        <kendo-daterange>
+                          <label class="mr-3">
+                            <span class="label">Start</span>
+                            <kendo-dateinput kendoDateRangeStartInput name="OrderDateFrom" #OrderDateFrom="ngModel"
+                              [(ngModel)]="FilterEntity.OrderDateFrom"></kendo-dateinput>
+                          </label>
+                          <label>
+                            <span class="label">End</span>
+                            <kendo-dateinput kendoDateRangeEndInput name="OrderDateTo" #OrderDateTo="ngModel"
+                              [(ngModel)]="FilterEntity.OrderDateTo"></kendo-dateinput>
+                          </label>
+                        </kendo-daterange>
+                      </div>
+                    </div>
+
+                    <div class="col-12 col-xl-4 col-lg-4 col-md-12 col-sm-12">
+                      <button class="all_btn theme_btn mb-5" type="submit">Search</button>
+                      <button class="all_btn themeoption_btn mb-5" type="button"
+                        (click)="clearData(SearchFilterForm)">Clear</button>
+                    </div>
+                  </div>
+                </div>
+              </form>
+              <div class="clearfix"></div>
+              <div class="certificate_block_list">
+                <div class="p_filter_content_block pr-0">
+                  <!-- <label>Showing result for: </label>
+                  <ul>
+                    <li><span>11/12/2019</span><i class="fa fa-times"></i></li>
+                    <li><span>11/12/2019</span><i class="fa fa-times"></i></li>
+                    <li><span>11/12/2019</span><i class="fa fa-times"></i></li>
+                    <li><span>11/12/2019</span><i class="fa fa-times"></i></li>
+                    <li><span>11/12/2019</span><i class="fa fa-times"></i></li>
+                    <li><span>11/12/2019</span><i class="fa fa-times"></i></li>
+                  </ul> -->
+                </div>
+                <div class="title_legend_block">
+                  <h5 class="float-left mb-5">{{certificateList.length}} Certificates found</h5>
+                  <div class="float-right mobile_remove">
+                    <ul class="legend_block">
+                      <li> <i class="fa fa-eye"></i> View Details</li>
+                      <li> <i class="fa fa-map-marker"></i> Location</li>
+                      <li> <i class="fa fa-user"></i> Proctor Name</li>
+                    </ul>
+                    <div class="filter_legend_block">
+                      <div class="legend_box">
+                        <label><img src="assets/images/proctor.png" class="img-fluid" alt="" />With Proctoring <i
+                            class="fa fa-info-circle float-right note_i_block" data-toggle="tooltip"
+                            data-placement="top" title="Note"></i></label>
+                      </div>
+                      <div class="legend_box">
+                        <label><img src="assets/images/woproctor.png" class="img-fluid" alt="" />Without Proctoring <i
+                            class="fa fa-info-circle float-right note_i_block" data-toggle="tooltip"
+                            data-placement="top" title="Note"></i></label>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="clearfix"></div>
+                <div class="row">
+                  <div class="col-md-6 col-12 col-xl-3 col-lg-4 col-sm-12 d-flex">
+                    <div class="dash_certificate_block">
+                      <a data-toggle="modal" data-target="#NewCertificate" class="add_new_cer" (click)="dataClear()"><i
+                          class="fa fa-certificate"></i>Buy New Certificate</a>
+                    </div>
+                  </div>
+                  <!-- <div class="col-md-3 col-3 col-lg-3 col-sm-12 d-flex">
+                    <div class="dash_certificate_block">
+                      <div class="cer_header">
+                        <img src="assets/images/certi.jpg" alt="" class="img-fluid" />
+                        <button><i class="fa fa-trash"></i></button>
+                        <span class="p_wp_block"><img src="assets/images/woproctor.png" alt="" class="img-fluid" /></span>
+                      </div>
+                      <div class="cer_content">
+                        <h6>Certificate Name Certificate...</h6>
+                        <div class="round_content">$140</div>
+                        <p class="status red">Unpaid</p>
+                      </div>
+                      <div class="cer_footer">
+                        <button><i class="fa fa-money" data-toggle="tooltip" data-placement="bottom" title="Pay now"></i></button>
+                        <button><i class="fa fa-eye" data-toggle="tooltip" data-placement="bottom" title="View Details"></i></button>
+                        <div class="clearfix"></div>
+                      </div>
+                    </div>
+                  </div> -->
+                  <div class="col-md-6 col-12 col-xl-3 col-lg-4 col-sm-12 d-flex"
+                    *ngFor="let scheduledata of certificateList | paginate: { itemsPerPage:10, currentPage: p}; let i = index;">
+                    <div class="dash_certificate_block">
+                      <div class="cer_header">
+                        <!-- <img src="assets/images/certi.png" alt="" class="img-fluid" /> -->
+                        <button *ngIf="scheduledata.CertificateStatus == 61 || scheduledata.CertificateStatus == null"
+                          (click)="DeleteCertificate(scheduledata.UserCertificateId,scheduledata)"><i
+                            class="fa fa-trash"></i></button>
+                        <!-- <span class="p_wp_block">
+                          <img *ngIf="scheduledata.HasProctor == 1" src="assets/images/proctor.png" alt=""
+                            class="img-fluid" />
+                          <img *ngIf="scheduledata.HasProctor == 0" src="assets/images/woproctor.png" alt=""
+                            class="img-fluid" />
+                        </span> -->
+                      </div>
+                      <div class="cer_content">
+                        <h6 class="pull-left">
+                          {{scheduledata.CertificateName.length > 27 ? scheduledata.CertificateName.substring(0,27)+"..." : scheduledata.CertificateName}}
+                        </h6>
+                        <span class="p_wp_block pull-right">
+                          <img *ngIf="scheduledata.HasProctor == 1" src="assets/images/proctor.png" alt=""
+                            class="img-fluid" />
+                          <img *ngIf="scheduledata.HasProctor == 0" src="assets/images/woproctor.png" alt=""
+                            class="img-fluid" />
+                        </span>
+                        <div class="clearfix"></div>
+                        <div class="round_content"
+                          *ngIf="(scheduledata.CertificateStatus==61) || scheduledata.renewButtonDisplay">
+                          $ {{scheduledata.certificateAmount}}</div>
+                        <p class="status" [ngClass]="{red:scheduledata.CertificateStatus == 61 || scheduledata.CertificateStatus == 65 || scheduledata.CertificateStatus == 66,green:scheduledata.CertificateStatus == 64,
+                            blue:scheduledata.CertificateStatus == 62 || scheduledata.CertificateStatus == 63}">
+                          {{scheduledata.CertificateStatusText}}</p>
+                          <!-- {{scheduledata.AssessmentDetail.length}}
+                        <span *ngIf="scheduledata.AssessmentDetail.length > 0">
+                          <p *ngIf="scheduledata.AssessmentDetail[0].ScheduleStatusId == 15 && scheduledata.AssessmentDetail[0].ScheduleAssessmentId == null && scheduledata.HasProctor == 1"
+                            class="status blue"> {{scheduledata.AssessmentDetail[0].ScheduleStatus}}</p>
+                          <p *ngIf="scheduledata.AssessmentDetail[0].ScheduleStatusId == 13 && scheduledata.AssessmentDetail[0].ScheduleAssessmentStatus ==40 && scheduledata.HasProctor == 1 && scheduledata.AssessmentDetail[0].UserAssessmentId ==null"
+                            class="status blue"> {{scheduledata.AssessmentDetail[0].ScheduleStatus}}</p>
+                          <p *ngIf="scheduledata.AssessmentDetail[0].ScheduleStatusId == 14 && scheduledata.AssessmentDetail[0].ScheduleAssessmentId == null"
+                            class="status red"> {{scheduledata.AssessmentDetail[0].ScheduleStatus}}</p>
+                        </span> -->
+                      </div>
+                      <div class="cer_footer">
+                        <button (click)="payment(scheduledata,i,1)"
+                          *ngIf="scheduledata.CertificateStatus == 64 && scheduledata.IsRenewable == 1 && scheduledata.renewButtonDisplay  && scheduledata.CertificationDuration != 0"><i
+                            class="fa fa-refresh" data-toggle="tooltip" data-placement="bottom"
+                            title="Renew"></i></button>
+                        <button (click)="recertification(scheduledata)"
+                          *ngIf="scheduledata.CertificateStatus == 64 && scheduledata.IsRenewable == 0 && scheduledata.CertificationDuration != 0"><i
+                            class="fa fa-certificate" data-toggle="tooltip" data-placement="bottom"
+                            title="Recertification"></i></button>
+                        <button (click)="payment(scheduledata,i,0)" *ngIf="scheduledata.CertificateStatus == 61"><i
+                            class="fa fa-money" data-toggle="tooltip" data-placement="bottom"
+                            title="Pay now"></i></button>
+                        <button (click)="viewDetails(scheduledata.UserCertificateId)"><i class="fa fa-eye"
+                            data-toggle="tooltip" data-placement="bottom" title="View Details"></i></button>
+                        <div class="clearfix"></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-12 col-sm-12 text-right pagination_block" *ngIf="certificateList!=''">
+                    <ul class="pagination float-right">
+                      <pagination-controls (pageChange)="p=$event" previousLabel="⏴" nextLabel="⏵">
+                      </pagination-controls>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="NewCertificate" tabindex="-1" role="dialog" aria-labelledby="NewCertificateLabel"
+  aria-hidden="true">
+  <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="NewCertificateLabel">List of New Certificates</h5>
+        <button type="button" (click)="dataClear()" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body pr-0 pl-0">
+        <div class="table_block">
+          <!-- <table id="list_tables" class="table table-hover" style="width:100%">
+            <thead>
+              <tr>
+                <th class="text-center sr_no_width"></th>
+                <th class="text-center sr_no_width">
+                  {{globals.commonTranslationText.certificate.list.collumns.srNo}}</th>
+                <th class="">{{globals.commonTranslationText.certificate.list.collumns.Certificate}}</th>
+                <th class="text-right width_10">
+                  {{globals.commonTranslationText.certificate.list.collumns.Price}}</th>
+                <th class=" width_15">{{globals.commonTranslationText.certificate.list.collumns.ReleaseDate}}
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let  Certificates of CertificatesNewlist; let i = index">
+                <td class="text-center">
+                  <div class="check_box mr-0 table_list_checkbox">
+                    <input type="checkbox" [(ngModel)]="CertificatesNewlist[i].Check" name="Check{{i}}"
+                      (click)="Subcheck(Certificates.Checksub,i)" [checked]="Certificates.Checksub" id="Check{{i}}">
+                    <label for="Check{{i}}" class="pt-0"></label>
+                  </div>
+                </td>
+                <td class="text-center">{{i+1}}</td>
+                <td>{{Certificates.CertificateName}}</td>
+                <td class="text-right">{{Certificates.USDPrice}}</td>
+                <td>{{Certificates.ReleaseDate}}</td>
+              </tr>
+              <tr *ngIf="CertificatesNewlist.length == 0">
+                <td colspan="6">{{globals.commonTranslationText.certificate.list.recordNotFound}}</td>
+              </tr>
+            </tbody>
+          </table> -->
+          <kendo-grid [kendoGridBinding]="CertificatesNewlist" kendoGridSelectBy="id" [pageSize]="10" [pageable]="true"
+            [groupable]="false" [reorderable]="false" [resizable]="false" [height]="auto" [sortable]="{
+              allowUnsort: true,
+              mode: 'single'
+              }" [sort]="sort">
+
+            <ng-template kendoGridToolbarTemplate>
+              <input placeholder="Search in all columns..." kendoTextBox (input)="onFilter($event.target.value)" />
+              <!-- <button kendoGridExcelCommand type="button" icon="file-excel" style="float:right;"></button>
+                    <button kendoGridPDFCommand icon="file-pdf" style="float:right;"></button>
+                    <button type="button" class="k-button" icon="file-pdf" style="float:right;" (click)="excelexport.save()">Export To Excel</button> -->
+            </ng-template>
+            <kendo-grid-column class="text-center" [width]="150">
+              <ng-template kendoGridCellTemplate let-dataItem let-rowIndex="rowIndex">
+                <div class="check_box mr-0 table_list_checkbox">
+                  <input type="checkbox" [(ngModel)]="dataItem.certificateCheck" (click)="Subcheck(dataItem.Checksub,rowIndex)"
+                    [checked]="dataItem.Checksub" id="certificateCheck{{rowIndex}}">
+                  <label for="certificateCheck{{rowIndex}}" class="pt-0"></label>
+                </div>
+              </ng-template>
+            </kendo-grid-column>
+            <!-- <kendo-grid-column title="{{globals.commonTranslationText.certificate.list.collumns.srNo}}" [width]="50">
+              <ng-template kendoGridCellTemplate let-dataItem let-rowIndex="rowIndex">
+                {{rowIndex+1}}
+              </ng-template>
+            </kendo-grid-column> -->
+            <kendo-grid-column field="CertificateName"
+              title="{{globals.commonTranslationText.certificate.list.collumns.Certificate}}">
+            </kendo-grid-column>
+            <kendo-grid-column field="USDPrice"
+              title="{{globals.commonTranslationText.certificate.list.collumns.Price}}">
+              <ng-template kendoGridCellTemplate let-dataItem let-rowIndex="rowIndex">
+                $ {{dataItem.USDPrice}}
+              </ng-template>
+            </kendo-grid-column>
+            <kendo-grid-column field="HasProctor"
+              title="{{globals.commonTranslationText.certificate.list.collumns.hasProctor}}">
+              <ng-template kendoGridCellTemplate let-dataItem>
+                <span *ngIf="dataItem.HasProctor==1">Yes</span>
+                <span *ngIf="dataItem.HasProctor==0">No</span>
+              </ng-template>
+            </kendo-grid-column>
+            <kendo-grid-column field="CertificationDuration"
+              title="{{globals.commonTranslationText.certificate.list.collumns.validity}}">
+              <ng-template kendoGridCellTemplate let-dataItem>
+                {{dataItem.CertificationDuration}} months
+              </ng-template>
+            </kendo-grid-column>
+            <kendo-grid-column field="CertificateURL"
+              title="{{globals.commonTranslationText.certificate.list.collumns.externalLink}}">
+              
+            </kendo-grid-column>
+
+          </kendo-grid>
+        </div>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="all_btn theme_btn float-right" (click)="addUserCertificate()">Add
+          Certificate</button>
+        <div class="clearfix"></div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,204 @@
+<div class="content_block">
+  <div class="container-fluid">
+    <div class="row">
+      <!-- Content -->
+      <div class="col-md-12 col-sm-12">
+        <div class="title_block">
+          <h2 class="float-left">
+            {{globals.adminTranslationText.certificateCategoryMapping.list.title}}</h2>
+          <div class="breadcrumb_block float-left">
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item">
+                <a routerLink="/admin/adminDashboard">
+                  <i class="fa fa-home"></i>
+                </a>
+              </li>
+              <li class="breadcrumb-item"><a
+                  routerLink="/admin/certificate-category-mapping/list">{{globals.adminTranslationText.certificateCategoryMapping.list.breadcrumbTitle}}</a>
+              </li>
+              <li class="breadcrumb-item active" aria-current="page">
+                {{globals.adminTranslationText.certificateCategoryMapping.list.breadcrumbSubTitle}}</li>
+            </ol>
+          </div>
+          <div class="clearfix"></div>
+        </div>
+        <div class="row d-flex justify-content-center">
+          <div class="col-md-12 col-sm-12">
+            <div class="inner_content_block">
+              <div class="filter_block_form">
+                <div class="row">
+                  <div class="col-12 col-xl-4 col-lg-4 col-md-12 col-sm-12">
+                    <div class="form-group">
+                      <label><span>*</span> Certificates</label>
+                      <!-- <select class="show-menu-arrow" data-selected-text-format="count" data-live-search="true"
+                        name="CertificateId" (change)="certificatechange()"
+                        title="{{globals.adminTranslationText.certificateCategoryMapping.form.certificate.select}}"
+                        #CertificateId="ngModel" [(ngModel)]="certificateCategoryMappingListEntity.CertificateId"
+                        [ngClass]="{error: (CertificateError)}">
+                        <ng-container *ngFor="let certificate of certificateList">
+                          <option [value]="certificate.CertificateId">
+                            {{certificate.CertificateName}}</option>
+                        </ng-container>
+                      </select> -->
+                      <kendo-dropdownlist [data]="certificateList" [filterable]="false" [textField]="'CertificateName'"
+                        (change)="certificatechange()" [valueField]="'CertificateId'" [valuePrimitive]="true"
+                        #CertificateId="ngModel" (valueChange)="CertificateError = false"
+                        [(ngModel)]="certificateCategoryMappingListEntity.CertificateId" name="CertificateId"
+                        [ngClass]="{error: (CertificateError)}" required></kendo-dropdownlist>
+                      <span class="error_class" *ngIf="CertificateError">
+                        Please select a Certificate
+                      </span>
+                    </div>
+                  </div>
+                  <div class="col-12 col-xl-3 col-lg-6 col-md-12 col-sm-12">
+                    <button class="all_btn theme_btn mt-5"
+                      (click)="certificateChange(certificateCategoryMappingListEntity.CertificateId)">Search</button>
+                  </div>
+                </div>
+              </div>
+              <div class="clearfix"></div>
+              <div class="no_certificate " id="noCertificate">
+                <div class="notice notice-danger">No Certificate is selected. Please select certificate
+                  above.</div>
+              </div>
+              <div class="category_block_list" id="newLinking">
+                <h5 class="mb-3 float-left">Showing categories for:
+                  "<b>{{certificateCategoryMappingListEntity.certificateName}}</b>"</h5>
+                <div class="col-12 col-xl-6 col-lg-6 col-md-12 col-sm-12 float-right">
+                  <ul class="legend_block">
+                    <li> <i class="fa fa-pencil"></i> Edit Category</li>
+                    <li> <i class="fa fa-chain-broken"></i> Unlink Category</li>
+                  </ul>
+                </div>
+                <div class="clearfix"></div>
+                <div class="row">
+                  <div class="col-md-12 col-12 col-xl-3 col-lg-6 col-sm-12">
+                    <div class="category_block">
+                      <a class="add_new_cat" (click)="linknewcategory()"><i class="fa fa-link"></i>Link
+                        New Category</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="category_block_list" id="categoryDisplay">
+
+                <h5 class="float-left">Showing categories for:
+                  "<b>{{certificateCategoryMappingListEntity.certificateName}}</b>"</h5>
+                <div class="col-12 col-xl-6 col-lg-6 col-md-12 col-sm-12 float-right">
+                  <ul class="legend_block">
+                    <li> <i class="fa fa-pencil"></i> Edit Category</li>
+                    <li> <i class="fa fa-chain-broken"></i> Unlink Category</li>
+                  </ul>
+                </div>
+                <div class="clearfix"></div>
+                <div class="row">
+                  <div class="col-md-12 col-12 col-xl-3 col-lg-6 col-sm-12">
+                    <div class="category_block">
+                      <a class="add_new_cat" (click)="linknewcategory()"><i class="fa fa-link"></i>Link
+                        New Category</a>
+                    </div>
+                  </div>
+                  <div class="col-md-12 col-12 col-xl-3 col-lg-6 col-sm-12"
+                    *ngFor="let categoryData of linkingCategoryList;let i=index;">
+                    <div class="category_block">
+                      <div class="cat_header">{{categoryData.CategoryName}}</div>
+                      <div class="cat_content">
+                        <ul *ngIf="categoryData.AssessmentTotalItems== '' || categoryData.AssessmentTotalItems == null">
+                          <li>
+                            <span>Total Items: </span>NA
+                          </li>
+                          <li><span>Score Items: </span>NA</li>
+                          <li><span>None Score Items: </span>NA</li>
+                          <li><span>Assessment Time: </span>NA</li>
+                          <li><span>Passing Percentage: </span>NA</li>
+                        </ul>
+                        <ul *ngIf="categoryData.AssessmentTotalItems != '' && categoryData.AssessmentTotalItems != null">
+                            <li>
+                              <span>Total Items: </span>{{categoryData.AssessmentTotalItems}}
+                            </li>
+                            <li><span>Score Items: </span>{{categoryData.ScoreItems}}</li>
+                            <li><span>None Score Items: </span>{{categoryData.NoneScoreItems}}</li>
+                            <li><span>Assessment Time: </span>{{categoryData.CategoryAssessmentTime}} minutes</li>
+                            <li><span>Passing Percentage: </span>{{categoryData.PassingPercentage}}%</li>
+                          </ul>
+                        <div class="clearfix"></div>
+                        <p class="has_practice" *ngIf="certificateCategoryMappingListEntity.PracticeExamAttempts>0">Has Practice
+                          test</p>
+                        <p class="no_practice" *ngIf="certificateCategoryMappingListEntity.PracticeExamAttempts ==null || certificateCategoryMappingListEntity.PracticeExamAttempts == 0">No Practice
+                          test</p>
+                      </div>
+                      <div class="cat_footer">
+                        <div class="activeyes_box" data-toggle="tooltip" data-placement="top"
+                          [attr.title]="categoryData.IsActive==1 ? 'Active' : 'Deactive'">
+                          <span>Active?</span>
+                          <!-- <input type="checkbox" name="active" checked id="active{{i}}"
+                            [checked]="categoryData.IsActive==1" value="Yes" (change)="isActiveChange(categoryData,i)">
+                          <label for="active{{i}}"></label> -->
+                          <kendo-switch [checked]="categoryData.IsActive==1"
+                            (valueChange)="isActiveChange(categoryData,i)" value="yes" name="IsActive"
+                            id="IsActive{{i}}" [onLabel]="'Y'" [offLabel]="'N'"></kendo-switch>
+                        </div>
+                        <button [disabled]="categoryData.IsMapped>0" ><i class="fa fa-chain-broken" data-toggle="tooltip" data-placement="top"
+                            [attr.title]="categoryData.IsMapped > 0 ? 'Category can not be unlinked as used in assessment.': 'Unlink Category'" (click)="unlinkCategory(categoryData)"></i></button>
+                        <button (click)="editCategory(categoryData.CertificateId,categoryData.CategoryId)">
+                          <i class="fa fa-pencil" data-toggle="tooltip" data-placement="top"
+                            title="Edit Category"></i></button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Modal -->
+<div class="modal fade" id="link_new" tabindex="-1" role="dialog" aria-labelledby="link_newLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="link_newLabel">Link new category</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <form role="form" #categoryLinkingForm="ngForm" (ngSubmit)="categoryLinking(categoryLinkingForm)">
+        <div class="modal-body">
+          <div class="form-group">
+            <label><span>*</span> Category</label>
+            <!-- <select class="show-menu-arrow" data-selected-text-format="count" data-live-search="true" required
+              #CategoryId="ngModel" [(ngModel)]="certificateCategoryMappingListEntity.CategoryId" name="CategoryId"
+              id="CategoryId" title="  {{globals.adminTranslationText.certificateCategoryMapping.list.category.select}}"
+              [ngClass]="{error: (CategoryId.dirty && CategoryId.invalid) || (CategoryId.pristine && submitted)}">
+              <ng-container *ngFor="let category of categoryList">
+                <option [value]="category.CategoryId" *ngIf="category.flag==0" [disabled]="category.isdisabled == 0">
+                  {{category.CategoryName}} (items:{{category.isdisabled}})</option>
+              </ng-container>
+            </select> -->
+            <kendo-dropdownlist [data]="categoryList" [filterable]="false" [textField]="'CategoryName'"
+              [valueField]="'CategoryId'" [valuePrimitive]="true" #CategoryId="ngModel" [itemDisabled]="itemDisabled"
+              [(ngModel)]="certificateCategoryMappingListEntity.CategoryId" name="CategoryId"
+              [ngClass]="{error: (CategoryId.dirty && CategoryId.invalid) || (CategoryId.pristine && submitted)}"
+              required>
+              <ng-template kendoDropDownListItemTemplate let-dataItem>
+                {{ dataItem.CategoryName }} (items: {{dataItem.AssessmentItems}})
+              </ng-template>
+            </kendo-dropdownlist>
+            <span class="error_class"
+              *ngIf="(CategoryId.dirty && CategoryId.invalid) || (CategoryId.pristine && submitted)">
+              <span *ngIf="CategoryId.errors && CategoryId.errors.required">
+                {{globals.adminTranslationText.certificateCategoryMapping.list.category.required}}
+              </span>
+            </span>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="submit" class="all_btn theme_btn">Link</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

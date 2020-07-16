@@ -1,0 +1,182 @@
+<div class="content_block">
+  <div class="container-fluid">
+    <div class="row">
+      <!-- Content -->
+      <div class="col-md-12 col-sm-12">
+        <div class="title_block">
+          <h2 class="float-left">
+            {{globals.adminTranslationText.assessment.detail.title}}</h2>
+          <div class="breadcrumb_block float-left">
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item">
+                <a routerLink="/admin/adminDashboard">
+                  <i class="fa fa-home"></i>
+                </a>
+              </li>
+              <li class="breadcrumb-item"><a
+                  routerLink="/admin/assessmentDetails/{{UserAssessmentId}}/{{hasproctor}}">{{globals.adminTranslationText.assessment.detail.breadcrumbTitle}}</a>
+              </li>
+              <li class="breadcrumb-item active" aria-current="page">
+                {{globals.adminTranslationText.assessment.detail.breadcrumbSubTitle}}</li>
+            </ol>
+          </div>
+          <a routerLink="/admin/assessment-list/{{hasproctor}}"
+            class="all_btn themeoption_btn float-right">{{globals.adminTranslationText.assessment.detail.buttons.backToList}}</a>
+          <div class="clearfix"></div>
+        </div>
+        <div class="row d-flex justify-content-center">
+          <div class="col-md-12 col-sm-12">
+            <div class="inner_content_block result_page_block">
+              <div class="paddin_form">
+                <h4>{{AssessmentEntity.CertificateName}}</h4>
+                <div class="result_info_block">
+                  <!-- parth -->
+                  <div class="resultStatusBlock">
+                    <div class="per_block green_border" *ngIf="AssessmentEntity.ResultStatus==16">
+                      <div class="border_circle ">{{AssessmentEntity.TotalScore}}%<span>Score</span></div>
+                      <div class="status_result">Certified</div>
+                    </div>
+                    <div class="per_block red_border" *ngIf="AssessmentEntity.ResultStatus==17">
+                      <div class="border_circle ">{{AssessmentEntity.TotalScore}}%<span>Score</span></div>
+                      <div class="status_result">Fail</div>
+                    </div>
+                      <a href="" class="all_btn float-right theme_btn" data-toggle="modal"
+                      data-target="#assessment_preview_modal">Preview all answers</a>
+                  </div>
+                   <!--  -->
+                  <div class="row">
+                    <div class="col-12 col-xl-3 col-lg-6 col-md-12 col-sm-12">
+                      <div class="border_right">
+                        <h6>Candidate Details</h6>
+                        <p class="resut_content"><i class="fa fa-user"></i>
+                          {{AssessmentEntity.CandidateName}}<br>
+                          <i class="fa fa-envelope"></i>
+                          {{AssessmentEntity.CandidateEmail}}<br>
+                          <i class="fa fa-phone"></i>
+                          {{AssessmentEntity.CandidateNumber}}
+                        </p>
+                      </div>
+                    </div>
+                    <div class="col-12 col-xl-3 col-lg-6 col-md-12 col-sm-12" *ngIf="AssessmentEntity.HasProctor == 1">
+                      <div class="border_right">
+                        <h6>Proctor Details</h6>
+                        <p class="resut_content"><i class="fa fa-user"></i>
+                          {{AssessmentEntity.ProctorName}}<br>
+                          <i class="fa fa-envelope"></i>
+                          {{AssessmentEntity.EmailAddress}}<br>
+                          <i class="fa fa-phone"></i>
+                          {{AssessmentEntity.PhoneNumber}}</p>
+                      </div>
+                    </div>
+                    <div class="col-12 col-xl-6 col-lg-12 col-md-12 col-sm-12 ass_full">
+                      <h6>Assessment Details</h6>
+                      <div class="row">
+                        <div class="col-12 col-xl-6 col-lg-6 col-md-12 col-sm-12">
+                          <p class="resut_content">
+                            <i class="fa fa-calendar-o"></i>
+                            <span *ngIf="AssessmentEntity.HasProctor == 1">{{AssessmentEntity.AssignDate | date:'MM/dd/yyyy'}}<br></span>
+                            <span *ngIf="AssessmentEntity.HasProctor == 0">{{AssessmentEntity.AssessmentStartDate | date:'MM/dd/yyyy'}}<br></span>
+                            <i class="fa fa-map-marker"></i>
+                            {{AssessmentEntity.Address1}} , {{AssessmentEntity.Address2}} {{AssessmentEntity.Address3}},<br> {{AssessmentEntity.City}}, {{AssessmentEntity.StateName}}<br>
+                            <i class="fa fa-clock-o" *ngIf="AssessmentEntity.HasProctor == 1"></i>
+                            <span *ngIf="AssessmentEntity.HasProctor == 1">{{AssessmentEntity.StartTime}} - {{AssessmentEntity.EndTime}}</span>
+                          </p>
+                        </div>
+                        <div class="col-12 col-xl-6 col-lg-6 col-md-12 col-sm-12">
+                          <p class="resut_content">
+                            <i
+                              class="fa fa-list-ol"></i>{{globals.commonTranslationText.candidateResultPage.noOfCategories}}:
+                              {{AssessmentEntity.categories}}<br>
+                            <i
+                              class="fa fa-clock-o"></i>{{globals.commonTranslationText.candidateResultPage.totalTimeTaken}}:
+                             {{totaltimetaken}}<br>
+                            <i
+                              class="fa fa-question"></i>{{globals.commonTranslationText.candidateResultPage.totalAttemptsQuestion}}:
+                            {{summaryquestions.TotalAttemptedQuestions}}/{{summaryquestions.totalQuestions}}</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="clearfix"></div>
+                <div class="row">
+                  <div class="col-12 col-xl-10 col-lg-10 col-md-12 col-sm-12">
+                    <h6 *ngIf="AssessmentEntity.HasProctor == 1">Proctor Comment</h6>
+                    <p *ngIf="AssessmentEntity.HasProctor == 1" class="resut_content padding_30">
+                      <i class="fa fa-comment"></i>
+                      {{AssessmentEntity.proctorcomment}}</p>
+                  </div>
+                  <!-- <div class="col-12 col-xl-2 col-lg-2 col-md-12 col-sm-12">
+                    <div class="per_block green_border" *ngIf="AssessmentEntity.ResultStatus==16">
+                      <div class="border_circle ">{{AssessmentEntity.TotalScore}}%<span>Score</span></div>
+                      <div class="status_result">Certified</div>
+                    </div>
+                    <div class="per_block red_border" *ngIf="AssessmentEntity.ResultStatus==17">
+                      <div class="border_circle ">{{AssessmentEntity.TotalScore}}%<span>Score</span></div>
+                      <div class="status_result">Fail</div>
+                    </div>
+                  </div> -->
+                  <div class="clearfix"></div>
+                  <div class="col-md-12 col-12 col-lg-12 col-sm-12">
+                    <h6 class="mb-5 float-left">{{globals.commonTranslationText.candidateResultPage.categoryWiseResult}}
+                    </h6>                    
+                    <div class="clearfix"></div>
+                    <div id="result_chart"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- End Content -->
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</div>
+
+<!-- modal popup for preview -->
+<div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+  id="assessment_preview_modal">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="ModalLabel">Assessment Preview</h5>
+        <button type="button" class="close float-right" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">×</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+      
+          <li class="nav-item" *ngFor="let AssessmentPreview of AssessmentPreviewList; let i = index; let f=first;">
+            <a class="nav-link" id="pills-cat1-tab{{i}}" data-toggle="pill" href="#pills-cat1{{i}}" role="tab"
+            [attr.aria-controls]="'pills-cat1'+i"   aria-selected="true">{{AssessmentPreview.CategoryName}}</a>
+          </li>
+        </ul>
+        
+        <div class="tab-content" id="pills-tabContent">
+            <ng-container *ngFor="let AssessmentPreview of AssessmentPreviewList; let i = index; let f=first;">
+          <div class="tab-pane fade" id="pills-cat1{{i}}" role="tabpanel"  [attr.aria-labelledby]="'pills-cat1-tab'+i">
+            <div class="assessment_preview_scroll category{{i}}">
+              <div class="assessment_preview">
+                <div class="assessment_preview_block" *ngFor="let questionchild of AssessmentPreview.child; let j = index;">
+                  <div class="number">{{j+1}}</div>
+                  <div class="q_a"><b>Q.: </b><span [innerHTML]="questionchild.ItemText"></span></div>
+                  <div class="q_a"><b>A.: </b>{{questionchild.OptionValue}}.</div>
+                </div>
+              </div>
+            </div>
+          </div>
+           </ng-container>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <!-- <span class="float-left">Are you sure you want to submit?</span> -->
+        <!-- <button class="all_btn theme_btn float-right" type="button">Yes</button> -->
+        <button class="all_btn themeoption_btn float-right" type="button" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!--modal popup for preview-->

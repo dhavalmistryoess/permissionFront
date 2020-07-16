@@ -1,0 +1,158 @@
+<div class="content_block">
+  <div class="container-fluid">
+    <div class="row">
+      <!-- Content -->
+      <div class="col-md-12 col-sm-12">
+        <div class="title_block">
+          <h2 class="float-left" *ngIf="eligibilityItemEntity.EligibilityItemId == 0">
+            {{globals.adminTranslationText.eligibilityItem.form.title.add}}</h2>
+          <h2 class="float-left" *ngIf="eligibilityItemEntity.EligibilityItemId != 0">
+            {{globals.adminTranslationText.eligibilityItem.form.title.update}}</h2>
+          <div class="breadcrumb_block float-left">
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item">
+                <a routerLink="/admin/adminDashboard">
+                  <i class="fa fa-home"></i>
+                </a>
+              </li>
+              <li class="breadcrumb-item"><a
+                  routerLink="/admin/eligibility-item/list">{{globals.adminTranslationText.eligibilityItem.form.breadcrumbTitle}}</a>
+              </li>
+              <li class="breadcrumb-item active" aria-current="page"
+                *ngIf="eligibilityItemEntity.EligibilityItemId == 0">
+                {{globals.adminTranslationText.eligibilityItem.form.breadcrumbSubTitle.add}}</li>
+              <li class="breadcrumb-item active" aria-current="page"
+                *ngIf="eligibilityItemEntity.EligibilityItemId != 0">
+                {{globals.adminTranslationText.eligibilityItem.form.breadcrumbSubTitle.update}}</li>
+            </ol>
+          </div>
+          <a routerLink="/admin/eligibility-item/list" class="all_btn themeoption_btn float-right">
+            {{globals.adminTranslationText.eligibilityItem.form.buttons.backToList}}
+          </a>
+          <div class="clearfix"></div>
+        </div>
+        <div class="row d-flex justify-content-center">
+          <div class="col-md-12 col-sm-12">
+            <div class="inner_content_block">
+              <div class="paddin_form">
+                <form role="form" #eligibilityItemForm="ngForm" (ngSubmit)="addUpdate(eligibilityItemForm)">
+                  <div class="row">
+                    <div class="col-12 col-xl-4 col-lg-4 col-md-12 col-sm-12">
+                      <div class="form-group">
+                        <label><span>*</span>
+                          {{globals.adminTranslationText.eligibilityItem.form.certificate.label}}</label>
+                        <!-- <select required class="show-menu-arrow" data-selected-text-format="count"
+                          data-live-search="true"
+                          title="{{globals.adminTranslationText.eligibilityItem.form.certificate.select}}"
+                          #CertificateId="ngModel" [(ngModel)]="eligibilityItemEntity.CertificateId"
+                          name="CertificateId" multiple
+                          [ngClass]="{error: (CertificateId.dirty && CertificateId.invalid) || (CertificateId.pristine && submitted)}">
+                          <ng-container *ngFor="let certificate of certificateList">
+                            <option [value]="certificate.CertificateId"
+                              [selected]="eligibilityItemEntity.CertificateId==certificate.CertificateId">
+                              {{certificate.CertificateName}}</option>
+                          </ng-container>
+                        </select> -->
+                        <kendo-multiselect  [data]="certificateList" [filterable]="false" [textField]="'CertificateName'" [valueField]="'CertificateId'"
+                        [valuePrimitive]="true" #CertificateId="ngModel"
+                        [(ngModel)]="eligibilityItemEntity.CertificateId" name="CertificateId" [ngClass]="{error: (CertificateId.dirty && CertificateId.invalid) || (CertificateId.pristine && submitted)}" required></kendo-multiselect >
+                        <span class="error_class"
+                          *ngIf="(CertificateId.dirty && CertificateId.invalid) || (CertificateId.pristine && submitted)">
+                          <span *ngIf="CertificateId.errors && CertificateId.errors.required">
+                            {{globals.adminTranslationText.eligibilityItem.form.certificate.required}}
+                          </span>
+                        </span>
+                      </div>
+                    </div>
+
+                    <div class="col-12 col-xl-4 col-lg-4 col-md-12 col-sm-12">
+                      <div class="form-group">
+                        <label><span>*</span>
+                          {{globals.adminTranslationText.eligibilityItem.form.eligibilityItemFor.label}}</label>
+                        <!-- <select required class="show-menu-arrow" data-selected-text-format="count"
+                          data-live-search="true" #EligibilityItemFor="ngModel"
+                          [(ngModel)]="eligibilityItemEntity.EligibilityItemFor" name="EligibilityItemFor" multiple
+                          title="{{globals.adminTranslationText.eligibilityItem.form.eligibilityItemFor.select}}"
+                          [ngClass]="{error: (EligibilityItemFor.dirty && EligibilityItemFor.invalid) || (EligibilityItemFor.pristine && submitted)}">
+
+                          <ng-container *ngFor="let eligibilityitem of eligibilityItemForList">
+                            <option [value]="eligibilityitem.ConfigurationId"
+                              [selected]="eligibilityItemEntity.EligibilityItemFor==eligibilityitem.RoleId">
+                              {{eligibilityitem.DisplayText}}</option>
+                          </ng-container>
+                        </select> -->
+                        <kendo-multiselect  [data]="eligibilityItemForList" [filterable]="false" [textField]="'DisplayText'" [valueField]="'ConfigurationId'"
+                        [valuePrimitive]="true" #EligibilityItemFor="ngModel"
+                        [(ngModel)]="eligibilityItemEntity.EligibilityItemFor" name="EligibilityItemFor" [ngClass]="{error: (EligibilityItemFor.dirty && EligibilityItemFor.invalid) || (EligibilityItemFor.pristine && submitted)}" required></kendo-multiselect >
+                        <span class="error_class"
+                          *ngIf="(EligibilityItemFor.dirty && EligibilityItemFor.invalid) || (EligibilityItemFor.pristine && submitted)">
+                          <span *ngIf="EligibilityItemFor.errors && EligibilityItemFor.errors.required">
+                            {{globals.adminTranslationText.eligibilityItem.form.eligibilityItemFor.required}}
+                          </span>
+                        </span>
+                      </div>
+                    </div>
+                    <div class="col-md-12 col-12 col-xl-12 col-lg-12 col-sm-12">
+                      <div class="form-group">
+                        <label><span>*</span>
+                          {{globals.adminTranslationText.eligibilityItem.form.eligibilityItemText.label}}</label>
+                        <textarea kendoTextArea required #EligibilityItemText="ngModel"
+                          [(ngModel)]="eligibilityItemEntity.EligibilityItemText" name="EligibilityItemText"
+                          id="EligibilityItemText" rows="10" cols="60" contenteditable="true"></textarea>
+                        <span class="error_class"
+                          *ngIf="des_valid">{{ globals.adminTranslationText.eligibilityItem.form.eligibilityItemText.required }}</span>
+                        <span class="error_class"
+                          *ngIf="EligibilityItemText_valid">{{ globals.adminTranslationText.eligibilityItem.form.eligibilityItemText.pattern }}</span>
+                      </div>
+                    </div>
+
+                    <div class="col-12 col-xl-4 col-lg-4 col-md-12 col-sm-12">
+                      <div class="form-group">
+                        <label
+                          class="mb-1"><span>*</span> {{globals.adminTranslationText.eligibilityItem.form.answerForEligibility.label}}</label>
+                        <div class="activeyes_box">
+                          <!-- <input type="checkbox" name="AnswerForEligibility" id="AnswerForEligibility" value="yes"
+                            #AnswerForEligibility="ngModel" [(ngModel)]="eligibilityItemEntity.AnswerForEligibility">
+                          <label for="AnswerForEligibility"></label> -->
+                          <kendo-switch [(ngModel)]="eligibilityItemEntity.AnswerForEligibility" value="yes" #AnswerForEligibility="ngModel" name="AnswerForEligibility" [onLabel]="'Y'"
+                          [offLabel]="'N'"></kendo-switch>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="col-12 col-xl-4 col-lg-4 col-md-12 col-sm-12">
+                      <div class="form-group">
+                        <label class="mb-1">
+                          {{globals.adminTranslationText.eligibilityItem.form.active.label}}</label>
+                        <div class="activeyes_box">
+                          <!-- <input type="checkbox" name="IsActive" id="IsActive" value="yes" #IsActive="ngModel"
+                            [(ngModel)]="eligibilityItemEntity.IsActive">
+                          <label for="IsActive"></label> -->
+                          <kendo-switch [(ngModel)]="eligibilityItemEntity.IsActive" value="yes" #IsActive="ngModel" name="IsActive" [onLabel]="'Y'"
+                          [offLabel]="'N'"></kendo-switch>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-12 col-12 col-lg-12 col-sm-12 text-center">
+                      <button class="all_btn theme_btn" type="submit" [disabled]="btn_disable">
+                        <span
+                          *ngIf="eligibilityItemEntity.EligibilityItemId == 0">{{globals.adminTranslationText.eligibilityItem.form.buttons.add}}</span>
+                        <span
+                          *ngIf="eligibilityItemEntity.EligibilityItemId != 0">{{globals.adminTranslationText.eligibilityItem.form.buttons.update}}</span>
+                      </button>
+                    </div>
+                  </div>
+                </form>
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- End Content -->
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</div>

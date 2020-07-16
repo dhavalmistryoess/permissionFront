@@ -1,0 +1,99 @@
+<div class="content_block">
+  <div class="container-fluid">
+    <div class="row">
+      <!-- Content -->
+      <div class="col-md-12 col-sm-12">
+        <div class="title_block">
+          <h2 class="float-left">{{globals.commonTranslationText.logs.emailLogList.title}}</h2>
+          <div class="breadcrumb_block float-left">
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item">
+                <a routerLink="/admin/adminDashboard">
+                  <i class="fa fa-home"></i>
+                </a>
+              </li>
+              <li class="breadcrumb-item"><a
+                  routerLink="/admin/email-log">{{globals.commonTranslationText.logs.emailLogList.breadcrumbTitle}}</a>
+              </li>
+              <li class="breadcrumb-item active" aria-current="page">
+                {{globals.commonTranslationText.logs.emailLogList.breadcrumbSubTitle}}</li>
+            </ol>
+          </div>
+          <div class="clearfix"></div>
+        </div>
+        <div class="row d-flex justify-content-center">
+          <div class="col-md-12 col-sm-12">
+            <div class="inner_content_block">
+              <div class="alert alert-{{globals.type}}" role="alert" *ngIf="globals.msgflag">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+                {{globals.message}}
+              </div>
+              <div class="table_block">
+                <!-- <table id="dataTables-example" style="width:100%" class="table table-hover">
+                        <thead>
+                          <tr>
+                            <th class="text-center sr_no_width">{{globals.commonTranslationText.logs.emailLogList.collumns.srNo}}</th>
+                            <th class="width_15">{{globals.commonTranslationText.logs.emailLogList.collumns.from}}</th>
+                            <th class="width_15">{{globals.commonTranslationText.logs.emailLogList.collumns.to}}</th>
+                            <th>{{globals.commonTranslationText.logs.emailLogList.collumns.subject}}</th>
+                            <th class="width_15">{{globals.commonTranslationText.logs.emailLogList.collumns.dateTime}}</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr *ngFor="let email of emailList; let i = index">
+                            <td class="text-center">{{i+1}}</td>
+                            <td>{{email.From}}</td>
+                            <td>{{email.To}}</td>
+                            <td>{{email.Subject}}</td>
+                            <td>{{email.CreatedOn | date : 'MM/dd/yyyy, h:mm a'}}</td>
+                          </tr>
+                          <tr *ngIf="emailList.length<=0">
+                            <td colspan="8">{{globals.commonTranslationText.logs.emailLogList.recordNotFound}}</td>
+                          </tr>
+                        </tbody>
+                      </table> -->
+                <kendo-grid [kendoGridBinding]="emailList" kendoGridSelectBy="id" [pageSize]="10" [pageable]="true"
+                  [groupable]="false" [reorderable]="false" [resizable]="false" [height]="auto" [sortable]="{
+                    allowUnsort: true,
+                    mode: 'single'
+                    }" [sort]="sort">
+
+                  <ng-template kendoGridToolbarTemplate>
+                    <input placeholder="Search in all columns..." kendoTextBox
+                      (input)="onFilter($event.target.value)" />
+                    <!-- <button kendoGridExcelCommand type="button" icon="file-excel" style="float:right;"></button>
+                    <button kendoGridPDFCommand icon="file-pdf" style="float:right;"></button>
+                    <button type="button" class="k-button" icon="file-pdf" style="float:right;" (click)="excelexport.save()">Export To Excel</button> -->
+                  </ng-template>
+                  <!-- <kendo-grid-column title="{{globals.commonTranslationText.logs.emailLogList.collumns.srNo}}"
+                    [width]="50">
+                    <ng-template kendoGridCellTemplate let-dataItem let-rowIndex="rowIndex">
+                      {{rowIndex+1}}
+                    </ng-template>
+                  </kendo-grid-column> -->
+                  <kendo-grid-column field="From"
+                    title="{{globals.commonTranslationText.logs.emailLogList.collumns.from}}">
+                  </kendo-grid-column>
+                  <kendo-grid-column field="To" title="{{globals.commonTranslationText.logs.emailLogList.collumns.to}}">
+                  </kendo-grid-column>
+                  <kendo-grid-column field="Subject"
+                    title="{{globals.commonTranslationText.logs.emailLogList.collumns.subject}}">
+                  </kendo-grid-column>
+                  <kendo-grid-column field="CreatedOn" title="{{globals.commonTranslationText.logs.emailLogList.collumns.dateTime}}">
+                    <ng-template kendoGridCellTemplate let-dataItem>
+                      <span>{{dataItem.CreatedOn | date : 'MM/dd/yyyy, h:mm a'}}</span>
+                    </ng-template>
+                  </kendo-grid-column>
+                </kendo-grid>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- End Content -->
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</div>

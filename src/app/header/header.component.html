@@ -1,0 +1,285 @@
+<header class="admin_header">
+  <div class="container-fluid">
+    <div class="row" *ngIf="globals.authData!=undefined">
+      <div class="col-md-3 col-3 col-lg-3 col-xl-3 col-sm-2">
+        <div class="header_logo mobile_logo" *ngIf="globals.authData!=undefined && globals.authData.RoleId ==1"><a routerLink="/admin/adminDashboard"><img
+              src="assets/images/logo.png" alt="" class="img-fluid" /></a>
+        </div>
+        <div class="header_logo" *ngIf="globals.authData!=undefined && globals.authData.RoleId == 3"><a
+            routerLink="/dashboard"><img src="assets/images/logo.png" alt="" class="img-fluid" /></a>
+        </div>
+        <div class="header_logo" *ngIf="globals.authData!=undefined && (globals.authData.RoleId == 2 || globals.authData.RoleId == 4)"><a
+            routerLink="/proctorDashboard"><img src="assets/images/logo.png" alt="" class="img-fluid" /></a>
+        </div>
+      </div>
+      <!-- Navigation -->
+      <div class="col-md-9 col-9 col-lg-9 col-xl-9 col-sm-10">
+        <div class="user_dropdown float-right dropdown">
+          <button class="dropdown-toggle user_button" id="dropdownMenuButton" data-toggle="dropdown"
+            aria-haspopup="true">
+            <span class="letters">{{globals.authData.FirstName.charAt(0)}}{{globals.authData.LastName.charAt(0)}}</span>
+            <!--<img src="assets/images/user.jpg" alt="" class="img-fluid" /> -->
+            <span class="name">{{globals.authData.FirstName}} {{globals.authData.LastName}}</span>
+            <i class="fa fa-angle-down"></i>
+          </button>
+          <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+            <li class="email_name">
+              <i class="fa fa-envelope"></i> {{globals.authData.EmailAddress}}
+            </li>
+            <!-- globals.currentModule!='admin' ||  -->
+
+            <li class="dashboard_list" *ngIf="globals.authData.RoleId ==2 || globals.authData.RoleId == 4">
+              <ul>
+                <li><a routerLink="/proctorDashboard">Proctor Dashboard</a></li>
+                <li *ngIf="globals.authData.RoleId ==4"><a routerLink="/dashboard" >Candidate Dashboard</a></li>
+              </ul>
+            </li>
+
+
+            <li *ngIf="globals.authData.RoleId==1">
+              <a routerLink="/admin/adminDashboard" target="_blank">
+                <i class="fa fa-external-link"></i>Admin Panel</a>
+            </li>
+            <li>
+              <a routerLink="/profile">
+                <i class="fa fa-edit"></i>{{globals.commonTranslationText.header.profileDropdown.profile}}</a>
+            </li>
+            <li class="sign_btn">
+              <button class="theme_btn all_btn" type="submit" (click)="logout()">
+                {{globals.commonTranslationText.header.profileDropdown.logout}}
+              </button>
+            </li>
+          </ul>
+        </div>
+        <div class="user_dropdown notification_block dropdown">
+          <button class="dropdown-toggle" data-toggle="dropdown" id="notification" aria-haspopup="true"
+            aria-expanded="false" (click)="notificationshow();">
+            <i class="fa fa-bell-o"></i>
+            <span *ngIf="PendingNotification>0" class="blink_me">{{PendingNotification}}</span>
+          </button>
+          <ul class="dropdown-menu notification_width" aria-labelledby="notification">
+            <li *ngIf="recentNotifications.length>0" class="email_name">
+              <!-- {{PendingNotification}}
+              {{globals.commonTranslationText.header.notification.newNotification}} -->
+              <span>{{globals.commonTranslationText.header.notification.title}}</span>
+            </li>
+            <li *ngIf="recentNotifications.length==0" class="email_name">
+              {{globals.commonTranslationText.header.notification.noRecentNotification}}
+            </li>
+            <div class="height_notification">
+              <ul class="notification_list " *ngIf="recentNotifications.length>0">
+                <li *ngFor="let notifications of recentNotifications">
+                  <p>{{notifications.NotificationText}}</p>
+                  <a (click)="clearNotification(notifications)">&nbsp;&nbsp;<i class="fa fa-times"></i></a>
+                  <span class="float-right"
+                    *ngIf="(currentDate | date : 'yyyy/MM/dd') == (notifications.CreatedOn | date : 'yyyy/MM/dd')">{{notifications.CreatedOn | date : 'h:mm a'}}</span>
+                  <span class="float-right"
+                    *ngIf="(yesterdayDate | date : 'yyyy/MM/dd') == (notifications.CreatedOn | date : 'yyyy/MM/dd')">{{globals.commonTranslationText.common.label.yesterday}},
+                    {{notifications.CreatedOn | date : 'h:mm a'}}</span>
+                  <span class="float-right"
+                    *ngIf="((yesterdayDate | date : 'yyyy/MM/dd') != (notifications.CreatedOn | date : 'yyyy/MM/dd')) && ((currentDate | date : 'yyyy/MM/dd') != (notifications.CreatedOn | date : 'yyyy/MM/dd')) && ((beforeWeekDate | date : 'yyyy/MM/dd') <= (notifications.CreatedOn | date : 'yyyy/MM/dd'))">
+                    {{notifications.CreatedOn | date : 'EEE, h:mm a'}}</span>
+                  <span class="float-right"
+                    *ngIf="((beforeWeekDate | date : 'yyyy/MM/dd') > (notifications.CreatedOn | date : 'yyyy/MM/dd'))">
+                    {{notifications.CreatedOn | date : 'MMM dd, yyyy, h:mm a'}}</span>
+                </li>
+              </ul>
+            </div>
+            <div class="notification_btn_footer">
+              <a class="view_older_notification float-left" routerLink="/notifications"><i class="fa fa-eye"></i>
+                {{globals.commonTranslationText.header.notification.viewOlderNotification}}</a>
+              <a *ngIf="recentNotifications.length>0" (click)="clearAllNotification(notifications)"
+                class="view_all_notification float-right">{{globals.commonTranslationText.header.notification.clearAllNotification}}</a>
+            </div>
+          </ul>
+        </div>
+        <button class="float-right mobile_toggle" *ngIf="globals.authData.RoleId == 1"></button>
+        <!-- <div class="become_p_c float-right" *ngIf="globals.authData.RoleId==4 && globals.authData.RoleId!=1">
+          <a routerLink="/dashboard">Candidate Dashboard</a>
+          
+        </div> -->
+        <div class="become_p_c float-right" *ngIf="globals.authData.RoleId==3 && globals.authData.RoleId!=1">
+          <button (click)="getCertificates(0)"><img src="assets/images/proctor.png" class="img-fluid" alt="" /> Become a
+            Proctor</button><!--pass 0 for not listing certificate buy as candidate-->
+          <!-- data-target="#become_popup" -->
+        </div>
+        <div class="become_p_c float-right" *ngIf="globals.authData.RoleId==2 && globals.authData.RoleId!=1">
+          <button (click)="getCertificates(1)"><img src="assets/images/candidate.png" class="img-fluid" alt="" /> Become
+            a Candidate</button><!--pass 1 for not listing certificate buy as proctor-->
+          <!-- data-target="#become_popup" -->
+        </div>
+        <div class="role_label float-right" *ngIf="globals.authData.RoleId!=1">
+          <label>
+            <ng-container *ngIf="(globals.authData.RoleId==4 || globals.authData.RoleId==3)">
+              <a routerLink="/dashboard" class="pr-3"><img src="assets/images/candidate.png" class="img-fluid"
+                  alt="" />Candidate</a>
+            </ng-container>
+            <ng-container *ngIf="globals.authData.RoleId==4">
+              |
+            </ng-container>
+            <ng-container *ngIf="(globals.authData.RoleId==4 || globals.authData.RoleId==2)">
+              <a routerLink="/proctorDashboard" class="pl-3"><img src="assets/images/proctor.png" class="img-fluid"
+                  alt="" />Proctor</a>
+            </ng-container>
+          </label>
+        </div>
+        <!-- <div class="become_p_c float-right" *ngIf="globals.authData.RoleId==4">
+          <button ><img src="assets/images/candidate.png" class="img-fluid" alt="" /><a routerLink="/dashboard">Candidate Dashboard </a></button>
+        </div>
+		<div class="become_p_c float-right" *ngIf="globals.authData.RoleId==4">
+          <button ><img src="assets/images/candidate.png" class="img-fluid" alt="" />	<a routerLink="/proctorDashboard">Proctor Dashboard</a></button>
+        </div> -->
+
+      </div>
+      <!-- End Navigation -->
+      <div class="clearfix"></div>
+    </div>
+    <div class="row" *ngIf="globals.authData==undefined || globals.authData==null">
+      <div class="col-md-3 col-3 col-lg-3 col-xl-3 col-sm-2">
+        <div class="header_logo" ><a
+            routerLink="/login"><img src="assets/images/logo.png" alt="" class="img-fluid" /></a>
+        </div>
+      </div>
+      <div class="col-md-9 col-9 col-lg-9 col-xl-9 col-sm-10 text-right mt-4">
+        <a routerLink="/login">Login</a>  |  <a routerLink="/register">Register</a>
+      </div>
+    </div>
+  </div>
+</header>
+<div class="fixed_btn_block">
+  <ul *ngIf="globals.authData!=undefined">
+    <li *ngIf="globals.authData.RoleId ==2 || globals.authData.RoleId == 4"><a routerLink="/attendanceSheet" data-placement="left" title="Attendance Sheet">
+        <i class="fa fa-file-text-o"></i></a></li>
+    <li *ngIf="globals.authData.RoleId ==2 || globals.authData.RoleId == 4"><a routerLink="/proctorList" data-placement="left" title="Proctoring List">
+        <i class="fa fa-list"></i></a></li>
+    <li><a routerLink="/inquire" data-placement="left"
+        title="{{globals.commonTranslationText.header.profileDropdown.contact}}">
+        <i class="fa fa-phone"></i></a></li>
+    <li *ngIf="globals.authData.RoleId ==1"><a routerLink="/admin/activity-log" data-placement="left"
+        title="{{globals.commonTranslationText.header.logs.title}}">
+        <i class="fa fa-sliders"></i></a></li>
+    <li *ngIf="globals.authData.RoleId ==1"><a routerLink="/admin/settings" data-placement="left"
+        title="{{globals.commonTranslationText.header.settings.title}}">
+        <i class="fa fa-cogs"></i></a></li>
+  </ul>
+  <ul *ngIf="globals.authData==undefined || globals.authData==null">
+    <li><a routerLink="/inquire" data-placement="left"
+      title="{{globals.commonTranslationText.header.profileDropdown.contact}}">
+      <i class="fa fa-phone"></i></a></li>
+  </ul>
+</div>
+<div *ngIf="globals.authData!=undefined" class="modal fade" id="become_popup" tabindex="-1" role="dialog" aria-labelledby="become_popupLabel"
+  aria-hidden="true">
+  <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="become_popupLabel" *ngIf="globals.authData.RoleId==3">Become a Proctor<img
+            src="assets/images/proctor.png" class="img-fluid" alt="" /></h5>
+        <h5 class="modal-title" id="become_popupLabel" *ngIf="globals.authData.RoleId==2">Become a Candidate<img
+            src="assets/images/proctor.png" class="img-fluid" alt="" /></h5>
+        <h5 class="modal-title" id="become_popupLabel" *ngIf="globals.authData.RoleId==4">
+          <a routerLink="/proctorDashboard">Proctor Dashboard</a>
+          <img src="assets/images/proctor.png" class="img-fluid" alt="" />
+        </h5>
+        <!-- <h5 class="modal-title" id="become_popupLabel" *ngIf="globals.authData.RoleId==4">
+		    <a routerLink="/dashboard">Candidate Dashboard </a>
+			<img src="assets/images/proctor.png" class="img-fluid" alt="" />	
+		</h5>            -->
+
+
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <form role="form" #registerForm="ngForm" (ngSubmit)="register(registerForm)">
+        <div class="modal-body pr-0 pl-0">
+          <div class="table_block">
+            <!-- <table id="list_tables1" class="table table-hover" style="width:100%">
+              <thead>
+                <tr>
+                  <th class="text-center sr_no_width"></th>
+                  <th class="text-center sr_no_width">
+                    {{globals.commonTranslationText.certificate.list.collumns.srNo}}</th>
+                  <th class="">{{globals.commonTranslationText.certificate.list.collumns.Certificate}}</th>
+                  <th class="text-right width_10">
+                    {{globals.commonTranslationText.certificate.list.collumns.Price}}</th>
+                  <th class=" width_15">{{globals.commonTranslationText.certificate.list.collumns.ReleaseDate}}
+                  </th>
+                  <!-- <th class="text-center action_width">{{globals.commonTranslationText.certificate.list.collumns.actions}}
+                  </th> --
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let Certificate of certificateList; let i = index">
+                  <td class="text-center">
+                    <!-- <div class="check_box checkBoxClass"><input type="checkbox" [(ngModel)]="CertificatesNewlist[i].Check" name="Check{{i}}"
+                            (click)="Subcheck(Certificate.Checksub,i)" [checked]="Certificate.Checksub" id="Check{{i}}">
+                          </div> --
+                    <div class="check_box mr-0 table_list_checkbox">
+                      <input type="checkbox" [(ngModel)]="certificateList[i].Check" name="Check1{{i}}"
+                        [checked]="Certificate.Checksub" id="Check1{{i}}">
+                      <label for="Check1{{i}}" class="pt-0"></label>
+                    </div>
+                  </td>
+                  <td class="text-center">{{i+1}}</td>
+                  <td>{{Certificate.CertificateName}}</td>
+                  <td class="text-right">$ {{Certificate.USDPrice}}</td>
+                  <td>{{Certificate.ReleaseDate}}</td>
+                  <!-- <td class="text-center">
+                    <button class="edit"><i class="fa fa-eye"></i></button>
+                  </td> --
+                </tr>
+                <tr *ngIf="certificateList.length == 0">
+                  <td colspan="6">{{globals.commonTranslationText.certificate.list.recordNotFound}}</td>
+                </tr>
+              </tbody>
+            </table> -->
+
+            <kendo-grid [kendoGridBinding]="certificateList" kendoGridSelectBy="id" [pageSize]="10" [pageable]="true"
+            [groupable]="false" [reorderable]="false" [resizable]="false" [height]="auto" [sortable]="{
+              allowUnsort: true,
+              mode: 'single'
+              }" [sort]="sort">
+
+            <ng-template kendoGridToolbarTemplate>
+              <input placeholder="Search in all columns..." kendoTextBox (input)="onFilter($event.target.value)" />
+              <!-- <button kendoGridExcelCommand type="button" icon="file-excel" style="float:right;"></button>
+                    <button kendoGridPDFCommand icon="file-pdf" style="float:right;"></button>
+                    <button type="button" class="k-button" icon="file-pdf" style="float:right;" (click)="excelexport.save()">Export To Excel</button> -->
+            </ng-template>
+            <kendo-grid-column class="text-center" [width]="150">
+              <ng-template kendoGridCellTemplate let-dataItem let-rowIndex="rowIndex">
+                <div class="check_box mr-0 table_list_checkbox">
+                  <input type="checkbox" [(ngModel)]="dataItem.Check" name="check{{rowIndex}}"
+                    [checked]="dataItem.Checksub" id="check{{rowIndex}}"><!--(click)="Subcheck(dataItem.Checksub,rowIndex)"-->
+                  <label for="check{{rowIndex}}" class="pt-0"></label>
+                </div>
+              </ng-template>
+            </kendo-grid-column>
+            <!-- <kendo-grid-column title="{{globals.commonTranslationText.certificate.list.collumns.srNo}}" [width]="50">
+              <ng-template kendoGridCellTemplate let-dataItem let-rowIndex="rowIndex">
+                {{rowIndex+1}}
+              </ng-template>
+            </kendo-grid-column> -->
+            <kendo-grid-column field="CertificateName"
+              title="{{globals.commonTranslationText.certificate.list.collumns.Certificate}}">
+            </kendo-grid-column>
+            <kendo-grid-column field="CertificateURL"
+              title="{{globals.commonTranslationText.certificate.list.collumns.externalLink}}">
+              
+            </kendo-grid-column>
+
+          </kendo-grid>
+          </div>
+
+        </div>
+        <div class="modal-footer">
+          <button data-toggle="tooltip" [attr.title]="reg_disable ? 'No certificates available.' : '' " data-placement="top" type="submit" class="all_btn theme_btn float-right" [disabled]="reg_disable">Register
+          </button>
+          <div class="clearfix"></div>
+        </div>
+      </form>
+
+    </div>
+  </div>
+</div>

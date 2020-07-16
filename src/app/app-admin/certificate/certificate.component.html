@@ -1,0 +1,1063 @@
+<div class="content_block">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12 col-sm-12">
+        <div class="title_block">
+          <h2 class="float-left" *ngIf="certificateEntity.CertificateId == 0">
+            {{globals.adminTranslationText.certificate.form.title.add}}</h2>
+          <h2 class="float-left" *ngIf="certificateEntity.CertificateId != 0">
+            {{globals.adminTranslationText.certificate.form.title.update}}</h2>
+          <div class="breadcrumb_block float-left">
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item">
+                <a routerLink="/admin/adminDashboard">
+                  <i class="fa fa-home"></i>
+                </a>
+              </li>
+              <li class="breadcrumb-item"><a
+                  routerLink="/admin/certificate/list">{{globals.adminTranslationText.certificate.form.breadcrumbTitle}}</a>
+              </li>
+              <li class="breadcrumb-item active" aria-current="page" *ngIf="certificateEntity.CertificateId == 0">
+                {{globals.adminTranslationText.certificate.form.breadcrumbSubTitle.add}}</li>
+              <li class="breadcrumb-item active" aria-current="page" *ngIf="certificateEntity.CertificateId != 0">
+                {{globals.adminTranslationText.certificate.form.breadcrumbSubTitle.update}}</li>
+            </ol>
+          </div>
+          <a routerLink="/admin/certificate/list"
+            class="all_btn themeoption_btn float-right">{{globals.adminTranslationText.certificate.form.buttons.backToList}}</a>
+          <div class="clearfix"></div>
+        </div>
+        <div class="row d-flex justify-content-center">
+          <div class="col-md-12 col-sm-12">
+            <div class="inner_content_block">
+              <div class="certificate_tab_block">
+                <!-- Anand Tab Code -->
+                <div class="cert_info">
+                  <strong>Information</strong>
+                  <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
+                    industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type
+                    and
+                    scrambled it to make a type specimen book. It has survived not only five centuries, but also the
+                    leap
+                    into electronic typesetting, remaining essentially unchanged.</p>
+                </div>
+
+                <div class="profile_step_block">
+                  <ul class="nav nav-tabs" id="ProfileTab" role="tablist">
+                    <li class="nav-item">
+                      <a class="nav-link active" id="personal-info-tab" data-toggle="tab" href="#personal-info"
+                        role="tab" aria-controls="personal_info" aria-selected="true"><span><i
+                            class="fa fa-user"></i></span>
+                        Step 1</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" id="address-info-tab" data-toggle="tab" href="#address-info" role="tab"
+                        aria-controls="address_info" aria-selected="false"><span><i
+                            class="fa fa-map-marker"></i></span>
+                        Step 2</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" id="change-pwsd-tab" data-toggle="tab" href="#change-pwsd" role="tab"
+                        aria-controls="change_pwsd" aria-selected="false"><span><i class="fa fa-key"></i></span>
+                        Step 3</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" id="document-tab" data-toggle="tab" href="#document" role="tab"
+                        aria-controls="document" aria-selected="false"><span><i
+                            class="fa fa-file-o"></i></span>
+                        Step 4</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" id="document1-tab" data-toggle="tab" href="#document1" role="tab"
+                        aria-controls="document1" aria-selected="false"><span><i
+                            class="fa fa-history"></i></span>
+                            Step 5</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" id="history-tab" data-toggle="tab" href="#history" role="tab"
+                        aria-controls="history" aria-selected="false"><span><i
+                            class="fa fa-history"></i></span>
+                        Certificate Price</a>
+                    </li>
+                  </ul>
+                </div>
+                <div class="paddin_form">
+                  <div id="accordion" class="mobile_accordion">
+                    <div class="tab-content" id="ProfileTabContent">
+                      <div class="tab-pane fade show active" id="personal-info" role="tabpanel"
+                        aria-labelledby="personal-info-tab">
+                        <div class="card mobile_accordion_cards">
+                          <div class="card-header mobile_header" id="headingOne">
+                            <button data-toggle="collapse" data-target="#collapseOne" aria-expanded="true"
+                              aria-controls="collapseOne">
+                              <i class="fa fa-user"></i>
+                              Step 1
+                            </button>
+                          </div>
+                          <div id="collapseOne" class="collapse show mobile_collapse" aria-labelledby="headingOne"
+                            data-parent="#accordion">
+                            <div class="card-body mobile_body">
+                              <form class="certificate_form" role="form" #certificateForm1="ngForm"
+                  (ngSubmit)="addCertificateSubmit1(certificateForm1)">
+                              <div class="row">
+                                <div class="col-md-12 col-12 col-xl-4 col-lg-4 col-sm-12">
+                                  <div class="form-group">
+                                    <label>{{globals.adminTranslationText.certificate.form.parentCertificate.label}}</label>
+                                    <kendo-dropdownlist [data]="CertificateList" [filterable]="false"
+                                      [textField]="'CertificateName'" [valueField]="'CertificateId'" [valuePrimitive]="true"
+                                      #ParentCertificateId="ngModel" [(ngModel)]="certificateEntity.ParentCertificateId"
+                                      name="ParentCertificateId"
+                                      [disabled]="(currentDate | date:'yyyy-MM-dd') >= (newDate | date:'yyyy-MM-dd')">
+                                    </kendo-dropdownlist>
+                                  </div>
+                                </div>
+                                <div class="col-md-12 col-12 col-xl-4 col-lg-4 col-sm-12">
+                                  <div class="form-group">
+                                    <label><span>*</span>
+                                      {{globals.adminTranslationText.certificate.form.certificateName.label}}</label>
+                                    <input type="text" class="form-control" #CertificateName="ngModel"
+                                      [(ngModel)]="certificateEntity.CertificateName"
+                                      (blur)="checktheCertificateName($event)"
+                                      [ngClass]="{error: (CertificateName.dirty && CertificateName.invalid) || (CertificateName.pristine && submitted) || checkCertificateName || checkCertificateNameExists}"
+                                      name="CertificateName" id="CertificateName" pattern="^[0-9a-zA-Z.][\s0-9a-zA-Z.]*"
+                                      maxlength="40" [disabled]="(currentDate | date:'yyyy-MM-dd') >= (newDate | date:'yyyy-MM-dd')"
+                                      required>
+                                    <span class="error_class"
+                                      *ngIf="(CertificateName.dirty && CertificateName.invalid) || (CertificateName.pristine && submitted) || (errorEntity.CertificateName) ">
+                                      <!-- <span
+                                        *ngIf="(CertificateName.errors.required) || (CertificateName.pristine && submitted)">{{globals.adminTranslationText.certificate.form.certificateName.required}}</span>
+                                      <span
+                                        *ngIf="CertificateName.errors && CertificateName.errors.pattern">{{globals.adminTranslationText.certificate.form.certificateName.pattern}}</span> -->
+                                        <span *ngIf="errorEntity.CertificateName != ''">
+                                          {{errorEntity.CertificateName}}
+                                        </span>
+                                    </span>
+                                    <span class="error_class"
+                                      *ngIf="checkCertificateName || checkCertificateNameExists">
+                                         <span
+                                        *ngIf="checkCertificateName || checkCertificateNameExists">{{globals.adminTranslationText.certificate.form.certificateName.certificateExists}}</span>
+                                    </span>
+                                  </div>
+                                </div>
+                                <div class="col-md-12 col-12 col-xl-4 col-lg-4 col-sm-12">
+                                  <div class="form-group">
+                                    <label><span>*</span>
+                                      {{globals.adminTranslationText.certificate.form.versionName.label}}</label>
+                                    <input type="text" class="form-control" #VersionName="ngModel"
+                                      [(ngModel)]="certificateEntity.VersionName"
+                                      [ngClass]="{error: (VersionName.dirty && VersionName.invalid) || (VersionName.pristine && submitted)}"
+                                      name="VersionName" id="VersionName" pattern="[a-zA-Z0-9\-.',\s]{2,}" maxlength="100"
+                                      [disabled]="(currentDate | date:'yyyy-MM-dd') >= (newDate | date:'yyyy-MM-dd')" required>
+                                    <span class="error_class"
+                                      *ngIf="(VersionName.dirty && VersionName.invalid) || (VersionName.pristine && submitted)">
+                                      <span
+                                        *ngIf="VersionName.errors.required || (VersionName.pristine && submitted)">{{globals.adminTranslationText.certificate.form.versionName.required}}</span>
+                                      <span
+                                        *ngIf="VersionName.errors && VersionName.errors.pattern">{{globals.adminTranslationText.certificate.form.versionName.pattern}}</span>
+                                    </span>
+                                  </div>
+                                </div>
+                                <div class="col-md-12 col-12 col-xl-4 col-lg-4 col-sm-12">
+                                  <div class="form-group">
+                                    <label><span>*</span>
+                                      {{globals.adminTranslationText.certificate.form.releaseDate.label}}</label>
+                                    <kendo-datepicker [(ngModel)]="certificateEntity.ReleaseDate" #ReleaseDate="ngModel" 
+                                      [format]="'MM/dd/yyyy'" name="ReleaseDate" id="ReleaseDate" (blur)="ReleaseValidDate=false"
+                                      [ngClass]="{'error': ReleaseValidDate || smallDate}" [min] = "minDate1"
+                                      [disabled]="(currentDate | date:'yyyy-MM-dd') >= (newDate | date:'yyyy-MM-dd')" readonly>
+                                    </kendo-datepicker> 
+                                    <!--[min] = "minDate" -->
+                                    <span class="error_class" *ngIf="ReleaseValidDate || smallDate">
+                                      <span *ngIf="ReleaseValidDate">
+                                        {{globals.adminTranslationText.certificate.form.releaseDate.required}}
+                                      </span>
+                                      <span *ngIf="smallDate">
+                                        {{globals.adminTranslationText.certificate.form.releaseDate.validDate}}
+                                      </span>
+                                    </span>
+                                  </div>
+                                </div>
+                                <div class="col-md-12 col-12 col-xl-4 col-lg-4 col-sm-12">
+                                  <div class="form-group">
+                                    <label><span>*</span>
+                                      {{globals.adminTranslationText.certificate.form.validUpto.label}}</label>
+                                    <kendo-datepicker [(ngModel)]="certificateEntity.ValidUpto" #ValidUpto="ngModel"
+                                    [min] = "minDate" [format]="'MM/dd/yyyy'" name="ValidUpto" id="ValidUpto" (blur)="changeActive()"
+                                      [ngClass]="{'error': ValidUptoDate}" readonly></kendo-datepicker>
+                                    <span class="error_class" *ngIf="ValidUptoDate">
+                                      <span *ngIf="ValidUptoDate">
+                                        {{globals.adminTranslationText.certificate.form.validUpto.required}}
+                                      </span>
+                                    </span>
+                                  </div>
+                                </div>
+                                <div class="col-md-12 col-12 col-xl-4 col-lg-4 col-sm-12">
+                                  <div class="form-group">
+                                    <label><span>*</span>
+                                      {{globals.adminTranslationText.certificate.form.certificateURL.label}}</label>
+                                    <input class="form-control" type="url" #CertificateURL="ngModel"
+                                      [(ngModel)]="certificateEntity.CertificateURL"
+                                      [ngClass]="{error: (CertificateURL.dirty && CertificateURL.invalid) || (CertificateURL.pristine && submitted)}"
+                                      name="CertificateURL" id="CertificateURL"
+                                      pattern="^(?:http(s)?:\/\/)?[\w.-]+(?:\.[\w\.-]+)+[\w\-\._~:/?#[\]@!\$&'\(\)\*\+,;=.]+$"
+                                      maxlength="100" required>
+            
+                                    <span class="error_class"
+                                      *ngIf="(CertificateURL.dirty && CertificateURL.invalid) || (CertificateURL.pristine && submitted)">
+                                      <span
+                                        *ngIf="CertificateURL.errors.required || (CertificateURL.pristine && submitted)">{{globals.adminTranslationText.certificate.form.certificateURL.required}}</span>
+                                      <span
+                                        *ngIf="CertificateURL.errors && CertificateURL.errors.pattern">{{globals.adminTranslationText.certificate.form.certificateURL.pattern}}</span>
+                                    </span>
+                                  </div>
+                                </div>
+                                </div>
+                                <div class="row">
+                                  <div class="col-md-12 col-12 col-lg-12 col-sm-12">
+                                    <button class="all_btn theme_btn float-right" type="submit">
+                                      Next
+                                    </button>
+                                    <div class="clearfix"></div>
+                                  </div>
+                                </div>
+                                </form>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="clearfix"></div>
+                      </div>
+                      <div class="tab-pane fade" id="address-info" role="tabpanel" aria-labelledby="address-info-tab">
+                        <div class="card mobile_accordion_cards">
+                          <div class="card-header mobile_header" id="headingTwo">
+                            <button class="collapsed" data-toggle="collapse" data-target="#collapseTwo"
+                              aria-expanded="false" aria-controls="collapseTwo">
+                              <i class="fa fa-map-marker"></i>
+                              Step 2
+                            </button>
+                          </div>
+                          <div id="collapseTwo" class="collapse mobile_collapse" aria-labelledby="headingTwo"
+                            data-parent="#accordion">
+                            <div class="card-body mobile_body">
+                              <div class="row">
+                              <form class="certificate_form" role="form" #certificateForm2="ngForm"
+                  (ngSubmit)="addCertificateSubmit2(certificateForm2)">
+                              <div class="col-md-12 col-12 col-xl-12 col-lg-12 col-sm-12">
+                                <div class="form-group">
+                                  <label><span>*</span>
+                                    {{globals.adminTranslationText.certificate.form.certificateDescription.label}}</label>
+                                  <textarea kendoTextArea #Description="ngModel" [(ngModel)]="certificateEntity.Description"
+                                    name="Description" id="Description" rows="10" cols="60" contenteditable="true"></textarea>
+                                  <span class="error_class"
+                                    *ngIf="des_valid">{{ globals.adminTranslationText.certificate.form.certificateDescription.required }}</span>
+                                  <span class="error_class"
+                                    *ngIf="Description_valid">{{ globals.adminTranslationText.certificate.form.certificateDescription.pattern}}</span>
+                                </div>
+                              </div>
+                              <div class="col-md-12 col-12 col-xl-12 col-lg-12 col-sm-12">
+                                <div class="form-group">
+                                  <label>{{globals.adminTranslationText.certificate.form.features.label}}</label>
+                                  <textarea kendoTextArea #Features="ngModel" [(ngModel)]="certificateEntity.Features"
+                                    name="Features" id="Features" rows="10" cols="60" contenteditable="true"></textarea>
+                                </div>
+                              </div>
+                             
+                                <div class="col-md-12 col-12 col-lg-12 col-sm-12">
+                                  <button class="all_btn themeoption_btn float-left" type="button" (click)="previous()">
+                                    Previous
+                                  </button>
+                                  <button class="all_btn theme_btn float-right" type="submit">
+                                    Next
+                                  </button>
+                                  <div class="clearfix"></div>
+                                </div>
+                             
+                              </form>
+                            </div></div>
+                          </div>
+                        </div>
+                        <div class="clearfix"></div>
+                      </div>
+                      <div class="tab-pane fade" id="change-pwsd" role="tabpanel" aria-labelledby="change-pwsd-tab">
+                        <div class="card mobile_accordion_cards">
+                          <div class="card-header mobile_header" id="headingThree">
+                            <button class="collapsed" data-toggle="collapse" data-target="#collapseThree"
+                              aria-expanded="false" aria-controls="collapseThree">
+                              <i class="fa fa-key"></i>
+                              Step 3
+                            </button>
+                          </div>
+                          <div id="collapseThree" class="collapse mobile_collapse" aria-labelledby="headingThree"
+                            data-parent="#accordion">
+                            <div class="card-body mobile_body">
+                              <form class="certificate_form" role="form" #certificateForm3="ngForm"
+                              (ngSubmit)="addCertificateSubmit3(certificateForm3)">
+                              <div class="row">
+                              <div class="col-md-12 col-12 col-xl-4 col-lg-6 col-sm-12">
+                                <div class="form-group">
+                                  <label>{{globals.adminTranslationText.certificate.form.certificationDuration.label}}</label>
+                                  <input class="form-control" type="text" #CertificationDuration="ngModel"
+                                    [(ngModel)]="certificateEntity.CertificationDuration"
+                                    [ngClass]="{error: (CertificationDuration.dirty && CertificationDuration.invalid)}"
+                                    name="CertificationDuration" id="CertificationDuration" pattern="" maxlength="2"
+                                    [disabled]="(currentDate | date:'yyyy-MM-dd') >= (newDate | date:'yyyy-MM-dd')">
+          
+                                  <span class="error_class"
+                                    *ngIf="(CertificationDuration.dirty && CertificationDuration.invalid)">
+                                    <span
+                                      *ngIf="CertificationDuration.errors && CertificationDuration.errors.pattern">{{globals.adminTranslationText.certificate.form.certificationDuration.pattern}}</span>
+                                  </span>
+                                </div>
+                              </div>
+                              <div class="col-md-12 col-12 col-xl-4 col-lg-6 col-sm-12">
+                                <div class="form-group">
+                                  <label><span>*</span>
+                                    {{globals.adminTranslationText.certificate.form.assessmentDuration.label}}</label>
+                                  <input class="form-control" type="text" #AssessmentDuration="ngModel"
+                                    [(ngModel)]="certificateEntity.AssessmentDuration"
+                                    [ngClass]="{error: (AssessmentDuration.dirty && AssessmentDuration.invalid) || (AssessmentDuration.pristine && submitted1)}"
+                                    name="AssessmentDuration" id="AssessmentDuration" pattern="[1-9\',\s]{1,}" maxlength="1"
+                                    [disabled]="(currentDate | date:'yyyy-MM-dd') >= (newDate | date:'yyyy-MM-dd')" required>
+          
+                                  <span class="error_class"
+                                    *ngIf="(AssessmentDuration.dirty && AssessmentDuration.invalid) || (AssessmentDuration.pristine && submitted1)">
+                                    <span
+                                      *ngIf="AssessmentDuration.errors.required || (AssessmentDuration.pristine && submitted1)">{{globals.adminTranslationText.certificate.form.assessmentDuration.required}}</span>
+                                    <span
+                                      *ngIf="AssessmentDuration.errors && AssessmentDuration.errors.pattern">{{globals.adminTranslationText.certificate.form.assessmentDuration.pattern}}</span>
+                                  </span>
+                                </div>
+                              </div>
+                              <div class="col-md-12 col-12 col-xl-4 col-lg-6 col-sm-12">
+                                <div class="form-group">
+                                  <label><span>*</span>
+                                    {{globals.adminTranslationText.certificate.form.assessmentStartAfterDaysForCandidate.label}}</label>
+                                  <input class="form-control" type="text" #ScheduleAfterDaysForCandidate="ngModel"
+                                    [(ngModel)]="certificateEntity.ScheduleAfterDaysForCandidate"
+                                    [ngClass]="{error: (ScheduleAfterDaysForCandidate.dirty && ScheduleAfterDaysForCandidate.invalid) || (ScheduleAfterDaysForCandidate.pristine && submitted1)}"
+                                    name="ScheduleAfterDaysForCandidate" id="ScheduleAfterDaysForCandidate"
+                                    pattern="[0-9\',\s]{1,}" maxlength="2" required>
+          
+                                  <span class="error_class"
+                                    *ngIf="(ScheduleAfterDaysForCandidate.dirty && ScheduleAfterDaysForCandidate.invalid) || (ScheduleAfterDaysForCandidate.pristine && submitted1)">
+                                    <span
+                                      *ngIf="ScheduleAfterDaysForCandidate.errors.required || (ScheduleAfterDaysForCandidate.pristine && submitted1)">{{globals.adminTranslationText.certificate.form.assessmentStartAfterDaysForCandidate.required}}</span>
+                                    <span
+                                      *ngIf="ScheduleAfterDaysForCandidate.errors && ScheduleAfterDaysForCandidate.errors.pattern">{{globals.adminTranslationText.certificate.form.assessmentStartAfterDaysForCandidate.pattern}}</span>
+                                  </span>
+                                </div>
+                              </div>
+                              <div class="col-md-12 col-12 col-xl-4 col-lg-6 col-sm-12">
+                                <div class="form-group">
+                                  <label><span>*</span>
+                                    {{globals.adminTranslationText.certificate.form.rescheduleAssessment.label}}</label>
+                                  <input class="form-control" type="text" #RescheduleAssessment="ngModel"
+                                    [(ngModel)]="certificateEntity.RescheduleAssessment"
+                                    [ngClass]="{error: (RescheduleAssessment.dirty && RescheduleAssessment.invalid) || (RescheduleAssessment.pristine && submitted1)}"
+                                    name="RescheduleAssessment" id="RescheduleAssessment" pattern="[0-9\',\s]{1,}" maxlength="1"
+                                    required>
+          
+                                  <span class="error_class"
+                                    *ngIf="(RescheduleAssessment.dirty && RescheduleAssessment.invalid) || (RescheduleAssessment.pristine && submitted1)">
+                                    <span
+                                      *ngIf="RescheduleAssessment.errors.required || (RescheduleAssessment.pristine && submitted1)">{{globals.adminTranslationText.certificate.form.rescheduleAssessment.required}}</span>
+                                    <span
+                                      *ngIf="RescheduleAssessment.errors && RescheduleAssessment.errors.pattern">{{globals.adminTranslationText.certificate.form.rescheduleAssessment.pattern}}</span>
+                                  </span>
+                                </div>
+                              </div>
+                              <div class="col-md-12 col-12 col-xl-4 col-lg-6 col-sm-12">
+                                <div class="form-group">
+                                  <label><span>*</span>
+                                    {{globals.adminTranslationText.certificate.form.coolingPeriod.label}}</label>
+                                  <input class="form-control" type="text" #CoolingPeriod="ngModel"
+                                    [(ngModel)]="certificateEntity.CoolingPeriod"
+                                    [ngClass]="{error: (CoolingPeriod.dirty && CoolingPeriod.invalid) || (CoolingPeriod.pristine && submitted1)}"
+                                    name="CoolingPeriod" id="CoolingPeriod" pattern="[0-9\',\s]{1,}" maxlength="2" required>
+          
+                                  <span class="error_class"
+                                    *ngIf="(CoolingPeriod.dirty && CoolingPeriod.invalid) || (CoolingPeriod.pristine && submitted1)">
+                                    <span
+                                      *ngIf="CoolingPeriod.errors.required || (CoolingPeriod.pristine && submitted1)">{{globals.adminTranslationText.certificate.form.coolingPeriod.required}}</span>
+                                    <span
+                                      *ngIf="CoolingPeriod.errors && CoolingPeriod.errors.pattern">{{globals.adminTranslationText.certificate.form.coolingPeriod.pattern}}</span>
+                                  </span>
+                                </div>
+                              </div>
+                              <div class="col-md-12 col-12 col-xl-4 col-lg-6 col-sm-12">
+                                <div class="form-group">
+                                  <label><span>*</span>
+                                    {{globals.adminTranslationText.certificate.form.practiceExamAttempts.label}}</label>
+                                  <input class="form-control" type="text" #PracticeExamAttempts="ngModel"
+                                    [(ngModel)]="certificateEntity.PracticeExamAttempts"
+                                    [ngClass]="{error: (PracticeExamAttempts.dirty && PracticeExamAttempts.invalid) || (PracticeExamAttempts.pristine && submitted1)}"
+                                    name="PracticeExamAttempts" id="PracticeExamAttempts" pattern="[0-9\',\s]{1,}" maxlength="1"
+                                    required>
+          
+                                  <span class="error_class"
+                                    *ngIf="(PracticeExamAttempts.dirty && PracticeExamAttempts.invalid) || (PracticeExamAttempts.pristine && submitted1)">
+                                    <span
+                                      *ngIf="PracticeExamAttempts.errors.required || (PracticeExamAttempts.pristine && submitted1)">{{globals.adminTranslationText.certificate.form.practiceExamAttempts.required}}</span>
+                                    <span
+                                      *ngIf="PracticeExamAttempts.errors && PracticeExamAttempts.errors.pattern">{{globals.adminTranslationText.certificate.form.practiceExamAttempts.pattern}}</span>
+                                  </span>
+                                </div>
+                              </div>
+                              <div class="col-md-12 col-12 col-xl-4 col-lg-6 col-sm-12">
+                                <div class="form-group">
+                                  <label class="mb-1"><span>*</span>
+                                    {{globals.adminTranslationText.certificate.form.hasOneShotAssessment.label}}</label>
+                                  <div class="activeyes_box">
+                                    <kendo-switch [(ngModel)]="certificateEntity.HasOneShotAssessment" (valueChange)="oneShotAssessment(certificateEntity.HasOneShotAssessment)"
+                                      [disabled]="(currentDate | date:'yyyy-MM-dd') >= (newDate | date:'yyyy-MM-dd')" value="yes"
+                                      #HasOneShotAssessment="ngModel" name="HasOneShotAssessment" [onLabel]="'Y'" [offLabel]="'N'">
+                                    </kendo-switch>
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="col-md-12 col-12 col-xl-4 col-lg-6 col-sm-12">
+                                <div class="form-group">
+                                  <label class="mb-1"><span>*</span>
+                                    {{globals.adminTranslationText.certificate.form.hasSubCertificate.label}}</label>
+                                  <div class="activeyes_box">
+                                    <kendo-switch [(ngModel)]="certificateEntity.HasSubCertificate"
+                                      [disabled]="(currentDate | date:'yyyy-MM-dd') >= (newDate | date:'yyyy-MM-dd')" value="yes"
+                                      #HasSubCertificate="ngModel" name="HasSubCertificate" id="HasSubCertificate" [onLabel]="'Y'" [offLabel]="'N'">
+                                    </kendo-switch>
+                                  </div>
+                                </div>
+                              </div>
+                              </div>
+                              <div class="row">
+                                <div class="col-md-12 col-12 col-lg-12 col-sm-12">
+                                  <button class="all_btn themeoption_btn float-left" type="button" (click)="previous1()">
+                                    Previous
+                                  </button>
+                                  <button class="all_btn theme_btn float-right" type="submit">
+                                    Next
+                                  </button>
+                                  <div class="clearfix"></div>
+                                </div>
+                              </div>
+                              </form>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="clearfix"></div>
+                      </div>
+                      <div class="tab-pane fade" id="document" role="tabpanel"
+                        aria-labelledby="document-tab">
+                        <div class="card mobile_accordion_cards">
+                          <div class="card-header mobile_header" id="headingFour">
+                            <button class="collapsed" data-toggle="collapse" data-target="#collapseFour"
+                              aria-expanded="false" aria-controls="collapseFour">
+                              <i class="fa fa-file-o"></i>
+                              Step 4
+                            </button>
+                          </div>
+                          <div id="collapseFour" class="collapse mobile_collapse" aria-labelledby="headingFour"
+                            data-parent="#accordion">
+                            <div class="card-body mobile_body">
+                              <form class="certificate_form" role="form" #certificateForm4="ngForm"
+                              (ngSubmit)="addCertificateSubmit4(certificateForm4)">
+                              <div class="row">
+                              <div class="col-md-12 col-12 col-xl-4 col-lg-6 col-sm-12">
+                                <div class="form-group">
+                                  <label class="mb-1"><span>*</span>
+                                    {{globals.adminTranslationText.certificate.form.CanRenew.label}}</label>
+                                  <div class="activeyes_box">
+                                    <kendo-switch [(ngModel)]="certificateEntity.IsRenewable" value="yes" #IsRenewable="ngModel"
+                                      name="IsRenewable" [onLabel]="'Y'" [offLabel]="'N'"
+                                      [disabled]="(currentDate | date:'yyyy-MM-dd') >= (newDate | date:'yyyy-MM-dd')"
+                                      (click)="showRenewPrices()"></kendo-switch>
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="col-md-12 col-12 col-xl-4 col-lg-6 col-sm-12" *ngIf="showRenewBlocks">
+                                <div class="form-group">
+                                  <label><span>*</span>
+                                    {{globals.adminTranslationText.certificate.form.renewalUsdPrice.label}}</label>
+                                  <input class="form-control" type="text" #RenewalUSDPrice="ngModel"
+                                    [(ngModel)]="certificateEntity.RenewalUSDPrice"
+                                    [ngClass]="{error: (RenewalUSDPrice.dirty && RenewalUSDPrice.invalid) || (RenewalUSDPrice.pristine && submitted_renew) }"
+                                    name="RenewalUSDPrice" id="RenewalUSDPrice" pattern="^\d{0,6}(\.\d{1,2})?$"
+                                    [disabled]="(currentDate | date:'yyyy-MM-dd') >= (newDate | date:'yyyy-MM-dd')" required>
+          
+                                  <span class="error_class"
+                                    *ngIf="(RenewalUSDPrice.dirty && RenewalUSDPrice.invalid) || (RenewalUSDPrice.pristine && submitted_renew)">
+                                    <span
+                                      *ngIf="RenewalUSDPrice.errors.required || (RenewalUSDPrice.pristine && submitted_renew)">{{globals.adminTranslationText.certificate.form.renewalUsdPrice.required}}</span>
+                                    <span
+                                      *ngIf="RenewalUSDPrice.errors && RenewalUSDPrice.errors.pattern">{{globals.adminTranslationText.certificate.form.renewalUsdPrice.pattern}}</span>
+                                  </span>
+                                  
+                                </div>
+                              </div>
+                              <div class="col-md-12 col-12 col-xl-4 col-lg-6 col-sm-12" *ngIf="showRenewBlocks">
+                                <div class="form-group">
+                                  <label>{{globals.adminTranslationText.certificate.form.renewalInrPrice.label}}</label>
+                                  <input class="form-control" type="text" #RenewalINRPrice="ngModel"
+                                    [(ngModel)]="certificateEntity.RenewalINRPrice"
+                                    [ngClass]="{error: (RenewalINRPrice.dirty && RenewalINRPrice.invalid)}" name="RenewalINRPrice"
+                                    id="RenewalINRPrice" pattern="^\d{0,6}(\.\d{1,2})?$"
+                                    [disabled]="(currentDate | date:'yyyy-MM-dd') >= (newDate | date:'yyyy-MM-dd')">
+          
+                                  <span class="error_class" *ngIf="(RenewalINRPrice.dirty && RenewalINRPrice.invalid)">
+                                    <span
+                                      *ngIf="RenewalINRPrice.errors && RenewalINRPrice.errors.pattern">{{globals.adminTranslationText.certificate.form.renewalInrPrice.pattern}}</span>
+                                  </span>
+                                </div>
+                              </div>
+                              <div class="col-md-12 col-12 col-xl-4 col-lg-6 col-sm-12" *ngIf="showRenewBlocks">
+                                <div class="form-group">
+                                  <label>{{globals.adminTranslationText.certificate.form.renewalEurPrice.label}}</label>
+                                  <input class="form-control" type="text" #RenewalEURPrice="ngModel"
+                                    [(ngModel)]="certificateEntity.RenewalEURPrice"
+                                    [ngClass]="{error: (RenewalEURPrice.dirty && RenewalEURPrice.invalid)}" name="RenewalEURPrice"
+                                    id="RenewalEURPrice" pattern="^\d{0,6}(\.\d{1,2})?$"
+                                    [disabled]="(currentDate | date:'yyyy-MM-dd') >= (newDate | date:'yyyy-MM-dd')">
+          
+                                  <span class="error_class" *ngIf="(RenewalEURPrice.dirty && RenewalEURPrice.invalid)">
+                                    <span
+                                      *ngIf="RenewalEURPrice.errors && RenewalEURPrice.errors.pattern">{{globals.adminTranslationText.certificate.form.renewalEurPrice.pattern}}</span>
+                                  </span>
+                                </div>
+                              </div>
+                              <div class="col-md-12 col-12 col-xl-4 col-lg-6 col-sm-12">
+                                <div class="form-group">
+                                  <label>{{globals.adminTranslationText.certificate.form.beforeRenewButtonDisplay.label}}</label>
+                                  <input class="form-control" type="text" #BeforeRenewButtonDisplay="ngModel"
+                                    [(ngModel)]="certificateEntity.BeforeRenewButtonDisplay"
+                                    [ngClass]="{error: (BeforeRenewButtonDisplay.dirty && BeforeRenewButtonDisplay.invalid)}"
+                                    name="BeforeRenewButtonDisplay" id="BeforeRenewButtonDisplay" pattern="[0-9\',\s]{1,}"
+                                    maxlength="2">
+          
+                                  <span class="error_class"
+                                    *ngIf="(BeforeRenewButtonDisplay.dirty && BeforeRenewButtonDisplay.invalid)">
+                                    <span
+                                      *ngIf="BeforeRenewButtonDisplay.errors && BeforeRenewButtonDisplay.errors.pattern">{{globals.adminTranslationText.certificate.form.beforeRenewButtonDisplay.pattern}}</span>
+                                  </span>
+                                </div>
+                              </div>
+                              <div class="col-md-12 col-12 col-xl-4 col-lg-6 col-sm-12">
+                                <div class="form-group">
+                                  <label>{{globals.adminTranslationText.certificate.form.afterRenewButtonDisplay.label}}</label>
+                                  <input class="form-control" type="text" #AfterRenewButtonDisplay="ngModel"
+                                    [(ngModel)]="certificateEntity.AfterRenewButtonDisplay"
+                                    [ngClass]="{error: (AfterRenewButtonDisplay.dirty && AfterRenewButtonDisplay.invalid)}"
+                                    name="AfterRenewButtonDisplay" id="AfterRenewButtonDisplay" pattern="[0-9\',\s]{1,}"
+                                    maxlength="2">
+          
+                                  <span class="error_class"
+                                    *ngIf="(AfterRenewButtonDisplay.dirty && AfterRenewButtonDisplay.invalid)">
+                                    <span
+                                      *ngIf="AfterRenewButtonDisplay.errors && AfterRenewButtonDisplay.errors.pattern">{{globals.adminTranslationText.certificate.form.afterRenewButtonDisplay.pattern}}</span>
+                                  </span>
+                                </div>
+                              </div>
+                              <div class="col-md-12 col-12 col-xl-4 col-lg-6 col-sm-12">
+                                <div class="form-group">
+                                  <label><span>*</span>
+                                    {{globals.adminTranslationText.certificate.form.eligibilityCriteria.label}}</label>
+                                  <input class="form-control" type="text" #EligibilityCriteria="ngModel"
+                                    [(ngModel)]="certificateEntity.EligibilityCriteria"
+                                    [ngClass]="{error: (EligibilityCriteria.dirty && EligibilityCriteria.invalid) || (EligibilityCriteria.pristine && submitted2) || eligibilityCriteriaError}"
+                                    name="EligibilityCriteria" id="EligibilityCriteria" pattern="^[1-9]\d*$" required
+                                    (keyup)="passingPercentageEligibilityCriteriaCheck(0)" maxlength="3">
+                                  <span class="error_class"
+                                    *ngIf="(EligibilityCriteria.dirty && EligibilityCriteria.invalid) || (EligibilityCriteria.pristine && submitted2) || eligibilityCriteriaError">
+                                    <span
+                                      *ngIf="EligibilityCriteria.errors && EligibilityCriteria.errors.required || (EligibilityCriteria.pristine && submitted2)">{{globals.adminTranslationText.certificate.form.eligibilityCriteria.required}}</span>
+                                    <span
+                                      *ngIf="EligibilityCriteria.errors && EligibilityCriteria.errors.pattern">{{globals.adminTranslationText.certificate.form.eligibilityCriteria.pattern}}</span>
+                                    <span
+                                      *ngIf="eligibilityCriteriaError ">{{globals.adminTranslationText.certificate.form.eligibilityCriteria.percentageCheck}}</span>
+                                  </span>
+                                </div>
+                              </div>
+                              <div class="col-md-12 col-12 col-xl-4 col-lg-6 col-sm-12">
+                                <div class="form-group">
+                                  <label class="mb-1"><span>*</span>
+                                    {{globals.adminTranslationText.certificate.form.PassingPerCategory.label}}</label>
+                                  <div class="activeyes_box">
+                                    <kendo-switch [(ngModel)]="certificateEntity.PassingPerCategory" value="yes"
+                                      #PassingPerCategory="ngModel" name="PassingPerCategory" id="PassingPerCategory" [onLabel]="'Y'" [offLabel]="'N'"
+                                      (click)="showPercentage(certificateForm4)"
+                                      [disabled]="(currentDate | date:'yyyy-MM-dd') >= (newDate | date:'yyyy-MM-dd')">
+                                    </kendo-switch>
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="col-md-12 col-12 col-xl-4 col-lg-6 col-sm-12" *ngIf="showPercentageBlock">
+                                <div class="form-group">
+                                  <label><span>*</span>
+                                    {{globals.adminTranslationText.certificate.form.CertificatePassingPercentage.label}}</label>
+                                  <input class="form-control" type="text" #CertificatePassingPercentage="ngModel"
+                                    [(ngModel)]="certificateEntity.CertificatePassingPercentage"
+                                    [ngClass]="{error: (CertificatePassingPercentage.dirty && CertificatePassingPercentage.invalid) || (CertificatePassingPercentage.pristine && submitted_passing) ||  passingPercentageError}"
+                                    name="CertificatePassingPercentage" id="CertificatePassingPercentage" pattern="^[1-9]\d*$"
+                                    maxlength="3" required (keyup)="passingPercentageEligibilityCriteriaCheck(1)"
+                                    [disabled]="(currentDate | date:'yyyy-MM-dd') >= (newDate | date:'yyyy-MM-dd')">
+          
+                                  <span class="error_class"
+                                    *ngIf="(CertificatePassingPercentage.dirty && CertificatePassingPercentage.invalid) || (CertificatePassingPercentage.pristine && submitted_passing) ||  passingPercentageError">
+                                    <span
+                                      *ngIf="CertificatePassingPercentage.errors && CertificatePassingPercentage.errors.required || (CertificatePassingPercentage.pristine && submitted_passing)">{{globals.adminTranslationText.certificate.form.CertificatePassingPercentage.required}}</span>
+                                    <span
+                                      *ngIf="CertificatePassingPercentage.errors && CertificatePassingPercentage.errors.pattern">{{globals.adminTranslationText.certificate.form.CertificatePassingPercentage.pattern}}</span>
+                                    <span
+                                      *ngIf="passingPercentageError">{{globals.adminTranslationText.certificate.form.eligibilityCriteria.percentageCheck}}</span>
+                                  </span>
+                                </div>
+                              </div>
+                              </div>
+                              <div class="row">
+                                <div class="col-md-12 col-12 col-lg-12 col-sm-12">
+                                  <button class="all_btn themeoption_btn float-left" type="button" (click)="previous2()">
+                                    Previous
+                                  </button>
+                                  <button class="all_btn theme_btn float-right" type="submit">
+                                    Next
+                                  </button>
+                                  <div class="clearfix"></div>
+                                </div>
+                              </div>
+                              </form>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="clearfix"></div>
+                      </div>
+                      <div class="tab-pane fade" id="document1" role="tabpanel"
+                      aria-labelledby="document1-tab">
+                      <div class="card mobile_accordion_cards">
+                        <div class="card-header mobile_header" id="headingFive">
+                          <button class="collapsed" data-toggle="collapse" data-target="#collapseFive"
+                            aria-expanded="false" aria-controls="collapseFive">
+                            <i class="fa fa-file-o"></i>
+                            Step 5
+                          </button>
+                        </div>
+                        <div id="collapseFive" class="collapse mobile_collapse" aria-labelledby="headingFive"
+                          data-parent="#accordion">
+                          <div class="card-body mobile_body">
+                            <form class="certificate_form" role="form" #certificateForm5="ngForm"
+                              (ngSubmit)="addCertificateSubmit5(certificateForm5)">
+                            <div class="row">
+                            <div class="col-md-12 col-12 col-xl-4 col-lg-6 col-sm-12">
+                              <div class="form-group">
+                                <label class="mb-1"><span>*</span>
+                                  {{globals.adminTranslationText.certificate.form.hasProctor.label}}</label>
+                                <div class="activeyes_box">
+                                  <kendo-switch [(ngModel)]="certificateEntity.HasProctor"
+                                    [disabled]="(currentDate | date:'yyyy-MM-dd') >= (newDate | date:'yyyy-MM-dd')" value="yes" (click)="showProctorDocs()"
+                                    #HasProctor="ngModel" name="HasProctor" [onLabel]="'Y'" [offLabel]="'N'"></kendo-switch>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="col-md-12 col-12 col-xl-4 col-lg-6 col-sm-12">
+                              <div class="form-group">
+                                <label>{{globals.adminTranslationText.certificate.form.OptionalDocumentForCandidate.label}}</label>
+                                <kendo-multiselect [data]="CertificateForCandidatelist" [filterable]="false"
+                                  [textField]="'DocumentName'" [valueField]="'DocumentId'" [valuePrimitive]="true"
+                                  #OptionalCertificateForCandidate="ngModel"
+                                  [(ngModel)]="certificateEntity.OptionalCertificateForCandidate"
+                                  name="OptionalCertificateForCandidate" (valueChange)="
+                            Optionalcertichange($event)">
+                                </kendo-multiselect>
+                              </div>
+                            </div>
+                            <div class="col-md-12 col-12 col-xl-4 col-lg-6 col-sm-12">
+                              <div class="form-group">
+                                <label><span>*</span> {{globals.adminTranslationText.certificate.form.MandatoryDocumentForCandidate.label}}</label>
+                                <kendo-multiselect [data]="CertificateForCandidatelist1" [filterable]="false"
+                                  [textField]="'DocumentName'" [valueField]="'DocumentId'" id="MandatoryCertificateForCandidate"
+                                  [valuePrimitive]="true" #MandatoryCertificateForCandidate="ngModel"
+                                  [(ngModel)]="certificateEntity.MandatoryCertificateForCandidate"
+                                  name="MandatoryCertificateForCandidate"
+                                  [ngClass]="{error: (MandatoryCertificateForCandidate.dirty && MandatoryCertificateForCandidate.invalid) || (MandatoryCertificateForCandidate.pristine && submitted3)}"
+                                  (valueChange)="
+                            Mandatorycertichange($event)" required>
+                                </kendo-multiselect>
+                                <span class="error_class"
+                                  *ngIf="(MandatoryCertificateForCandidate.dirty && MandatoryCertificateForCandidate.invalid) || (MandatoryCertificateForCandidate.pristine && submitted3)">
+                                  <span
+                                    *ngIf="MandatoryCertificateForCandidate.errors && MandatoryCertificateForCandidate.errors.required">
+                                    {{globals.adminTranslationText.certificate.form.MandatoryDocumentForCandidate.required}}
+                                  </span>
+                                </span>
+                              </div>
+                            </div>
+                            <div class="col-md-12 col-12 col-xl-4 col-lg-6 col-sm-12">
+                              <div class="form-group">
+                                <label class="mb-1"><span>*</span>
+                                  {{globals.adminTranslationText.certificate.form.hasDisplayCandidateInfo.label}}</label>
+                                <div class="activeyes_box">
+                                  <kendo-switch [(ngModel)]="certificateEntity.HasDisplayCandidateInfo" value="yes"
+                                    #HasDisplayCandidateInfo="ngModel" name="HasDisplayCandidateInfo" [onLabel]="'Y'"
+                                    [offLabel]="'N'"></kendo-switch>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="col-md-12 col-12 col-xl-4 col-lg-6 col-sm-12" *ngIf = "showDocsBlocks">
+                              <div class="form-group">
+                                <label>{{globals.adminTranslationText.certificate.form.OptionalDocumentForProctor.label}}</label>
+                                <kendo-multiselect [data]="CertificateForProctorlist" [filterable]="false"
+                                  [textField]="'DocumentName'" [valueField]="'DocumentId'" [valuePrimitive]="true"
+                                  #OptionalCertificateForProctor="ngModel"
+                                  [(ngModel)]="certificateEntity.OptionalCertificateForProctor"
+                                  name="OptionalCertificateForProctor" (valueChange)="Proctorcertichange($event)">
+                                </kendo-multiselect>
+                              </div>
+                            </div>
+                            <div class="col-md-12 col-12 col-xl-4 col-lg-6 col-sm-12" *ngIf = "showDocsBlocks">
+                              <div class="form-group">
+                                <label><span>*</span> {{globals.adminTranslationText.certificate.form.MandatoryDocumentForProctor.label}}</label>
+                                <kendo-multiselect [data]="CertificateForProctorlist1" [filterable]="false"
+                                  [textField]="'DocumentName'" [valueField]="'DocumentId'" [valuePrimitive]="true"
+                                  #MandatoryCertificateForProctor="ngModel"
+                                  [(ngModel)]="certificateEntity.MandatoryCertificateForProctor"
+                                  name="MandatoryCertificateForProctor"
+                                  [ngClass]="{error: (MandatoryCertificateForProctor.dirty && MandatoryCertificateForProctor.invalid) || (MandatoryCertificateForProctor.pristine && submitted3)}"
+                                  (valueChange)="Proctorcertichange1($event)" required>
+                                </kendo-multiselect>
+                                <span class="error_class"
+                                  *ngIf="(MandatoryCertificateForProctor.dirty && MandatoryCertificateForProctor.invalid) || (MandatoryCertificateForProctor.pristine && submitted3)">
+                                  <span
+                                    *ngIf="MandatoryCertificateForProctor.errors && MandatoryCertificateForProctor.errors.required">
+                                    {{globals.adminTranslationText.certificate.form.MandatoryDocumentForProctor.required}}
+                                  </span>
+                                </span>
+                              </div>
+                            </div>
+                            <div class="col-md-12 col-12 col-xl-4 col-lg-6 col-sm-12" *ngIf = "showDocsBlocks">
+                              <div class="form-group">
+                                <label class="mb-1"><span>*</span>
+                                  {{globals.adminTranslationText.certificate.form.hasDisplayProctorInfo.label}}</label>
+                                <div class="activeyes_box">
+                                  <kendo-switch [(ngModel)]="certificateEntity.HasDisplayProctorInfo" value="yes"
+                                    #HasDisplayProctorInfo="ngModel" name="HasDisplayProctorInfo" [onLabel]="'Y'"
+                                    [offLabel]="'N'"></kendo-switch>
+                                </div>
+                              </div>
+                            </div>
+                            </div>
+                            <div class="row">
+                              <div class="col-md-12 col-12 col-lg-12 col-sm-12">
+                                <button class="all_btn themeoption_btn float-left" type="button" (click)="previous3()">
+                                  Previous
+                                </button>
+                                <button class="all_btn theme_btn float-right" [disabled]="btn_disable" type="submit">
+                                  Submit
+                                </button>
+                                <div class="clearfix"></div>
+                              </div>
+                            </div>
+                            </form>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="clearfix"></div>
+                    </div>
+                      <div class="tab-pane fade" id="history" role="tabpanel" aria-labelledby="history-tab">
+                        <div class="card mobile_accordion_cards">
+                          <div class="card-header mobile_header" id="headingSix">
+                            <button class="collapsed" data-toggle="collapse" data-target="#collapseSix"
+                              aria-expanded="false" aria-controls="collapseSix">
+                              <i class="fa fa-history"></i>
+                              Certificate Price
+                            </button>
+                          </div>
+                          <div id="collapseSix" class="collapse mobile_collapse" aria-labelledby="headingSix"
+                            data-parent="#accordion">
+                            <div class="card-body mobile_body">
+                              <h5>Certificate Current Prices</h5>
+                              <div class="current_block"><b>{{globals.adminTranslationText.certificate.form.usdPrice.label}}</b>:
+                                <span *ngIf = "certificateEntity.USDPrice == null"> NA</span>
+                                <span *ngIf = "certificateEntity.USDPrice != null"> ${{certificateEntity.USDPrice}}</span>
+                              </div>
+                              <div class="current_block"><b>{{globals.adminTranslationText.certificate.form.inrPrice.label}}</b>: 
+                                <span *ngIf = "certificateEntity.INRPrice == null"><i class="fa fa-inr"></i>0.00</span>
+                                <span *ngIf = "certificateEntity.INRPrice != null"><i class="fa fa-inr"></i>{{certificateEntity.INRPrice}}</span>
+                              </div>
+                              <div class="current_block"><b>{{globals.adminTranslationText.certificate.form.eurPrice.label}}</b>:
+                                <span *ngIf = "certificateEntity.EURPrice == null"><i class="fa fa-eur"></i>0.00</span>
+                                <span *ngIf = "certificateEntity.EURPrice != null"><i class="fa fa-eur"></i>{{certificateEntity.EURPrice}}</span>
+                              </div>
+                              <a class="all_btn theme_btn float-right"  (click)="pricePopup()">{{globals.adminTranslationText.certificate.priceList.buttons.add}}</a>
+                              <div class="clearfix"></div>
+                              <div class="row">
+                                <div class="row">
+                                <kendo-grid [kendoGridBinding]="CertificatePricingHistory" [pageSize]="5" [pageable]="true"
+                                [groupable]="false" [reorderable]="false" [resizable]="false" [height]="auto" [sortable]="{
+                                  allowUnsort: true,
+                                  mode: 'single'
+                                  }" [sort]="sort">
+
+                                <ng-template kendoGridToolbarTemplate>
+                                  <input placeholder="Search in all columns..." kendoTextBox
+                                    (input)="onFilter($event.target.value)" />
+                                </ng-template>
+                                <kendo-grid-column field="EffectiveDate"
+                                title="{{globals.adminTranslationText.certificate.priceList.collumns.date}}">
+                              </kendo-grid-column>
+                              <kendo-grid-column 
+                                title="{{globals.adminTranslationText.certificate.priceList.collumns.comment}}">
+                                <ng-template kendoGridCellTemplate let-dataItem>
+                                  <span *ngIf = "(dataItem.PriceComment == null) || (dataItem.PriceComment == '')"> NA</span>
+                                <span *ngIf = "(dataItem.PriceComment != null) || (dataItem.PriceComment != '')">{{dataItem.PriceComment}}</span>
+                                </ng-template>
+                              </kendo-grid-column>
+                                <!-- <kendo-grid-column field="USDPrice"
+                                  title="{{globals.adminTranslationText.certificate.priceList.collumns.uPrice}}">
+                                </kendo-grid-column>
+                                <kendo-grid-column field="INRPrice"
+                                title="{{globals.adminTranslationText.certificate.priceList.collumns.iPrice}}">
+                              </kendo-grid-column>
+                              <kendo-grid-column field="EURPrice"
+                                  title="{{globals.adminTranslationText.certificate.priceList.collumns.ePrice}}">
+                                </kendo-grid-column> -->
+                                <kendo-grid-column
+                                title="{{globals.adminTranslationText.certificate.priceList.collumns.prices}}">
+                                <ng-template kendoGridCellTemplate let-dataItem>
+                                  
+                                  <div class="current_block"><b>{{globals.adminTranslationText.certificate.priceList.collumns.uPrice}}</b>: 
+                                    <span>${{dataItem.USDPrice}}</span>
+                                  </div>
+
+                                  <div class="current_block"><b>{{globals.adminTranslationText.certificate.priceList.collumns.iPrice}}</b>: 
+                                    <span *ngIf = "dataItem.INRPrice == null"><i class="fa fa-inr"></i>0.00</span>
+                                <span *ngIf = "dataItem.INRPrice != null"><i class="fa fa-inr"></i>{{dataItem.INRPrice}}</span>
+                                  </div>
+
+                                  <div class="current_block"><b>{{globals.adminTranslationText.certificate.priceList.collumns.ePrice}}</b>: 
+                                    <span *ngIf = "dataItem.EURPrice == null"><i class="fa fa-eur"></i>0.00</span>
+                                <span *ngIf = "dataItem.EURPrice != null"><i class="fa fa-eur"></i>{{dataItem.EURPrice}}</span>
+                                  </div>
+                                </ng-template>
+                              </kendo-grid-column>
+                                <kendo-grid-column title="{{globals.adminTranslationText.certificate.priceList.collumns.actions}}"
+                                  [width]="150">
+                                  <ng-template kendoGridCellTemplate let-dataItem let-rowIndex="rowIndex">
+                                    <button  class="edit" (click)="editPrice(dataItem)" [disabled]="(currentDate | date:'yyyy-MM-dd') >= (dataItem.EffectiveDate | date:'yyyy-MM-dd')">
+                                      <i data-toggle="tooltip" data-placement="top"
+                                        title="{{globals.adminTranslationText.certificate.priceList.buttons.edit}}" class="fa fa-edit"></i>
+                                    </button>
+                                    <button  class="delete"
+                                      (click)="deletePrice(dataItem)" [disabled]="(currentDate | date:'yyyy-MM-dd') >= (dataItem.EffectiveDate | date:'yyyy-MM-dd')">
+                                      <i data-toggle="tooltip" data-placement="top" class="fa fa-trash-o"
+                                        title="{{globals.adminTranslationText.certificate.priceList.buttons.delete}}"></i>
+                                    </button>
+                                  </ng-template>
+                                </kendo-grid-column>
+                                </kendo-grid>
+                              </div>
+                            </div>
+                            <div class="row">
+                              <div class="col-md-12 col-12 col-lg-12 col-sm-12">
+                                <button class="all_btn themeoption_btn float-left" type="button" (click)="previous4()">
+                                  Previous
+                                </button>
+                                <!-- <button class="all_btn theme_btn float-right" type="submit" [disabled]="btn_disable">
+                                  Submit
+                                </button> -->
+                                <div class="clearfix"></div>
+                              </div>
+                            </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="clearfix"></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <!-- Anand Tab Code -->
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</div>
+<div class="modal fade" id="price_popup" tabindex="-1" role="dialog" aria-labelledby="price_popupLabel"
+  aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="price_popupLabel">{{globals.adminTranslationText.certificate.priceList.title}}</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <form class="certificate_form" role="form" #certificatePriceForm="ngForm"
+        (ngSubmit)="addUpdateCertificatePrice(certificatePriceForm)">
+      <div class="modal-body">
+        <div class="form-group">
+          <label><span>*</span> {{globals.adminTranslationText.certificate.priceForm.usdPrice.label}}{{USDPrice.pristine}}</label>
+          <input class="form-control" type="text" #USDPrice="ngModel"
+            [(ngModel)]="certificatePriceEntity.USDPrice"
+            [ngClass]="{error: (USDPrice.dirty && USDPrice.invalid) || (USDPrice.pristine && submitted4) || (USDPrice.errors && USDPrice.errors.required)}"
+            name="USDPrice" id="USDPrice" pattern="^\d{0,6}(\.\d{1,2})?$" required>
+            
+          <span class="error_class"
+            *ngIf="(USDPrice.dirty && USDPrice.invalid) || (USDPrice.pristine && submitted4)">
+            <span
+              *ngIf="(USDPrice.required) || (USDPrice.pristine && submitted4)">{{globals.adminTranslationText.certificate.priceForm.usdPrice.required}}</span>
+            <span
+              *ngIf="USDPrice.errors && USDPrice.errors.pattern">{{globals.adminTranslationText.certificate.priceForm.usdPrice.pattern}}</span>
+          </span>
+        </div>
+        <div class="form-group">
+          <label>{{globals.adminTranslationText.certificate.priceForm.inrPrice.label}}</label>
+          <input class="form-control" type="text" #INRPrice="ngModel"
+            [(ngModel)]="certificatePriceEntity.INRPrice"
+            [ngClass]="{error: (INRPrice.dirty && INRPrice.invalid)}" name="INRPrice" id="INRPrice"
+            pattern="^\d{0,6}(\.\d{1,2})?$">
+
+          <span class="error_class" *ngIf="(INRPrice.dirty && INRPrice.invalid)">
+            <span
+              *ngIf="INRPrice.errors && INRPrice.errors.pattern">{{globals.adminTranslationText.certificate.priceForm.inrPrice.pattern}}</span>
+          </span>
+        </div>
+        <div class="form-group">
+          <label>{{globals.adminTranslationText.certificate.priceForm.eurPrice.label}}</label>
+          <input class="form-control" type="text" #EURPrice="ngModel"
+            [(ngModel)]="certificatePriceEntity.EURPrice"
+            [ngClass]="{error: (EURPrice.dirty && EURPrice.invalid)}" name="EURPrice" id="EURPrice"
+            pattern="^\d{0,6}(\.\d{1,2})?$">
+
+          <span class="error_class" *ngIf="(EURPrice.dirty && EURPrice.invalid)">
+            <span
+              *ngIf="EURPrice.errors && EURPrice.errors.pattern">{{globals.adminTranslationText.certificate.priceForm.eurPrice.pattern}}</span>
+          </span>
+        </div>
+        <div class="form-group">
+          <label>
+            {{globals.adminTranslationText.certificate.priceForm.priceComment.label}}</label>
+          <textarea kendoTextArea #PriceComment="ngModel" [(ngModel)]="certificatePriceEntity.PriceComment" name="PriceComment" [ngClass]="{'error': CommentValid}"
+            id="PriceComment" rows="10" cols="60" contenteditable="true"></textarea>
+          <span class="error_class"
+            *ngIf="CommentValid">{{globals.adminTranslationText.certificate.priceForm.priceComment.pattern}}</span>
+        </div>
+        <div class="form-group">
+          <label><span>*</span>{{globals.adminTranslationText.certificate.priceForm.effectiveDate.label}}</label>
+          <!-- <kendo-datepicker [(ngModel)]="certificatePriceEntity.EffectiveDate" #EffectiveDate="ngModel" [min] = "minDate" 
+            [format]="'MM/dd/yyyy'" name="EffectiveDate" id="EffectiveDate" (blur)="EffectiveValidDate=false"
+            [ngClass]="{'error': EffectiveValidDate}"
+             >
+          </kendo-datepicker> -->
+          <input class="form-control form_date" type="text" data-date-format="mm/dd/yyyy"
+                          data-link-format="mm/dd/yyyy" readonly #EffectiveDate="ngModel"
+                          [(ngModel)]="certificatePriceEntity.EffectiveDate" name="EffectiveDate" id="EffectiveDate"
+                          (blur)="EffectiveValidDate=false" [ngClass]="{'error': EffectiveValidDate}">
+          <span class="error_class">
+            <span *ngIf="EffectiveValidDate">
+              {{globals.adminTranslationText.certificate.priceForm.effectiveDate.required}}
+            </span>
+            <!-- <span *ngIf="smallDate">
+              {{globals.adminTranslationText.certificate.form.EffectiveDate.validDate}}
+            </span> -->
+          </span>
+        </div>
+      </div> 
+      <div class="modal-footer modal_minus_margin mt-0 text-right">
+        <button class="all_btn theme_btn" [disabled]="btn_disable1" type="submit">Submit</button>
+      </div>
+    </form>
+    </div>
+  </div>
+</div>
+
+<kendo-window title="{{globals.adminTranslationText.certificate.priceList.title}}" *ngIf="certificatePopup" (close)="close()" [minWidth]="250" [width]="450">
+
+  <form class="certificate_form" role="form" #certificatePriceForm="ngForm"
+        (ngSubmit)="addUpdateCertificatePrice(certificatePriceForm)">
+      <div class="modal-body">
+        <div class="form-group">
+          <label><span>*</span> {{globals.adminTranslationText.certificate.priceForm.usdPrice.label}}</label>
+          <input class="form-control" type="text" #USDPrice="ngModel"
+            [(ngModel)]="certificatePriceEntity.USDPrice"
+            [ngClass]="{error: (USDPrice.dirty && USDPrice.invalid) || (USDPrice.pristine && submitted4) || errorEntity.USDPrice }"
+            name="USDPrice" id="USDPrice" pattern="^\d{0,6}(\.\d{1,2})?$" required>
+
+          <span class="error_class"
+            *ngIf="(USDPrice.dirty && USDPrice.invalid) || (USDPrice.pristine && submitted4)  || errorEntity.USDPrice">
+            <span
+              *ngIf="(USDPrice.errors.required) || (USDPrice.pristine && submitted4)">{{globals.adminTranslationText.certificate.priceForm.usdPrice.required}}</span>
+            <span
+              *ngIf="USDPrice.errors && USDPrice.errors.pattern">{{globals.adminTranslationText.certificate.priceForm.usdPrice.pattern}}</span>
+              <span *ngIf="errorEntity.USDPrice != ''">
+                {{errorEntity.USDPrice}}
+              </span>  
+            </span>
+
+        </div>
+        <div class="form-group">
+          <label>{{globals.adminTranslationText.certificate.priceForm.inrPrice.label}}</label>
+          <input class="form-control" type="text" #INRPrice="ngModel"
+            [(ngModel)]="certificatePriceEntity.INRPrice"
+            [ngClass]="{error: (INRPrice.dirty && INRPrice.invalid) || errorEntity.INRPrice}" name="INRPrice" id="INRPrice"
+            pattern="^\d{0,6}(\.\d{1,2})?$">
+
+          <span class="error_class" *ngIf="(INRPrice.dirty && INRPrice.invalid) || errorEntity.INRPrice">
+            <span
+              *ngIf="INRPrice.errors && INRPrice.errors.pattern">{{globals.adminTranslationText.certificate.priceForm.inrPrice.pattern}}</span>
+              <span *ngIf="errorEntity.INRPrice != ''">
+                {{errorEntity.INRPrice}}
+              </span> 
+            </span>
+        </div>
+        <div class="form-group">
+          <label>{{globals.adminTranslationText.certificate.priceForm.eurPrice.label}}</label>
+          <input class="form-control" type="text" #EURPrice="ngModel"
+            [(ngModel)]="certificatePriceEntity.EURPrice"
+            [ngClass]="{error: (EURPrice.dirty && EURPrice.invalid) || errorEntity.EURPrice}" name="EURPrice" id="EURPrice"
+            pattern="^\d{0,6}(\.\d{1,2})?$">
+
+          <span class="error_class" *ngIf="(EURPrice.dirty && EURPrice.invalid)  || errorEntity.EURPrice">
+            <span
+              *ngIf="EURPrice.errors && EURPrice.errors.pattern">{{globals.adminTranslationText.certificate.priceForm.eurPrice.pattern}}</span>
+              <span *ngIf="errorEntity.EURPrice != ''">
+                {{errorEntity.EURPrice}}
+              </span> 
+            </span>
+        </div>
+        <div class="form-group">
+          <label>
+            {{globals.adminTranslationText.certificate.priceForm.priceComment.label}}</label>
+          <textarea kendoTextArea #PriceComment="ngModel" [(ngModel)]="certificatePriceEntity.PriceComment" name="PriceComment" [ngClass]="{'error': CommentValid}"
+            id="PriceComment" rows="10" cols="60" contenteditable="true"></textarea>
+          <span class="error_class"
+            *ngIf="CommentValid">{{globals.adminTranslationText.certificate.priceForm.priceComment.pattern}}</span>
+        </div>
+        <div class="form-group">
+          <label><span>*</span>{{globals.adminTranslationText.certificate.priceForm.effectiveDate.label}}</label>
+          <kendo-datepicker [(ngModel)]="certificatePriceEntity.EffectiveDate" #EffectiveDate="ngModel" [min] = "minDate" 
+            [format]="'MM/dd/yyyy'" name="EffectiveDate" id="EffectiveDate" (blur)="EffectiveValidDate=false"
+            [ngClass]="{'error': EffectiveValidDate || errorEntity.EffectiveValidDate}"
+             >
+          </kendo-datepicker>
+          <span class="error_class">
+            <span *ngIf="EffectiveValidDate">
+              {{globals.adminTranslationText.certificate.priceForm.effectiveDate.required}}
+            </span>
+            <span *ngIf="errorEntity.EffectiveValidDate != ''">
+              {{errorEntity.EffectiveValidDate}}
+            </span>
+          </span>
+        </div>
+      </div> 
+      <div class="modal-footer modal_minus_margin mt-0 text-right">
+        <button class="all_btn theme_btn" [disabled]="btn_disable1" type="submit">Submit</button>
+      </div>
+    </form>
+
+
+  </kendo-window>
+  <div class="overlay" *ngIf="certificatePopup" (click)="overlay_close()"></div>
+
+  

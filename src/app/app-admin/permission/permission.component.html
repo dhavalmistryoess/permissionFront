@@ -1,0 +1,69 @@
+<div class="content_block">
+  <div class="container-fluid">
+    <div class="row">
+      
+      <!-- Content -->
+      <div class="col-md-12 col-sm-12">
+        <div class="title_block">
+          <h2 class="float-left">Permission</h2>
+          <div class="breadcrumb_block float-left">
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item">
+                <a routerLink="/admin/adminDashboard">
+                  <i class="fa fa-home"></i>
+                </a>
+              </li>
+              <li class="breadcrumb-item active" aria-current="page">
+                Permisssion</li>
+            </ol>
+          </div>
+
+          <div class="clearfix"></div>
+        </div>
+
+        <div class="row d-flex justify-content-center">
+          <select data-width="fit" (change)="changeRole($event.target.value)">
+            <option *ngFor="let role of roleEntity;" [value]="role.RoleId">{{role.RoleName}}</option>
+          </select>
+ 
+          <div class="col-md-12 col-sm-12">
+          
+            <form role="form" #configurationForm="ngForm" (ngSubmit)="update(configurationForm)">
+              <div class="inner_content_block mb-5" *ngFor="let smtp of permissionEntity; let i = index">
+                <div class="paddin_form pb-3">
+                  <div class="row">
+                    <div class="col-md-12 col-12 col-lg-12 col-sm-12">
+                      <h5>{{permissionEntity[i].key}}</h5>
+                      
+                      <div class="row" *ngFor="let child of smtp[permissionEntity[i].key];let j=index;">
+                        <input type="hidden" name="Permission[{{i}}][RoleId]" value="{{currentRole}}"  [(ngModel)]="child.RoleId">
+                        <input type="hidden" name="Permission[{{i}}]['ModuleIDs]" value="{{child.ModuleIDs}}"  [(ngModel)]="child.ModuleIDs">
+                      
+                        <div class="check_box">
+                          <input type="checkbox"  name="Permission[{{i}}][HasAccess]" [(ngModel)]="child.HasAccess"
+                            id="{{child.DisplayName}}"  [checked]="child.HasAccess==1" (change)="checkValue(child.HasAccess?'1':'2')">
+                          <label for="{{child.DisplayName}}">{{child.DisplayName}}</label>
+                        </div>
+                      </div>
+                      <div class="clearfix"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="clearfix"></div>
+              <div class="row">
+                <div class="col-md-12 col-12 col-lg-12 col-sm-12 text-center">
+                  <button type="submit" class="all_btn theme_btn">
+                    {{globals.adminTranslationText.configuration.form.buttons.submit}}
+                  </button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- End Content -->
+  <div class="clearfix"></div>
+</div>

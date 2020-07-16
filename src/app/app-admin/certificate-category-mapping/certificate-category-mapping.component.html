@@ -1,0 +1,389 @@
+<div class="content_block">
+  <div class="container-fluid">
+    <div class="row">
+      <!-- Content -->
+      <div class="col-md-12 col-sm-12">
+        <div class="title_block">
+          <h2 class="float-left" *ngIf="certificateCategoryMappingEntity.CertificateAssessmentMappingId == 0">
+            {{globals.adminTranslationText.certificateCategoryMapping.form.title.add}}</h2>
+          <h2 class="float-left" *ngIf="certificateCategoryMappingEntity.CertificateAssessmentMappingId != 0">
+            {{globals.adminTranslationText.certificateCategoryMapping.form.title.update}}</h2>
+          <div class="breadcrumb_block float-left">
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item">
+                <a routerLink="/admin/adminDashboard">
+                  <i class="fa fa-home"></i>
+                </a>
+              </li>
+              <li class="breadcrumb-item"><a
+                  routerLink="/admin/certificate-category-mapping/list">{{globals.adminTranslationText.certificateCategoryMapping.form.breadcrumbTitle}}</a>
+              </li>
+              <li class="breadcrumb-item active" aria-current="page"
+                *ngIf="certificateCategoryMappingEntity.CertificateAssessmentMappingId == 0">
+                {{globals.adminTranslationText.certificateCategoryMapping.form.breadcrumbSubTitle.add}}</li>
+              <li class="breadcrumb-item active" aria-current="page"
+                *ngIf="certificateCategoryMappingEntity.CertificateAssessmentMappingId != 0">
+                {{globals.adminTranslationText.certificateCategoryMapping.form.breadcrumbSubTitle.update}}</li>
+            </ol>
+          </div>
+          <a routerLink="/admin/certificate-category-mapping/list"
+            class="all_btn themeoption_btn float-right">{{globals.adminTranslationText.certificateCategoryMapping.form.buttons.backToList}}</a>
+          <div class="clearfix"></div>
+        </div>
+        <div class="row d-flex justify-content-center">
+          <div class="col-md-12 col-sm-12">
+            <div class="inner_content_block">
+              <div class="paddin_form">
+                <form role="form" #certificateCategoryMappingForm="ngForm"
+                  (ngSubmit)="addUpdate(certificateCategoryMappingForm)">
+                  <div class="row">
+                    <div class="col-md-12 col-12 col-lg-12 col-sm-12">
+                      <h2 class="float-left">{{mappingDetailsData.CertificateName}}</h2>
+                      <a class="all_btn theme_btn float-right" data-toggle="modal" data-target="#link_new">Link new
+                        Category</a>
+                    </div>
+                    <div class="col-xl-4 col-lg-6 col-md-12 col-sm-12 col-12">
+                      <div class="form-group">
+                        <label><span>*</span>
+                          {{globals.adminTranslationText.certificateCategoryMapping.form.category.label}}</label>
+                          <kendo-dropdownlist  [data]="linkingCategoryList" [filterable]="false" [textField]="'CategoryName'" (valueChange)="categoryChange($event,mappingDetailsData.CertificateId)" [valueField]="'CategoryId'"
+                    [valuePrimitive]="true" #CategoryId="ngModel"
+                    [(ngModel)]="mappingDetailsData.CategoryId" name="CategoryId" [ngClass]="{error: (CategoryId.dirty && CategoryId.invalid) }" required></kendo-dropdownlist >
+                        <span class="error_class"
+                          *ngIf="(CategoryId.dirty && CategoryId.invalid)">
+                          <span *ngIf="CategoryId.errors && CategoryId.errors.required">
+                            {{globals.adminTranslationText.certificateCategoryMapping.form.category.required}}
+                          </span>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-xl-4 col-lg-6 col-md-12 col-sm-12 col-12">
+                      <div class="form-group">
+                        <label><span>*</span>
+                          {{globals.adminTranslationText.certificateCategoryMapping.form.assessmentTotalItems.label}}</label>
+                        <input class="form-control" type="text" readonly #AssessmentTotalItems="ngModel"
+                          [(ngModel)]="mappingDetailsData.AssessmentTotalItems"
+                          name="AssessmentTotalItems" id="AssessmentTotalItems"  
+                          >
+                          <span class="error_class" *ngIf="errorEntity.AssessmentTotalItems != ''">
+                            {{errorEntity.AssessmentTotalItems}}
+                          </span>  
+                      </div>
+                    </div>
+                    <div class="col-xl-4 col-lg-6 col-md-12 col-sm-12 col-12">
+                      <div class="form-group">
+                        <label><span>*</span>
+                          {{globals.adminTranslationText.certificateCategoryMapping.form.assessmentScoreItems.label}}</label>
+                        <input class="form-control" type="text" #ScoreItems="ngModel"
+                          [(ngModel)]="mappingDetailsData.ScoreItems"
+                          [ngClass]="{error: (ScoreItems.dirty && ScoreItems.invalid) || (ScoreItems.pristine && submitted) ||  itmeAssessmentCountError || errorEntity.ScoreItems}"
+                          name="ScoreItems" id="ScoreItems" pattern="^[1-9]\d*$" required
+                          (keyup)="totalAssessmentItemCount()">
+                        <span class="error_class"
+                          *ngIf="(ScoreItems.dirty && ScoreItems.invalid) || (ScoreItems.pristine && submitted) ||  itmeAssessmentCountError || errorEntity.ScoreItems">
+                        <span 
+                          *ngIf="ScoreItems.errors && ScoreItems.errors.required || (ScoreItems.pristine && submitted)">{{globals.adminTranslationText.certificateCategoryMapping.form.assessmentScoreItems.required}}</span>
+                        <span
+                          *ngIf="ScoreItems.errors && ScoreItems.errors.pattern">{{globals.adminTranslationText.certificateCategoryMapping.form.assessmentScoreItems.pattern}}</span>
+                        <span
+                          *ngIf="itmeAssessmentCountError">{{globals.adminTranslationText.certificateCategoryMapping.form.assessmentScoreItems.itemCountError}}
+                          {{(mappingDetailsData.AssessmentScoreItems*1)+1}} items</span>
+                          <span *ngIf="errorEntity.ScoreItems != ''">
+                            {{errorEntity.ScoreItems}}
+                          </span>  
+                        </span>
+                      </div>
+                    </div>
+                    <div class="col-xl-4 col-lg-6 col-md-12 col-sm-12 col-12">
+                      <div class="form-group">
+                        <label><span>*</span>
+                          {{globals.adminTranslationText.certificateCategoryMapping.form.noneScoreItems.label}}</label>
+                        <input class="form-control" type="text" #NoneScoreItems="ngModel"
+                          [(ngModel)]="mappingDetailsData.NoneScoreItems"
+                          [ngClass]="{error: (NoneScoreItems.dirty && NoneScoreItems.invalid) || (NoneScoreItems.pristine && submitted) || noneScoreItemCountError || noneScoreItemCountError1 || errorEntity.NoneScoreItems}"
+                          name="NoneScoreItems" id="NoneScoreItems" pattern="[0-9\',\s]{1,}" required
+                          (keyup)="noneScoreItemsCount()">
+                        <span class="error_class"
+                          *ngIf="(NoneScoreItems.dirty && NoneScoreItems.invalid) || (NoneScoreItems.pristine && submitted) || noneScoreItemCountError || noneScoreItemCountError1 || errorEntity.NoneScoreItems">
+                          <span 
+                            *ngIf="NoneScoreItems.errors && NoneScoreItems.errors.required || (NoneScoreItems.pristine && submitted)">{{globals.adminTranslationText.certificateCategoryMapping.form.noneScoreItems.required}}</span>
+                          <span 
+                            *ngIf="NoneScoreItems.errors && NoneScoreItems.errors.pattern">{{globals.adminTranslationText.certificateCategoryMapping.form.noneScoreItems.pattern}}</span>
+                          <span *ngIf="noneScoreItemCountError && mappingDetailsData.noScoreItems != 0"> 
+                            Please enter below {{(mappingDetailsData.noScoreItems*1)+1}} none score items
+                          </span>
+                          <span  *ngIf="noneScoreItemCountError && mappingDetailsData.noScoreItems == 0"> 
+                            There is no none score items for this category
+                          </span>
+                          <span  *ngIf="noneScoreItemCountError1"> 
+                            None score item is less than assessment score item
+                          </span>
+                          <span *ngIf="errorEntity.NoneScoreItems != ''">
+                            {{errorEntity.NoneScoreItems}}
+                          </span> 
+                        </span>
+                      </div>
+                    </div>
+                    <div class="col-xl-4 col-lg-6 col-md-12 col-sm-12 col-12">
+                      <div class="form-group">
+                        <label><span>*</span>
+                          {{globals.adminTranslationText.certificateCategoryMapping.form.categoryAssessmentTime.label}}</label>
+                        <input required class="form-control" type="text" #CategoryAssessmentTime="ngModel"
+                          [(ngModel)]="mappingDetailsData.CategoryAssessmentTime"
+                          [ngClass]="{error: (CategoryAssessmentTime.dirty && CategoryAssessmentTime.invalid) || (CategoryAssessmentTime.pristine && submitted) || errorEntity.CategoryAssessmentTime}"
+                          name="CategoryAssessmentTime" id="CategoryAssessmentTime" pattern="^[1-9]\d*$" maxlength="3">
+                        <span class="error_class"
+                          *ngIf="(CategoryAssessmentTime.dirty && CategoryAssessmentTime.invalid) || (CategoryAssessmentTime.pristine && submitted) || errorEntity.CategoryAssessmentTime">
+                          <span 
+                            *ngIf="CategoryAssessmentTime.errors && CategoryAssessmentTime.errors.required || (CategoryAssessmentTime.pristine && submitted)">{{globals.adminTranslationText.certificateCategoryMapping.form.categoryAssessmentTime.required}}</span>
+                          <span 
+                            *ngIf="CategoryAssessmentTime.errors && CategoryAssessmentTime.errors.pattern">{{globals.adminTranslationText.certificateCategoryMapping.form.categoryAssessmentTime.pattern}}</span>
+                            <span *ngIf="errorEntity.CategoryAssessmentTime != ''">
+                              {{errorEntity.CategoryAssessmentTime}}
+                            </span> 
+                          </span>
+                      </div>
+                    </div>
+                    <div class="col-xl-4 col-lg-6 col-md-12 col-sm-12 col-12">
+                      <div class="form-group">
+                        <label><span>*</span>
+                          {{globals.adminTranslationText.certificateCategoryMapping.form.passingPercentage.label}}</label>
+                        <input class="form-control" type="text" #PassingPercentage="ngModel"
+                          [(ngModel)]="mappingDetailsData.PassingPercentage"
+                          [ngClass]="{error: (PassingPercentage.dirty && PassingPercentage.invalid) || (PassingPercentage.pristine && submitted) || passingAssessmentPercentageError || errorEntity.passingAssessmentPercentageError}"
+                          name="PassingPercentage" id="PassingPercentage" pattern="^[3][5-9]$|^[4-9][0-9]$|^(100)$" maxlength="3" required>
+                        <span class="error_class"
+                          *ngIf="(PassingPercentage.dirty && PassingPercentage.invalid) || (PassingPercentage.pristine && submitted) || passingAssessmentPercentageError || errorEntity.passingAssessmentPercentageError">
+                          <span 
+                            *ngIf="PassingPercentage.errors && PassingPercentage.errors.required || (PassingPercentage.pristine && submitted)">{{globals.adminTranslationText.certificateCategoryMapping.form.passingPercentage.required}}</span>
+                          <span 
+                            *ngIf="PassingPercentage.errors && PassingPercentage.errors.pattern">{{globals.adminTranslationText.certificateCategoryMapping.form.passingPercentage.percentageCheck}}</span>
+                          <span 
+                            *ngIf="passingAssessmentPercentageError">{{globals.adminTranslationText.certificateCategoryMapping.form.passingPercentage.percentageCheck}}</span>
+                            <span *ngIf="errorEntity.passingAssessmentPercentageError != ''">
+                              {{errorEntity.passingAssessmentPercentageError}}
+                            </span> 
+                          </span>
+                      </div>
+                    </div>
+                  
+                    <div class="col-xl-4 col-lg-6 col-md-12 col-sm-12 col-12">
+                      <div class="form-group">
+                        <label class="mb-1">
+                           {{globals.adminTranslationText.certificateCategoryMapping.form.active.label}} </label>
+                        <div class="activeyes_box" data-toggle="tooltip" data-placement="top">
+                          <kendo-switch [(ngModel)]="mappingDetailsData.IsActive" value="yes" #IsActive="ngModel" name="IsActive" [onLabel]="'Y'"
+                          [offLabel]="'N'" (valueChange)="practiceTestReadOnly()"></kendo-switch>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="clearfix"></div>
+                    <div class="col-xl-4 col-lg-6 col-md-12 col-sm-12 col-12">
+                      <div class="form-group">
+                        <label class="mb-1">
+                          {{globals.adminTranslationText.certificateCategoryMapping.form.hasPractice.label}}</label>
+                        <div class="activeyes_box" data-toggle="tooltip" data-placement="top">
+                          <kendo-switch  value="yes" [(ngModel)]="mappingDetailsData.HasPractice" #HasPractice="ngModel" name="HasPractice" id="HasPractice" (valueChange)="showPracticeForm()" [onLabel]="'Y'"
+                          [offLabel]="'N'"></kendo-switch>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="practice_test_block" id="has_practice_test" *ngIf="mappingDetailsData.HasPractice == true && mappingDetailsData.IsActive == true && mappingDetailsData.PracticeExamAttempts>0 && mappingDetailsData.PracticeTestItems != 0"><!--*ngIf="mappingDetailsData.CertificatePracticeTestMappingId!=null"-->
+                      <div class="col-md-12 col-12 col-lg-12 col-sm-12">
+                        <div class="row">
+                          <div class="col-md-12 col-12 col-lg-12 col-sm-12">
+                            <h5>{{globals.adminTranslationText.certificateCategoryMapping.form.title.addPracticeTest}}
+                            </h5>
+                          </div>
+                          <div class="col-xl-4 col-lg-6 col-md-12 col-sm-12 col-12">
+                            <div class="form-group">
+                              <label><span>*</span>
+                                {{globals.adminTranslationText.certificateCategoryMapping.form.practiceTotalItems.label}}</label>
+                              <input class="form-control" type="text" #PracticeTotalItems="ngModel"
+                                [(ngModel)]="mappingDetailsData.PracticeTotalItems"
+                                name="PracticeTotalItems" id="PracticeTotalItems" minlength="1" readonly
+                                >
+                                <span class="error_class" *ngIf="errorEntity.PracticeTotalItems != ''">
+                                  {{errorEntity.PracticeTotalItems}}
+                                </span> 
+                            </div>
+                          </div>
+                          <div class="col-xl-4 col-lg-6 col-md-12 col-sm-12 col-12">
+                            <div class="form-group">
+                              <label><span>*</span>
+                                {{globals.adminTranslationText.certificateCategoryMapping.form.practiceScoreItems.label}}</label>
+                              <input class="form-control" type="text" #PracticeScoreItems="ngModel"
+                                [(ngModel)]="mappingDetailsData.PracticeScoreItems"
+                                [ngClass]="{error: (PracticeScoreItems.dirty && PracticeScoreItems.invalid) || (PracticeScoreItems.pristine && submitted) || itmePracticeCountError || errorEntity.PracticeScoreItems}"
+                                name="PracticeScoreItems" id="PracticeScoreItems" pattern="^[1-9]\d*$" minlength="1"
+                                required (keyup)="totalPracticeItemCount()">
+                              <span class="error_class"
+                                *ngIf="(PracticeScoreItems.dirty && PracticeScoreItems.invalid) || (PracticeScoreItems.pristine && submitted) || itmePracticeCountError || errorEntity.PracticeScoreItems">
+                                <span 
+                                  *ngIf="PracticeScoreItems.errors && PracticeScoreItems.errors.required || (PracticeScoreItems.pristine && submitted)">{{globals.adminTranslationText.certificateCategoryMapping.form.practiceScoreItems.required}}</span>
+                                <span 
+                                  *ngIf="PracticeScoreItems.errors && PracticeScoreItems.errors.pattern">{{globals.adminTranslationText.certificateCategoryMapping.form.practiceScoreItems.pattern}}</span>
+                                <span 
+                                  *ngIf="itmePracticeCountError">{{globals.adminTranslationText.certificateCategoryMapping.form.practiceScoreItems.itemCountError}}
+                                  {{(mappingDetailsData.PracticeTestScoreItems*1)+1}} items</span>
+                                  <span *ngIf="errorEntity.PracticeScoreItems != ''">
+                                    {{errorEntity.PracticeScoreItems}}
+                                  </span> 
+                              </span>
+                            </div>
+                          </div>
+                          <div class="col-xl-4 col-lg-6 col-md-12 col-sm-12 col-12">
+                            <div class="form-group">
+                              <label><span>*</span>
+                                {{globals.adminTranslationText.certificateCategoryMapping.form.noneScoreItems.label}}</label>
+                              <input class="form-control" type="text" #PracticeNoneScoreItems="ngModel"
+                                [(ngModel)]="mappingDetailsData.PracticeNoneScoreItems"
+                                [ngClass]="{error: (PracticeNoneScoreItems.dirty && PracticeNoneScoreItems.invalid) || (PracticeNoneScoreItems.pristine && submitted) || practiceNoneScoreItemCountError || practiceNoneScoreItemCountError1 || errorEntity.PracticeNoneScoreItems}"
+                                name="PracticeNoneScoreItems" id="PracticeNoneScoreItems" pattern="[0-9\',\s]{1,}"
+                                required (keyup)="practiceNoneScoreItemsCount()">
+                              <span class="error_class"
+                                *ngIf="(PracticeNoneScoreItems.dirty && PracticeNoneScoreItems.invalid) || (PracticeNoneScoreItems.pristine && submitted) || practiceNoneScoreItemCountError || practiceNoneScoreItemCountError1 || errorEntity.PracticeNoneScoreItems">
+                                <span
+                                  *ngIf="PracticeNoneScoreItems.errors && PracticeNoneScoreItems.errors.required  || (PracticeNoneScoreItems.pristine && submitted)">{{globals.adminTranslationText.certificateCategoryMapping.form.noneScoreItems.required}}</span>
+                                <span 
+                                  *ngIf="PracticeNoneScoreItems.errors && PracticeNoneScoreItems.errors.pattern">{{globals.adminTranslationText.certificateCategoryMapping.form.noneScoreItems.pattern}}</span>
+                                <span *ngIf="practiceNoneScoreItemCountError && mappingDetailsData.noScorePracticeItems != 0"> 
+                                  Please enter below {{(mappingDetailsData.noScorePracticeItems*1)+1}} none score items
+                                </span>
+                                <span *ngIf="practiceNoneScoreItemCountError && mappingDetailsData.noScorePracticeItems == 0"> 
+                                  There is no none score items for this category
+                                </span>
+                                <span *ngIf="practiceNoneScoreItemCountError1"> 
+                                  None score item is less than practice score item
+                                </span>
+                                <span *ngIf="errorEntity.PracticeNoneScoreItems != ''">
+                                  {{errorEntity.PracticeNoneScoreItems}}
+                                </span> 
+                              </span>
+                            </div>
+                          </div>
+                          <div class="col-xl-4 col-lg-6 col-md-12 col-sm-12 col-12">
+                            <div class="form-group">
+                              <label><span>*</span>
+                                {{globals.adminTranslationText.certificateCategoryMapping.form.categoryAssessmentTime.label}}</label>
+                              <input required class="form-control" type="text" #PracticeCategoryAssessmentTime="ngModel"
+                                [(ngModel)]="mappingDetailsData.PracticeCategoryAssessmentTime"
+                                [ngClass]="{error: (PracticeCategoryAssessmentTime.dirty && PracticeCategoryAssessmentTime.invalid) || (PracticeCategoryAssessmentTime.pristine && submitted) || errorEntity.PracticeCategoryAssessmentTime }"
+                                name="PracticeCategoryAssessmentTime" id="PracticeCategoryAssessmentTime"
+                                pattern="^[1-9]\d*$"  maxlength="3">
+                              <span class="error_class"
+                                *ngIf="(PracticeCategoryAssessmentTime.dirty && PracticeCategoryAssessmentTime.invalid) || (PracticeCategoryAssessmentTime.pristine && submitted) || errorEntity.PracticeCategoryAssessmentTime">
+                                <span 
+                                  *ngIf="PracticeCategoryAssessmentTime.errors && PracticeCategoryAssessmentTime.errors.required || (PracticeCategoryAssessmentTime.pristine && submitted)">{{globals.adminTranslationText.certificateCategoryMapping.form.categoryAssessmentTime.required}}</span>
+                                <span
+                                  *ngIf="PracticeCategoryAssessmentTime.errors && PracticeCategoryAssessmentTime.errors.pattern">{{globals.adminTranslationText.certificateCategoryMapping.form.categoryAssessmentTime.pattern}}</span>
+                                  <span *ngIf="errorEntity.PracticeCategoryAssessmentTime != ''">
+                                    {{errorEntity.PracticeCategoryAssessmentTime}}
+                                  </span> 
+                                </span>
+                            </div>
+                          </div>
+                          <div class="col-xl-4 col-lg-6 col-md-12 col-sm-12 col-12">
+                            <div class="form-group">
+                              <label><span>*</span>
+                                {{globals.adminTranslationText.certificateCategoryMapping.form.passingPercentage.label}}</label>
+                              <input class="form-control" type="text" #PracticePassingPercentage="ngModel"
+                                [(ngModel)]="mappingDetailsData.PracticePassingPercentage"
+                                [ngClass]="{error: (PracticePassingPercentage.dirty && PracticePassingPercentage.invalid) || (PracticePassingPercentage.pristine && submitted) || passingPracticePercentageError || errorEntity.PracticePassingPercentage}"
+                                name="PracticePassingPercentage" id="PracticePassingPercentage" pattern="^[3][5-9]$|^[4-9][0-9]$|^(100)$"
+                                maxlength="100" required >
+                              <span class="error_class"
+                                *ngIf="(PracticePassingPercentage.dirty && PracticePassingPercentage.invalid) || (PracticePassingPercentage.pristine && submitted) || passingPracticePercentageError || errorEntity.PracticePassingPercentage">
+                                <span
+                                  *ngIf="PracticePassingPercentage.errors && PracticePassingPercentage.errors.required">{{globals.adminTranslationText.certificateCategoryMapping.form.passingPercentage.required}}</span>
+                                <span
+                                  *ngIf="PracticePassingPercentage.errors && PracticePassingPercentage.errors.pattern">{{globals.adminTranslationText.certificateCategoryMapping.form.passingPercentage.percentageCheck}}</span>
+                                <span
+                                  *ngIf="passingPracticePercentageError">{{globals.adminTranslationText.certificateCategoryMapping.form.passingPercentage.percentageCheck}}</span>
+                                  <span *ngIf="errorEntity.PracticePassingPercentage != ''">
+                                    {{errorEntity.PracticePassingPercentage}}
+                                  </span> 
+                                </span>
+                            </div>
+                          </div>
+                        
+                          <div class="col-xl-4 col-lg-6 col-md-12 col-sm-12 col-12">
+                            <div class="form-group">
+                              <label class="mb-1">
+                                {{globals.adminTranslationText.certificateCategoryMapping.form.practiceactive.label}}</label>
+                              <div class="activeyes_box" data-toggle="tooltip" data-placement="top">
+                                <kendo-switch [(ngModel)]="mappingDetailsData.PracticeIsActive" value="yes" #PracticeIsActive="ngModel" name="PracticeIsActive" id="PracticeIsActive" [onLabel]="'Y'"
+                          [offLabel]="'N'"></kendo-switch>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="notice notice-danger practice_test_block" id="no_practice_test" 
+                      *ngIf="mappingDetailsData.HasPractice == true && mappingDetailsData.IsActive == true && mappingDetailsData.PracticeExamAttempts==0">
+                      This certificate has no practice test
+                    </div>
+                    <div class="notice notice-danger practice_test_block" id="no_practice_test_item" 
+                      *ngIf="mappingDetailsData.HasPractice == true && mappingDetailsData.IsActive == true && mappingDetailsData.PracticeExamAttempts>0 && mappingDetailsData.PracticeTestItems == 0">
+                      This category has no practice item
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-12 col-12 col-lg-12 col-sm-12 text-center">
+                      <button class="all_btn theme_btn" type="submit" [disabled]="btn_disable">
+                        <span
+                          *ngIf="certificateCategoryMappingEntity.CertificateAssessmentMappingId == 0">{{globals.adminTranslationText.certificateCategoryMapping.form.buttons.add}}</span>
+                        <span
+                          *ngIf="certificateCategoryMappingEntity.CertificateAssessmentMappingId != 0">{{globals.adminTranslationText.certificateCategoryMapping.form.buttons.update}}</span>
+                      </button>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="link_new" tabindex="-1" role="dialog" aria-labelledby="link_newLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="link_newLabel">Link new category</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <form role="form" #categoryLinkingForm="ngForm" (ngSubmit)="categoryLinking(categoryLinkingForm)">
+        <div class="modal-body">
+          <div class="form-group">
+            <label><span>*</span>Category</label>
+            <kendo-dropdownlist  [data]="categoryList" [filterable]="false" [textField]="'CategoryName'" [valueField]="'CategoryId'"
+              [valuePrimitive]="true" [itemDisabled]="itemDisabled" #CategoryId="ngModel"
+              [(ngModel)]="certificateCategoryMappingListEntity.CategoryId" name="CategoryId" [ngClass]="{error: (CategoryId.dirty && CategoryId.invalid) || (CategoryId.pristine && submitted1)}" required>
+              <ng-template kendoDropDownListItemTemplate let-dataItem >
+                {{ dataItem.CategoryName }} (items: {{dataItem.AssessmentItems}})
+            </ng-template>
+            </kendo-dropdownlist >
+            <span class="error_class"
+              *ngIf="(CategoryId.dirty && CategoryId.invalid) || (CategoryId.pristine && submitted1)">
+              <span *ngIf="CategoryId.errors && CategoryId.errors.required">
+                {{globals.adminTranslationText.certificateCategoryMapping.list.category.required}}
+              </span>
+            </span>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="submit" class="all_btn theme_btn">Link</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

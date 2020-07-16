@@ -1,0 +1,549 @@
+<div class="container-fluid login_register_bg">
+  <div class="loginregister_white_block register_block_height">
+    <div class="row justify-content-around">
+      <div class="col-12 col-xl-10 col-lg-12 col-md-12 col-sm-12">
+        <div class="white_login_block">
+          <div class="row justify-center">
+            <div class="col-12 col-xl-4 col-lg-4 col-md-12 col-sm-12">
+              <div class="login_logo_block">
+                <div class="logo_center">
+                  <a routerLink="/login">
+                    <img src="assets/images/logo.png" class="img-fluid" alt="">
+                  </a>
+                  <h1>{{globals.commonTranslationText.header.title}}</h1>
+                  <p class="padding_15">{{globals.commonTranslationText.header.contactUs.label}}<a
+                      routerLink="/inquire">{{globals.commonTranslationText.header.contactUs.linkText}}</a></p>
+                      <p><a routerLink="/privacyPolicy">Privacy Policy</a>  |  <a routerLink="/cookiePolicy">Cookie Policy</a>  |  <a routerLink="/termconditions">Terms of use</a></p>
+                </div>
+              </div>
+            </div>
+            <div class="col-12 col-xl-8 col-lg-8 col-md-12 col-sm-12">
+              <div class="padding_login_block">
+                <h3>{{globals.commonTranslationText.registerPage.title}}</h3>
+                <p class="padding_15">{{globals.commonTranslationText.registerPage.subTitle}}</p>
+                <div class="clearfix"></div>
+                <div class="register_step_block">
+                  <ul class="nav nav-tabs" id="RegisterTab" role="tablist">
+                    <li class="nav-item">
+                      <a class="nav-link active" id="role-tab" data-toggle="tab" role="tab" aria-controls="role"
+                        aria-selected="true"><span>1</span>
+                        {{globals.commonTranslationText.registerPage.tabPanel.role.tabName}}</a>
+                      <!-- href="#role" -->
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" id="personalinfo-tab" data-toggle="tab" role="tab"
+                        aria-controls="personalinfo" aria-selected="false"><span>2</span>
+                        {{globals.commonTranslationText.registerPage.tabPanel.personalInformation.tabName}}</a>
+                      <!-- href="#personalinfo" -->
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" id="certificate-tab" data-toggle="tab" role="tab" aria-controls="certificate"
+                        aria-selected="false"><span>3</span>
+                        {{globals.commonTranslationText.registerPage.tabPanel.certificate.tabName}}</a>
+                      <!-- href="#certificate" -->
+                    </li>
+                    <!-- <li class="nav-item">
+                      <a class="nav-link" id="document-tab" data-toggle="tab" role="tab" aria-controls="document"
+                        aria-selected="false"><span>4</span>
+                        {{globals.commonTranslationText.registerPage.tabPanel.documents.tabName}}</a>
+                      
+                    </li> -->
+                    <!-- href="#document" -->
+                  </ul>
+
+                  <div class="tab-content" id="RegisterTabContent">
+
+                    <div class="tab-pane fade show active" id="role" role="tabpanel">
+                      <form #registerForm1="ngForm" (ngSubmit)="register1(registerForm1)">
+                        <h4 class="login_tab_title"><span>*</span>
+                          {{globals.commonTranslationText.registerPage.tabPanel.role.title}}
+                        </h4>
+                        <div class="role_radio_block tab_height_block">
+                          <div class="row">
+                            <div class="col-12 col-xl-6 col-lg-6 col-md-6 col-sm-12 mb-5">
+                              <div class="role_radio">
+                                <input type="radio" name="role" id="Candidate" value="3" #RoleId="ngModel"
+                                  [(ngModel)]="registerEntity.RoleId">
+                                <label for="Candidate"><img src="assets/images/candidate.png" class="img-fluid"
+                                    alt="" />
+                                  {{globals.commonTranslationText.registerPage.tabPanel.role.candidate.title}}
+                                  <span>{{globals.commonTranslationText.registerPage.tabPanel.role.candidate.text}}</span>
+                                </label>
+                              </div>
+                            </div>
+                            <div class="col-12 col-xl-6 col-lg-6 col-md-6 col-sm-12 mb-5">
+                              <div class="role_radio">
+                                <input type="radio" name="role" id="Proctor" value="2" #RoleId="ngModel"
+                                  [(ngModel)]="registerEntity.RoleId">
+                                <label for="Proctor"><img src="assets/images/proctor.png" class="img-fluid" alt="" />
+                                  {{globals.commonTranslationText.registerPage.tabPanel.role.proctor.title}}
+                                  <span>{{globals.commonTranslationText.registerPage.tabPanel.role.proctor.text}}</span>
+                                </label>
+                              </div>
+                            </div>
+                            <div class="colxl-12 col-lg-12 col-md-12 col-sm-12 col-12 text-center">
+                              <span class="error_class" *ngIf="roleValid">
+                                {{globals.commonTranslationText.registerPage.tabPanel.role.required}}
+                              </span>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="clearfix"></div>
+                        <div class="login_button_block pt-0">
+                          <div class="float-right mobile_left">
+                            <button type="submit"
+                              class="all_btn theme_btn">{{globals.commonTranslationText.registerPage.buttons.next}}</button>
+                          </div>
+                          <a routerLink="/login" target="_blank"
+                            class="float-left">{{globals.commonTranslationText.registerPage.buttons.haveAccount}}</a>
+                          <div class="clearfix"></div>
+                        </div>
+                        <div class="clearfix"></div>
+                      </form>
+                    </div>
+
+                    <div class="tab-pane fade" id="personalinfo" role="tabpanel">
+
+                      <form #registerForm2="ngForm" (ngSubmit)="register2(registerForm2)">
+                        <h4 class="login_tab_title" *ngIf="registerEntity.RoleId==3">
+                          {{globals.commonTranslationText.registerPage.tabPanel.personalInformation.title}}
+                          {{globals.commonTranslationText.registerPage.tabPanel.role.candidate.title}} <img
+                            src="assets/images/candidate.png" class="img-fluid step_img" alt="" /></h4>
+                        <h4 class="login_tab_title" *ngIf="registerEntity.RoleId==2">
+                          {{globals.commonTranslationText.registerPage.tabPanel.personalInformation.title}}
+                          {{globals.commonTranslationText.registerPage.tabPanel.role.proctor.title}} <img
+                            src="assets/images/proctor.png" class="img-fluid step_img" alt="" /></h4>
+                        <div class="tab_height_block">
+                          <div class="row">
+                            <div class="col-12 col-xl-6 col-lg-6 col-md-12 col-sm-12">
+                              <div class="form-group">
+                                <label><span>*</span>
+                                  {{globals.commonTranslationText.registerPage.form.firstName.label}}</label>
+                                <input type="text" class="form-control" #FirstName="ngModel" required
+                                  [(ngModel)]="registerEntity.FirstName" name="FirstName"
+                                  [ngClass]="{error: (FirstName.dirty && FirstName.invalid) || (FirstName.pristine && submitted3 && FirstName.errors && FirstName.errors.required) || errorEntity.FirstName}"
+                                  pattern="^([a-zA-Z',&.$]{2,})$" maxlength="100"><!--registerEntity.FirstName=='' && -->
+                                <span class="error_class"
+                                  *ngIf="(FirstName.dirty && FirstName.invalid) || (FirstName.pristine && submitted3) || errorEntity.FirstName">
+                                  <span
+                                    *ngIf="FirstName.errors && FirstName.errors.required  || (FirstName.pristine && submitted3 && registerEntity.FirstName=='')">
+                                    {{globals.commonTranslationText.registerPage.form.firstName.required}}
+                                  </span>
+                                  <span *ngIf="FirstName.errors && FirstName.errors.pattern">
+                                    {{globals.commonTranslationText.registerPage.form.firstName.pattern}}
+                                  </span>
+                                  <span *ngIf="errorEntity.FirstName != ''">
+                                    {{errorEntity.FirstName}}
+                                  </span>
+                                </span>
+                              </div>
+                            </div>
+                            <div class="col-12 col-xl-6 col-lg-6 col-md-12 col-sm-12">
+                              <div class="form-group">
+                                <label>{{globals.commonTranslationText.registerPage.form.middleName.label}}</label>
+                                <input type="text" class="form-control" #MiddleName="ngModel"
+                                  [(ngModel)]="registerEntity.MiddleName" name="MiddleName"
+                                  [ngClass]="{error: (MiddleName.dirty && MiddleName.invalid)}"
+                                  pattern="^([a-zA-Z',&.$]{2,})$" maxlength="100">
+
+                                <span class="error_class" *ngIf="(MiddleName.dirty && MiddleName.invalid)">
+
+                                  <span *ngIf="MiddleName.errors && MiddleName.errors.pattern">
+                                    {{globals.commonTranslationText.registerPage.form.middleName.pattern}}
+                                  </span>
+                                </span>
+                              </div>
+                            </div>
+
+                            <div class="col-12 col-xl-6 col-lg-6 col-md-12 col-sm-12">
+                              <div class="form-group">
+                                <label><span>*</span>
+                                  {{globals.commonTranslationText.registerPage.form.lastName.label}}</label>
+                                <input type="text" class="form-control" #LastName="ngModel"
+                                  [(ngModel)]="registerEntity.LastName" name="LastName"
+                                  [ngClass]="{error: (LastName.dirty && LastName.invalid) || (LastName.pristine && submitted3 && LastName.errors && LastName.errors.required) || errorEntity.LastName}"
+                                  pattern="^([a-zA-Z',&.$]{2,})$" maxlength="100" required>
+
+                                <span class="error_class"
+                                  *ngIf="(LastName.dirty && LastName.invalid) || (LastName.pristine && submitted3) || errorEntity.LastName">
+                                  <span *ngIf="LastName.errors && LastName.errors.required">
+                                    {{globals.commonTranslationText.registerPage.form.lastName.required}}
+                                  </span>
+                                  <span *ngIf="LastName.errors && LastName.errors.pattern">
+                                    {{globals.commonTranslationText.registerPage.form.lastName.pattern}}
+                                  </span>
+                                  <span *ngIf="errorEntity.LastName != ''">
+                                    {{errorEntity.LastName}}
+                                  </span>
+                                </span>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="row">
+                            <div class="col-12 col-xl-6 col-lg-6 col-md-12 col-sm-12">
+                              <div class="form-group">
+                                <label><span>*</span>
+                                  {{globals.commonTranslationText.registerPage.form.emailAddress.label}}</label>
+                                <input type="email" class="form-control" #EmailAddress="ngModel"
+                                  [(ngModel)]="registerEntity.EmailAddress" name="EmailAddress" id="EmailAddress"
+                                  pattern="[a-zA-Z0-9.-_]{1,}@[a-zA-Z.-]{2,}[.]{1}[a-zA-Z]{2,}" required
+                                  [ngClass]="{error: (EmailAddress.dirty && EmailAddress.invalid) || (EmailAddress.pristine && submitted3 && EmailAddress.errors && EmailAddress.errors.required) || errorEntity.EmailAddress}">
+                                <span class="error_class"
+                                  *ngIf="(EmailAddress.dirty && EmailAddress.invalid) || (EmailAddress.pristine && submitted3) || errorEntity.EmailAddress">
+                                  <span *ngIf="EmailAddress.errors && EmailAddress.errors.required">
+                                    {{globals.commonTranslationText.registerPage.form.emailAddress.required}}
+                                  </span>
+                                  <span *ngIf="EmailAddress.errors && EmailAddress.errors.pattern">
+                                    {{globals.commonTranslationText.registerPage.form.emailAddress.pattern}}
+                                  </span>
+                                  <span *ngIf="errorEntity.EmailAddress != ''">
+                                    {{errorEntity.EmailAddress}}
+                                  </span>
+                                </span>
+                              </div>
+                            </div>
+                            <div class="col-12 col-xl-6 col-lg-6 col-md-12 col-sm-12">
+                              <div class="form-group">
+                                <label><span>*</span>
+                                  {{globals.commonTranslationText.registerPage.form.phoneNumber.label}}</label>
+                                <input type="text" class="form-control" #PhoneNumber="ngModel"
+                                  [(ngModel)]="registerEntity.PhoneNumber" name="PhoneNumber" id="PhoneNumber"
+                                  pattern="[0-9]{10,12}" required
+                                  [ngClass]="{error: (PhoneNumber.dirty && PhoneNumber.invalid) || (PhoneNumber.pristine && submitted3) || errorEntity.PhoneNumber}" />
+                                <span class="error_class"
+                                  *ngIf="(PhoneNumber.dirty && PhoneNumber.invalid) || (PhoneNumber.pristine && submitted3) || errorEntity.PhoneNumber">
+                                  <span *ngIf="PhoneNumber.errors && PhoneNumber.errors.required">
+                                    {{globals.commonTranslationText.registerPage.form.phoneNumber.required}}
+                                  </span>
+                                  <span *ngIf="PhoneNumber.errors && PhoneNumber.errors.pattern">
+                                    {{globals.commonTranslationText.registerPage.form.phoneNumber.pattern}}
+                                  </span>
+                                  <span *ngIf="errorEntity.PhoneNumber != ''">
+                                    {{errorEntity.PhoneNumber}}
+                                  </span>
+                                </span>
+                              </div>
+                            </div>
+                            <div class="col-12 col-xl-6 col-lg-6 col-md-12 col-sm-12">
+                              <div class="form-group">
+                                <label><span>*</span>
+                                  {{globals.commonTranslationText.registerPage.form.newPassword.label}}</label>
+                                <input (keyup)="checkpassword()" type="password" class="form-control" id="newpassword"
+                                  pattern="[a-zA-Z0-9_\-@$*&!#]{8,50}" #Password="ngModel"
+                                  [(ngModel)]="registerEntity.Password" name="Password"
+                                  [ngClass]="{error: (Password.dirty && Password.invalid) || (Password.pristine && submitted3) || errorEntity.Password}"
+                                  required />
+                                <span class="error_class"
+                                  *ngIf="(Password.dirty && Password.invalid) || (Password.pristine && submitted3) || errorEntity.Password">
+                                  <span *ngIf="Password.errors && Password.errors.required">
+                                    {{globals.commonTranslationText.registerPage.form.newPassword.required}}
+                                  </span>
+                                  <span *ngIf="Password.errors && Password.errors.pattern">
+                                    {{globals.commonTranslationText.registerPage.form.newPassword.pattern}}
+                                  </span>
+                                  <span *ngIf="errorEntity.Password != ''">
+                                    {{errorEntity.Password}}
+                                  </span>
+                                </span>
+                                <i class="fa fa-fw fa-eye toggle-password"
+                                  id="newpassword-show"></i>
+                              </div>
+                            </div>
+                            <div class="col-12 col-xl-6 col-lg-6 col-md-12 col-sm-12">
+                              <div class="form-group">
+                                <label><span>*</span>
+                                  {{globals.commonTranslationText.registerPage.form.confirmPassword.label}}</label>
+                                <input type="password" class="form-control" id="confpassword" (keyup)="checkpassword()"
+                                  pattern="[a-zA-Z0-9_\-@$*&!#]{8,50}" #cPassword="ngModel"
+                                  [(ngModel)]="registerEntity.cPassword" name="cPassword"
+                                  [ngClass]="{error: ((cPassword.dirty && cPassword.invalid) || (cPassword.pristine && submitted3)) || (same && !(cPassword.errors && cPassword.errors.pattern && cPassword.errors.required)) || errorEntity.cPassword}"
+                                  required />
+                                <span class="error_class"
+                                  *ngIf="(cPassword.dirty && cPassword.invalid) || (cPassword.pristine && submitted3) || same || errorEntity.cPassword">
+                                  <span *ngIf="cPassword.errors && cPassword.errors.required && !same">
+                                    {{globals.commonTranslationText.registerPage.form.confirmPassword.required}}
+                                  </span>
+
+                                  <span *ngIf="cPassword.errors && cPassword.errors.pattern && !same">
+                                    {{globals.commonTranslationText.registerPage.form.confirmPassword.pattern}}
+                                  </span>
+                                  <span
+                                    *ngIf="same && !(cPassword.errors && cPassword.errors.pattern && cPassword.errors.required)">
+                                    {{globals.commonTranslationText.registerPage.form.confirmPassword.match}}
+                                  </span>
+                                  <span *ngIf="errorEntity.cPassword != ''">
+                                    {{errorEntity.cPassword}}
+                                  </span>
+                                </span>
+                                <i class="fa fa-fw fa-eye toggle-password"
+                                  id="confpassword-show"></i>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="row" *ngIf="registerEntity.RoleId==2">
+                            <div class="col-12 col-xl-6 col-lg-6 col-md-12 col-sm-12">
+                              <div class="form-group">
+                                <label><span>*</span>
+                                  {{globals.commonTranslationText.registerPage.form.proctorPrice.label}}($)</label>
+                                <input type="text" class="form-control" #ProctorPrice="ngModel"
+                                  [(ngModel)]="registerEntity.ProctorPrice" name="ProctorPrice" id="ProctorPrice"
+                                  pattern="^\d{0,6}(\.\d{1,2})?$" required
+                                  [ngClass]="{error: (ProctorPrice.dirty && ProctorPrice.invalid) || (ProctorPrice.pristine && submitted3 && ProctorPrice.errors && ProctorPrice.errors.required) || errorEntity.ProctorPrice}">
+                                <span class="error_class"
+                                  *ngIf="(ProctorPrice.dirty && ProctorPrice.invalid) || (ProctorPrice.pristine && submitted3) || errorEntity.ProctorPrice">
+                                  <span *ngIf="ProctorPrice.errors && ProctorPrice.errors.required">
+                                    {{globals.commonTranslationText.registerPage.form.proctorPrice.required}}
+                                  </span>
+                                  <span *ngIf="ProctorPrice.errors && ProctorPrice.errors.pattern">
+                                    {{globals.commonTranslationText.registerPage.form.proctorPrice.pattern}}
+                                  </span>
+                                  <span *ngIf="errorEntity.ProctorPrice != ''">
+                                    {{errorEntity.ProctorPrice}}
+                                  </span>
+                                </span>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="clearfix"></div>
+
+                        <div class="check_box float-left mb-4">
+
+                          <input type="checkbox" checked="checked" name="privacypolicy"
+                            [(ngModel)]="privacypolicyEntity.privacypolicy" id="privacy_policy" value="Check1">
+                          <label
+                            for="privacy_policy">{{globals.commonTranslationText.registerPage.form.privacyPolicy.label_part1}}<a
+                              data-toggle="modal"
+                              data-target="#privacypolicymodal">{{globals.commonTranslationText.registerPage.form.privacyPolicy.label_part2}}</a></label>
+                        </div>
+
+                        <div class="clearfix"></div>
+
+                        <div class="login_button_block pt-0">
+                          <div class="float-right mobile_left">
+                            <button (click)="previous1()" type="button"
+                              class="all_btn themeoption_btn">{{globals.commonTranslationText.registerPage.buttons.previous}}</button>
+                            <button type="submit" class="all_btn theme_btn"
+                              [disabled]="this.privacypolicyEntity.privacypolicy!=true">{{globals.commonTranslationText.registerPage.buttons.next}}</button>
+                          </div>
+                          <a routerLink="/login" target="_blank"
+                            class="float-left">{{globals.commonTranslationText.registerPage.buttons.haveAccount}}</a>
+                          <div class="clearfix"></div>
+                        </div>
+                        <div class="clearfix"></div>
+
+
+                      </form>
+                    </div>
+                    <div class="tab-pane fade" id="certificate" role="tabpanel">
+                      <form #registerForm3="ngForm" (ngSubmit)="register3(registerForm3)">
+                        <h4 class="login_tab_title" *ngIf="registerEntity.RoleId==3">
+                          {{globals.commonTranslationText.registerPage.tabPanel.certificate.title}}
+                          {{globals.commonTranslationText.registerPage.tabPanel.role.candidate.title}} <img
+                            src="assets/images/candidate.png" class="img-fluid step_img" alt="" /></h4>
+                        <h4 class="login_tab_title" *ngIf="registerEntity.RoleId==2">
+                          {{globals.commonTranslationText.registerPage.tabPanel.certificate.title}}
+                          {{globals.commonTranslationText.registerPage.tabPanel.role.proctor.title}} <img
+                            src="assets/images/proctor.png" class="img-fluid step_img" alt="" /></h4>
+                        <div class="tab_height_block">
+                          <div class="row">
+                            <div class="col-12 col-xl-6 col-lg-6 col-md-12 col-sm-12">
+                              <!-- selectpicker -->
+                              <!-- <select multiple class="show-menu-arrow" data-selected-text-format="count"
+                                data-live-search="true" required #CertificateId="ngModel"
+                                [(ngModel)]="registerEntity.CertificateId" name="CertificateId"
+                                [ngClass]="{error: (CertificateId.dirty && CertificateId.invalid) || (CertificateId.pristine && submitted3)}">
+                                <!-- (change)="documents(registerEntity.CertificateId)" --
+                                <ng-container *ngFor="let certificate of certificateList">
+                                  <option [value]="certificate.CertificateId"
+                                    [selected]="registerEntity.CertificateId==certificate.CertificateId">
+                                    {{certificate.CertificateName}}</option>
+                                </ng-container>
+                              </select> -->
+                              <kendo-multiselect [data]="certificateList" [filterable]="false"
+                                [textField]="'CertificateName'" [valueField]="'CertificateId'" [valuePrimitive]="true"
+                                id="CertificateId" #CertificateId="ngModel" [(ngModel)]="registerEntity.CertificateId"
+                                name="CertificateId"></kendo-multiselect>
+                              <!-- <span class="error_class"
+                                *ngIf="(CertificateId.dirty && CertificateId.invalid) || (CertificateId.pristine && submitted3)">
+                                <span *ngIf="CertificateId.errors && CertificateId.errors.required">
+                                  {{globals.commonTranslationText.registerPage.tabPanel.certificate.required}}
+                                </span>
+                              </span> -->
+                            </div>
+                          </div>
+                        </div>
+                        <div class="clearfix"></div>
+                        <div class="login_button_block pt-0">
+                          <!-- <div class="float-right mobile_left"> -->
+
+                          <!-- <button (click)="previous2()"  type="button"
+                            class="all_btn themeoption_btn float-right">{{globals.commonTranslationText.registerPage.buttons.previous}}</button> -->
+
+
+
+
+                          <button type="submit" class="all_btn theme_btn float-right mobile_left">Submit</button>
+                          <!-- <a routerLink="" class="float-right mobile_left mr-5">Skip</a> -->
+
+
+                          <!-- <button type="submit"
+                              class="all_btn red_btn">{{globals.commonTranslationText.registerPage.buttons.skip}}</button> -->
+
+
+
+                          <!-- <button type="submit" [disabled]="hidenext==true"
+                            class="all_btn theme_btn">{{globals.commonTranslationText.registerPage.buttons.next}}</button> -->
+                          <!-- </div> -->
+                          <a routerLink="/login" target="_blank"
+                            class="float-left">{{globals.commonTranslationText.registerPage.buttons.haveAccount}}</a>
+                          <div class="clearfix"></div>
+                        </div>
+                        <div class="clearfix"></div>
+                      </form>
+                    </div>
+                    <div class="tab-pane fade" id="document" role="tabpanel">
+                      <form #registerForm4="ngForm" (ngSubmit)="register4(registerForm4)">
+                        <h4 class="login_tab_title" *ngIf="registerEntity.RoleId==3">
+                          {{globals.commonTranslationText.registerPage.tabPanel.documents.title}}
+                          {{globals.commonTranslationText.registerPage.tabPanel.role.candidate.title}} <img
+                            src="assets/images/candidate.png" class="img-fluid step_img" alt="" /></h4>
+                        <h4 class="login_tab_title" *ngIf="registerEntity.RoleId==2">
+                          {{globals.commonTranslationText.registerPage.tabPanel.documents.title}}
+                          {{globals.commonTranslationText.registerPage.tabPanel.role.proctor.title}} <img
+                            src="assets/images/proctor.png" class="img-fluid step_img" alt="" /></h4>
+                        <div class="tab_height_block document_height">
+                          <div class="row" *ngFor="let document of documentDetail; let i = index; let last = last;">
+                            <div class="col-12 col-xl-6 col-lg-6 col-md-12 col-sm-12">
+                              <div class="form-group">
+                                <label>{{globals.commonTranslationText.registerPage.form.idProof.label}}</label>
+                                <select class=" show-tick show-menu-arrow" data-live-search="true"
+                                  #CertificateDocumentId="ngModel" [(ngModel)]="documentDetail[i].CertificateDocumentId"
+                                  name="CertificateDocumentId{{i}}">
+
+                                  <option value="" selected>
+                                    {{globals.commonTranslationText.registerPage.form.idProof.select}}</option>
+                                  <ng-container *ngFor="let documents of documentList">
+                                    <option *ngIf="documents.flag==0" [value]="documents.CertificateDocumentId"
+                                      [selected]="registerEntity.CertificateDocumentId==documents.CertificateDocumentId">
+                                      {{documents.DocumentName}}</option>
+                                  </ng-container>
+                                </select>
+                                <span class="error_class"
+                                  *ngIf="documentDetail[i].CertificateDocumentName != '' && documentDetail[i].CertificateDocumentId == '' && submitted4">
+                                  {{globals.commonTranslationText.registerPage.form.idProof.required}}
+                                </span>
+                              </div>
+                            </div>
+                            <div class="col-12 col-xl-6 col-lg-6 col-md-12 col-sm-12"
+                              *ngIf="documentDetail[i].CertificateDocumentId!=''">
+                              <div class="form-group file_upload">
+                                <label><span>*</span>
+                                  {{globals.commonTranslationText.registerPage.form.uploadidProof.label}}</label>
+                                <input type="text" disabled="" id="abc{{i}}" class="form-control">
+                                <input type="file" #CertificateDocumentName="ngModel"
+                                  [(ngModel)]="documentDetail[i].CertificateDocumentName"
+                                  name="CertificateDocumentName{{i}}" id="CertificateDocumentName{{i}}"
+                                  class="form-control" (change)="documentSelect($event.target,i)"
+                                  [ngClass]="{error: documentDetail[i].CertificateDocumentId != '' && documentDetail[i].CertificateDocumentName == '' && submitted4}">
+                                <span class="error_class" *ngIf="documentDetail[i].VideoValid">
+                                  {{globals.commonTranslationText.registerPage.form.idProof.requiredDocument}}
+                                </span>
+
+                              </div>
+                            </div>
+                            <!-- <div class="col-6 col-lg-6 col-md-12">
+                                    <div class="form-group">
+                                      <label><span>*</span> {{globals.commonTranslationText.registerPage.form.certificateDoc.label}}</label>
+                                      <input type="text" class="form-control" />
+                                    </div>
+                                  </div> -->
+                            <div class="plus_minus"><button class="fa fa-plus" *ngIf="last" [ngClass]="{
+                                  first_plus :(i==0)}" [disabled]="documentDetail[i].CertificateDocumentName==''"
+                                type="button"
+                                (click)="addDocumentDetail(i,documentDetail[i].CertificateDocumentId)"></button>
+                              <button *ngIf="(i!=0 && last) || (i!=0 && !last) || (i==0 && !last)" class="fa fa-minus"
+                                type="button"
+                                (click)="deleteDocumentDetail(document,i,documentDetail[i].CertificateDocumentId)"></button>
+                            </div>
+                          </div>
+
+                        </div>
+
+
+
+                        <div class="clearfix"></div>
+                        <div class="login_button_block">
+                          <div class="float-right mobile_left">
+
+                            <button (click)="previous3()" type="button"
+                              class="all_btn themeoption_btn">{{globals.commonTranslationText.registerPage.buttons.previous}}</button>
+                            <button type="submit"
+                              class="all_btn theme_btn">{{globals.commonTranslationText.registerPage.buttons.submit}}</button>
+                          </div>
+                          <a routerLink="/login" target="_blank"
+                            class="float-left">{{globals.commonTranslationText.registerPage.buttons.haveAccount}}</a>
+                          <div class="clearfix"></div>
+                        </div>
+                        <div class="clearfix"></div>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Modal -->
+<div class="modal fade" id="privacypolicymodal" tabindex="-1" role="dialog"
+  aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Terms and Conditions</h5>
+        <button type="button" class="close" data-dismiss="modal">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p class="padding_15">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has
+          been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type
+          and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into
+          electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of
+          Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus
+          PageMaker including versions of Lorem Ipsum.</p>
+        <p class="padding_15">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has
+          been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type
+          and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into
+          electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of
+          Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus
+          PageMaker including versions of Lorem Ipsum.</p>
+        <p class="padding_15">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has
+          been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type
+          and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into
+          electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of
+          Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus
+          PageMaker including versions of Lorem Ipsum.</p>
+        <p class="padding_15">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has
+          been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type
+          and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into
+          electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of
+          Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus
+          PageMaker including versions of Lorem Ipsum.</p>
+        <p class="padding_15">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has
+          been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type
+          and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into
+          electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of
+          Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus
+          PageMaker including versions of Lorem Ipsum.</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="all_btn theme_btn">Accept</button>
+      </div>
+    </div>
+  </div>
+</div>

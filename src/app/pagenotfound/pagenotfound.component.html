@@ -1,0 +1,27 @@
+<div class="container-fluid login_register_bg">
+  <div class="loginregister_white_block">
+    <div class="row justify-content-around">
+      <div class="col-7 col-lg-7 col-md-12 col-sm-12">
+        <div class="white_login_block">
+          <div class="page_found_block text-center">
+            <h1>We are sorry!</h1>
+            <div *ngIf = "code == 404 && globals.authData.RoleId == 1">
+              <h5>The page you were looking for can't be found.</h5>
+              <img src="assets/images/nofound.png" alt="" class="img-fluid" />
+            </div>
+            <div *ngIf = "code == 400 && globals.authData.RoleId == 1">
+              <h5>The request cannot be fulfilled due to bad reuest. We are working on this.</h5>
+            </div>
+            <div *ngIf = "(code == 400 || code == 404) && (globals.authData.RoleId != 1)">
+              <h5>We are working on this we will get back to soon.</h5>
+            </div>
+            
+            <a *ngIf="globals.authData.RoleId == 1" href="/admin/adminDashboard" class="all_btn theme_btn">Go back Home</a>
+            <a *ngIf="globals.authData.RoleId == 2 || globals.authData.RoleId == 4" href="/admin/proctorDashboard" class="all_btn theme_btn">Go back Home</a>
+            <a *ngIf="globals.authData.RoleId == 3" href="/admin/dashboard" class="all_btn theme_btn">Go back Home</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

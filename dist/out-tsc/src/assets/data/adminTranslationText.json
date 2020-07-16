@@ -1,0 +1,2249 @@
+{
+    "common": {
+        "label": {
+            "add": "Add",
+            "update": "Update"
+        }
+    },
+    "country": {
+        "form": {
+            "title": {
+                "add": "Add a Country",
+                "update": "Update a Country"
+            },
+            "breadcrumbTitle": "Country",
+            "breadcrumbSubTitle": {
+                "add": "Add",
+                "update": "Update"
+            },
+            "countryName": {
+                "label": "Country Name",
+                "required": "Please enter a country",
+                "pattern": "Please enter a valid country",
+                "select": "Select country"
+            },
+            "countryAbbreviation": {
+                "label": "Country Abbreviation",
+                "required": "Please enter a country abbreviation",
+                "pattern": "Please enter a valid country abbreviation"
+            },
+            "phonePrefix": {
+                "label": "Phone Prefix",
+                "required": "Please enter a phone prefix",
+                "pattern": "Please enter a valid phone prefix"
+            },
+            "active": {
+                "label": "Active ?"
+            },
+            "buttons": {
+                "backToList": "List of Countries",
+                "add": "Add",
+                "update": "Update"
+            },
+            "alerts": {
+                "add": {
+                    "type": "success",
+                    "title": "Country Added",
+                    "text": "Country has been added successfully."
+                },
+                "update": {
+                    "type": "success",
+                    "title": "Country Updated",
+                    "text": "Country has been updated successfully."
+                },
+                "duplicateAbbreviation": {
+                    "type": "warning",
+                    "title": "Abbreviation Exist",
+                    "text": "Country abbreviation already exist."
+                }
+            }
+        },
+        "list": {
+            "title": "Countries",
+            "breadcrumbTitle": "Country",
+            "breadcrumbSubTitle": "List",
+            "recordNotFound": "There is no record found.",
+            "collumns": {
+                "srNo": "Id",
+                "country": "Country",
+                "countryAbbreviation": "Country Abbreviation",
+                "phonePrefix": "Phone Prefix",
+                "isActive": "Is Active?",
+                "actions": "Actions"
+            },
+            "buttons": {
+                "add": "Add a Country",
+                "edit": "Edit",
+                "delete": "Delete",
+                "active": "Active",
+                "deactive": "Deactive",
+                "export": "Export to Excel",
+                "print": "Print"
+            },
+            "alerts": {
+                "deleteConfirm": {
+                    "type": "warning",
+                    "title": "Delete country",
+                    "text": "Are you sure, you want to delete this country?"
+                },
+                "deleteSuccess": {
+                    "type": "success",
+                    "title": "Country Deleted",
+                    "text": "Country has been deleted successfully"
+                },
+                "activeSuccess": {
+                    "type": "success",
+                    "title": "Country Activated",
+                    "text": "Country has been activated successfully"
+                },
+                "deactiveSuccess": {
+                    "type": "success",
+                    "title": "Country Deactivated",
+                    "text": "Country has been deactivated successfully"
+                }
+            }
+        }
+    },
+    "emailTemplate": {
+        "form": {
+            "title": {
+                "add": "Add an Email Template",
+                "update": "Update an Email Template"
+            },
+            "breadcrumbTitle": "Email Template",
+            "breadcrumbSubTitle": {
+                "add": "Add",
+                "update": "Update"
+            },
+            "emailToken": {
+                "label": "Email Token",
+                "select": "Select Email Token",
+                "required": "Please select an email token"
+            },
+            "subject": {
+                "label": "Subject",
+                "required": "Please enter a subject",
+                "pattern": "Please enter a valid subject"
+            },
+            "emailBody": {
+                "label": "Email Body",
+                "required": "Please enter an email body",
+                "placeholder": "Placeholder List"
+            },
+            "to": {
+                "label": "To",
+                "select": "Select To",
+                "required": "Please select To"
+            },
+            "cc": {
+                "label": "CC",
+                "select": "Select CC"
+            },
+            "bcc": {
+                "label": "BCC",
+                "select": "Select BCC"
+            },
+            "emailAddress": {
+                "label": "Email Address",
+                "select": "Select BCC",
+                "pattern": "Please enter a valid email address"
+            },
+            "active": {
+                "label": "Active ?"
+            },
+            "buttons": {
+                "backToList": "List of Email Templates",
+                "add": "Add",
+                "update": "Update"
+            },
+            "alerts": {
+                "add": {
+                    "type": "success",
+                    "title": "Country Added",
+                    "text": "Country has been added successfully."
+                },
+                "update": {
+                    "type": "success",
+                    "title": "Country Updated",
+                    "text": "Country has been updated successfully."
+                },
+                "duplicateAbbreviation": {
+                    "type": "warning",
+                    "title": "Abbreviation Exist",
+                    "text": "Country abbreviation already exist."
+                }
+            }
+        },
+        "list": {
+            "title": "Email Templates",
+            "breadcrumbTitle": "Email Template",
+            "breadcrumbSubTitle": "List",
+            "recordNotFound": "No email templates found.",
+            "collumns": {
+                "srNo": "Id",
+                "emailToken": "Email Token",
+                "subject": "Subject",
+                "to": "To",
+                "cc": "CC",
+                "bcc": "BCC",
+                "isActive": "Is Active?",
+                "actions": "Actions"
+            },
+            "buttons": {
+                "add": "Add an Email Template",
+                "edit": "Edit",
+                "delete": "Delete",
+                "active": "Active",
+                "deactive": "Deactive",
+                "export": "Export to Excel",
+                "print": "Print"
+            },
+            "alerts": {
+                "deleteConfirm": {
+                    "type": "warning",
+                    "title": "Delete email template",
+                    "text": "Are you sure, you want to delete this email template?"
+                },
+                "deleteSuccess": {
+                    "type": "success",
+                    "title": "Email template Deleted",
+                    "text": "Email template has been deleted successfully"
+                },
+                "activeSuccess": {
+                    "type": "success",
+                    "title": "Email template Activated",
+                    "text": "Email template has been activated successfully"
+                },
+                "deactiveSuccess": {
+                    "type": "success",
+                    "title": "Email template Deactivated",
+                    "text": "Email template has been deactivated successfully"
+                }
+            }
+        }
+    },
+    "state": {
+        "form": {
+            "title": {
+                "add": "Add a State",
+                "update": "Update a State"
+            },
+            "breadcrumbTitle": "State",
+            "breadcrumbSubTitle": {
+                "add": "Add",
+                "update": "Update"
+            },
+            "stateName": {
+                "label": "State Name",
+                "required": "Please enter a state",
+                "pattern": "Please enter a valid state"
+            },
+            "stateAbbreviation": {
+                "label": "State Abbreviation",
+                "required": "Please enter a state abbreviation",
+                "pattern": "Please enter a valid state abbreviation"
+            },
+            "country": {
+                "label": "Country",
+                "required": "Please select a country"
+            },
+            "active": {
+                "label": "Active ?"
+            },
+            "buttons": {
+                "backToList": "List of States",
+                "add": "Add",
+                "update": "Update"
+            },
+            "alerts": {
+                "add": {
+                    "type": "success",
+                    "title": "State Added",
+                    "text": "State has been added successfully."
+                },
+                "update": {
+                    "type": "success",
+                    "title": "State Updated",
+                    "text": "State has been updated successfully."
+                },
+                "duplicateAbbreviation": {
+                    "type": "warning",
+                    "title": "Abbreviation Exist",
+                    "text": "State abbreviation already exist."
+                }
+            }
+        },
+        "list": {
+            "title": "States",
+            "breadcrumbTitle": "State",
+            "breadcrumbSubTitle": "List",
+            "recordNotFound": "There is no record found.",
+            "collumns": {
+                "srNo": "Id",
+                "country": "Country",
+                "state": "State",
+                "countryAbbreviation": "State Abbreviation",
+                "isActive": "Is Active?",
+                "actions": "Actions"
+            },
+            "buttons": {
+                "add": "Add a State",
+                "edit": "Edit",
+                "delete": "Delete",
+                "active": "Active",
+                "deactive": "Deactive",
+                "export": "Export to Excel",
+                "print": "Print"
+            },
+            "alerts": {
+                "deleteConfirm": {
+                    "type": "warning",
+                    "title": "Delete state",
+                    "text": "Are you sure, you want to delete this state?"
+                },
+                "deleteSuccess": {
+                    "type": "success",
+                    "title": "State Deleted",
+                    "text": "State has been deleted successfully"
+                },
+                "activeSuccess": {
+                    "type": "success",
+                    "title": "State Activated",
+                    "text": "State has been activated successfully"
+                },
+                "deactiveSuccess": {
+                    "type": "success",
+                    "title": "State Deactivated",
+                    "text": "State has been deactivated successfully"
+                }
+            }
+        }
+    },
+    "department": {
+        "form": {
+            "title": {
+                "add": "Add a Department",
+                "update": "Update a Department"
+            },
+            "breadcrumbTitle": "Department",
+            "breadcrumbSubTitle": {
+                "add": "Add",
+                "update": "Update"
+            },
+            "department": {
+                "label": "Department",
+                "required": "Please enter department",
+                "pattern": "Please enter valid department"
+            },
+            "active": {
+                "label": "Active ?"
+            },
+            "buttons": {
+                "backToList": "List of Departments",
+                "add": "Add",
+                "update": "Update"
+            },
+            "alerts": {
+                "add": {
+                    "type": "success",
+                    "title": "Department Added",
+                    "text": "Department has been added successfully."
+                },
+                "update": {
+                    "type": "success",
+                    "title": "Department Updated",
+                    "text": "Department has been updated successfully."
+                }
+            }
+        },
+        "list": {
+            "title": "Department",
+            "breadcrumbTitle": "Department",
+            "breadcrumbSubTitle": "List",
+            "recordNotFound": "There is no record found.",
+            "collumns": {
+                "srNo": "#",
+                "department": "Department",
+                "isActive": "Is Active?",
+                "actions": "Actions"
+            },
+            "buttons": {
+                "add": "Add a Department",
+                "edit": "Edit",
+                "delete": "Delete",
+                "active": "Active",
+                "deactive": "Deactive",
+                "export": "Export to Excel",
+                "print": "Print"
+            },
+            "alerts": {
+                "deleteConfirm": {
+                    "type": "warning",
+                    "title": "Delete Department",
+                    "text": "Are you sure, you want to delete this department?"
+                },
+                "deleteSuccess": {
+                    "type": "success",
+                    "title": "Department Deleted",
+                    "text": "Department has been deleted successfully"
+                },
+                "activeSuccess": {
+                    "type": "success",
+                    "title": "Department Activated",
+                    "text": "Department has been activated successfully"
+                },
+                "deactiveSuccess": {
+                    "type": "success",
+                    "title": "Department Deactivated",
+                    "text": "Department has been deactivated successfully"
+                }
+            }
+        }
+    },
+    "jobTitle": {
+        "form": {
+            "title": {
+                "add": "Add a Job Title",
+                "update": "Update a Job Title"
+            },
+            "breadcrumbTitle": "Job Title",
+            "breadcrumbSubTitle": {
+                "add": "Add",
+                "update": "Update"
+            },
+            "jobTitle": {
+                "label": "Job Title",
+                "required": "Please enter job title",
+                "pattern": "Please enter valid job title"
+            },
+            "department": {
+                "label": "Department",
+                "required": "Please select department"
+            },
+            "active": {
+                "label": "Active ?"
+            },
+            "buttons": {
+                "backToList": "List of Job Titles",
+                "add": "Add",
+                "update": "Update"
+            },
+            "alerts": {
+                "add": {
+                    "type": "success",
+                    "title": "Job Title Added",
+                    "text": "Job title has been added successfully."
+                },
+                "update": {
+                    "type": "success",
+                    "title": "Job Title Updated",
+                    "text": "Job title has been updated successfully."
+                }
+            }
+        },
+        "list": {
+            "title": "Job Title",
+            "breadcrumbTitle": "Job Title",
+            "breadcrumbSubTitle": "List",
+            "recordNotFound": "There is no record found.",
+            "collumns": {
+                "srNo": "#",
+                "jobTitle": "Job Title",
+                "department": "Department",
+                "isActive": "Is Active?",
+                "actions": "Actions"
+            },
+            "buttons": {
+                "add": "Add a Job Title",
+                "edit": "Edit",
+                "delete": "Delete",
+                "active": "Active",
+                "deactive": "Deactive",
+                "export": "Export to Excel",
+                "print": "Print"
+            },
+            "alerts": {
+                "deleteConfirm": {
+                    "type": "warning",
+                    "title": "Delete Job Title",
+                    "text": "Are you sure, you want to delete this job title?"
+                },
+                "deleteSuccess": {
+                    "type": "success",
+                    "title": "Job Title Deleted",
+                    "text": "Job title has been deleted successfully"
+                },
+                "activeSuccess": {
+                    "type": "success",
+                    "title": "Job Title Activated",
+                    "text": "Job title has been activated successfully"
+                },
+                "deactiveSuccess": {
+                    "type": "success",
+                    "title": "Job title Deactivated",
+                    "text": "Job title has been deactivated successfully"
+                }
+            }
+        }
+    },
+    "inquire": {
+        "list": {
+            "title": "Inquires",
+            "breadcrumbTitle": "Inquire",
+            "breadcrumbSubTitle": "List",
+            "recordNotFound": "There is no record found.",
+            "collumns": {
+                "srNo": "Id",
+                "name": "Name",
+                "emailAddress": "Email Address",
+                "contactNumber": "Contact Number",
+                "message": "Message",
+                "createdOn": "Created On"
+            }
+        }
+    },
+    "configuration": {
+        "form": {
+            "title": "Configuration",
+            "breadcrumbTitle": "Configuration",
+            "smtp": {
+                "title": "SMTP Details",
+                "EmailFrom": "Email Address",
+                "EmailPassword": "Password",
+                "SmtpHost": "Host",
+                "SmtpPort": "Port"
+            },
+            "documentType": {
+                "title": "Document Type",
+                "1": "Pan Card",
+                "2": "Aadhar Card",
+                "3": "Void Cheque",
+                "4": "Questionnaire Form"
+            },
+            "smtpDetails": {
+                "title": "SMTP Details"
+            },
+            "discountType": {
+                "title": "Discount Type"
+            },
+            "currencyType": {
+                "title": "Currency Type"
+            },
+            "scheduleStatus": {
+                "title": "Schedule Status"
+            },
+            "registrationType": {
+                "title": "Registration Type"
+            },
+            "resultStatus": {
+                "title": "Result Status"
+            },
+            "userStatus": {
+                "title": "User Status"
+            },
+            "require": "Please enter text for this field",
+            "buttons": {
+                "submit": "Update"
+            },
+            "alerts": {
+                "success": {
+                    "type": "success",
+                    "title": "Configuration Updated",
+                    "text": "Configuration has been updated successfully"
+                }
+            }
+        }
+    },
+    "document": {
+        "form": {
+            "title": {
+                "add": "Add a Document",
+                "update": "Update a Document"
+            },
+            "breadcrumbTitle": "Document",
+            "breadcrumbSubTitle": {
+                "add": "Add",
+                "update": "Update"
+            },
+            "documentName": {
+                "label": "Document Name",
+                "required": "Please enter a document name",
+                "pattern": "Please enter a valid document name"
+            },
+            "documentSize": {
+                "label": "Document Size",
+                "required": "Please enter a document size",
+                "pattern": "Maximum document size allow like 99.99,999.99"
+            },
+            "documentSizeUnit": {
+                "label": "Document Size Unit",
+                "select": "Select a Document Size Unit",
+                "required": "Please select a document size unit"
+            },
+            "documentType": {
+                "label": "Document Type",
+                "select": "Select a Document Type",
+                "required": "Please select a document type"
+            },
+            "documentLevel": {
+                "label": "Document Level",
+                "select": "Select a Document Level",
+                "required": "Please select a document level"
+            },
+            "active": {
+                "label": "Active ?"
+            },
+            "buttons": {
+                "backToList": "List of Documents",
+                "add": "Add",
+                "update": "Update"
+            },
+            "alerts": {
+                "add": {
+                    "type": "success",
+                    "title": "Document Added",
+                    "text": "Document has been added successfully."
+                },
+                "update": {
+                    "type": "success",
+                    "title": "Document Updated",
+                    "text": "Your document has been uploaded successfully."
+                }
+            }
+        },
+        "list": {
+            "title": "Documents",
+            "breadcrumbTitle": "Document",
+            "breadcrumbSubTitle": "List",
+            "recordNotFound": "There is no record found.",
+            "collumns": {
+                "srNo": "Id",
+                "documentName": "Document Name",
+                "documentType": "Document Type",
+                "documentSize": "Document Size",
+                "isActive": "Is Active?",
+                "actions": "Actions"
+            },
+            "buttons": {
+                "add": "Add a Document",
+                "edit": "Edit",
+                "delete": "Delete",
+                "active": "Active",
+                "deactive": "Deactive",
+                "export": "Export to Excel",
+                "print": "Print"
+            },
+            "alerts": {
+                "deleteConfirm": {
+                    "type": "warning",
+                    "title": "Delete document",
+                    "text": "Are you sure, you want to delete this document?"
+                },
+                "deleteSuccess": {
+                    "type": "success",
+                    "title": "Document Deleted",
+                    "text": "Document has been deleted successfully"
+                },
+                "activeSuccess": {
+                    "type": "success",
+                    "title": "Document Activated",
+                    "text": "Document has been activated successfully"
+                },
+                "deactiveSuccess": {
+                    "type": "success",
+                    "title": "Document Deactivated",
+                    "text": "Document has been deactivated successfully"
+                }
+            }
+        }
+    },
+    "category": {
+        "form": {
+            "title": {
+                "add": "Add a Category",
+                "update": "Update a Category"
+            },
+            "breadcrumbTitle": "Category",
+            "breadcrumbSubTitle": {
+                "add": "Add",
+                "update": "Update"
+            },
+            "parentCatgory": {
+                "label": "Parent Category",
+                "select": "Select a parent category"
+            },
+            "categoryName": {
+                "label": "Category Name",
+                "required": "Please enter a category name",
+                "pattern": "Please enter a valid category name"
+            },
+            "categoryDescription": {
+                "label": "Category Description",
+                "required": "Please enter a category description",
+                "pattern": "Please enter a valid category description"
+            },
+            "active": {
+                "label": "Active ?"
+            },
+            "buttons": {
+                "backToList": "List of Categories",
+                "add": "Add",
+                "update": "Update"
+            },
+            "alerts": {
+                "add": {
+                    "type": "success",
+                    "title": "Category Added",
+                    "text": "Category has been added successfully."
+                },
+                "update": {
+                    "type": "success",
+                    "title": "Category Updated",
+                    "text": "Category has been updated successfully."
+                },
+                "alreadyExist": {
+                    "type": "warning",
+                    "title": "Category Exist",
+                    "text": "Category already exist."
+                }
+            }
+        },
+        "list": {
+            "title": "Categories",
+            "breadcrumbTitle": "Category",
+            "breadcrumbSubTitle": "List",
+            "recordNotFound": "There is no record found.",
+            "collumns": {
+                "srNo": "Id",
+                "categoryName": "Category Name",
+                "parentCategoryName": "Parent Category Name",
+                "description": "Description",
+                "linkCertificates": "Link Certificates",
+                "isActive": "Is Active?",
+                "actions": "Actions"
+            },
+            "buttons": {
+                "add": "Add a Category",
+                "edit": "Edit",
+                "delete": "Delete",
+                "active": "Active",
+                "deactive": "Deactive",
+                "export": "Export to Excel",
+                "print": "Print",
+                "linkedCertificate": "Linked Certificates",
+                "unlinkedCertificate": "Unlinked Certificates"
+            },
+            "alerts": {
+                "deleteConfirm": {
+                    "type": "warning",
+                    "title": "Delete category",
+                    "text": "Are you sure, you want to delete this category?"
+                },
+                "deleteSuccess": {
+                    "type": "success",
+                    "title": "Category Deleted",
+                    "text": "Category has been deleted successfully"
+                },
+                "activeSuccess": {
+                    "type": "success",
+                    "title": "Category Activated",
+                    "text": "Category has been activated successfully"
+                },
+                "deactiveSuccess": {
+                    "type": "success",
+                    "title": "Category Deactivated",
+                    "text": "Category has been deactivated successfully"
+                }
+            }
+        }
+    },
+    "discountCoupon": {
+        "form": {
+            "title": {
+                "add": "Add a Discount Coupon",
+                "update": "Update a Discount Coupon"
+            },
+            "breadcrumbTitle": "Discount Coupon",
+            "breadcrumbSubTitle": {
+                "add": "Add",
+                "update": "Update"
+            },
+            "discountType": {
+                "label": "Discount Type",
+                "select": "Select discount type",
+                "required": "Please select a discount type"
+            },
+            "currencyType": {
+                "label": "Currency Type",
+                "select": "Select currency type",
+                "required": "Please select a currency type"
+            },
+            "couponCode": {
+                "label": "Coupon Code",
+                "required": "Please enter a coupon code",
+                "pattern": "Please enter a valid coupon code"
+            },
+            "value": {
+                "label": "Value",
+                "required": "Please enter a discount coupon value",
+                "pattern": "Please enter a valid discount coupon value"
+            },
+            "validFrom": {
+                "label": "Valid From Date",
+                "required": "Please select a discount coupon From date",
+                "bigDate": "From date should be less than To date"
+            },
+            "validTo": {
+                "label": "Valid To Date",
+                "required": "Please select a discount coupon To date"
+            },
+            "active": {
+                "label": "Active ?"
+            },
+            "buttons": {
+                "backToList": "List of Discount Coupons",
+                "add": "Add",
+                "update": "Update"
+            },
+            "alerts": {
+                "add": {
+                    "type": "success",
+                    "title": "Discount Coupon Added",
+                    "text": "Discount Coupon has been added successfully."
+                },
+                "update": {
+                    "type": "success",
+                    "title": "Discount Coupon Updated",
+                    "text": "Discount Coupon has been updated successfully."
+                }
+            }
+        },
+        "list": {
+            "title": "Discount Coupons",
+            "breadcrumbTitle": "Discount Coupon",
+            "breadcrumbSubTitle": "List",
+            "recordNotFound": "There is no record found.",
+            "collumns": {
+                "srNo": "Id",
+                "discountType": "Discount Type",
+                "currencyType": "Currency Type",
+                "couponCode": "Coupon Code",
+                "Value": "Value",
+                "validFromDate": "Valid From Date",
+                "validToDate": "Valid To Date",
+                "isActive": "Is Active?",
+                "actions": "Actions"
+            },
+            "buttons": {
+                "add": "Add a Discount Coupon",
+                "edit": "Edit",
+                "delete": "Delete",
+                "active": "Active",
+                "deactive": "Deactive",
+                "export": "Export to Excel",
+                "print": "Print"
+            },
+            "alerts": {
+                "deleteConfirm": {
+                    "type": "warning",
+                    "title": "Delete discount coupon",
+                    "text": "Are you sure, you want to delete this discount coupon?"
+                },
+                "deleteSuccess": {
+                    "type": "success",
+                    "title": "Discount Coupon Deleted",
+                    "text": "Discount Coupon has been deleted successfully"
+                },
+                "activeSuccess": {
+                    "type": "success",
+                    "title": "Discount Coupon Activated",
+                    "text": "Discount Coupon has been activated successfully"
+                },
+                "deactiveSuccess": {
+                    "type": "success",
+                    "title": "Discount Coupon Deactivated",
+                    "text": "Discount Coupon has been deactivated successfully"
+                }
+            }
+        }
+    },
+    "eligibilityItem": {
+        "form": {
+            "title": {
+                "add": "Add an Eligibility Item",
+                "update": "Update an Eligibility Item"
+            },
+            "breadcrumbTitle": "Eligibility Item",
+            "breadcrumbSubTitle": {
+                "add": "Add",
+                "update": "Update"
+            },
+            "certificate": {
+                "label": "Certificate",
+                "select": "Select Certificate",
+                "required": "Please select a Certificate"
+            },
+            "eligibilityItemText": {
+                "label": "Eligibility Item",
+                "required": "Please enter an eligibility item",
+                "pattern": "Please enter a valid eligibility item"
+            },
+            "eligibilityItemFor": {
+                "label": "Eligibility Item For",
+                "select": "Select Eligibility Item For",
+                "required": "Please select an eligibility item for"
+            },
+            "answerForEligibility": {
+                "label": "Answer",
+                "yes": "Yes",
+                "no": "No",
+                "required": "Please select an answer for eligibility"
+            },
+            "validFrom": {
+                "label": "Valid From Date",
+                "required": "Please select discount coupon From date",
+                "bigDate": "From date should be less than To date"
+            },
+            "validTo": {
+                "label": "Valid To Date",
+                "required": "Please select discount coupon To date"
+            },
+            "active": {
+                "label": "Active ?"
+            },
+            "buttons": {
+                "backToList": "List of Eligibility Items",
+                "add": "Add",
+                "update": "Update"
+            },
+            "alerts": {
+                "add": {
+                    "type": "success",
+                    "title": "Eligibility Item Added",
+                    "text": "Eligibility Item has been added successfully."
+                },
+                "update": {
+                    "type": "success",
+                    "title": "Eligibility Item Updated",
+                    "text": "Eligibility Item has been updated successfully."
+                }
+            }
+        },
+        "list": {
+            "title": "Eligibility Items",
+            "breadcrumbTitle": "Eligibility Items",
+            "breadcrumbSubTitle": "List",
+            "recordNotFound": "There is no record found.",
+            "collumns": {
+                "srNo": "Id",
+                "certificateName": "Certificate Name",
+                "eligibilityItemFor": "Eligibility Item For",
+                "eligibilityItemText": "Eligibility Item",
+                "answer": "Answer",
+                "isActive": "Is Active?",
+                "actions": "Actions"
+            },
+            "buttons": {
+                "add": "Add an Eligibility Item",
+                "edit": "Edit",
+                "delete": "Delete",
+                "active": "Active",
+                "deactive": "Deactive",
+                "export": "Export to Excel",
+                "print": "Print",
+                "view": "View Detail"
+            },
+            "alerts": {
+                "deleteConfirm": {
+                    "type": "warning",
+                    "title": "Delete eligibility item",
+                    "text": "Are you sure, you want to delete this eligibility item?"
+                },
+                "deleteSuccess": {
+                    "type": "success",
+                    "title": "Eligibility Item Deleted",
+                    "text": "Eligibility Item has been deleted successfully"
+                },
+                "activeSuccess": {
+                    "type": "success",
+                    "title": "Eligibility Item Activated",
+                    "text": "Eligibility Item has been activated successfully"
+                },
+                "deactiveSuccess": {
+                    "type": "success",
+                    "title": "Eligibility Item Deactivated",
+                    "text": "Eligibility Item has been deactivated successfully"
+                },
+                "answerForEligibilityActiveSuccess": {
+                    "type": "success",
+                    "title": "Answer Activated",
+                    "text": "Eligibility Item answer has been activated successfully"
+                },
+                "answerForEligibilityDeactiveSuccess": {
+                    "type": "success",
+                    "title": "Answer Deactivated",
+                    "text": "Eligibility Item answer has been deactivated successfully"
+                }
+            }
+        }
+    },
+    "certificate": {
+        "form": {
+            "title": {
+                "add": "Add a Certificate",
+                "update": "Update a Certificate"
+            },
+            "breadcrumbTitle": "Certificate",
+            "breadcrumbSubTitle": {
+                "add": "Add",
+                "update": "Update"
+            },
+            "parentCertificate": {
+                "label": "Parent Certificate"
+            },
+            "certificateName": {
+                "label": "Certificate Name",
+                "required": "Please enter a certificate name",
+                "pattern": "Please enter a valid certificate name",
+                "certificateExists": "Certificate name already exist"
+            },
+            "versionName": {
+                "label": "Version Name",
+                "required": "Please enter a version name",
+                "pattern": "Please enter a valid version name"
+            },
+            "releaseDate": {
+                "label": "Release Date",
+                "required": "Please select a release date",
+                "validDate": "Release Date must be a smaller than valid upto date"
+            },
+            "validUpto": {
+                "label": "Valid Upto",
+                "required": "Please select a valid upto date"
+            },
+            "certificateDescription": {
+                "label": "Certificate Description",
+                "required": "Please enter a certificate description",
+                "pattern": "Please enter a valid certificate description"
+            },
+            "features": {
+                "label": "Features",
+                "required": "Please enter features"
+            },
+            "whoCanApply": {
+                "label": "Who Can Apply",
+                "required": "Please enter a who can apply",
+                "pattern": "Please enter a valid who can apply"
+            },
+            "certificateURL": {
+                "label": "Certificate URL",
+                "required": "Please enter a certificate URL",
+                "pattern": "Please enter a valid certificate URL"
+            },
+            "usdPrice": {
+                "label": "USD Price($)",
+                "required": "Please enter a USD price",
+                "pattern": "maximum price allow is 9999.99"
+            },
+            "inrPrice": {
+                "label": "INR Price(₹)",
+                "required": "Please enter INR price",
+                "pattern": "maximum price allow is 9999.99"
+            },
+            "eurPrice": {
+                "label": "EUR Price(€)",
+                "required": "Please enter EUR price",
+                "pattern": "maximum price allow is 9999.99"
+            },
+            "renewalUsdPrice": {
+                "label": "Renewal USD Price($)",
+                "required": "Please enter a renewal USD price",
+                "pattern": "maximum price allow is 9999.99"
+            },
+            "renewalInrPrice": {
+                "label": "Renewal INR Price(₹)",
+                "required": "Please enter a renewal INR price",
+                "pattern": "maximum price allow is 9999.99"
+            },
+            "renewalEurPrice": {
+                "label": "Renewal EUR Price(€)",
+                "required": "Please enter a renewal EUR price",
+                "pattern": "maximum price allow is 9999.99"
+            },
+            "certificationDuration": {
+                "label": "Certification Duration (in Months)",
+                "required": "Please enter certification duration",
+                "pattern": "Please enter a valid certification duration"
+            },
+            "assessmentDuration": {
+                "label": "Assessment Duration (in Months)",
+                "required": "Please enter an Assessment duration",
+                "pattern": "Please enter a valid Assessment duration"
+            },
+            "beforeRenewButtonDisplay": {
+                "label": "Before Renew Button Display (in Days)",
+                "pattern": "Please enter valid days for before renew button display"
+            },
+            "afterRenewButtonDisplay": {
+                "label": "After Renew Button Display (in Days)",
+                "pattern": "Please enter valid days for after renew button display"
+            },
+            "coolingPeriod": {
+                "label": "Cooling Period (in Days)",
+                "required": "Please enter a cooling period",
+                "pattern": "Please enter a valid cooling period"
+            },
+            "practiceExamAttempts": {
+                "label": "Practice Exam Attempts",
+                "required": "Please enter a practice exam attempts",
+                "pattern": "Please enter a valid practice exam attempts"
+            },
+            "assessmentStartAfterDaysForProctor": {
+                "label": "Assessment Start After Days For Proctor",
+                "required": "Please enter assessment start days",
+                "pattern": "Please enter valid assessment start days"
+            },
+            "assessmentStartAfterDaysForCandidate": {
+                "label": "Schedule After Days For Candidate",
+                "required": "Please enter schedule start days",
+                "pattern": "Please enter valid schedule start days"
+            },
+            "hasSubCertificate": {
+                "label": "Has Sub Certificate?"
+            },
+            "hasOneShotAssessment": {
+                "label": "Has One Shot Assessment?"
+            },
+            "isRenewable": {
+                "label": "Is Renewable?"
+            },
+            "hasProctor": {
+                "label": "Has Proctor?"
+            },
+            "PassingPerCategory": {
+                "label": "Passing Criteria at certificate level"
+            },
+            "CertificatePassingPercentage": {
+                "label": "Passing Percentage (%)",
+                "required": "Please enter a Passing Percentage criteria",
+                "pattern": "Please enter a valid Passing Percentage criteria"
+            },
+            "hasDisplayCandidateInfo": {
+                "label": "Has Display Candidate Info?"
+            },
+            "hasDisplayProctorInfo": {
+                "label": "Has Display Proctor Info?"
+            },
+            "eligibilityCriteria": {
+                "label": "Eligibility Criteria (%)",
+                "required": "Please enter an eligibility criteria",
+                "pattern": "Please enter a valid eligibility criteria",
+                "percentageCheck": "Please enter between 1-100 percentage"
+            },
+            "rescheduleAssessment": {
+                "label": "Reschedule Assessment",
+                "required": "Please enter a reschedule assessment",
+                "pattern": "Please enter a valid reschedule assessment"
+            },
+            "OptionalDocumentForCandidate": {
+                "label": "Optional Document For Candidate",
+                "select": "Select a Certificate Documents",
+                "required": "Please select a certificate documents for candidate"
+            },
+            "MandatoryDocumentForCandidate": {
+                "label": "Mandatory Document For Candidate",
+                "select": "Select a Mandatory Documents for Candidate",
+                "required": "Please select a certificate documents for candidate"
+            },
+            "OptionalDocumentForProctor": {
+                "label": "Optional Document For Proctor",
+                "select": "Select an Optional Documents for Proctor",
+                "required": "Please select a certificate documents for proctor"
+            },
+            "MandatoryDocumentForProctor": {
+                "label": "Mandatory Document For Proctor",
+                "select": "Select a Mandatory Documents for Proctor",
+                "required": "Please select a certificate documents for proctor"
+            },
+            "CanRenew": {
+                "label": "Can certificate renew?"
+            },
+            "active": {
+                "label": "Active ?"
+            },
+            "buttons": {
+                "backToList": "List of Certificates",
+                "add": "Add",
+                "update": "Update"
+            },
+            "alerts": {
+                "add": {
+                    "type": "success",
+                    "title": "Certificate Added",
+                    "text": "Certificate has been added successfully."
+                },
+                "update": {
+                    "type": "success",
+                    "title": "Certificate Updated",
+                    "text": "Certificate has been updated successfully."
+                }
+            }
+        },
+        "priceForm": {
+            "title": {
+                "add": "Add a Certificate Price",
+                "update": "Update a Certificate Price"
+            },
+            "breadcrumbTitle": "Certificate Price",
+            "breadcrumbSubTitle": {
+                "add": "Add",
+                "update": "Update"
+            },
+            "priceComment": {
+                "label": "Comment",
+                "required": "Please enter a Comment",
+                "pattern": "Please enter a valid Comment"
+            },
+            "effectiveDate": {
+                "label": "Effective Date",
+                "required": "Please select an effective date"
+            },
+            "usdPrice": {
+                "label": "USD Price($)",
+                "required": "Please enter a USD price",
+                "pattern": "maximum price allow is 9999.99"
+            },
+            "inrPrice": {
+                "label": "INR Price(₹)",
+                "required": "Please enter INR price",
+                "pattern": "maximum price allow is 9999.99"
+            },
+            "eurPrice": {
+                "label": "EUR Price(€)",
+                "required": "Please enter EUR price",
+                "pattern": "maximum price allow is 9999.99"
+            },
+            "active": {
+                "label": "Active ?"
+            },
+            "buttons": {
+                "backToList": "List of Certificate Prices",
+                "add": "Add",
+                "update": "Update"
+            },
+            "alerts": {
+                "add": {
+                    "type": "success",
+                    "title": "Certificate Price Added",
+                    "text": "Certificate price has been added successfully."
+                },
+                "update": {
+                    "type": "success",
+                    "title": "Certificate Price Updated",
+                    "text": "Certificate price has been updated successfully."
+                }
+            }
+        },
+        "list": {
+            "title": "Certificates",
+            "breadcrumbTitle": "Certificates",
+            "breadcrumbSubTitle": "List",
+            "recordNotFound": "There is no record found.",
+            "collumns": {
+                "srNo": "Id",
+                "certificateName": "Certificate Name",
+                "price": "USD price",
+                "hasProctor": "Has Proctor?",
+                "certificationDuration": "Certification Duration",
+                "assessmentDuration": "Assessment Duration",
+                "isActive": "Is Active?",
+                "actions": "Actions"
+            },
+            "buttons": {
+                "add": "Add a Certificate",
+                "edit": "Edit",
+                "delete": "Delete",
+                "active": "Active",
+                "deactive": "Deactive",
+                "export": "Export to Excel",
+                "print": "Print",
+                "view": "View Detail",
+                "unlinkedCategory": "Unlinked Categories",
+                "linkedCategory": "Linked Categories"
+            },
+            "alerts": {
+                "deleteConfirm": {
+                    "type": "warning",
+                    "title": "Delete Certificate",
+                    "text": "Are you sure, you want to delete this Certificate?"
+                },
+                "deleteSuccess": {
+                    "type": "success",
+                    "title": "Certificate Deleted",
+                    "text": "Certificate has been deleted successfully"
+                },
+                "activeSuccess": {
+                    "type": "success",
+                    "title": "Certificate Activated",
+                    "text": "Certificate has been activated successfully"
+                },
+                "deactiveSuccess": {
+                    "type": "success",
+                    "title": "Certificate Deactivated",
+                    "text": "Certificate has been deactivated successfully"
+                }
+            }
+        },
+        "priceList": {
+            "title": "Certificate Prices",
+            "breadcrumbTitle": "Certificate Prices",
+            "breadcrumbSubTitle": "List",
+            "recordNotFound": "There is no record found.",
+            "collumns": {
+                "srNo": "Id",
+                "date": "Effective Date",
+                "prices": "Prices",
+                "uPrice": "USD Price",
+                "iPrice": "INR Price",
+                "ePrice": "EUR Price",
+                "comment": "Comment",
+                "isActive": "Is Active?",
+                "actions": "Actions"
+            },
+            "buttons": {
+                "add": "Add new Price",
+                "edit": "Edit",
+                "delete": "Delete",
+                "active": "Active",
+                "deactive": "Deactive",
+                "export": "Export to Excel",
+                "print": "Print",
+                "view": "View Detail"
+            },
+            "alerts": {
+                "deleteConfirm": {
+                    "type": "warning",
+                    "title": "Delete Certificate Price",
+                    "text": "Are you sure, you want to delete this Certificate Price?"
+                },
+                "deleteSuccess": {
+                    "type": "success",
+                    "title": "Certificate Price Deleted",
+                    "text": "Certificate price has been deleted successfully"
+                },
+                "activeSuccess": {
+                    "type": "success",
+                    "title": "Certificate Price Activated",
+                    "text": "Certificate price has been activated successfully"
+                },
+                "deactiveSuccess": {
+                    "type": "success",
+                    "title": "Certificate Price Deactivated",
+                    "text": "Certificate price has been deactivated successfully"
+                }
+            }
+        },
+        "detail": {
+            "title": "Certificate Detail",
+            "labels": {
+                "certificateName": "Certificate Name",
+                "versionName": "Version Name",
+                "releaseDate": "Release Date",
+                "description": "Description",
+                "features": "Features",
+                "documents": "Documents",
+                "usdPrice": "USD price",
+                "inrPrice": "INR price",
+                "eurPrice": "EUR price",
+                "renewalUsdPrice": "Renewal USD price",
+                "renewalInrPrice": "Renewal INR price",
+                "renewalEurPrice": "Renewal EUR price",
+                "certificationDuration": "Certification Duration (In Years)",
+                "assessmentDuration": "Assessment Duration (In Days)",
+                "beforeRenewbuttonDisplay": "Before Renew Button Display",
+                "afterRenewButtonDisplay": "After Renew Button Display",
+                "coolingPeriod": "Cooling Period (In Days)",
+                "hasSubCertificate": "Has Sub Certification?",
+                "practiceExamAttempts": "Practice Exam Attempts",
+                "scheduleAfterDaysForProctor": "Schedule After Days For Proctor",
+                "scheduleAfterDaysForCandidate": "Schedule After Days For Candidate",
+                "hasProctor": "Has Proctor?",
+                "hasDisplayCandidateInfo": "Has Display Candidate Info.?",
+                "hasDisplayProctorInfo": "Has Display Proctor Info.?",
+                "eligibilityCriteria": "Eligibility Criteria",
+                "rescheduleAssessment": "Reschedule Assessment",
+                "isRenewable": "Is Renewable?",
+                "certificatePassingPercentage": "Certificate Passing Percentage",
+                "passingPerCategory": "Passing Per Category?",
+                "isDocumentVerificationRequired": "Is Document Verification Required?"
+            }
+        },
+        "unlinkedCategory": {
+            "unlinkedCategoryList": "Unlinked Categories List of"
+        }
+    },
+    "certificateCategoryMapping": {
+        "form": {
+            "title": {
+                "add": "Certificate Category Linking",
+                "update": "Certificate Category Linking",
+                "addCategory": "Add Category",
+                "addPracticeTest": "Add Practice Test"
+            },
+            "breadcrumbTitle": "Certificate Category Linking",
+            "breadcrumbSubTitle": {
+                "add": "Add",
+                "update": "Update"
+            },
+            "certificate": {
+                "label": "Certificate",
+                "select": "Select Certificate",
+                "required": "Please select a certificate"
+            },
+            "category": {
+                "label": "Category",
+                "select": "Select Category",
+                "required": "Please select a category"
+            },
+            "assessmentTotalItems": {
+                "label": "Assessment Total Items",
+                "required": "Please enter an assessment total items",
+                "pattern": "Please enter a valid assessment total items",
+                "itemCountError": "Please enter below"
+            },
+            "assessmentScoreItems": {
+                "label": "Score Items",
+                "required": "Please enter an assessment score items",
+                "pattern": "Please enter a valid assessment score items",
+                "itemCountError": "Please enter below"
+            },
+            "categoryAssessmentTime": {
+                "label": "Category Assessment Time",
+                "required": "Please enter a category assessment time",
+                "pattern": "Please enter a valid category assessment time"
+            },
+            "noneScoreItems": {
+                "label": "None Score Items",
+                "required": "Please enter a none score items",
+                "pattern": "Please enter a valid none score items"
+            },
+            "passingPercentage": {
+                "label": "Passing Percentage",
+                "required": "Please enter a passing percentage",
+                "pattern": "Please enter a valid passing percentage",
+                "percentageCheck": "Please enter between 35-100 percentage"
+            },
+            "isMandatoryCategoryAssessment": {
+                "label": "Is Mandatory Category Assessment?"
+            },
+            "practiceTotalItems": {
+                "label": "Practice Total Items",
+                "required": "Please enter a practice total items",
+                "pattern": "Please enter a valid practice total items"
+            },
+            "practiceScoreItems": {
+                "label": "Practice Score Items",
+                "required": "Please enter a practice score items",
+                "pattern": "Please enter a valid practice score items",
+                "itemCountError": "Please enter below"
+            },
+            "active": {
+                "label": "Is category active in assessment?"
+            },
+            "practiceactive": {
+                "label": "Is category active in practice?"
+            },
+            "hasPractice": {
+                "label": "Has Practice?"
+            },
+            "buttons": {
+                "backToList": "Certificate Category Linking",
+                "add": "Add",
+                "update": "Update"
+            },
+            "alerts": {
+                "add": {
+                    "type": "success",
+                    "title": "Certificate Category Linking Added",
+                    "text": "Certificate Category Linking has been added successfully."
+                },
+                "update": {
+                    "type": "success",
+                    "title": "Certificate Category Linking Updated",
+                    "text": "Certificate Category Linking has been updated successfully."
+                }
+            }
+        },
+        "list": {
+            "title": "Certificate Category Linking",
+            "breadcrumbTitle": "Certificate Category Linking",
+            "breadcrumbSubTitle": "List",
+            "recordNotFound": "There is no record found.",
+            "collumns": {
+                "srNo": "Id",
+                "certificateName": "Certificate Name",
+                "eligibilityItemFor": "Eligibility Item For",
+                "eligibilityItemText": "Eligibility Item",
+                "answer": "Answer",
+                "isActive": "Is Active?",
+                "actions": "Actions"
+            },
+            "category": {
+                "select": "Select Category",
+                "required": "Please select a category"
+            },
+            "buttons": {
+                "add": "Add a Certificate Category Linking",
+                "edit": "Edit",
+                "delete": "Delete",
+                "active": "Active",
+                "deactive": "Deactive",
+                "export": "Export to Excel",
+                "print": "Print"
+            },
+            "alerts": {
+                "addData": {
+                    "type": "warning",
+                    "title": "Add data",
+                    "text": "Are you want to fill other data in this category linking?"
+                },
+                "deleteConfirm": {
+                    "type": "warning",
+                    "title": "Unlink category",
+                    "text": "Are you sure, you want to unlink this category?"
+                },
+                "deleteCertificateUnlinkConfirm": {
+                    "type": "warning",
+                    "title": "Unlink Certificate",
+                    "text": "Are you sure, you want to unlink this certificate?"
+                },
+                "deleteSuccess": {
+                    "type": "success",
+                    "title": "Certificate Category Unlink",
+                    "text": "Certificate Category has been unlinked successfully"
+                },
+                "activeSuccess": {
+                    "type": "success",
+                    "title": "Certificate Category Linking Activated",
+                    "text": "Certificate Category Linking has been activated successfully"
+                },
+                "deactiveSuccess": {
+                    "type": "success",
+                    "title": "Certificate Category Linking Deactivated",
+                    "text": "Certificate Category Linking has been deactivated successfully"
+                },
+                "noCertificateMapping": {
+                    "type": "error",
+                    "title": "No Certificate Category Linking",
+                    "text": "No Linking any category in this certificate, Please select another Certificae or link a Category"
+                }
+            }
+        }
+    },
+    "item": {
+        "form": {
+            "title": {
+                "add": "Add an Item",
+                "update": "Update an Item"
+            },
+            "breadcrumbTitle": "Item",
+            "breadcrumbSubTitle": {
+                "add": "Add",
+                "update": "Update"
+            },
+            "category": {
+                "label": "Category",
+                "select": "Select category",
+                "required": "Please select category"
+            },
+            "itemText": {
+                "label": "Item",
+                "required": "Please enter an item",
+                "pattern": "Please enter a valid item"
+            },
+            "noScoreItem": {
+                "label": "Is No Score Item ?"
+            },
+            "itemOptionsTitle": {
+                "label": "Add an Option",
+                "required": "Please enter an item Option",
+                "pattern": "Please enter a valid item Option"
+            },
+            "itemOptions": {
+                "label": "Option",
+                "required": "Please enter an item Option",
+                "pattern": "Please enter a valid item Option",
+                "optionCheck": "Please select any one correct option",
+                "isActiveCheck": "Minimum two options are active."
+            },
+            "active": {
+                "label": "Active ?"
+            },
+            "buttons": {
+                "backToList": "List of Items",
+                "add": "Add",
+                "update": "Update"
+            },
+            "alerts": {
+                "add": {
+                    "type": "success",
+                    "title": "Item Added",
+                    "text": "Item has been added successfully."
+                },
+                "update": {
+                    "type": "success",
+                    "title": "Item Updated",
+                    "text": "Item has been updated successfully."
+                }
+            }
+        },
+        "list": {
+            "title": "Items",
+            "breadcrumbTitle": "Item",
+            "breadcrumbSubTitle": "List",
+            "recordNotFound": "There is no record found.",
+            "collumns": {
+                "srNo": "Id",
+                "categoryName": "Category Name",
+                "description": "Item",
+                "correctOptionValue": "Correct Option Value",
+                "noScore": "Is No Score Item?",
+                "itemFor": "Item For",
+                "isActive": "Is Active?",
+                "actions": "Actions"
+            },
+            "buttons": {
+                "add": "Add an Item",
+                "edit": "Edit",
+                "delete": "Delete",
+                "active": "Active",
+                "deactive": "Deactive",
+                "export": "Export to Excel",
+                "print": "Print"
+            },
+            "alerts": {
+                "deleteConfirm": {
+                    "type": "warning",
+                    "title": "Delete item",
+                    "text": "Are you sure, you want to delete this item?"
+                },
+                "deleteSuccess": {
+                    "type": "success",
+                    "title": "Item Deleted",
+                    "text": "Item has been deleted successfully"
+                },
+                "activeSuccess": {
+                    "type": "success",
+                    "title": "Item Activated",
+                    "text": "Item has been activated successfully"
+                },
+                "deactiveSuccess": {
+                    "type": "success",
+                    "title": "Item Deactivated",
+                    "text": "Item has been deactivated successfully"
+                },
+                "isNoScoreactiveSuccess": {
+                    "type": "success",
+                    "title": "No Score Activated",
+                    "text": "No Score item has been activated successfully"
+                },
+                "isNoScoredeactiveSuccess": {
+                    "type": "success",
+                    "title": "No Score Deactivated",
+                    "text": "No score item has been deactivated successfully"
+                }
+            }
+        }
+    },
+    "userInvite": {
+        "form": {
+            "title": {
+                "add": "User Invite"
+            },
+            "breadcrumbTitle": "User Invite",
+            "breadcrumbSubTitle": {
+                "add": "Add",
+                "update": "Update"
+            },
+            "firstName": {
+                "label": "First Name",
+                "required": "Please enter a first name",
+                "pattern": "Please enter a valid first name"
+            },
+            "lastName": {
+                "label": "Last Name",
+                "required": "Please enter a last name",
+                "pattern": "Please enter a valid last name"
+            },
+            "emailAddress": {
+                "label": "Email Address",
+                "required": "Please enter an email address",
+                "pattern": "Please enter a valid email address"
+            },
+            "certificate": {
+                "label": "Certificate",
+                "select": "Select Certificate",
+                "required": "Please select a Certificate"
+            },
+            "role": {
+                "label": "Role",
+                "select": "Select role",
+                "required": "Please select a role"
+            },
+            "buttons": {
+                "backToList": "List of Items",
+                "invite": "Invite"
+            },
+            "alerts": {
+                "send": {
+                    "type": "success",
+                    "title": "Success",
+                    "text": "Invited successfully"
+                },
+                "duplicateSend": {
+                    "type": "warning",
+                    "title": "Already Send Invitation",
+                    "text": "Already Send Invitation"
+                }
+            }
+        },
+        "list": {
+            "title": "Items",
+            "breadcrumbTitle": "Item",
+            "breadcrumbSubTitle": "List",
+            "recordNotFound": "There is no record found.",
+            "collumns": {
+                "srNo": "Id",
+                "categoryName": "Category Name",
+                "description": "Item Question",
+                "isActive": "Is Active?",
+                "actions": "Actions"
+            },
+            "buttons": {
+                "add": "Add a Item",
+                "edit": "Edit",
+                "delete": "Delete",
+                "active": "Active",
+                "deactive": "Deactive",
+                "export": "Export to Excel",
+                "print": "Print"
+            },
+            "alerts": {
+                "deleteConfirm": {
+                    "type": "warning",
+                    "title": "Delete item",
+                    "text": "Are you sure, you want to delete this item?"
+                },
+                "deleteSuccess": {
+                    "type": "success",
+                    "title": "Item Deleted",
+                    "text": "Item has been deleted successfully"
+                },
+                "activeSuccess": {
+                    "type": "success",
+                    "title": "Item Activated",
+                    "text": "Item has been activated successfully"
+                },
+                "deactiveSuccess": {
+                    "type": "success",
+                    "title": "Item Deactivated",
+                    "text": "Item has been deactivated successfully"
+                }
+            }
+        }
+    },
+    "manageRegisterRequest": {
+        "title": "Registered Users",
+        "breadcrumbTitle": "Registered Users",
+        "breadcrumbSubTitle": "List",
+        "recordNotFound": "There is no record found.",
+        "userCertificateDetails": {
+            "title": "User Certificate Detail",
+            "breadcrumbTitle": "User Certificate Detail",
+            "breadcrumbSubTitle": "List",
+            "backToList": "Back to List",
+            "uploadedMandatoryDocuments": "Uploaded Mandatory Documents",
+            "uploadedOptionalDocuments": "Uploaded Optional Documents",
+            "comments": "Comments",
+            "noAnyMandarotyDocuments": "No any mandatory document uploaded",
+            "noAnyOptionalDocuments": "No any optional document available",
+            "comment": "Comment",
+            "required": "Please enter a comment",
+            "verifyDocumentFor": "Verify Document for",
+            "buttons": {
+                "verifyNow": "Verify Now",
+                "accept": "Accept",
+                "reject": "Reject"
+            },
+            "alerts": {
+                "type": "success",
+                "title": "Certificate Document Verify",
+                "text": "Certificate document has been verified successfully"
+            },
+            "rejectedDocument": {
+                "type": "success",
+                "title": "Certificate Document Reject",
+                "text": "Certificate document has been rejected successfully"
+            },
+            "activeSuccess": {
+                "type": "success",
+                "title": "Candidate Active",
+                "text": "Candidate has been activated successfully"
+            },
+            "deactiveSuccess": {
+                "type": "success",
+                "title": "Candidate Deactive",
+                "text": "Candidate has been deactivated successfully"
+            }
+        },
+        "collumns": {
+            "srNo": "Id",
+            "firstName": "First Name",
+            "fullName": "Name",
+            "lastName": "Last Name",
+            "emailAddress": "Email Address",
+            "phoneNumber": "Phone Number",
+            "role": "Role",
+            "isActive": "Is Active?",
+            "actions": "Actions"
+        },
+        "noCertificateDetails": "No any certificate details",
+        "buttons": {
+            "add": "Add a Certificate Category Mapping",
+            "edit": "Edit",
+            "delete": "Delete",
+            "active": "Active",
+            "deactive": "Deactive",
+            "export": "Export to Excel",
+            "print": "Print"
+        }
+    },
+    "assignAssessment": {
+        "title": "Assign Assessment",
+        "breadcrumbTitle": "Assign Assessment",
+        "form": {
+            "title": {
+                "add": "Assign Assessment"
+            },
+            "breadcrumbTitle": "Assign Assessment",
+            "breadcrumbSubTitle": {
+                "add": "Add",
+                "update": "Update"
+            },
+            "candidateName": "Candidate Name",
+            "certificateName": "Certificate Name",
+            "dates": "Dates",
+            "emailAddress": "Email Address",
+            "location": {
+                "title": "Location",
+                "required": "Please select a location"
+            },
+            "candidateSelectedDates": {
+                "title": "Candidate Selected Dates",
+                "required": "Please select a date"
+            },
+            "buttons": {
+                "backToList": "List of Requests",
+                "invite": "Invite"
+            },
+            "morning": "Morning",
+            "afternoon": "Afternoon",
+            "evening": "Evening",
+            "scheduleWith": {
+                "title": "Schedule with",
+                "required": "Please select a schedule with",
+                "suggestedProctors": "Suggested Proctors",
+                "newProctor": "New Proctor"
+            },
+            "selectedDate": "Selected Date",
+            "preferedTime": "Prefered Time",
+            "searchNewProctor": {
+                "searchNewProctor": "Search New Proctors",
+                "selectProctor": "Select Proctor",
+                "selectedProctorDetails": "Selected Proctor Details"
+            },
+            "suggestedProctors": {
+                "title": "Suggested Proctors",
+                "required": "Please select a suggested proctor"
+            },
+            "addressTab": {
+                "proctoName": "Proctor Name",
+                "emailAddress": "Email Address",
+                "phoneNumber": "Phone Number",
+                "selectedAddressDetails": "Selected Address Details",
+                "selectNewAddress": {
+                    "label": "Select New Address",
+                    "required": "Please select new address"
+                },
+                "address1": {
+                    "label": "Address Line 1",
+                    "required": "Please enter your address line 1",
+                    "pattern": "Please enter your valid address line 1"
+                },
+                "address2": {
+                    "label": "Address Line 2",
+                    "required": "Please enter your address line 2",
+                    "pattern": "Please enter your valid address line 2"
+                },
+                "country": {
+                    "label": "Country",
+                    "select": "Select Country",
+                    "required": "Please select your country",
+                    "pattern": "Please select your valid country"
+                },
+                "state": {
+                    "label": "State",
+                    "select": "Select State",
+                    "required": "Please select your state",
+                    "pattern": "Please select your valid state"
+                },
+                "city": {
+                    "label": "City",
+                    "required": "Please enter your city",
+                    "pattern": "Please enter your valid city"
+                },
+                "zipCode": {
+                    "label": "Zip Code",
+                    "required": "Please enter your zip code",
+                    "pattern": "Please enter your valid zip code"
+                },
+                "addressName": {
+                    "label": "Name above address for future use",
+                    "required": "Please enter your address name",
+                    "pattern": "Please enter your valid address name"
+                },
+                "startTime": {
+                    "label": "Start Time",
+                    "required": "Please enter your start time",
+                    "valid": "Start time not allowed greater than or equal to end time"
+                },
+                "endTime": {
+                    "label": "End Time",
+                    "required": "Please enter your end time"
+                }
+            },
+            "commentTab": {
+                "comment": "Comment",
+                "required": "Please enter a comment"
+            },
+            "alerts": {
+                "suggestedProctorNotFound": {
+                    "type": "error",
+                    "title": "No Suggested Procotor Available",
+                    "text": "No any suggested procotor so please select new proctor."
+                },
+                "assign": {
+                    "type": "success",
+                    "title": "Assign Assessment",
+                    "text": "Proctor has been assigned successfully to the "
+                },
+                "declineAssign": {
+                    "type": "success",
+                    "title": "Decline Assign Assessment",
+                    "text": "No proctor has been assigned successfully."
+                }
+            }
+        },
+        "list": {
+            "title": "Items",
+            "breadcrumbTitle": "Item",
+            "breadcrumbSubTitle": "List",
+            "recordNotFound": "There is no record found.",
+            "collumns": {
+                "srNo": "Id",
+                "categoryName": "Category Name",
+                "description": "Item Question",
+                "isActive": "Is Active?",
+                "actions": "Actions"
+            },
+            "buttons": {
+                "add": "Add a Item",
+                "edit": "Edit",
+                "delete": "Delete",
+                "active": "Active",
+                "deactive": "Deactive",
+                "export": "Export to Excel",
+                "print": "Print"
+            },
+            "alerts": {
+                "deleteConfirm": {
+                    "type": "warning",
+                    "title": "Delete item",
+                    "text": "Are you sure, you want to delete this item?"
+                },
+                "deleteSuccess": {
+                    "type": "success",
+                    "title": "Item Deleted",
+                    "text": "Item has been deleted successfully"
+                },
+                "activeSuccess": {
+                    "type": "success",
+                    "title": "Item Activated",
+                    "text": "Item has been activated successfully"
+                },
+                "deactiveSuccess": {
+                    "type": "success",
+                    "title": "Item Deactivated",
+                    "text": "Item has been deactivated successfully"
+                }
+            }
+        }
+    },
+    "assessment": {
+        "list": {
+            "title": "Assessment",
+            "breadcrumbTitle": "Assessment",
+            "breadcrumbSubTitle": "List",
+            "recordNotFound": "There is no record found.",
+            "candidateDetails": "Candidate Details",
+            "assessmentDate": "Assessment Date",
+            "preferedDates": "Prefered Dates",
+            "score": "Score",
+            "declineDate": "Declined Dates",
+            "viewDetail": "View Detail",
+            "assignProctor": "Assign Proctor",
+            "cancelledAssessment": "Cancelled Assessment",
+            "declinePopup": {
+                "assessmentDetail": "Assessment Details",
+                "comment": "Comment"
+            },
+            "cancelPopup": {
+                "assessmentDetail": "Assessment Details",
+                "proctorDetails": "Proctor Details",
+                "cancellationComment": "Cancellation Comment"
+            },
+            "upcomingPopup": {
+                "assessmentDetail": "Assessment Details",
+                "proctorDetails": "Proctor Details",
+                "cancellationComment": "Cancellation Comment"
+            },
+            "cancelAssessment": {
+                "cancellationComment": "Cancellation Comment",
+                "required": "Please enter a cancellation comment",
+                "alerts": {
+                    "type": "success",
+                    "title": "Cancel Assessment",
+                    "text": "Cancel assessment successfully"
+                }
+            },
+            "proctorChange": {
+                "searchNewProctor": "Search New Proctors",
+                "selectProctor": "Select Proctor",
+                "required": "Please select a proctor",
+                "selectedProctorDetails": "Selected Proctor Details",
+                "alerts": {
+                    "type": "success",
+                    "title": "Changed Proctor",
+                    "text": "Changed proctor successfully"
+                }
+            },
+            "collumns": {
+                "srNo": "Id",
+                "assessmentName": "Assessment Name",
+                "candidateName": "Candidate Name",
+                "certificateName": "Certificate Name",
+                "proctorName": "Proctor Name",
+                "score": "Score",
+                "isActive": "Is Active?",
+                "actions": "Actions"
+            },
+            "buttons": {
+                "edit": "Edit",
+                "delete": "Delete",
+                "active": "Active",
+                "deactive": "Deactive",
+                "export": "Export to Excel",
+                "print": "Print"
+            },
+            "alerts": {
+                "deleteConfirm": {
+                    "type": "warning",
+                    "title": "Delete category",
+                    "text": "Are you sure, you want to delete this category?"
+                },
+                "deleteSuccess": {
+                    "type": "success",
+                    "title": "Category Deleted",
+                    "text": "Category has been deleted successfully"
+                },
+                "activeSuccess": {
+                    "type": "success",
+                    "title": "Category Activated",
+                    "text": "Category has been activated successfully"
+                },
+                "deactiveSuccess": {
+                    "type": "success",
+                    "title": "Category Deactivated",
+                    "text": "Category has been deactivated successfully"
+                }
+            }
+        },
+        "detail": {
+            "title": "Assessment",
+            "breadcrumbTitle": "Assessment",
+            "breadcrumbSubTitle": "Detail",
+            "buttons": {
+                "backToList": "Back to List"
+            }
+        }
+    },
+    "userhistory": {
+        "form": {
+            "title": "User History",
+            "breadcrumbTitle": "List",
+            "breadcrumbSubTitle": {
+                "add": "Add",
+                "update": "Update"
+            },
+            "firstName": {
+                "label": "First Name",
+                "required": "Please enter a first name",
+                "pattern": "Please enter a valid first name"
+            },
+            "lastName": {
+                "label": "Last Name",
+                "required": "Please enter a last name",
+                "pattern": "Please enter a valid last name"
+            },
+            "emailAddress": {
+                "label": "Email Address",
+                "required": "Please enter an email address",
+                "pattern": "Please enter a valid email address"
+            },
+            "certificate": {
+                "label": "Certificate",
+                "select": "Select Certificate",
+                "required": "Please select a Certificate"
+            },
+            "role": {
+                "label": "Role",
+                "select": "Select role",
+                "required": "Please select a role"
+            },
+            "buttons": {
+                "backToList": "List of Items",
+                "invite": "Invite"
+            },
+            "alerts": {
+                "send": {
+                    "type": "success",
+                    "title": "Success",
+                    "text": "Invited successfully"
+                }
+            }
+        },
+        "list": {
+            "title": "Items",
+            "breadcrumbTitle": "Item",
+            "breadcrumbSubTitle": "List",
+            "recordNotFound": "There is no record found.",
+            "collumns": {
+                "srNo": "Id",
+                "categoryName": "Category Name",
+                "description": "Item Question",
+                "isActive": "Is Active?",
+                "actions": "Actions"
+            },
+            "buttons": {
+                "add": "Add a Item",
+                "edit": "Edit",
+                "delete": "Delete",
+                "active": "Active",
+                "deactive": "Deactive",
+                "export": "Export to Excel",
+                "print": "Print"
+            },
+            "alerts": {
+                "deleteConfirm": {
+                    "type": "warning",
+                    "title": "Delete item",
+                    "text": "Are you sure, you want to delete this item?"
+                },
+                "deleteSuccess": {
+                    "type": "success",
+                    "title": "Item Deleted",
+                    "text": "Item has been deleted successfully"
+                },
+                "activeSuccess": {
+                    "type": "success",
+                    "title": "Item Activated",
+                    "text": "Item has been activated successfully"
+                },
+                "deactiveSuccess": {
+                    "type": "success",
+                    "title": "Item Deactivated",
+                    "text": "Item has been deactivated successfully"
+                }
+            }
+        }
+    },
+    "userPendingVerification": {
+        "list": {
+            "title": "Document Verification",
+            "breadcrumbTitle": "Document Verification",
+            "breadcrumbSubTitle": "List",
+            "recordNotFound": "There is no record found.",
+            "collumns": {
+                "srNo": "Id",
+                "certificateName": "Certificate Name",
+                "userName": "User Name",
+                "userRole": "Role",
+                "actions": "Actions"
+            },
+            "buttons": {
+                "export": "Export to Excel",
+                "print": "Print",
+                "edit": "Edit"
+            }
+        }
+    },
+    "adminDashboard": {
+        "title": "Admin Dashboard",
+        "breadcrumbTitle": "Dashboard",
+        "Payment": "Payment",
+        "Proctor": "Proctor",
+        "withoutProctor": "W/O Proctor",
+        "total": "Total",
+        "Assessment": "Assessment",
+        "Users": "Users",
+        "Certificate": "Certificate",
+        "action": "Action",
+        "showWithoutProctoringCertificationDetails": "Show without Proctoring Certification Details",
+        "assignProctor": {
+            "title": "Assign Proctor",
+            "candidateName": "Candidate Name",
+            "certificateName": "Certificate Name",
+            "preferedDates": "Prefered Dates",
+            "location": "Location"
+        },
+        "documentVerification": {
+            "title": "Document Verification",
+            "candidateName": "Candidate Name",
+            "certificateName": "Certificate Name",
+            "role": "Role"
+        },
+        "todaysExamination": {
+            "title": "Today's Examination",
+            "country": "Country",
+            "state": "State",
+            "city": "City",
+            "location": "Location",
+            "time": "Time",
+            "proctorName": "Proctor Name",
+            "phone": "Phone",
+            "numberOfCandidates": "Number of Candidates",
+            "assignDate": "Assign Date"
+        },
+        "latest5Users": {
+            "title": "Latest 5 Users",
+            "name": "Name",
+            "email": "Email",
+            "phone": "Phone",
+            "role": "Role"
+        },
+        "top5sellingCertificate": {
+            "title": "Top 5 Selling Certificates",
+            "totalCount": "Total Count"
+        }
+    }
+}

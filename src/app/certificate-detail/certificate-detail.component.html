@@ -1,0 +1,1339 @@
+<div class="content_block">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12 col-sm-12">
+        <div class="title_block">
+          <h2 class="float-left">{{globals.commonTranslationText.certificateDetailPage.title}}</h2>
+          <div class="breadcrumb_block float-left">
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item">
+                <a routerLink="/dashboard">
+                  <i class="fa fa-home"></i>
+                </a>
+              </li>
+              <li class="breadcrumb-item active" aria-current="page">
+                {{globals.commonTranslationText.certificateDetailPage.breadcrumbTitle}}</li>
+            </ol>
+          </div>
+          <a routerLink="/dashboard"
+            class="all_btn themeoption_btn float-right">{{globals.commonTranslationText.certificateDetailPage.buttons.backToList}}</a>
+          <div class="clearfix"></div>
+        </div>
+        <div class="row d-flex justify-content-center">
+          <div class="col-md-12 col-sm-12">
+            <div class="inner_content_block certificate_detail_block">
+              <div class="paddin_form">
+                <h4 class="float-left">{{certificateDetail.CertificateName}}</h4>
+                <label class="float-left proctor_label_block" *ngIf="certificateDetail.HasProctor == 1">
+                  [<img src="assets/images/proctor.png" class="img-fluid" alt="" />With Proctoring <i
+                    class="fa fa-info-circle note_i_block" data-toggle="tooltip" data-placement="top" title="Note"></i>]
+                </label>
+                <label class="float-left proctor_label_block" *ngIf="certificateDetail.HasProctor == 0">
+                  [<img src="assets/images/woproctor.png" class="img-fluid" alt="" />Without Proctoring <i
+                    class="fa fa-info-circle note_i_block" data-toggle="tooltip" data-placement="top" title="Note"></i>]
+                </label>
+
+                <div class="float-right status_button">
+                  <!--statuses-->
+                  <span class="status_name"
+                    [ngClass]="{red:certificateDetail.CertificateStatus == 61 || certificateDetail.CertificateStatus == 65 || certificateDetail.CertificateStatus == 66,green:certificateDetail.CertificateStatus == 64,
+                  blue:certificateDetail.CertificateStatus == 62 || certificateDetail.CertificateStatus == 63}">{{certificateDetail.CertificateStatusText}}</span>
+
+                  <!--buttons-->
+                  <button class="all_btn theme_btn" *ngIf="certificateDetail.CertificateStatus == 61"
+                    (click)="payment(0)">{{globals.commonTranslationText.certificateDetailPage.buttons.payNow}}</button>
+                  <a class="all_btn theme_btn"
+                    *ngIf="(certificateDetail.CertificateStatus == 64 && certificateDetail.IsRenewable == 0 && certificateDetail.CertificationDuration != 0) || ( (certificateDetail.CertificateStatus == 62 || certificateDetail.CertificateStatus == 63) && certificateDetail.HasProctor == 0 && !assessmentbtndisplaywithoutproctor)"
+                    (click)="recertification()">{{globals.commonTranslationText.certificateDetailPage.buttons.Recertification}}</a>
+                  <a class="all_btn theme_btn"
+                    *ngIf="certificateDetail.CertificateStatus == 64 && certificateDetail.IsRenewable == 1 && certificateDetail.CertificationDuration != 0 && renewButtonDisplay"
+                    (click)="payment(1)">{{globals.commonTranslationText.certificateDetailPage.buttons.renew}}</a>
+                </div>
+
+                <div class="clearfix"></div>
+                <h5>{{globals.commonTranslationText.certificateDetailPage.aboutCertificate}}</h5>
+                <div class="row">
+                  <div class="col-lg-3 col-xl-2 col-sm-6 col-md-4 col-12">
+                    <div class="certi_icons_block">
+                      <i
+                        class="fa fa-hourglass-o"></i>{{globals.commonTranslationText.certificateDetailPage.certificateDuration}}<span>{{certificateDetail.CertificationDuration}}
+                        months</span>
+                    </div>
+                  </div>
+                  <div class="col-lg-3 col-xl-2 col-sm-6 col-md-4 col-12"
+                    *ngIf="certificateDetail.CertificateStatus != 64">
+                    <div class="certi_icons_block">
+                      <i
+                        class="fa fa-hourglass-o"></i>{{globals.commonTranslationText.certificateDetailPage.assessmentDuration}}<span>{{diffDays}}
+                        days left</span>
+                    </div>
+                  </div>
+                  <div class="col-lg-3 col-xl-2 col-sm-6 col-md-4 col-12"
+                    *ngIf="certificateDetail.CertificateStatus != 64">
+                    <div class="certi_icons_block">
+                      <i
+                        class="fa fa-calendar-o"></i>{{globals.commonTranslationText.certificateDetailPage.assessmentExpirationDate}}
+                      <span>{{assessmentExpirationDate | date: 'MM/dd/yyyy'}}</span>
+                    </div>
+                  </div>
+                  <div class="col-lg-3 col-xl-2 col-sm-6 col-md-4 col-12" *ngIf="certificateDetail.PaymentDate != null">
+                    <div class="certi_icons_block">
+                      <i
+                        class="fa fa-hourglass-o"></i>{{globals.commonTranslationText.certificateDetailPage.paymentDate}}<span>{{certificateDetail.PaymentDate | date: 'MM/dd/yyyy'}}</span>
+                    </div>
+                  </div>
+                  <div class="col-lg-3 col-xl-2 col-sm-6 col-md-4 col-12"
+                    *ngIf="certificateDetail.CertificateStatus == 64">
+                    <div class="certi_icons_block" *ngIf="certificateDetail.CertificationDuration != 0">
+                      <i
+                        class="fa fa-calendar-o"></i>{{globals.commonTranslationText.certificateDetailPage.expirationDate}}
+                      <span>{{certificateDetail.CertificationEndDate | date: 'MM/dd/yyyy'}} </span>
+                    </div>
+                    <div class="certi_icons_block" *ngIf="certificateDetail.CertificationDuration == 0">
+                      <i
+                        class="fa fa-calendar-o"></i>{{globals.commonTranslationText.certificateDetailPage.expirationDate}}
+                      <span>Certificate never expires </span>
+                    </div>
+                  </div>
+                 
+                </div>
+                <div class="certificate_tab_block">
+                  <div class="certificate_ul">
+                    <ul class="nav nav-tabs" id="CertificateTab" role="tablist">
+                      <li class="nav-item">
+                        <a class="nav-link active" id="category-list-tab" data-toggle="tab" href="#category-list"
+                          role="tab" aria-controls="category-list" aria-selected="true"><i
+                            class="fa fa-sitemap"></i>{{globals.commonTranslationText.certificateDetailPage.category}}
+                          <span class="cat_number" data-toggle="tooltip" data-placement="top"
+                            title="Number of Categories">{{categoryList.length}}</span></a>
+                      </li>
+                      <li class="nav-item">
+                        <a class="nav-link" id="document-list-tab" data-toggle="tab" href="#document-list" role="tab"
+                          aria-controls="document-list" aria-selected="false"><i class="fa fa-file-o"></i>Documents </a>
+                        <!-- <span class="doc_status status_name red" data-toggle="tooltip" data-placement="top" title="Status for Documents">Status</span> -->
+                      </li>
+                      <li class="nav-item" *ngIf="certificateDetail.PracticeExamAttempts > 0">
+                        <a class="nav-link" id="practice-test-tab" data-toggle="tab" href="#practice-test" role="tab"
+                          aria-controls="practice-test" aria-selected="false"><i class="fa fa-list-alt"></i>
+                          Practice Test<span class="num_ap" data-toggle="tooltip" data-placement="top"
+                            title="Attempts">[{{certificateDetail.PracticeTestAttempts}}/{{certificateDetail.PracticeExamAttempts}}]</span></a>
+                      </li>
+                      <li class="nav-item">
+                        <a class="nav-link" id="assessment-list-tab" data-toggle="tab" href="#assessment-list"
+                          role="tab" aria-controls="assessment-list" aria-selected="false"><i
+                            class="fa fa-file-text-o"></i>Assessments<span class="num_ap" data-toggle="tooltip"
+                            data-placement="top"
+                            title="Attempts">[{{certificateDetail.AssessmentAttempts}}/2]</span></a>
+                      </li>
+                    </ul>
+                  </div>
+                  <div id="accordion" class="mobile_accordion">
+                    <div class="tab-content" id="CertificateTabContent">
+                      <div class="tab-pane fade show active" id="category-list" role="tabpanel"
+                        aria-labelledby="category-list-tab">
+                        <div class="card mobile_accordion_cards">
+                          <div class="card-header mobile_header" id="headingOne">
+                            <button data-toggle="collapse" data-target="#collapseOne" aria-expanded="true"
+                              aria-controls="collapseOne">
+                              <i
+                                class="fa fa-sitemap"></i>{{globals.commonTranslationText.certificateDetailPage.category}}
+                              <span class="cat_number" data-toggle="tooltip" data-placement="top"
+                                title="Number of Categories">{{categoryList.length}}</span>
+                            </button>
+                          </div>
+                          <div id="collapseOne" class="collapse show mobile_collapse" aria-labelledby="headingOne"
+                            data-parent="#accordion">
+                            <div class="card-body mobile_body">
+                              <h4>{{globals.commonTranslationText.certificateDetailPage.category}}<span
+                                  class="note_cat"><i></i>Number of questions asked in the assessment</span></h4>
+                              <div>
+
+
+                                <div class="accordion" id="accordiondocument">
+                                  <div class="card" *ngFor="let category of categoryList;let i=index;">
+                                    <div class="card-header" id="documentheading{{i}}">
+                                      <div class="acc_header category_name" [ngClass]="{collapsed: i!=0}" data-toggle="collapse"
+                                        [attr.data-target]="'#documentcollapse'+i" aria-expanded="true"
+                                        [attr.aria-controls]="'documentcollapse'+i">
+                                        <i class="fa plus_minus_acc fa-plus"></i>
+                                        <strong class="float-left order_text">{{category.CategoryName}}</strong>
+                                        <span class="float-right">{{category.AssessmentTotalItems}}</span>
+                                        <div class="clearfix"></div>
+                                      </div>
+                                    </div>
+                                    <div id="documentcollapse{{i}}" class="collapse "
+                                      [attr.aria-labelledby]="'documentheading'+i" data-parent="#accordiondocument"
+                                      [ngClass]="{show:i==0}">
+                                      <div class="card-body">
+                                        <p [innerHtml]="category.Description"></p>
+                                        <div class="clearfix"></div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                 </div>
+
+                              </div>
+                            </div>
+                          </div>
+                          <div class="clearfix"></div>
+                        </div>
+                      </div>
+                      <div class="tab-pane fade" id="document-list" role="tabpanel" aria-labelledby="document-list-tab">
+                        <div class="card mobile_accordion_cards">
+                          <div class="card-header mobile_header" id="headingTwo">
+                            <button class="collapsed" data-toggle="collapse" data-target="#collapseTwo"
+                              aria-expanded="false" aria-controls="collapseTwo">
+                              <i class="fa fa-file-o"></i>Documents <span class="doc_status status_name red"
+                                data-toggle="tooltip" data-placement="top" title="Status for Documents">Status</span>
+                            </button>
+                          </div>
+                          <div id="collapseTwo" class="collapse mobile_collapse" aria-labelledby="headingTwo"
+                            data-parent="#accordion">
+                            <div class="card-body mobile_body">
+                              <h4 class="float-left">Documents</h4>
+                              <a *ngIf="certificateDetail.HasProctor == 0 && certificateDetail.DocumentVerificationStatusId != 53 && certificateDetail.DocumentVerificationStatusId != 54  
+                      && (certificateDetail.DocumentVerificationStatusId == 52 || uploadedMandatoryDocumentsCount == certificateDetail.totalDocs)"
+                                class="all_btn theme_btn float-right" (click)="VerificationRequest()">Verify Now</a>
+                              <div class="doc_status float-right"
+                                *ngIf="certificateDetail.DocumentVerificationStatusId !=55">
+                                <label
+                                  [ngClass]="{red_s : certificateDetail.DocumentVerificationStatusId == 52,green_s : certificateDetail.DocumentVerificationStatusId == 53,
+                        blue_s : (certificateDetail.DocumentVerificationStatusId == 54 || certificateDetail.DocumentVerificationStatusId == 55)}">{{certificateDetail.DocumentVerificationStatus}}</label>
+                              </div>
+                              <!--without proctor mate j verify button display-->
+                              <div class="clearfix"></div>
+                              <div *ngIf="certificateDetail.DocumentVerificationComment !=null ">
+                                <h5>{{globals.commonTranslationText.certificateDetailPage.documents.comments}}</h5>
+                                <p class="all_detail no_line_height padding_30">
+                                  <i class="fa fa-comment"></i>{{certificateDetail.DocumentVerificationComment}}
+                                </p>
+                              </div>
+
+                              <div class="clearfix"></div>
+                              <h5>{{globals.commonTranslationText.certificateDetailPage.documents.mandatoryDocuments}}
+                              </h5>
+                              <div class="uploaded_document_block">
+                                <div class="row">
+                                  <ng-container *ngFor="let documents of mandatoryDocumentsList;let i=index;">
+                                    <div class="width_doc" *ngIf="documents.flag==0">
+                                      <div class=" document_block new_upload_block" data-toggle="modal"
+                                        (click)="certificatedocuments(0,1,documents.DocumentId,0)">
+                                        {{documents.DocumentName}}
+                                      </div>
+                                    </div>
+                                  </ng-container>
+                                  
+                                  <ng-container *ngFor="let mandatoryDocuments of mandatoryDocumentsList;let i=index;">
+                                   
+                                    <div title="{{mandatoryDocuments.DocumentName}}" class="complete_uploaded_doc_block"
+                                      *ngIf="mandatoryDocuments.Ext == '.pdf' || mandatoryDocuments.Ext == '.PDF'">
+                                      <a href="{{globals.baseAPIUrl+mandatoryDocuments.DocumentUrl+globals.authData.UserId}}/assessment/Documents/{{mandatoryDocuments.CertificateDocumentName}}"
+                                        target="_blank"><img alt="" class="img-fluid" src="assets/images/pdf.png"></a>
+                                      <button id="adddoc_img"
+                                        [disabled]="certificateDetail.DocumentVerificationStatusId == 54 || certificateDetail.DocumentVerificationStatusId == 53"
+                                        (click)="certificatedocuments(mandatoryDocuments,1,mandatoryDocuments.DocumentId,1)">
+                                        <i class="fa fa-pencil" aria-hidden="true"></i>
+                                      </button>
+                                      <button id="deletedoc_img"
+                                        [disabled]="certificateDetail.DocumentVerificationStatusId == 54 || certificateDetail.DocumentVerificationStatusId == 53"
+                                        (click)="deleteDocument(mandatoryDocuments,1)">
+                                        <i class="fa fa-trash" aria-hidden="true"></i>
+                                      </button>
+
+                                    </div>
+                                  </ng-container>
+                                  <ng-container *ngFor="let mandatoryDocuments of mandatoryDocumentsList;let i=index;">
+                                   
+                                    <div title="{{mandatoryDocuments.DocumentName}}" class="complete_uploaded_doc_block"
+                                      *ngIf="mandatoryDocuments.Ext == '.jpg' || mandatoryDocuments.Ext == '.jpeg' || mandatoryDocuments.Ext == '.png' || mandatoryDocuments.Ext == '.JPG' || mandatoryDocuments.Ext == '.JPEG' || mandatoryDocuments.Ext == '.PNG'">
+                                     <!--data-toggle="modal" data-target="#lightboxdocumentmodal"-->
+                                      <a target="_blank" href="{{globals.baseAPIUrl+mandatoryDocuments.DocumentUrl+globals.authData.UserId}}/assessment/Documents/{{mandatoryDocuments.CertificateDocumentName}}"><img
+                                          src="{{globals.baseAPIUrl+mandatoryDocuments.DocumentUrl+globals.authData.UserId}}/assessment/Documents/{{mandatoryDocuments.CertificateDocumentName}}"
+                                          alt="" class="img-fluid" /></a>
+                                      <button id="adddoc_img"
+                                        [disabled]="certificateDetail.DocumentVerificationStatusId == 54 || certificateDetail.DocumentVerificationStatusId == 53"
+                                        (click)="certificatedocuments(mandatoryDocuments,1,mandatoryDocuments.DocumentId,1)">
+                                        <i class="fa fa-pencil" aria-hidden="true"></i>
+                                      </button>
+                                      <button id="deletedoc_img"
+                                        [disabled]="certificateDetail.DocumentVerificationStatusId == 54 || certificateDetail.DocumentVerificationStatusId == 53"
+                                        (click)="deleteDocument(mandatoryDocuments,1)">
+                                        <i class="fa fa-trash" aria-hidden="true"></i>
+                                      </button>
+
+                                    </div>
+                                  </ng-container>
+                                </div>
+                                <div class="notice notice-danger" *ngIf="mandatoryDocumentsList.length<=0">
+                                  {{globals.commonTranslationText.certificateDetailPage.documents.noAnyMandarotyDocuments}}
+                                </div>
+                              </div>
+
+                              <div class="clearfix"></div>
+
+                              <h5 class="mt-4">Optional Documents</h5>
+                              <div class="uploaded_document_block">
+                                <div class="row">
+                                  <ng-container *ngFor="let documents of optionalDocumentsList;let i=index;">
+                                    <div class="width_doc" *ngIf="documents.flag==0">
+                                      <div class=" document_block new_upload_block" data-toggle="modal"
+                                        (click)="certificatedocuments(0,0,documents.DocumentId,0)">
+                                        {{documents.DocumentName}}
+                                      </div>
+                                    </div>
+                                  </ng-container>
+                                  <ng-container *ngFor="let optionalDocuments of optionalDocumentsList;let i = index;">
+                                   
+                                    <div title="{{optionalDocuments.DocumentName}}" class="complete_uploaded_doc_block"
+                                      *ngIf="optionalDocuments.Ext == '.pdf' || optionalDocuments.Ext == '.PDF'">
+                                      <a href="{{globals.baseAPIUrl+optionalDocuments.DocumentUrl+globals.authData.UserId}}/assessment/Documents/{{optionalDocuments.CertificateDocumentName}}"
+                                        target="_blank">
+                                        <img src="assets/images/pdf.png" alt="" class="img-fluid" /></a>
+                                      <button id="adddoc_img"
+                                        [disabled]="certificateDetail.DocumentVerificationStatusId == 54 || certificateDetail.DocumentVerificationStatusId == 53"
+                                        (click)="certificatedocuments(optionalDocuments,0,optionalDocuments.DocumentId,1)">
+                                        <i class="fa fa-pencil" aria-hidden="true"></i>
+                                      </button>
+                                      <button id="deletedoc_img"
+                                        [disabled]="certificateDetail.DocumentVerificationStatusId == 54 || certificateDetail.DocumentVerificationStatusId == 53"
+                                        (click)="deleteDocument(optionalDocuments,0)">
+                                        <i class="fa fa-trash" aria-hidden="true"></i>
+                                      </button>
+
+                                    </div>
+                                  </ng-container>
+                                  <ng-container *ngFor="let optionalDocuments of optionalDocumentsList;let i = index;">
+                                    
+                                    <div title="{{optionalDocuments.DocumentName}}" class="complete_uploaded_doc_block"
+                                      *ngIf="optionalDocuments.Ext == '.jpg' || optionalDocuments.Ext == '.jpeg' || optionalDocuments.Ext == '.png' || optionalDocuments.Ext == '.JPG' || optionalDocuments.Ext == '.JPEG' || optionalDocuments.Ext == '.PNG'">
+                                      <!--data-toggle="modal" data-target="#lightboxdocumentmodal"-->
+                                      <a target="_blank" href="{{globals.baseAPIUrl+optionalDocuments.DocumentUrl+globals.authData.UserId}}/assessment/Documents/{{optionalDocuments.CertificateDocumentName}}">
+                                        <img src="{{globals.baseAPIUrl+optionalDocuments.DocumentUrl+globals.authData.UserId}}/assessment/Documents/{{optionalDocuments.CertificateDocumentName}}"
+                                          alt="" class="img-fluid" />
+                                      </a>
+                                      <button id="adddoc_img"
+                                        [disabled]="certificateDetail.DocumentVerificationStatusId == 54 || certificateDetail.DocumentVerificationStatusId == 53"
+                                        (click)="certificatedocuments(optionalDocuments,0,optionalDocuments.DocumentId,1)">
+                                        <i class="fa fa-pencil" aria-hidden="true"></i>
+                                      </button>
+                                      <button id="deletedoc_img"
+                                        [disabled]="certificateDetail.DocumentVerificationStatusId == 54 || certificateDetail.DocumentVerificationStatusId == 53"
+                                        (click)="deleteDocument(optionalDocuments,0)">
+                                        <i class="fa fa-trash" aria-hidden="true"></i>
+                                      </button>
+
+                                    </div>
+                                  </ng-container>
+
+                                  
+                                </div>
+                              </div>
+                              <div class="notice notice-danger" *ngIf="optionalDocumentsList.length<=0">
+                                {{globals.commonTranslationText.certificateDetailPage.documents.noAnyOptionalDocuments}}
+                              </div>
+                            </div>
+                          </div>
+                          <div class="clearfix"></div>
+                        </div>
+                      </div>
+                      <div class="tab-pane fade" id="practice-test" role="tabpanel" aria-labelledby="practice-test-tab"
+                        *ngIf="certificateDetail.PracticeExamAttempts > 0">
+                        <div class="card mobile_accordion_cards">
+                          <div class="card-header mobile_header" id="headingThree">
+                            <button class="collapsed" data-toggle="collapse" data-target="#collapseThree"
+                              aria-expanded="false" aria-controls="collapseThree">
+                              <i class="fa fa-list-alt"></i>
+                              Practice Test<span class="num_ap" data-toggle="tooltip" data-placement="top"
+                                title="Attempts">[{{certificateDetail.PracticeTestAttempts}}/{{certificateDetail.PracticeExamAttempts}}]</span>
+                            </button>
+                          </div>
+                          <div id="collapseThree" class="collapse mobile_collapse" aria-labelledby="headingThree"
+                            data-parent="#accordion">
+                            <div class="card-body mobile_body">
+                              <div class="practicetest_block">
+                                <h4>Practice Test</h4>
+                                <div class="clearfix"></div>
+                                <div class="row">
+                                  <div class="col-md-12 col-12 col-lg-12 col-sm-12"
+                                    *ngIf="certificateDetail.CertificateStatus == 61">
+                                    <div class="notice notice-danger">Payment issue</div>
+                                  </div>
+                                  <div class="col-md-12 col-12 col-lg-12 col-sm-12"
+                                    *ngIf="certificateDetail.activePracticeCategories == 0 && certificateDetail.CertificateStatus != 61">
+                                    <div class="notice notice-danger">There is no category linking for practice test</div>
+                                  </div>
+                                  <div class="col-md-12 col-12 col-lg-12 col-sm-12"
+                                    *ngIf="certificateDetail.CertificateStatus == 64">
+                                    <div class="notice notice-danger">You already certified in this certificate</div>
+                                  </div>
+                                  <div class="col-md-12 col-12 col-lg-12 col-sm-12"
+                                    *ngIf="certificateDetail.CertificateStatus == 66">
+                                    <div class="notice notice-danger">Your certificate is elapsed</div>
+                                  </div>
+                                  <div class="col-md-12 col-12 col-lg-12 col-sm-12"
+                                    *ngIf="certificateDetail.AssessmentAttempts == 2">
+                                    <div class="notice notice-danger">As your assessment attempt completed you can not
+                                      give practice exam now.</div>
+                                  </div>
+                                  <div class="col-12 col-xl-2 col-lg-3 col-md-6 col-sm-12"
+                                    *ngIf="viewResultStatus == false && certificateDetail.activePracticeCategories != 0 && PracticeTestAttempts < PracticeExamAttempts && (certificateDetail.CertificateStatus == 62 || certificateDetail.CertificateStatus == 63 || certificateDetail.CertificateStatus == 65) && certificateDetail.AssessmentAttempts <2">
+                                    <div class="start_practice_block"
+                                      (click)="practiceTest(certificateDetail.CertificateId,certificateDetail.UserCertificateId,0,0,certificateDetail.HasOneShotAssessment)">
+                                      {{globals.commonTranslationText.certificateDetailPage.practiceTest.startNewPracticeTest}}
+                                    </div>
+                                  </div>
+                                  <div class="col-12 col-xl-2 col-lg-3 col-md-6 col-sm-12"
+                                    *ngFor="let practice of practiceTestList;let i=index;">
+                                    <div class="practice_block">
+                                      <div class="pt_content">
+                                        <p>
+                                          {{globals.commonTranslationText.certificateDetailPage.practiceTest.attemptedDate}}:
+                                          {{practice.PracticeTestStartDate | date : 'MM/dd/yyyy'}}<br>
+                                          <!-- Time Taken: 5 hours-->
+                                        </p>
+                                        <div class="round_content">{{practice.TotalScore}}%</div>
+                                        <p class="status red" *ngIf="practice.ResultStatus==17">Fail</p>
+                                        <p class="status green" *ngIf="practice.ResultStatus==59">Pass</p>
+                                      </div>
+                                      <div class="pt_footer">
+                                        <button *ngIf="practice.PracticeTestStatusId == 1"
+                                          (click)="viewResult(practice.UserPracticeTestId)" data-toggle="tooltip"
+                                          data-placement="top" title="View Result"><i
+                                            class="fa fa-bar-chart"></i></button>
+                                        <button
+                                          *ngIf="practice.PracticeTestStatusId == 0 && (certificateDetail.CertificateStatus == 62 || certificateDetail.CertificateStatus == 63 || certificateDetail.CertificateStatus == 65) && certificateDetail.AssessmentAttempts <2"
+                                          (click)="practiceTest(certificateDetail.CertificateId,certificateDetail.UserCertificateId,practice.UserPracticeTestId,1,certificateDetail.HasOneShotAssessment)"
+                                          data-toggle="tooltip" data-placement="top" title="Continue"><i
+                                            class="fa fa-play-circle"></i></button>
+                                        <div class="clearfix"></div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="clearfix"></div>
+                                <div>
+                                  <a *ngIf="(certificateDetail.CertificateStatus == 62 || certificateDetail.CertificateStatus == 63 || certificateDetail.CertificateStatus == 65) && certificateDetail.AssessmentAttempts <2" data-toggle="modal"  data-target="#buynewpracticeModal" (click)="buyNewPracticeTestModalShow()" class="all_btn theme_btn">Buy more</a>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="clearfix"></div>
+                          </div>
+                        </div>
+                        </div>
+                        <div class="tab-pane fade" id="assessment-list" role="tabpanel"
+                          aria-labelledby="assessment-list-tab">
+                          <div class="card mobile_accordion_cards">
+                            <div class="card-header mobile_header" id="headingFour">
+                              <button class="collapsed" data-toggle="collapse" data-target="#collapseFour"
+                                aria-expanded="false" aria-controls="collapseFour">
+                                <i class="fa fa-file-text-o"></i>Assessments<span class="num_ap" data-toggle="tooltip"
+                                  data-placement="top"
+                                  title="Attempts">[{{certificateDetail.AssessmentAttempts}}/2]</span>
+                              </button>
+                            </div>
+                            <div id="collapseFour" class="collapse mobile_collapse" aria-labelledby="headingFour"
+                              data-parent="#accordion">
+                              <div class="card-body mobile_body">
+                                <div class="assessment_block">
+                                  <h4>Assessment</h4>
+                                  <div class="clearfix"></div>
+                                  <div class="row">
+                                    <div class="col-md-12 col-12 col-lg-12 col-sm-12"
+                                      *ngIf="certificateDetail.CertificateStatus == 61">
+                                      <div class="notice notice-danger">Payment issue</div>
+                                    </div>
+                                    <div class="col-md-12 col-12 col-lg-12 col-sm-12"
+                                      *ngIf="certificateDetail.HasProctor == 0 && certificateDetail.DocumentVerificationStatusId == 52">
+                                      <div class="notice notice-danger">Douments are rejected.</div>
+                                    </div>
+                                    <div class="col-md-12 col-12 col-lg-12 col-sm-12"
+                                      *ngIf="certificateDetail.HasProctor == 0 && (certificateDetail.DocumentVerificationStatusId == 54 || certificateDetail.DocumentVerificationStatusId == 55)">
+                                      <div class="notice notice-danger">Douments are not uploaded or in progress.</div>
+                                    </div>
+                                    <div class="col-md-12 col-12 col-lg-12 col-sm-12"
+                                      *ngIf="certificateDetail.HasProctor == 0 && !assessmentbtndisplaywithoutproctor && certificateDetail.CertificateStatus != 64 && certificateDetail.CertificateStatus != 65 ">
+                                      <div class="notice notice-danger">Assessment expiration date pass away so you can not give assessment so please recertification your certificate.</div>
+                                    </div>
+                                    <div class="col-12 col-xl-3 col-lg-4 col-md-6 col-sm-12"
+                                      *ngIf="certificateDetail.HasProctor == 1 && certificateDetail.AssessmentDetail.length == 0 && certificateDetail.CertificateStatus == 62">
+                                      <div class="start_block" (click)="viewSchedule(i)" data-toggle="modal">
+                                        Schedule Now
+                                      </div>
+                                    </div>
+                                    <div class="col-12 col-xl-3 col-lg-4 col-md-6 col-sm-12"
+                                      *ngIf="certificateDetail.HasProctor == 0 && certificateDetail.DocumentVerificationStatusId == 53 && assessmentbtndisplaywithoutproctor && ((certificateDetail.AssessmentDetail.length == 0 && certificateDetail.CertificateStatus == 62) || (certificateDetail.AssessmentDetail.length == 1 && certificateDetail.AssessmentDetail[0].ResultStatus == 17 && certificateDetail.HasSubCertificate == 0 && assessment_subassessment_btn_display  ))">
+                                      <div class="start_block"
+                                        (click)="startAssessmentPanel(certificateDetail.CertificateId,certificateDetail.UserCertificateId,ScheduleAssessmentId,0,resultStatus,0,certificateDetail.HasSubCertificate,certificateDetail.HasOneShotAssessment)">
+                                        Start Now 
+                                      </div>
+                                    </div> 
+                                    <div class="col-12 col-xl-3 col-lg-4 col-md-6 col-sm-12"
+                                      *ngFor="let assessment of certificateDetail.AssessmentDetail;let i=index;">
+                                      <div class="assessment_block">
+                                        <div class="ass_content"
+                                          *ngIf="certificateDetail.HasProctor==1 && assessment.ScheduleAssessmentId == null && (assessment.ScheduleStatusId == 15 || assessment.ScheduleStatusId == 14)">
+                                          <p>Preferred Dates:
+                                            {{assessment.AvailablePriorityDate1 | date : 'MM/dd/yyyy'}},
+                                            {{assessment.AvailablePriorityDate2 | date : 'MM/dd/yyyy'}},
+                                            {{assessment.AvailablePriorityDate3 | date : 'MM/dd/yyyy'}}<br>
+                                            Assessment Attempt: {{assessment.AssessmentAttempt}}
+                                          </p>
+                                          <!--Time Taken: 5 hours-->
+                                          <p class="status blue">{{assessment.ScheduleStatus}}</p>
+                                        </div>
+                                        <div class="ass_content"
+                                          *ngIf="certificateDetail.HasProctor==1 && assessment.ScheduleAssessmentId != null && assessment.ScheduleStatusId == 13 && assessment.ScheduleAssessmentStatus !=44">
+                                          <!-- && assessment.UserAssessmentId ==null-->
+                                          <p>Assign Date: {{assessment.AssignDate | date : 'MM/dd/yyyy'}}<br>
+                                            Time: {{assessment.startTime}}-{{assessment.endTime}}<br>
+                                            Assessment Attempt: {{assessment.AssessmentAttempt}}
+                                          </p>
+                                          <!--Time Taken: 5 hours-->
+                                          <p *ngIf="assessment.ScheduleAssessmentId == null" class="status"
+                                            [ngClass]="{blue:assessment.ScheduleStatusId == 13,red:assessment.ScheduleStatusId == 14}">
+                                            {{assessment.ScheduleStatus}}</p>
+                                          <p *ngIf="assessment.ScheduleAssessmentId != null" class="status"
+                                            [ngClass]="{red:assessment.ScheduleAssessmentStatus == 56,blue:assessment.ScheduleAssessmentStatus !=56}">
+                                            {{assessment.AssignStatus}}</p>
+                                        </div>
+                                        <div class="ass_content"
+                                          *ngIf="certificateDetail.HasProctor==0 && assessment.UserAssessmentId !=null && assessment.ResultStatus == null "><!--&& assessment.ParentAssessment == 0-->
+                                          <!-- && assessment.UserAssessmentId ==null-->
+                                          <p>Attempted Date:
+                                            {{assessment.AssessmentStartDate | date : 'MM/dd/yyyy'}}<br>
+                                            Assessment Attempt: {{assessment.TotalAssessmentAttempt}}
+                                          </p>
+                                          <!--Time Taken: 5 hours-->
+                                          <!-- <p class="status blue">{{assessment.ScheduleStatus}}</p> -->
+                                        </div>
+                                        <div class="ass_content"
+                                          *ngIf="assessment.UserAssessmentId !=null && assessment.ResultStatus != null">
+                                          <!-- && assessment.UserAssessmentId ==null-->
+                                          <p *ngIf="certificateDetail.HasProctor==1">Assessment Date:
+                                            {{assessment.AssignDate | date : 'MM/dd/yyyy'}}<br>
+                                            Assessment Attempt: {{assessment.AssessmentAttempt}}
+                                          </p>
+                                          <!--Time Taken: 5 hours Time: {{assessment.StartTime}}-{{assessment.EndTime}}-->
+                                          <p *ngIf="certificateDetail.HasProctor==0">Assessment Date:
+                                            {{assessment.AssessmentStartDate | date : 'MM/dd/yyyy'}}<br>
+                                            Assessment Attempt: {{assessment.TotalAssessmentAttempt}}
+                                          </p>
+                                          <div id="chart_result"></div>
+                                          <p class="status float-left"
+                                            [ngClass]="{red:assessment.ResultStatus == 17,green:assessment.ResultStatus == 16}">
+                                            {{assessment.ResultStatusText}}</p>
+                                          <div class="round_content float-right">{{assessment.TotalScore}}%</div>
+
+                                        </div>
+                                        <!--buttons-->
+                                        <div class="ass_footer">
+                                          <button data-toggle="modal" data-target="#certificate_history"><i
+                                              class="fa fa-eye" data-toggle="tooltip" data-placement="top"
+                                              title="View Details"></i></button>
+                                            
+                                          <button
+                                            *ngIf="certificateDetail.HasProctor==1 && assessment.ScheduleAssessmentId != null && assessment.ScheduleStatusId == 13 && assessment.ScheduleAssessmentStatus == 40 &&  assessment.UserAssessmentId ==null && ((globals.todaysdate) < (assessment.AppointmentCancelDate))"
+                                            data-toggle="modal" data-target="#cancel_popup"
+                                            (click)="CancelAssessmentView(assessment)">
+                                            <i class="fa fa-times" data-toggle="tooltip" data-placement="top"
+                                              title="Cancel Assessment"></i>
+                                          </button>
+                                          <button
+                                            *ngIf="certificateDetail.HasProctor==1 && assessment.ScheduleAssessmentId != null && assessment.ScheduleStatusId == 13 && assessment.UserAssessmentId ==null && assessment.ScheduleAssessmentStatus == 40"
+                                            (click)="printDiv();">
+                                            <i class="fa fa-download" data-toggle="tooltip" data-placement="top"
+                                              title="Appointment letter"></i>
+                                          </button>
+                                          <button
+                                            *ngIf="certificateDetail.HasProctor==1 && assessment.UserAssessmentId == null && ((assessment.AssignDate != null && assessment.AssignDate | date : 'MM-dd-yyyy') == (globals.todaysdate) && assessment.ScheduleAssessmentStatus == 41 && assessment.UserAssessments == 0 && assessment.assessmentbtndisplay) || (assessment.UserAssessments == 1 && certificateDetail.HasSubCertificate == 0 && (assessment.AssignDate != null && assessment.AssignDate | date : 'MM-dd-yyyy') == (globals.todaysdate) && assessment.ScheduleAssessmentStatus == 41 && assessment.assessmentbtndisplay && assessment.UserAssessmentId == null)"
+                                            (click)="startAssessmentPanel(certificateDetail.CertificateId,certificateDetail.UserCertificateId,ScheduleAssessmentId,0,resultStatus,0,certificateDetail.HasSubCertificate,certificateDetail.HasOneShotAssessment)">
+                                            <i class="fa fa-play" data-toggle="tooltip" data-placement="top"
+                                              title="Start Now"></i>
+                                          </button>
+                                          <button
+                                            *ngIf="(certificateDetail.HasProctor==1 && assessment.UserAssessmentId !=null && assessment.ResultStatus == null && assessment.ParentAssessment == 0 && assessment.assessmentbtndisplay && assessment.ScheduleAssessmentStatus == 41) || (certificateDetail.HasProctor == 0 && assessment.UserAssessmentId !=null && assessment.ResultStatus == null && assessment.ParentAssessment == 0 && assessmentbtndisplaywithoutproctor)"
+                                            (click)="startAssessmentPanel(certificateDetail.CertificateId,certificateDetail.UserCertificateId,assessment.ScheduleAssessmentId,assessment.UserAssessmentId,resultStatus,assessment.ParentAssessment,certificateDetail.HasSubCertificate,certificateDetail.HasOneShotAssessment)">
+                                            <i class="fa fa-play-circle" data-toggle="tooltip" data-placement="top"
+                                              title="Continue"></i>
+                                              <!-- (click)="router.navigate(['/assessmentPanel',certificateDetail.CertificateId,certificateDetail.UserCertificateId,assessment.ScheduleAssessmentId,assessment.UserAssessmentId,resultStatus,assessment.ParentAssessment,certificateDetail.HasSubCertificate])" -->
+                                          </button>
+                                          <button
+                                            *ngIf="(certificateDetail.HasProctor==1 && assessment.UserAssessmentId !=null && assessment.ResultStatus == null && assessment.ParentAssessment != 0 && assessment.assessmentbtndisplay && assessment.ScheduleAssessmentStatus == 41) || (certificateDetail.HasProctor==0 && assessment.UserAssessmentId !=null && assessment.ResultStatus == null && assessment.ParentAssessment != 0 && assessmentbtndisplaywithoutproctor)"
+                                            (click)="startAssessmentPanel(certificateDetail.CertificateId,certificateDetail.UserCertificateId,assessment.ScheduleAssessmentId,assessment.UserAssessmentId,resultStatus,assessment.ParentAssessment,certificateDetail.HasSubCertificate,certificateDetail.HasOneShotAssessment)">
+                                            <i class="fa fa-play-circle" data-toggle="tooltip" data-placement="top"
+                                              title="Continue Sub assessment"></i>
+                                              <!-- (click)="router.navigate(['/assessmentPanel',certificateDetail.CertificateId,certificateDetail.UserCertificateId,assessment.ScheduleAssessmentId,assessment.UserAssessmentId,resultStatus,assessment.ParentAssessment,certificateDetail.HasSubCertificate])" -->
+                                          </button>
+                                          <button
+                                            *ngIf="assessment.UserAssessmentId !=null && assessment.ResultStatus != null"
+                                            (click)="assessmentResult(assessment.UserAssessmentId)">
+                                            <i class="fa fa-bar-chart" data-toggle="tooltip" data-placement="top"
+                                              title="View Result"></i>
+                                          </button>
+                                          
+                                          <button
+                                            *ngIf="certificateDetail.HasProctor==1 && certificateDetail.AssessmentAttempts < 2 && ((assessment.UserAssessmentId !=null && assessment.ResultStatus == 17 && assessment_subassessment_btn_display) || ((assessment.ScheduleAssessmentStatus == 56 && scheduleStatus == 56) || (assessment.ScheduleStatusId == 14 && scheduleStatusId == 14))) "
+                                            (click)="viewReschedule(assessment)">
+                                            <i class="fa fa-calendar-plus-o" data-toggle="tooltip" data-placement="top"
+                                              title="Reschedule"></i>
+                                          </button>
+                                          <button
+                                            *ngIf="certificateDetail.HasProctor==0 && certificateDetail.HasOneShotAssessment == 0 && assessment.UserAssessmentId !=null && assessment.ResultStatus == 17 && certificateDetail.HasSubCertificate == 1 && assessment_subassessment_btn_display && certificateDetail.AssessmentDetail.length == 1"
+                                            (click)="startAssessmentPanel(certificateDetail.CertificateId,certificateDetail.UserCertificateId,ScheduleAssessmentId,assessment.UserAssessmentId,resultStatus,assessment.ParentAssessment,certificateDetail.HasSubCertificate,certificateDetail.HasOneShotAssessment)">
+                                            <i class="fa fa-files-o" data-toggle="tooltip" data-placement="top"
+                                              title="Sub Assessment"></i>
+                                          </button>
+                                          <button
+                                            *ngIf="certificateDetail.HasProctor==1 && ((assessment.AssignDate != null && assessment.AssignDate | date : 'MM-dd-yyyy') == (globals.todaysdate)) && assessment.assessmentbtndisplay && assessment.UserAssessments == 1 && certificateDetail.HasSubCertificate == 1 && assessment.ResultStatus == null && assessment.UserAssessmentId ==null && assessment.ScheduleAssessmentStatus == 41 && assessment.LastUserAssessmentId > 0"
+                                            (click)="startAssessmentPanel(certificateDetail.CertificateId,certificateDetail.UserCertificateId,ScheduleAssessmentId,UserAssessmentId,17,ParentAssessment,certificateDetail.HasSubCertificate,certificateDetail.HasOneShotAssessment)">
+                                            <i class="fa fa-files-o" data-toggle="tooltip" data-placement="top"
+                                              title="Sub Assessment"></i>
+                                          </button>
+                                          <!--[disabled]="((assessment.AssignDate | date : 'MM-dd-yyyy') != (globals.todaysdate) ) && (assessment.ScheduleAssessmentStatus != 41)" -->
+                                          <div class="clearfix"></div>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+
+                          </div>
+                        </div>
+                      </div>
+                      <div class="clearfix"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal fade" id="buynewpracticeModal" tabindex="-1" role="dialog"
+      aria-labelledby="dassessmenthistoryModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="assessmenthistoryModalLabel">Buy New Practice Test</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <form  role="form" #buyPracticeTestForm="ngForm" (ngSubmit)="buyPracticeTest(buyPracticeTestForm)">
+            <div class="modal-body">
+              <div class="certificate_history_block">
+                <div class="form-group">
+                  <label><span>*</span>
+                    Practice Test Number</label>
+                  <input type="text" class="form-control" #BoughtNewPracticeTests="ngModel"
+                    [(ngModel)]="buyNewPracticeTestEntity.BoughtNewPracticeTests" name="BoughtNewPracticeTests" id="BoughtNewPracticeTests"
+                    pattern="[0-9]{1,2}" required (keyup)="checkPracticeTestNumber()" maxlength="2"
+                    [ngClass]="{error: (BoughtNewPracticeTests.dirty && BoughtNewPracticeTests.invalid) || (BoughtNewPracticeTests.pristine && submitted4) || buyPracticeTestValid} " />
+                  <span class="error_class"
+                    *ngIf="(BoughtNewPracticeTests.dirty && BoughtNewPracticeTests.invalid) || (BoughtNewPracticeTests.pristine && submitted4)  || buyPracticeTestValid">
+                    <span *ngIf="BoughtNewPracticeTests.errors && BoughtNewPracticeTests.errors.required">
+                      Please enter practice test number
+                    </span>
+                    <span *ngIf="BoughtNewPracticeTests.errors && BoughtNewPracticeTests.errors.pattern">
+                      Please enter valid practice test number
+                    </span>
+                    <span *ngIf="buyPracticeTestValid && !(BoughtNewPracticeTests.errors && BoughtNewPracticeTests.errors.pattern && BoughtNewPracticeTests.errors.required)">
+                      Please enter between 1-10 digit number
+                    </span>
+                  </span>
+                </div>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="submit" class="all_btn theme_btn">Buy</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal fade" id="assessmenthistoryModal" tabindex="-1" role="dialog"
+      aria-labelledby="dassessmenthistoryModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="assessmenthistoryModalLabel">Assessment History</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div class="certificate_history_block">
+              <ul class="timeline">
+                <li>
+                  <span>Certificate Payment</span>
+                  <a href="#" class="float-right">21 March, 2019</a>
+                  <p>Payment mode: Paypal</p>
+                </li>
+                <li>
+                  <span>Assessment Schedule</span>
+                  <a href="#" class="float-right">4 March, 2019</a>
+                  <p>Preferred Date: 4 March 2019, 4 March 2019, 4 March 2019</p>
+                </li>
+                <li>
+                  <span>Assessment Scheduled by Admin</span>
+                  <a href="#" class="float-right">1 April, 2019</a>
+                  <p>Assessment Date: 4 March 2019 approved by Admin</p>
+                </li>
+                <li>
+                  <span>Started Practice test</span>
+                  <a href="#" class="float-right">1 April, 2019</a>
+                  <p>Assessment Date: 4 March 2019 approved by Admin</p>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal fade" id="lightboxdocumentmodal" tabindex="-1" role="dialog"
+      aria-labelledby="Lightbox Gallery by Bootstrap 4" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-body">
+            <div id="lightbox" class="carousel slide" data-ride="carousel" data-interval="5000" data-keyboard="true">
+              <ol class="carousel-indicators">
+                <li data-target="#lightbox" data-slide-to="0"></li>
+                <li data-target="#lightbox" data-slide-to="1"></li>
+                <li data-target="#lightbox" data-slide-to="2"></li>
+                <li data-target="#lightbox" data-slide-to="3"></li>
+                <li data-target="#lightbox" data-slide-to="4"></li>
+                <li data-target="#lightbox" data-slide-to="5"></li>
+                <li data-target="#lightbox" data-slide-to="6"></li>
+                <li data-target="#lightbox" data-slide-to="7"></li>
+                <li data-target="#lightbox" data-slide-to="8"></li>
+                <li data-target="#lightbox" data-slide-to="9"></li>
+                <li data-target="#lightbox" data-slide-to="10"></li>
+                <li data-target="#lightbox" data-slide-to="11"></li>
+                <li data-target="#lightbox" data-slide-to="12"></li>
+                <li data-target="#lightbox" data-slide-to="13"></li>
+              </ol>
+          
+              <div class="carousel-inner">
+                <div class="carousel-item active"><img src="assets/images/logo.png" class="w-100" alt="" /></div>
+                <div class="carousel-item"><img src="assets/images/candidate.png" class="w-100" alt="" /></div>
+                <div class="carousel-item"><img src="assets/images/proctor.png" class="w-100" alt="" /></div>
+                <div class="carousel-item"><img src="assets/images/proctor.png" class="w-100" alt="" /></div>
+                <div class="carousel-item"><img src="assets/images/proctor.png" class="w-100" alt="" /></div>
+                <div class="carousel-item"><img src="assets/images/proctor.png" class="w-100" alt="" /></div>
+                <div class="carousel-item"><img src="assets/images/proctor.png" class="w-100" alt="" /></div>
+                <div class="carousel-item"><img src="assets/images/proctor.png" class="w-100" alt="" /></div>
+                <div class="carousel-item"><img src="assets/images/proctor.png" class="w-100" alt="" /></div>
+                <div class="carousel-item"><img src="assets/images/proctor.png" class="w-100" alt="" /></div>
+                <div class="carousel-item"><img src="assets/images/proctor.png" class="w-100" alt="" /></div>
+                <div class="carousel-item"><img src="assets/images/proctor.png" class="w-100" alt="" /></div>
+                <div class="carousel-item"><img src="assets/images/proctor.png" class="w-100" alt="" /></div>
+                <div class="carousel-item"><img src="assets/images/proctor.png" class="w-100" alt="" /></div>
+              </div>
+              <a class="carousel-control-prev" href="#lightbox" role="button" data-slide="prev"><span
+                  class="carousel-control-prev-icon" aria-hidden="true"></span><span class="sr-only">Previous</span></a>
+              <a class="carousel-control-next" href="#lightbox" role="button" data-slide="next"><span
+                  class="carousel-control-next-icon" aria-hidden="true"></span><span class="sr-only">Next</span></a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+   
+
+    <kendo-window title="Upload Documents for {{certificateDetail.CertificateName}}" *ngIf="uploadDocumentPopup" (close)="close()" [minWidth]="250" [width]="450">
+
+      <form class="certificate_old_doc_block" role="form" #CertificatedocumentForm="ngForm" (ngSubmit)="certidocumentSubmit(CertificatedocumentForm)">
+          <div class="modal-body">
+              <div class="row">
+                  <div class="width_doc upload_new_doc">
+                    <input type="file" id="new_upload_file" #CertificateName="ngModel" name="CertificateName"
+                      [(ngModel)]="certificatedocumentEntity.CertificateName"
+                      (change)="fileTypeCheck(certificatedocumentEntity.CertificateName,certificatedocumentEntity.CertiDocumentId)">
+                    <!--(change)="fileTypeCheck(this.value)"-->
+                    <div class="new_block">
+                      Upload New
+                    </div>
+                    <div class="uploaded_doc_block">
+                      <img src="" for="new_upload_file" id="uploaded_doc" />
+                      <i class="fa fa-trash" id="deletedoc_img" aria-hidden="true" (click)="Removeimage()"></i>
+                    </div>
+                  </div>
+                  <div class="or_block"><span>OR</span></div>
+                  <div class="width_doc" *ngFor="let Image of certificateimage; let i = index;">
+                    <div class="img_block" data-toggle="tooltip" data-placement="top" title="Aadhar Card Aadhar Card">
+  
+                      <a href="{{globals.baseAPIUrl+Image.DocumentUrl+globals.authData.UserId}}/assessment/Documents/{{Image.CertificateDocumentName}}"
+                        target="_blank"><img alt="" class="img-fluid" src="assets/images/pdf.png"></a>
+                      <span>{{Image.DocumentName}}</span>
+                    </div>
+                    <div class="check_box">
+                      <input type="checkbox" name="document_select" (click)="imageclick(Image,i)"
+                        id="document_select1{{i}}">
+                      <label for="document_select1{{i}}"></label>
+                    </div>
+                  </div>
+                </div>
+            <div class="">
+              <div class="form-group">
+                <label>Expiry Date</label>
+                <kendo-datepicker [(ngModel)]="certificatedocumentEntity.ExpiryDate" #ExpiryDate="ngModel" 
+                  [format]="'MM/dd/yyyy'" name="ExpiryDate" id="ExpiryDate"
+                  [min] = "minDate"  readonly>
+                </kendo-datepicker> 
+                <!--[min] = "minDate" -->
+              </div>
+            </div>
+            
+            
+            
+            
+          </div> 
+          <div class="modal-footer modal_minus_margin mt-0 text-right">
+            <button class="all_btn theme_btn"  type="submit">Submit</button>
+          </div>
+        </form>    
+      </kendo-window>
+
+      
+    <div class="modal fade" id="certificate_history" tabindex="-1" role="dialog"
+      aria-labelledby="certificate_historyLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="certificate_historyLabel">Assessment History</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <h5>{{certificateDetail.CertificateName}}</h5>
+            <div class="certificate_history_block">
+              <ul class="timeline">
+                <li>
+                  <span>Certificate Payment</span>
+                  <a href="#" class="float-right">21 March, 2019</a>
+                  <p>Payment mode: Paypal</p>
+                </li>
+                <li>
+                  <span>Assessment Schedule</span>
+                  <a href="#" class="float-right">4 March, 2019</a>
+                  <p>Preferred Date: 4 March 2019, 4 March 2019, 4 March 2019</p>
+                </li>
+                <li>
+                  <span>Assessment Scheduled by Admin</span>
+                  <a href="#" class="float-right">1 April, 2019</a>
+                  <p>Assessment Date: 4 March 2019 approved by Admin</p>
+                </li>
+                <li>
+                  <span>Started Practice test</span>
+                  <a href="#" class="float-right">1 April, 2019</a>
+                  <p>Assessment Date: 4 March 2019 approved by Admin</p>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+   
+    <div class="modal fade" id="documentModal" tabindex="-1" role="dialog" aria-labelledby="documentModalLabel"
+      aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="documentModalLabel">Upload New Document</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <form role="form" #documentForm="ngForm" (ngSubmit)="documentSubmit(documentForm)">
+            <div class="modal-body">
+
+              <div class="form-group">
+                <label><span>*</span> Document</label>
+             
+                <kendo-dropdownlist [data]="documentList" [filterable]="false" [textField]="'DocumentName'"
+                  [valueField]="'CertificateDocumentId'" [valuePrimitive]="true" #CertificateDocumentId="ngModel"
+                  [(ngModel)]="documentEntity.CertificateDocumentId" name="CertificateDocumentId"
+                  [ngClass]="{error: (CertificateDocumentId.dirty && CertificateDocumentId.invalid) || (CertificateDocumentId.pristine && submitted1)}"
+                  required></kendo-dropdownlist>
+                <span class="error_class"
+                  *ngIf="(CertificateDocumentId.dirty && CertificateDocumentId.invalid) || (CertificateDocumentId.pristine && submitted1)">
+                  <span *ngIf="CertificateDocumentId.errors && CertificateDocumentId.errors.required">
+                    Please select a document
+                  </span>
+                </span>
+              </div>
+              <div class="form-group file_upload">
+                <label><span>*</span> Upload</label>
+                <input type="text" disabled="" class="form-control">
+                <input type="file" id="CertificateDocumentName" name="CertificateDocumentName" class="form-control"
+                  #CertificateDocumentName="ngModel" [(ngModel)]="documentEntity.CertificateDocumentName"
+                  [ngClass]="{error: documentEntity.CertificateDocumentId != '' && documentEntity.CertificateDocumentName == '' && submitted1}">
+                <span class="error_class"
+                  *ngIf="documentEntity.CertificateDocumentId != '' && documentEntity.CertificateDocumentName == '' && submitted1">
+                  Please upload a document
+                </span>
+              </div>
+            
+            </div>
+            <div class="modal-footer">
+              <button type="submit" class="all_btn theme_btn">Upload</button>
+            </div>
+          </form>
+
+
+        </div>
+      </div>
+    </div>
+
+
+    <kendo-window title={{globals.commonTranslationText.candidateDashboardPage.scheduleAssessment.schedule}} *ngIf="schedulePopup" (close)="close()" [minWidth]="250" [width]="450">
+
+      <form role="form" #scheduleAssessmentForm="ngForm" (ngSubmit)="scheduleAssessment(scheduleAssessmentForm)" class="p-4">
+          
+              <h5>{{certificateDetail.CertificateName}}</h5>
+              <p class="padding_15">
+                {{globals.commonTranslationText.candidateDashboardPage.scheduleAssessment.noCategory}}:
+                {{categoryList.length}}</p>
+
+              <div class="form-group">
+                <label><span>*</span>{{globals.commonTranslationText.candidateDashboardPage.scheduleAssessment.scheduleDate1.label}}</label>
+               <kendo-datepicker [(ngModel)]="scheduleAssessmentEntity.AvailablePriorityDate1" #AvailablePriorityDate1="ngModel" [format]="'MM/dd/yyyy'"
+                [min] = "someFormattedDate" (valueChange)="addDisableDate($event, 1)"  [disabledDates]="disabledDates" name="AvailablePriorityDate1" (blur)="ValidAvailablePriorityDate1=false"  [ngClass]="{'error': ValidAvailablePriorityDate1}" ></kendo-datepicker>
+                <span class="error_class" *ngIf="ValidAvailablePriorityDate1 ">
+                  {{globals.commonTranslationText.candidateDashboardPage.scheduleAssessment.scheduleDate1.required}}
+                </span>
+                <span class="error_class" *ngIf="errorEntity.AvailablePriorityDate1 != '' ">
+                  {{errorEntity.AvailablePriorityDate1}}
+                </span>
+              </div>
+              <div class="form-group">
+                <label><span>*</span>{{globals.commonTranslationText.candidateDashboardPage.scheduleAssessment.scheduleDate2.label}}</label>
+                  <kendo-datepicker [(ngModel)]="scheduleAssessmentEntity.AvailablePriorityDate2" #AvailablePriorityDate2="ngModel" [format]="'MM/dd/yyyy'"
+                [min] = "someFormattedDate" (valueChange)="addDisableDate($event, 2)"  [disabledDates]="disabledDates" name="AvailablePriorityDate2" (blur)="ValidAvailablePriorityDate2=false"  [ngClass]="{'error': ValidAvailablePriorityDate1}" ></kendo-datepicker>
+                <span class="error_class" *ngIf="ValidAvailablePriorityDate2 ">
+                  {{globals.commonTranslationText.candidateDashboardPage.scheduleAssessment.scheduleDate2.required}}
+                </span>
+                <span class="error_class" *ngIf="errorEntity.AvailablePriorityDate2 != '' ">
+                  {{errorEntity.AvailablePriorityDate2}}
+                </span>
+              </div>
+              <div class="form-group">
+                <label><span>*</span>{{globals.commonTranslationText.candidateDashboardPage.scheduleAssessment.scheduleDate3.label}}</label>
+                <kendo-datepicker [(ngModel)]="scheduleAssessmentEntity.AvailablePriorityDate3" #AvailablePriorityDate3="ngModel" [format]="'MM/dd/yyyy'"
+                [min] = "someFormattedDate" (valueChange)="addDisableDate($event, 3)"  [disabledDates]="disabledDates" name="AvailablePriorityDate3" (blur)="ValidAvailablePriorityDate3=false"  [ngClass]="{'error': ValidAvailablePriorityDate3}"></kendo-datepicker> 
+                <span class="error_class" *ngIf="ValidAvailablePriorityDate3 ">
+                  {{globals.commonTranslationText.candidateDashboardPage.scheduleAssessment.scheduleDate3.required}}
+                </span>
+                <span class="error_class" *ngIf="errorEntity.AvailablePriorityDate3 != '' ">
+                  {{errorEntity.AvailablePriorityDate3}}
+                </span>
+              </div>
+
+          <div class="text-right">
+            <button type="submit" [disabled]="btn_disable"
+            class="all_btn theme_btn">{{globals.commonTranslationText.candidateDashboardPage.scheduleAssessment.schedule}}</button>
+          </div>
+      </form>
+
+    </kendo-window>
+
+
+    <kendo-window title="{{globals.commonTranslationText.candidateDashboardPage.rescheduleAssessment.reschedule}}" *ngIf="reSchedulePopup" (close)="close()" [minWidth]="500" [width]="700">
+
+      <form role="form" #RescheduleAssessmentForm="ngForm"
+      (ngSubmit)="RescheduleAssessment(RescheduleAssessmentForm)" class="p-4">
+      <div class="modal-body">
+        <h5>{{certificateDetail.CertificateName}}</h5>
+        <p class="padding_15">
+          {{globals.commonTranslationText.candidateDashboardPage.rescheduleAssessment.noCategory}}:
+          {{categoryList.length}}</p>
+        <div class="row">
+          <div class="col-md-12 col-12 col-xl-8 col-lg-8 col-sm-12">
+            <div class="last_assessment">
+              <h6>
+                {{globals.commonTranslationText.candidateDashboardPage.rescheduleAssessment.lastScheduleAssessment}}
+              </h6>
+              <div class="lastass_scroll">
+                <div class="ass_block" *ngFor="let scheduleHistory of scheduleAssessmentList;let i=index;">
+                  <p><span *ngIf="scheduleHistory.ScheduleAssessmentId != null">Scheduled Date:
+                      {{scheduleHistory.AssignDate | date : 'MM/dd/yyyy'}}<br></span>
+                    Selected Dates:
+                    {{scheduleHistory.AvailablePriorityDate1 | date : 'MM/dd/yyyy'}},{{scheduleHistory.AvailablePriorityDate2 | date : 'MM/dd/yyyy'}},{{scheduleHistory.AvailablePriorityDate3 | date : 'MM/dd/yyyy'}}<br>
+                    <span *ngIf="scheduleHistory.ScheduleAssessmentId != null">Status:
+                      {{scheduleHistory.ScheduleAssessmentStatus}}<br></span>
+                    <span *ngIf="scheduleHistory.ScheduleAssessmentId == null">Status:
+                      {{scheduleHistory.ScheduleStatus}}<br></span>
+                    <span *ngIf="scheduleHistory.ScheduleAssessmentId != null">Reason:
+                      {{scheduleHistory.AssignComment}}</span>
+                    <span *ngIf="scheduleHistory.ScheduleAssessmentId == null">Reason:
+                      {{scheduleHistory.HistoryComment}}</span>
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-12 col-12 col-xl-4 col-lg-4 col-sm-12">
+            <h6>{{globals.commonTranslationText.candidateDashboardPage.rescheduleAssessment.reschedule}}</h6>
+            <div class="form-group">
+              <label><span>*</span>{{globals.commonTranslationText.candidateDashboardPage.scheduleAssessment.scheduleDate1.label}}</label>
+              <kendo-datepicker [(ngModel)]="scheduleAssessmentEntity.AvailablePriorityDate1" #AvailablePriorityDate1="ngModel" [format]="'MM/dd/yyyy'"
+                [min] = "someFormattedDate" (valueChange)="addDisableDate($event, 1)"  [disabledDates]="disabledDates" name="AvailablePriorityDate1" (blur)="ValidAvailablePriorityDate1=false"  [ngClass]="{'error': ValidAvailablePriorityDate1}" ></kendo-datepicker>
+
+              <span class="error_class" *ngIf="ValidAvailablePriorityDate1 ">
+                {{globals.commonTranslationText.candidateDashboardPage.scheduleAssessment.scheduleDate1.required}}
+              </span>
+            </div>
+            <div class="form-group">
+              <label><span>*</span>{{globals.commonTranslationText.candidateDashboardPage.scheduleAssessment.scheduleDate2.label}}</label>
+              <kendo-datepicker [(ngModel)]="scheduleAssessmentEntity.AvailablePriorityDate2" #AvailablePriorityDate2="ngModel" [format]="'MM/dd/yyyy'"
+                [min] = "someFormattedDate" (valueChange)="addDisableDate($event, 2)"  [disabledDates]="disabledDates" name="AvailablePriorityDate2" (blur)="ValidAvailablePriorityDate2=false"  [ngClass]="{'error': ValidAvailablePriorityDate2}" ></kendo-datepicker>
+              <span class="error_class" *ngIf="ValidAvailablePriorityDate2 ">
+                {{globals.commonTranslationText.candidateDashboardPage.scheduleAssessment.scheduleDate2.required}}
+              </span>
+            </div>
+            <div class="form-group">
+              <label><span>*</span>{{globals.commonTranslationText.candidateDashboardPage.scheduleAssessment.scheduleDate3.label}}</label>
+              <kendo-datepicker [(ngModel)]="scheduleAssessmentEntity.AvailablePriorityDate3" #AvailablePriorityDate3="ngModel" [format]="'MM/dd/yyyy'"
+                [min] = "someFormattedDate" (valueChange)="addDisableDate($event, 3)"  [disabledDates]="disabledDates" name="AvailablePriorityDate3" (blur)="ValidAvailablePriorityDate3=false"  [ngClass]="{'error': ValidAvailablePriorityDate3}" ></kendo-datepicker>
+              <span class="error_class" *ngIf="ValidAvailablePriorityDate3 ">
+                {{globals.commonTranslationText.candidateDashboardPage.scheduleAssessment.scheduleDate3.required}}
+              </span>
+            </div>
+            <button type="submit"
+              class="all_btn theme_btn float-right">{{globals.commonTranslationText.candidateDashboardPage.rescheduleAssessment.reschedule}}</button>
+            <div class="clearfix"></div>
+          </div>
+          <div class="clearfix"></div>
+        </div>
+      </div>
+    </form>
+
+     
+
+      </kendo-window>
+    
+    <div class="modal fade" id="schedule" tabindex="-1" role="dialog" aria-labelledby="scheduleLabel"
+      aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="scheduleLabel">
+              {{globals.commonTranslationText.candidateDashboardPage.scheduleAssessment.schedule}}</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <form role="form" #scheduleAssessmentForm="ngForm" (ngSubmit)="scheduleAssessment(scheduleAssessmentForm)">
+            <div class="modal-body">
+              <h5>{{certificateDetail.CertificateName}}</h5>
+              <p class="padding_15">
+                {{globals.commonTranslationText.candidateDashboardPage.scheduleAssessment.noCategory}}:
+                {{categoryList.length}}</p>
+              <div class="form-group">
+                <label><span>*</span>{{globals.commonTranslationText.candidateDashboardPage.scheduleAssessment.scheduleDate1.label}}</label>
+                <input class="form-control form_date" type="text" data-date-format="mm/dd/yyyy"
+                  data-link-format="mm/dd/yyyy" readonly #AvailablePriorityDate1="ngModel"
+                  [(ngModel)]="scheduleAssessmentEntity.AvailablePriorityDate1" name="AvailablePriorityDate1"
+                  id="AvailablePriorityDate1" (blur)="ValidAvailablePriorityDate1=false"
+                  [ngClass]="{'error': ValidAvailablePriorityDate1}">
+                <!-- <kendo-datepicker [(ngModel)]="scheduleAssessmentEntity.AvailablePriorityDate1" #AvailablePriorityDate1="ngModel" [format]="'MM/dd/yyyy'"
+                    name="AvailablePriorityDate1" (blur)="ValidAvailablePriorityDate1=false"  [ngClass]="{'error': ValidAvailablePriorityDate1}" ></kendo-datepicker> -->
+                <span class="error_class" *ngIf="ValidAvailablePriorityDate1 ">
+                  {{globals.commonTranslationText.candidateDashboardPage.scheduleAssessment.scheduleDate1.required}}
+                </span>
+              </div>
+         
+            </div>
+            <div class="modal-footer">
+              <button type="submit" [disabled]="btn_disable"
+                class="all_btn theme_btn">{{globals.commonTranslationText.candidateDashboardPage.scheduleAssessment.schedule}}</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    
+
+    
+    <div class="modal fade" id="reschedule" tabindex="-1" role="dialog" aria-labelledby="rescheduleLabel"
+      aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="rescheduleLabel">
+              {{globals.commonTranslationText.candidateDashboardPage.rescheduleAssessment.reschedule}}</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <form role="form" #RescheduleAssessmentForm="ngForm"
+            (ngSubmit)="RescheduleAssessment(RescheduleAssessmentForm)">
+            <div class="modal-body">
+              <h5>{{certificateDetail.CertificateName}}</h5>
+              <p class="padding_15">
+                {{globals.commonTranslationText.candidateDashboardPage.rescheduleAssessment.noCategory}}:
+                {{categoryList.length}}</p>
+              <div class="row">
+                <div class="col-md-12 col-12 col-xl-8 col-lg-8 col-sm-12">
+                  <div class="last_assessment">
+                    <h6>
+                      {{globals.commonTranslationText.candidateDashboardPage.rescheduleAssessment.lastScheduleAssessment}}
+                    </h6>
+                    <div class="lastass_scroll">
+                      <div class="ass_block" *ngFor="let scheduleHistory of scheduleAssessmentList;let i=index;">
+                        <p><span *ngIf="scheduleHistory.ScheduleAssessmentId != null">Scheduled Date:
+                            {{scheduleHistory.AssignDate | date : 'MM/dd/yyyy'}}<br></span>
+                          Selected Dates:
+                          {{scheduleHistory.AvailablePriorityDate1 | date : 'MM/dd/yyyy'}},{{scheduleHistory.AvailablePriorityDate2 | date : 'MM/dd/yyyy'}},{{scheduleHistory.AvailablePriorityDate3 | date : 'MM/dd/yyyy'}}<br>
+                          <span *ngIf="scheduleHistory.ScheduleAssessmentId != null">Status:
+                            {{scheduleHistory.ScheduleAssessmentStatus}}<br></span>
+                          <span *ngIf="scheduleHistory.ScheduleAssessmentId == null">Status:
+                            {{scheduleHistory.ScheduleStatus}}<br></span>
+                          <span *ngIf="scheduleHistory.ScheduleAssessmentId != null">Reason:
+                            {{scheduleHistory.AssignComment}}</span>
+                          <span *ngIf="scheduleHistory.ScheduleAssessmentId == null">Reason:
+                            {{scheduleHistory.HistoryComment}}</span>
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-12 col-12 col-xl-4 col-lg-4 col-sm-12">
+                  <h6>{{globals.commonTranslationText.candidateDashboardPage.rescheduleAssessment.reschedule}}</h6>
+                  <div class="form-group">
+                    <label><span>*</span>{{globals.commonTranslationText.candidateDashboardPage.scheduleAssessment.scheduleDate1.label}}</label>
+                    <input class="form-control form_date" type="text" data-date-format="mm/dd/yyyy"
+                      data-link-format="mm/dd/yyyy" readonly #AvailablePriorityDate1="ngModel"
+                      [(ngModel)]="scheduleAssessmentEntity.AvailablePriorityDate1" name="AvailablePriorityDate1"
+                      id="RescheduleAvailablePriorityDate1" (blur)="ValidAvailablePriorityDate1=false"
+                      [ngClass]="{'error': ValidAvailablePriorityDate1}">
+                    <span class="error_class" *ngIf="ValidAvailablePriorityDate1 ">
+                      {{globals.commonTranslationText.candidateDashboardPage.scheduleAssessment.scheduleDate1.required}}
+                    </span>
+                  </div>
+                  <div class="form-group">
+                    <label><span>*</span>{{globals.commonTranslationText.candidateDashboardPage.scheduleAssessment.scheduleDate2.label}}</label>
+                    <input class="form-control form_date" type="text" data-date-format="mm/dd/yyyy"
+                      data-link-format="mm/dd/yyyy" readonly #AvailablePriorityDate2="ngModel"
+                      [(ngModel)]="scheduleAssessmentEntity.AvailablePriorityDate2" name="AvailablePriorityDate2"
+                      id="RescheduleAvailablePriorityDate2" (blur)="ValidAvailablePriorityDate2=false"
+                      [ngClass]="{'error': ValidAvailablePriorityDate2}">
+                    <span class="error_class" *ngIf="ValidAvailablePriorityDate2 ">
+                      {{globals.commonTranslationText.candidateDashboardPage.scheduleAssessment.scheduleDate2.required}}
+                    </span>
+                  </div>
+                  <div class="form-group">
+                    <label><span>*</span>{{globals.commonTranslationText.candidateDashboardPage.scheduleAssessment.scheduleDate3.label}}</label>
+                    <input class="form-control form_date" type="text" data-date-format="mm/dd/yyyy"
+                      data-link-format="mm/dd/yyyy" readonly #AvailablePriorityDate3="ngModel"
+                      [(ngModel)]="scheduleAssessmentEntity.AvailablePriorityDate3" name="AvailablePriorityDate3"
+                      id="RescheduleAvailablePriorityDate3" (blur)="ValidAvailablePriorityDate3=false"
+                      [ngClass]="{'error': ValidAvailablePriorityDate3}">
+                    <span class="error_class" *ngIf="ValidAvailablePriorityDate3 ">
+                      {{globals.commonTranslationText.candidateDashboardPage.scheduleAssessment.scheduleDate3.required}}
+                    </span>
+                  </div>
+                  <button type="submit"
+                    class="all_btn theme_btn float-right">{{globals.commonTranslationText.candidateDashboardPage.rescheduleAssessment.reschedule}}</button>
+                  <div class="clearfix"></div>
+                </div>
+                <div class="clearfix"></div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal fade" id="cancel_popup" tabindex="-1" role="dialog" aria-labelledby="cancel_popupLabel"
+      aria-hidden="true">
+      <form role="form" #cancelAssessmentForm="ngForm" (ngSubmit)="cancelAssessment(cancelAssessmentForm)">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="cancel_popupLabel">
+                {{globals.commonTranslationText.certificateDetailPage.buttons.cancelAssessment}}</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <div class="form-group">
+                <label><span>*</span>
+                  {{globals.commonTranslationText.certificateDetailPage.cancelAssessment.cancellationComment}}</label>
+                <textarea id="CancelComment" name="CancelComment" #CancelComment="ngModel"
+                  [(ngModel)]="cancelAssessmentEntity.CancelComment"
+                  [ngClass]="{error: (CancelComment.dirty && CancelComment.invalid) || (CancelComment.pristine && submitted2) || errorEntity.message}"
+                  class="form-control" required></textarea>
+                <span class="error_class"
+                  *ngIf="(CancelComment.dirty && CancelComment.invalid) || (CancelComment.pristine && submitted2) || errorEntity.message">
+                  <span *ngIf="CancelComment.errors && CancelComment.errors.required">
+                    {{globals.commonTranslationText.certificateDetailPage.cancelAssessment.required}}
+                  </span>
+                  <span *ngIf = "errorEntity.message !=''">
+                      {{ errorEntity.message }}
+                  </span>
+                </span>
+              </div>
+            </div>
+            <div class="modal-footer text-right">
+              <button class="all_btn theme_btn">Submit</button>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+    <div id="printevaluation" style="position: relative; display: none;
+width: 21cm;  
+height: 29.7cm; 
+margin: 0 auto; 
+color: #555555;
+background: #FFFFFF; 
+font-size: 14px; ">
+      <header style="padding: 0 0 10px; margin-bottom: 20px; border-bottom: 1px solid #AAAAAA; content:'';
+    display: table;
+    clear: both; width: 100%;">
+        <div style="float: left;
+      margin-top: 0;">
+          <img style="height: 90px;" src="http://theopeneyes.com/images/logo.png" alt="" />
+        </div>
+        <div style="float: right;
+      text-align: right;">
+          <h2 style="font-size: 1.4em;
+        font-weight: normal;
+        margin: 0 0 0 0; color: #555555; font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; ">
+            {{Appointmentletterlist.CompanyName}}</h2>
+          <div style="color: #555555; font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; ">
+            {{Appointmentletterlist.CompanyAddress}}</div>
+          <div style="color: #555555; font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; ">
+            {{Appointmentletterlist.CompanyContactNumber}}</div>
+          <div><a href="mailto:info@theopeneyes.com"
+              style="color: #555555; font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; ">{{Appointmentletterlist.CompanyEmailAddress}}</a>
+          </div>
+        </div>
+      </header>
+      <main>
+        <div style="margin-bottom: 30px; content:'';
+      display: table;
+      clear: both; width: 100%;">
+          <div style="padding: 0; text-align: center; display: block; width: 100%; color: #555555; font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; color: #0087C3;
+       font-size: 1.8em;
+       line-height: 1em;
+       font-weight: normal;">APPOINTMENT LETTER</div>
+          <div style="padding-left: 6px;
+        border-left: 6px solid #0087C3;
+        display: block; width: 100%;">
+            <div style="color: #555555; font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; ">TO:</div>
+            <h2 style="font-size: 1.4em;
+          font-weight: normal;
+          color: #555555; font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; ">
+              {{Appointmentletterlist.AppointmentToName}}</h2>
+            <div style="color: #555555; font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; ">
+              {{Appointmentletterlist.AppointmentToAddress}},{{Appointmentletterlist.AppointmentToCity}},<br>{{Appointmentletterlist.AppointmentToState}}
+              - {{Appointmentletterlist.AppointmentToZipCode}}, {{Appointmentletterlist.AppointmentToCountry}}</div>
+            <div><a href="mailto:john@example.com"
+                style="color: #555555; font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; ">{{Appointmentletterlist.AppointmentToEmailAddress}}</a>
+            </div>
+          </div>
+          <div style="padding: 15px 0 15px 12px;
+        display: block; width: 100%;">
+            <div
+              style="color: #555555;  font-size: 1.1em; font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; ">
+              <b>Subject:</b> Appointment Letter for examination of {{Appointmentletterlist.CertificateName}} </div>
+          </div>
+          <div style="padding: 0 0 15px 12px;
+        display: block; width: 100%;">
+            <div
+              style="color: #555555;  font-size: 1.1em; font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; padding: 0 0 15px 0">
+              Dear {{Appointmentletterlist.AppointmentToName}},</div>
+            <div style="color: #555555; font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">Lorem Ipsum is
+              simply dummy text of the printing and typesetting industry. <b>Lorem Ipsum</b> has been the industry's
+              standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it
+              to
+              make a type specimen book. It has survived not only five centuries, but also the leap into electronic
+              typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset
+              sheets containing Lorem Ipsum passages<br><br>
+              <b>Assessment Details</b>
+              <table border="1" cellspacing="0" cellpadding="0" style=" width: 90%;
+          border-collapse: collapse;
+          border-spacing: 0;
+          margin:10px 0 20px 0 ; vertical-align: top;">
+                <tr>
+                  <td
+                    style="padding: 8px; width:70px; font-weight: normal; color: #555555; font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;  vertical-align: top;">
+                    Date:</td>
+                  <td
+                    style="padding: 8px; font-weight: normal; color: #555555; font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; ">
+                    {{Appointmentletterlist.AssignDate}}</td>
+                </tr>
+                <tr>
+                  <td
+                    style="padding: 8px; width:70px; font-weight: normal; color: #555555; font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;  vertical-align: top;">
+                    Address:</td>
+                  <td
+                    style="padding: 8px; font-weight: normal; color: #555555; font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; ">
+                    {{Appointmentletterlist.certiaddress}}<br>
+                    {{Appointmentletterlist.City}},<br>
+                    {{Appointmentletterlist.StateName}}-{{Appointmentletterlist.ZipCode}},
+                    {{Appointmentletterlist.CountryName}}</td>
+                </tr>
+                <tr>
+                  <td
+                    style="padding: 8px; width:70px; font-weight: normal; color: #555555; font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;  vertical-align: top;">
+                    Time:</td>
+                  <td
+                    style="padding: 8px; font-weight: normal; color: #555555; font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; ">
+                    {{Appointmentletterlist.StartTime}} to {{Appointmentletterlist.EndTime}}</td>
+                </tr>
+              </table>
+              <b>Instructions</b><br>
+              <div style="margin-top: 5px;">Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+                <b>Lorem Ipsum</b> has been the industry's standard dummy text ever since the 1500s, when an unknown
+                printer took a galley of type and scrambled it to make a type specimen book. It has survived not only
+                five
+                centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was
+                popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages</div><br>
+              <b>Documents to Carry</b><br>
+              <div style="margin-top: 5px;">
+                <ul>
+                  <li style="margin-top: 5px;">Lorem Ipsum is simply dummy text of the printing and typesetting
+                    industry.
+                  </li>
+                  <li style="margin-top: 5px;">Lorem Ipsum is simply dummy text of the printing and typesetting
+                    industry.
+                  </li>
+                  <li style="margin-top: 5px;">Lorem Ipsum is simply dummy text of the printing and typesetting
+                    industry.
+                  </li>
+                  <li style="margin-top: 5px;">Lorem Ipsum is simply dummy text of the printing and typesetting
+                    industry.
+                  </li>
+                  <li style="margin-top: 5px;">Lorem Ipsum is simply dummy text of the printing and typesetting
+                    industry.
+                  </li>
+                  <li style="margin-top: 5px;">Lorem Ipsum is simply dummy text of the printing and typesetting
+                    industry.
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </main>
+    </div>
+
+    
+    <div class="overlay" *ngIf="uploadDocumentPopup" (click)="overlay_close()"></div>
+    <div class="overlay" *ngIf="schedulePopup" (click)="overlay_close()"></div>
+    <div class="overlay" *ngIf="reSchedulePopup" (click)="overlay_close()"></div>
