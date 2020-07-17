@@ -29,7 +29,6 @@ export class PermissionService {
   }
 
   getUserPermission() {
-    debugger
     let promise = new Promise((resolve, reject) => {
       this.http.get(this.globals.baseAPIUrl + 'Assessment/SyncDetails/getRolePermissionDetails/' + this.globals.authData.RoleId)
         .toPromise()

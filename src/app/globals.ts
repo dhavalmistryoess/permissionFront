@@ -2,13 +2,16 @@ import { Injectable } from '@angular/core';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { environment } from '../environments/environment';
 
+
 import commonTranslationText from "../assets/data/commonTranslationText.json";
 import adminTranslationText from "../assets/data/adminTranslationText.json";
+import { identifierModuleUrl } from '@angular/compiler';
+declare var angular: any;
 
 @Injectable()
 export class Globals {
 
-  constructor() { }
+  constructor( ) { }
 
   baseAPIUrl: string = environment.apiUrl;
   baseUrl: string = environment.baseUrl;
@@ -34,19 +37,22 @@ export class Globals {
     window.location.href = 'pagenotfound/' + window.btoa(code);
   }
 
-  hasAccess(permissionName) {
-    let retrievedObject = JSON.parse(localStorage.getItem('getUserPermission'));
-
-   
-    retrievedObject.forEach(function (value) {
-       if(value.DisplayName == permissionName && value.HasAccess == 1) {
-         console.log("Hello");
-         return true;
-        //  console.log("dsadsad");
-       }
+  hasAccess(permission) {
+    let retrievedObject, index;
+    let permissionEnity = [];
+    retrievedObject = JSON.parse(localStorage.getItem('getUserPermission'));
+  
+    
+    permission.forEach(function (menu, key) {
+      index = retrievedObject.findIndex(retrievedObject=> (retrievedObject.DisplayName === menu.key && retrievedObject.HasAccess == 1 ))
+      if(index != -1) {
+        permissionEnity[menu.key] =  true;
+      } else {
+        permissionEnity[menu.key] =  false;
+      }
     });
-   
-    return false;
+
+    return permissionEnity;
   }
   
 }

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Globals } from '../globals';
+import { CommonService } from '../app-admin/services/common.service';
 declare var $, PerfectScrollbar: any;
 
 @Component({
@@ -9,10 +10,29 @@ declare var $, PerfectScrollbar: any;
 })
 export class SidebarComponent implements OnInit {
 
-  constructor(public globals: Globals) { }
+ 
+  menuEntity:any;
+
+  constructor(public globals: Globals, private CommonService : CommonService) { }
 
   ngOnInit() {
+    this.menuEntity = [{
+      key : 'country-list',
+      value : false
+    },
+    {
+      key : 'emailtemplate-list',
+      value : false
+    },
+    {
+      key : 'state-list',
+      value : false
+    }
+    ];
 
+    this.menuEntity = this.CommonService.hasAccess(this.menuEntity);
+    
+   
     setTimeout(function () {
       new PerfectScrollbar('.sidebar_box');
     }, 500);

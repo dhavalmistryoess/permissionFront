@@ -16,13 +16,13 @@
             </li>
       
             <li class="title"><i class="fa fa-sliders"></i><span class="text">Manage</span></li>
-            <li [ngClass]="{'active':globals.currentLink=='/admin/country/list'}" *ngIf="globals.hasAccess('add-country')">
-                  <a class="collapsed has_click" routerLink="/admin/country/list"><span>Country</span></a>
+            <li [ngClass]="{'active':globals.currentLink=='/admin/country/list'}">
+                  <a class="collapsed has_click" routerLink="/admin/country/list"  *ngIf ="menuEntity['country-list']"><span>Country</span></a>
             </li>
             <li [ngClass]="{'active':globals.currentLink=='/admin/email-template/list'}"><a class="has_click"
-                        routerLink="/admin/email-template/list"><span>Email Template</span></a></li>
+                        routerLink="/admin/email-template/list"  *ngIf ="menuEntity['emailtemplate-list']"><span>Email Template</span></a></li>
             <li [ngClass]="{'active':globals.currentLink=='/admin/state/list'}"><a class="has_click"
-                        routerLink="/admin/state/list"><span>State/Province</span></a></li>
+                        routerLink="/admin/state/list"  *ngIf ="menuEntity['state-list']"><span>State/Province</span></a></li>
 
             
 

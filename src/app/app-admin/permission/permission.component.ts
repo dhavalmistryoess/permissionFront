@@ -33,13 +33,12 @@ export class PermissionComponent implements OnInit {
     this.getAllPermission(this.currentRole);
     this.getAllRoles();
     
-    // this.getUserPermission();
+    this.getUserPermission();
   }
   getUserPermission() {
     this.PermissionService.getUserPermission()
     .then((data) => {
       this.rolePermissionEntity = data;
-      console.log(this.rolePermissionEntity)
       localStorage.setItem('getUserPermission', JSON.stringify(this.rolePermissionEntity));
       this.globals.isLoading = false;
     },
@@ -53,10 +52,7 @@ export class PermissionComponent implements OnInit {
   getAllPermission(getCurrentRole) {
     this.PermissionService.getAll(getCurrentRole)
       .then((data) => {
-      
         this.permissionEntity = data;
-       
-        
         this.globals.isLoading = false;
       },
         (error) => {
@@ -82,7 +78,6 @@ export class PermissionComponent implements OnInit {
  }
   
   changeRole(e) {
-    alert(e);
     this.currentRole = e;
     this.getAllPermission(e);
   }

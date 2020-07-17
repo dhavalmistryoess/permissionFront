@@ -2,14 +2,16 @@ import { Injectable } from '@angular/core';
 import { Globals } from '../../globals';
 import { HttpClient } from "@angular/common/http";
 import { Router } from '@angular/router';
+import { PermissionService } from './permission.service';
 declare var $, swal: any;
+declare var angular: any;
 
 @Injectable({
   providedIn: 'root'
 })
 export class CommonService {
 
-  constructor(private http: HttpClient, private globals: Globals, private router: Router) { }
+  constructor(private http: HttpClient, private globals: Globals, private router: Router, private PermissionService: PermissionService) { }
 
   isActiveChange(activeEntity) {
     debugger
@@ -62,4 +64,41 @@ export class CommonService {
     return promise;
   }
 
+
+
+
+ 
+  
+  hasAccess(permission) {
+    let retrievedObject, index;
+    let permissionEnity = {};
+    // if(localStorage.getItem('getUserPermission')) {
+      retrievedObject = JSON.parse(localStorage.getItem('getUserPermission'));
+    // } else {
+    //   this.PermissionService.getUserPermission()
+    //   .then((data) => {
+    //     retrievedObject = data;
+    //     this.globals.isLoading = false;
+    //   },
+    //     (error) => {
+    //       this.globals.isLoading = false;
+    //       this.globals.pageNotfound(error.error.code);
+    //     });
+    // }
+    
+    console.log(retrievedObject);
+    
+    
+    permission.forEach(function (menu, key) {
+      index = retrievedObject.findIndex(retrievedObject=> (retrievedObject.DisplayName === menu.key && retrievedObject.HasAccess == 1 ))
+      if(index != -1) {
+        permissionEnity[menu.key] =  true;
+      } else {
+        permissionEnity[menu.key] =  false;
+      }
+    });
+    console.log(permissionEnity);
+    return permissionEnity;
+  
+  }
 }
