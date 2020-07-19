@@ -28,8 +28,7 @@
           <div class="col-md-12 col-sm-12">
             <div class="inner_content_block">
               <div class="table_block">
-               
-                      <kendo-grid
+                  <kendo-grid
                       [data]="stateList"
                       [pageSize]="pageSize"
                       [skip]="skip"
@@ -46,15 +45,7 @@
                   <ng-template kendoGridToolbarTemplate>
                     <input placeholder="Search in all columns..." kendoTextBox
                       (input)="onFilter($event.target.value)" />
-                    <!-- <button kendoGridExcelCommand type="button" icon="file-excel" style="float:right;"></button>
-                          <button kendoGridPDFCommand icon="file-pdf" style="float:right;"></button>
-                          <button type="button" class="k-button" icon="file-pdf" style="float:right;" (click)="excelexport.save()">Export To Excel</button> -->
                   </ng-template>
-                  <!-- <kendo-grid-column title="{{globals.adminTranslationText.state.list.collumns.srNo}}" [width]="50">
-                    <ng-template kendoGridCellTemplate let-dataItem let-rowIndex="rowIndex">
-                      {{rowIndex+1}}
-                    </ng-template>
-                  </kendo-grid-column> -->
                   <kendo-grid-column field="CountryName"
                     title="{{globals.adminTranslationText.state.list.collumns.country}}">
                   </kendo-grid-column>
@@ -66,7 +57,7 @@
                   </kendo-grid-column>
 
                   <kendo-grid-column title="{{globals.adminTranslationText.state.list.collumns.isActive}}"
-                    class="text-center" [width]="150"  *ngIf ="menuEntity['delete-all']">
+                    class="text-center" [width]="150"  *ngIf ="menuEntity['update-all']">
                     <ng-template kendoGridCellTemplate let-dataItem let-rowIndex="rowIndex">
                       <div class="activeyes_box">
                         <kendo-switch (valueChange)="isActiveChange(dataItem,$event)" [checked]="dataItem.IsActive==1"

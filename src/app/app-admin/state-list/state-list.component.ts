@@ -67,6 +67,10 @@ export class StateListComponent implements OnInit {
       value : false
     },
     {
+      key : 'update-all',
+      value : false
+    },
+    {
       key : 'state-list',
       value : false
     }

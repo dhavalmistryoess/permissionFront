@@ -14,7 +14,7 @@
                 </a>
               </li>
               <li class="breadcrumb-item"><a
-                  routerLink="/admin/country/list">{{globals.adminTranslationText.country.list.breadcrumbTitle}}</a>
+                  routerLink="/admin/country/list" *ngIf ="menuEntity['add-country']" >{{globals.adminTranslationText.country.list.breadcrumbTitle}}</a>
               </li>
               <li class="breadcrumb-item active" aria-current="page">
                 {{globals.adminTranslationText.country.list.breadcrumbSubTitle}}</li>
@@ -28,55 +28,7 @@
           <div class="col-md-12 col-sm-12">
             <div class="inner_content_block">
               <div class="table_block">
-                <!-- <table id="list_tables" class="table table-hover" style="width: 100%;">
-                      <thead>
-                        <tr>
-                          <th class="text-center sr_no_width">
-                            {{globals.adminTranslationText.country.list.collumns.srNo}}</th>
-                          <th class="">{{globals.adminTranslationText.country.list.collumns.country}}</th>
-                          <th class="text-center width_15">
-                            {{globals.adminTranslationText.country.list.collumns.countryAbbreviation}}</th>
-                          <th class="text-center width_10">{{globals.adminTranslationText.country.list.collumns.phonePrefix}}
-                          </th>
-                          <th class="text-center active_width hide_active">
-                            {{globals.adminTranslationText.country.list.collumns.isActive}}</th>
-                          <th class="text-center active_width">{{globals.adminTranslationText.country.list.collumns.isActive}}
-                          </th>
-                          <th class="text-center action_width">
-                            {{globals.adminTranslationText.country.list.collumns.actions}}</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr *ngFor="let country of countryList; let i = index">
-                          <td class="text-center">{{i+1}}</td>
-                          <td>{{country.CountryName}}</td>
-                          <td class="text-center">{{country.CountryAbbreviation}}</td>
-                          <td class="text-center">{{country.PhonePrefix}}</td>
-                          <td class="text-center hide_active">
-                            <span *ngIf="country.IsActive==1">Yes</span>
-                            <span *ngIf="country.IsActive!=1">No</span>
-                          </td>
-                          <td class="text-center">
-                            <div class="activeyes_box" data-toggle="tooltip" data-placement="top"
-                              [attr.title]="country.IsActive==1 ? 'Active' : 'Deactive'">
-                              <input type="checkbox" name="active_checkbox{{i}}" id="active_checkbox{{i}}"
-                                (change)="isActiveChange(country,i)" [checked]="country.IsActive==1" value="Yes">
-                              <label for="active_checkbox{{i}}"></label>
-                            </div>
-                          </td>
-                          <td class="text-center">
-                            <button class="edit" routerLink="/admin/country/edit/{{country.CountryId}}"><i class="fa fa-pencil"></i></button>
-                            <button class="delete" [disabled]="country.isdisabled>0"  (click)="deleteItem(country)">
-                              <i data-toggle="tooltip" class="fa fa-trash" data-placement="top" 
-                                [attr.title]="country.isdisabled==0 ? 'Delete' : 'Country cannot be deleted as it is already used in state.'"></i>
-                            </button>
-                          </td>
-                        </tr>
-                        <tr *ngIf="countryList.length == 0">
-                          <td colspan="6">{{globals.adminTranslationText.country.list.recordNotFound}}</td>
-                        </tr>
-                      </tbody>
-                    </table> -->
+              
                     <kendo-grid
                     [data]="countryList"
                     [pageSize]="pageSize"
@@ -94,15 +46,7 @@
                   <ng-template kendoGridToolbarTemplate>
                     <input placeholder="Search in all columns..." kendoTextBox
                       (input)="onFilter($event.target.value)" />
-                    <!-- <button kendoGridExcelCommand type="button" icon="file-excel" style="float:right;"></button>
-                          <button kendoGridPDFCommand icon="file-pdf" style="float:right;"></button>
-                          <button type="button" class="k-button" icon="file-pdf" style="float:right;" (click)="excelexport.save()">Export To Excel</button> -->
                   </ng-template>
-                  <!-- <kendo-grid-column title="{{globals.adminTranslationText.country.list.collumns.srNo}}" [width]="50">
-                    <ng-template kendoGridCellTemplate let-dataItem let-rowIndex="rowIndex">
-                      {{rowIndex+1}}
-                    </ng-template>
-                  </kendo-grid-column> -->
                   <kendo-grid-column field="CountryName"
                     title="{{globals.adminTranslationText.country.list.collumns.country}}">
                   </kendo-grid-column>
@@ -114,7 +58,7 @@
                   </kendo-grid-column>
 
                   <kendo-grid-column title="{{globals.adminTranslationText.country.list.collumns.isActive}}"
-                    class="text-center" [width]="150">
+                    class="text-center" [width]="150"  *ngIf ="menuEntity['update-all']">
                     <ng-template kendoGridCellTemplate let-dataItem let-rowIndex="rowIndex">
                       <div class="activeyes_box">
                         <kendo-switch (valueChange)="isActiveChange(dataItem,$event)" [checked]="dataItem.IsActive==1"
@@ -126,11 +70,11 @@
                   <kendo-grid-column title="{{globals.adminTranslationText.country.list.collumns.actions}}"
                     [width]="150">
                     <ng-template kendoGridCellTemplate let-dataItem let-rowIndex="rowIndex">
-                      <button kendoButton class="edit" (click)="edit(dataItem.CountryId)">
+                      <button kendoButton class="edit" (click)="edit(dataItem.CountryId)" *ngIf ="menuEntity['add-country']">
                         <i data-toggle="tooltip" data-placement="top"
                           title="{{globals.adminTranslationText.country.list.buttons.edit}}" class="fa fa-edit"></i>
                       </button>
-                      <button kendoButton class="delete" (click)="deleteItem(dataItem)">
+                      <button kendoButton class="delete" (click)="deleteItem(dataItem)"  *ngIf ="menuEntity['delete-all']">
                         <i data-toggle="tooltip" data-placement="top" class="fa fa-trash-o"
                           title="{{globals.adminTranslationText.country.list.buttons.delete}}"></i>
                       </button>

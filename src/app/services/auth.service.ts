@@ -41,6 +41,7 @@ export class AuthService {
           res => { // Success
             this.globals.authData = '';
             localStorage.removeItem('token');
+            localStorage.removeItem('getUserPermission');
             resolve(res);
           },
           msg => { // Error

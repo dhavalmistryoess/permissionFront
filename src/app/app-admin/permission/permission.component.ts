@@ -34,20 +34,19 @@ export class PermissionComponent implements OnInit {
     this.getAllPermission(this.currentRole);
     this.getAllRoles();
     
-    this.getUserPermission();
+    // this.getUserPermission();
   }
-  getUserPermission() {
-    this.PermissionService.getUserPermission()
-    .then((data) => {
-      this.rolePermissionEntity = data;
-      localStorage.setItem('getUserPermission', JSON.stringify(this.rolePermissionEntity));
-      this.globals.isLoading = false;
-    },
-      (error) => {
-        this.globals.isLoading = false;
-        // this.globals.pageNotfound(error.error.code);
-      });
-  }
+  // getUserPermission() {
+  //   this.PermissionService.getUserPermission()
+  //   .then((data) => {
+  //     this.rolePermissionEntity = data;
+  //     this.globals.isLoading = false;
+  //   },
+  //     (error) => {
+  //       this.globals.isLoading = false;
+  //       this.globals.pageNotfound(error.error.code);
+  //     });
+  // }
 
 
   getAllPermission(getCurrentRole) {
@@ -59,7 +58,7 @@ export class PermissionComponent implements OnInit {
       },
         (error) => {
           this.globals.isLoading = false;
-          // this.globals.pageNotfound(error.error.code);
+          this.globals.pageNotfound(error.error.code);
         });
   }
 
@@ -88,80 +87,35 @@ export class PermissionComponent implements OnInit {
     console.log(configurationForm.value);
     console.log(this.defaultPermissionEntity)
     var permission = [];
-this.defaultPermissionEntity.forEach(function (menu, key) {
-  //console.log(menu.key);
- // console.log(menu[menu.key].length);
-  for(var i=0;i<menu[menu.key].length;i++)
-  {
-    console.log(menu[menu.key][i].DisplayName);
-    var obj = {
-      "RoleId": menu[menu.key][i].RoleId,
-      "DisplayName": menu[menu.key][i].DisplayName,
-      "ModuleIDs": menu[menu.key][i].ModuleIDs,
-      "HasAccess": ((menu[menu.key][i].HasAccess == 1 || menu[menu.key][i].HasAccess == true) ? "1" : "2" ),
-      "ClassName": menu[menu.key][i].ClassName
-    }
-    permission.push(obj);
-  }
-});
+    this.defaultPermissionEntity.forEach(function (menu, key) {
+      //console.log(menu.key);
+    // console.log(menu[menu.key].length);
+      for(var i=0;i<menu[menu.key].length;i++)
+      {
+        console.log(menu[menu.key][i].DisplayName);
+        var obj = {
+          "RoleId": menu[menu.key][i].RoleId,
+          "DisplayName": menu[menu.key][i].DisplayName,
+          "ModuleIDs": menu[menu.key][i].ModuleIDs,
+          "HasAccess": ((menu[menu.key][i].HasAccess == 1 || menu[menu.key][i].HasAccess == true) ? "1" : "2" ),
+          "ClassName": menu[menu.key][i].ClassName
+        }
+        permission.push(obj);
+      }
+    });
 
    console.log(permission);
    this.permissionEntity.permission = permission;
-
-    // if (configurationForm.valid) {
-    //   this.btn_disable = true;
-    //   this.submitted = false;
-    //   this.globals.isLoading = true;
-    //   this.PermissionService.update(this.permissionEntity)
-    //     .then((data) => {
-    //       this.globals.isLoading = false;
-    //       this.btn_disable = false;
-    //       this.submitted = false;
-    //       swal({
-    //         type: this.globals.adminTranslationText.configuration.form.alerts.success.type,
-    //         title: this.globals.adminTranslationText.configuration.form.alerts.success.title,
-    //         text: this.globals.adminTranslationText.configuration.form.alerts.success.text,
-    //         showConfirmButton: false,
-    //         timer: 2000
-    //       })
-    //     },
-    //       (error) => {
-    //         this.globals.isLoading = false;
-    //         this.btn_disable = false;
-    //         if (error.error.code == 422) {
-    //             this.errorEntity.SMTPDetails[0] = (error.error.message["SMTPDetails[0][Value]"] != "") ? error.error.message["SMTPDetails[0][Value]"] : '';
-    //             this.errorEntity.SMTPDetails[1] = (error.error.message["SMTPDetails[1][Value]"] != "") ? error.error.message["SMTPDetails[1][Value]"] : '';
-    //             this.errorEntity.SMTPDetails[2] = (error.error.message["SMTPDetails[2][Value]"] != "") ? error.error.message["SMTPDetails[2][Value]"] : '';
-    //             this.errorEntity.SMTPDetails[3] = (error.error.message["SMTPDetails[3][Value]"] != "") ? error.error.message["SMTPDetails[3][Value]"] : '';
-    //             this.errorEntity.docType[0] = (error.error.message["DocumentType[0][DisplayText]"] != "") ? error.error.message["DocumentType[0][DisplayText]"] : '';
-    //             this.errorEntity.docType[1] = (error.error.message["DocumentType[1][DisplayText]"] != "") ? error.error.message["DocumentType[1][DisplayText]"] : '';
-    //             this.errorEntity.docType[2] = (error.error.message["DocumentType[2][DisplayText]"] != "") ? error.error.message["DocumentType[2][DisplayText]"] : '';
-    //             this.errorEntity.disType[0] = (error.error.message["DiscountType[0][DisplayText]"] != "") ? error.error.message["DiscountType[0][DisplayText]"] : '';
-    //             this.errorEntity.disType[1] = (error.error.message["DiscountType[1][DisplayText]"] != "") ? error.error.message["DiscountType[1][DisplayText]"] : '';
-    //             this.errorEntity.curType[0] = (error.error.message["CurrencyType[0][DisplayText]"] != "") ? error.error.message["CurrencyType[0][DisplayText]"] : '';
-    //             this.errorEntity.curType[1] = (error.error.message["CurrencyType[1][DisplayText]"] != "") ? error.error.message["CurrencyType[1][DisplayText]"] : '';
-    //             this.errorEntity.curType[2] = (error.error.message["CurrencyType[2][DisplayText]"] != "") ? error.error.message["CurrencyType[2][DisplayText]"] : '';
-    //             this.errorEntity.schStatus[0] = (error.error.message["ScheduleStatus[0][DisplayText]"] != "") ? error.error.message["ScheduleStatus[0][DisplayText]"] : '';
-    //             this.errorEntity.schStatus[1] = (error.error.message["ScheduleStatus[1][DisplayText]"] != "") ? error.error.message["ScheduleStatus[1][DisplayText]"] : '';
-    //             this.errorEntity.schStatus[2] = (error.error.message["ScheduleStatus[2][DisplayText]"] != "") ? error.error.message["ScheduleStatus[2][DisplayText]"] : '';
-    //             this.errorEntity.regType[0] = (error.error.message["RegistrationType[0][DisplayText]"] != "") ? error.error.message["RegistrationType[0][DisplayText]"] : '';
-    //             this.errorEntity.regType[1] = (error.error.message["RegistrationType[1][DisplayText]"] != "") ? error.error.message["RegistrationType[1][DisplayText]"] : '';
-    //             this.errorEntity.resStatus[0] = (error.error.message["ResultStatus[0][DisplayText]"] != "") ? error.error.message["ResultStatus[0][DisplayText]"] : '';
-    //             this.errorEntity.resStatus[1] = (error.error.message["ResultStatus[1][DisplayText]"] != "") ? error.error.message["ResultStatus[1][DisplayText]"] : '';
-    //             this.errorEntity.resStatus[2] = (error.error.message["ResultStatus[2][DisplayText]"] != "") ? error.error.message["ResultStatus[2][DisplayText]"] : '';
-    //             this.errorEntity.userStatus[0] = (error.error.message["UserStatus[0][DisplayText]"] != "") ? error.error.message["UserStatus[0][DisplayText]"] : '';
-    //             this.errorEntity.userStatus[1] = (error.error.message["UserStatus[1][DisplayText]"] != "") ? error.error.message["UserStatus[1][DisplayText]"] : '';
-    //             this.errorEntity.userStatus[2] = (error.error.message["UserStatus[2][DisplayText]"] != "") ? error.error.message["UserStatus[2][DisplayText]"] : '';
-    //             this.errorEntity.userStatus[3] = (error.error.message["UserStatus[3][DisplayText]"] != "") ? error.error.message["UserStatus[3][DisplayText]"] : '';
-    //             this.errorEntity.lockAttempts = (error.error.message["lockAttempts[0][Value]"] != "") ? error.error.message["lockAttempts[0][Value]"] : '';
-    //             this.errorEntity.lockPeriod = (error.error.message["lockPeriod[0][Value]"] != "") ? error.error.message["lockPeriod[0][Value]"] : '';
-    //         } else  {
-    //              this.globals.pageNotfound(error.error.code);
-    //         }
-
-           
-    //       });
-    // }
+   this.PermissionService.updatePermission(this.permissionEntity.permission)
+   .then((data) => {
+     this.roleEntity = data;
+     this.globals.isLoading = false;
+   },
+     (error) => {
+       this.globals.isLoading = false;
+       // this.globals.pageNotfound(error.error.code);
+     });   
+    
   }
 
 }

@@ -21,61 +21,13 @@
             </ol>
           </div>
           <a routerLink="/admin/email-template/add"
-            class="all_btn theme_btn float-right">{{globals.adminTranslationText.emailTemplate.list.buttons.add}}</a>
+            class="all_btn theme_btn float-right" *ngIf ="menuEntity['add-emailtemplate']" >{{globals.adminTranslationText.emailTemplate.list.buttons.add}}</a>
           <div class="clearfix"></div>
         </div>
         <div class="row d-flex justify-content-center">
           <div class="col-md-12 col-sm-12">
             <div class="inner_content_block">
               <div class="table_block">
-                <!-- <table id="list_tables" class="table table-hover" style="width: 100%;">
-
-                      <thead>
-                          <tr>
-                            <th class="text-center sr_no_width">{{globals.adminTranslationText.emailTemplate.list.collumns.srNo}}</th>
-                            <th class="width_15">{{globals.adminTranslationText.emailTemplate.list.collumns.emailToken}}</th>
-                            <th class="width_15">{{globals.adminTranslationText.emailTemplate.list.collumns.subject}}</th>
-                            <th>{{globals.adminTranslationText.emailTemplate.list.collumns.to}}</th>
-                            <th>{{globals.adminTranslationText.emailTemplate.list.collumns.cc}}</th>
-                            <th>{{globals.adminTranslationText.emailTemplate.list.collumns.bcc}}</th>
-                            <th class="text-center active_width hide_active">{{globals.adminTranslationText.emailTemplate.list.collumns.isActive}}</th>
-                            <th class="text-center active_width">{{globals.adminTranslationText.emailTemplate.list.collumns.isActive}}</th>
-                            <th class="text-center action_width">{{globals.adminTranslationText.emailTemplate.list.collumns.actions}}</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          <tr *ngFor="let Email of EmailList;let i = index">
-                            <td class="text-center">{{i+1}}</td>
-                            <td>{{Email.Token}}</td>
-                            <td>{{Email.Subject}}</td>
-                            <td>{{Email.roleTo}}</td>
-                            <td>{{Email.roleCc}}</td>
-                            <td>{{Email.roleBcc}}</td>
-                              <td class="text-center hide_active">
-                                <span *ngIf="Email.IsActive==1">Yes</span>
-                                <span *ngIf="Email.IsActive!=1">No</span>
-                             </td>  
-                             <td class="text-center">
-                               <div class="activeyes_box" data-toggle="tooltip" data-placement="top"  [attr.title]="Email.IsActive==1 ? 'Active' : 'Deactive'">
-                                <input type="checkbox" name="active{{i}}" id="active{{i}}" (change)="isActiveChange(Email,i)"
-                                  [checked]="Email.IsActive==1" value="Yes">
-                                <label for="active{{i}}"></label>
-                              </div>
-                            </td>
-                            <td class="text-center">
-                              <button  data-toggle="tooltip" data-placement="top"   title="Edit"   type="button"  class="edit" 
-                                routerLink="/admin/email-template/edit/{{Email.EmailTemplateId}}">
-                              <i class="fa fa-pencil" aria-hidden="true"></i></button>
-                              <button   data-toggle="tooltip" data-placement="top"   title="Delete"   type="button"  class="delete" 
-                                (click)="deleteEmail(Email)">
-                              <i class="fa fa-trash" aria-hidden="true"></i></button>
-                            </td>
-                          </tr>
-                          <tr *ngIf="EmailList.length<=0">
-                            <td colspan="8" >{{globals.adminTranslationText.emailTemplate.list.recordNotFound}}</td>
-                          </tr> 
-                        </tbody>
-                    </table> -->
                     <kendo-grid
                     [data]="EmailList"
                     [pageSize]="pageSize"
@@ -94,16 +46,8 @@
                   <ng-template kendoGridToolbarTemplate>
                     <input placeholder="Search in all columns..." kendoTextBox
                       (input)="onFilter($event.target.value)" />
-                    <!-- <button kendoGridExcelCommand type="button" icon="file-excel" style="float:right;"></button>
-                    <button kendoGridPDFCommand icon="file-pdf" style="float:right;"></button>
-                    <button type="button" class="k-button" icon="file-pdf" style="float:right;" (click)="excelexport.save()">Export To Excel</button> -->
                   </ng-template>
-                  <!-- <kendo-grid-column title="{{globals.adminTranslationText.emailTemplate.list.collumns.srNo}}"
-                    [width]="50">
-                    <ng-template kendoGridCellTemplate let-dataItem let-rowIndex="rowIndex">
-                      {{rowIndex+1}}
-                    </ng-template>
-                  </kendo-grid-column> -->
+               
                   <kendo-grid-column field="Token"
                     title="{{globals.adminTranslationText.emailTemplate.list.collumns.emailToken}}">
                   </kendo-grid-column>
@@ -121,7 +65,7 @@
                   </kendo-grid-column>
 
                   <kendo-grid-column title="{{globals.adminTranslationText.emailTemplate.list.collumns.isActive}}"
-                    class="text-center" [width]="150">
+                    class="text-center" [width]="150"  *ngIf ="menuEntity['update-all']">
                     <ng-template kendoGridCellTemplate let-dataItem let-rowIndex="rowIndex">
                       <div class="activeyes_box">
                         <kendo-switch (valueChange)="isActiveChange(dataItem,$event)" [checked]="dataItem.IsActive==1"
@@ -133,13 +77,13 @@
                   <kendo-grid-column title="{{globals.adminTranslationText.emailTemplate.list.collumns.actions}}"
                     [width]="150">
                     <ng-template kendoGridCellTemplate let-dataItem let-rowIndex="rowIndex">
-                      <button kendoButton class="edit" (click)="edit(dataItem.EmailTemplateId)">
+                      <button kendoButton class="edit" (click)="edit(dataItem.EmailTemplateId)"  *ngIf ="menuEntity['add-emailtemplate']">
 
                         <i data-toggle="tooltip" data-placement="top"
                           title="{{globals.adminTranslationText.emailTemplate.list.buttons.edit}}"
                           class="fa fa-edit"></i>
                       </button>
-                      <button kendoButton class="delete" (click)="deleteEmail(dataItem)">
+                      <button kendoButton class="delete" (click)="deleteEmail(dataItem)" *ngIf ="menuEntity['delete-all']">
                         <i data-toggle="tooltip" data-placement="top" class="fa fa-trash-o"
                           title="{{globals.adminTranslationText.emailTemplate.list.buttons.delete}}"></i>
                       </button>

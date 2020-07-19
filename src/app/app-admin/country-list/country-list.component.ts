@@ -21,6 +21,7 @@ export class CountryListComponent implements OnInit {
   pageSize = this.globals.pageSize;
   allowUnsort = true;
   skip = 0;
+  
   paginationEntity = {
     limit: this.pageSize,
     offset:1,
@@ -41,6 +42,9 @@ export class CountryListComponent implements OnInit {
     field: 'CountryName',
     dir: 'desc'
   }];
+  menuDisplayEntity:any;
+  menuEntity:any;
+  listPermission;
 
   constructor(public globals: Globals, private router: Router, private route: ActivatedRoute,
     private CountryService: CountryService, private CommonService: CommonService) { }
@@ -50,6 +54,36 @@ export class CountryListComponent implements OnInit {
     debugger
     let todaysdate = this.globals.todaysdate;
     this.exportName = 'Assessment-CountryList–' + todaysdate;
+
+
+    this.listPermission =[];
+    this.menuEntity = [{
+      key : 'add-country',
+      value : false
+    },
+    {
+      key : 'delete-all',
+      value : false
+    },
+    {
+      key : 'update-all',
+      value : false
+    },
+    {
+      key : 'country-list',
+      value : false
+    }
+    ];
+
+    this.CommonService.checkPermission()
+    .then((data) => {
+      this.listPermission = data;
+      this.menuEntity = this.CommonService.hasAccess(this.listPermission,this.menuEntity);
+    },
+      (error) => {
+        this.globals.isLoading = false;
+        this.globals.pageNotfound(error.error.code);
+    });
 
     setTimeout(function () {
 

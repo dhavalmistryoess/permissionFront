@@ -60,10 +60,10 @@ export class PermissionService {
     });
     return promise;
   }
-  update(entity) {
-    debugger
+  updatePermission(entity) {
+   
     let promise = new Promise((resolve, reject) => {
-      this.http.post(this.globals.baseAPIUrl + 'Common/Configuration/Update', entity)
+      this.http.post(this.globals.baseAPIUrl + 'Assessment/SyncDetails/insertPermissionByRole', entity)
         .toPromise()
         .then(
           res => { // Success
@@ -76,6 +76,7 @@ export class PermissionService {
     });
     return promise;
   }
+  
 
 
 }
