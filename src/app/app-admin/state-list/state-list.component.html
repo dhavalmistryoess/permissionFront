@@ -21,59 +21,14 @@
             </ol>
           </div>
           <a routerLink="/admin/state/add"
-            class="all_btn theme_btn float-right">{{globals.adminTranslationText.state.list.buttons.add}}</a>
+            class="all_btn theme_btn float-right"  *ngIf ="menuEntity['add-state']">{{globals.adminTranslationText.state.list.buttons.add}}</a>
           <div class="clearfix"></div>
         </div>
         <div class="row d-flex justify-content-center">
           <div class="col-md-12 col-sm-12">
             <div class="inner_content_block">
               <div class="table_block">
-                <!-- <table id="dataTables-state" class="table table-hover" style="width: 100%;">
-                        <thead>
-                          <tr>
-                            <th class="text-center sr_no_width">{{globals.adminTranslationText.state.list.collumns.srNo}}</th>
-                            <th class="width_15">{{globals.adminTranslationText.state.list.collumns.country}}</th>
-                            <th>{{globals.adminTranslationText.state.list.collumns.state}}</th>
-                            <th class="text-center width_15">{{globals.adminTranslationText.state.list.collumns.countryAbbreviation}}</th>
-                            <th class="text-center active_width hide_active">{{globals.adminTranslationText.state.list.collumns.isActive}}</th>
-                            <th class="text-center active_width">{{globals.adminTranslationText.state.list.collumns.isActive}}</th>
-                            <th class="text-center action_width">{{globals.adminTranslationText.state.list.collumns.actions}}</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          <tr *ngFor="let state of stateList; let i = index">
-                            <td class="text-center">{{i+1}}</td>
-                            <td>{{state.CountryName}}</td>
-                            <td>{{state.StateName}}</td>
-                            <td class="text-center">{{state.StateAbbreviation}}</td>
-                            <td  class="text-center hide_active">
-                              <span *ngIf="state.IsActive==1">Yes</span>
-                              <span *ngIf="state.IsActive!=1">No</span>
-                            </td>
-                            <td  class="text-center">
-                              <div class="activeyes_box" data-toggle="tooltip" data-placement="top"
-                                [attr.title]="state.IsActive==1 ? 'Active' : 'Deactive'">
-                                <input type="checkbox" name="active_state{{i}}" id="active_state{{i}}"
-                                  (change)="isActiveChange(state,i)" [checked]="state.IsActive==1" value="Yes">
-                                <label for="active_state{{i}}"></label>
-                              </div>
-                            </td>
-                            <td class="text-center">
-                              <button routerLink="/admin/state/edit/{{state.StateId}}" class="edit">
-                                <i data-toggle="tooltip" data-placement="top" class="fa fa-pencil"
-                                  title="{{globals.adminTranslationText.state.list.buttons.edit}}" ></i>
-                              </button>
-                              <button (click)="deleteItem(state)" class="delete">
-                                <i data-toggle="tooltip" data-placement="top" class="fa fa-trash"
-                                  title="{{globals.adminTranslationText.state.list.buttons.delete}}"></i>
-                              </button>
-                            </td>
-                          </tr>
-                          <tr *ngIf="stateList.length == 0">
-                            <td colspan="6">{{globals.adminTranslationText.state.list.recordNotFound}}</td>
-                          </tr>
-                        </tbody>
-                      </table> -->
+               
                       <kendo-grid
                       [data]="stateList"
                       [pageSize]="pageSize"
@@ -111,7 +66,7 @@
                   </kendo-grid-column>
 
                   <kendo-grid-column title="{{globals.adminTranslationText.state.list.collumns.isActive}}"
-                    class="text-center" [width]="150">
+                    class="text-center" [width]="150"  *ngIf ="menuEntity['delete-all']">
                     <ng-template kendoGridCellTemplate let-dataItem let-rowIndex="rowIndex">
                       <div class="activeyes_box">
                         <kendo-switch (valueChange)="isActiveChange(dataItem,$event)" [checked]="dataItem.IsActive==1"
@@ -124,9 +79,9 @@
                     <ng-template kendoGridCellTemplate let-dataItem let-rowIndex="rowIndex">
                       <button kendoButton class="edit" (click)="edit(dataItem.StateId)">
                         <i data-toggle="tooltip" data-placement="top"
-                          title="{{globals.adminTranslationText.state.list.buttons.edit}}" class="fa fa-edit"></i>
+                          title="{{globals.adminTranslationText.state.list.buttons.edit}}" class="fa fa-edit"  *ngIf ="menuEntity['add-state']"></i>
                       </button>
-                      <button kendoButton class="delete" (click)="deleteItem(dataItem)">
+                      <button kendoButton class="delete" (click)="deleteItem(dataItem)" *ngIf ="menuEntity['delete-all']">
                         <i data-toggle="tooltip" data-placement="top" class="fa fa-trash-o"
                           title="{{globals.adminTranslationText.state.list.buttons.delete}}"></i>
                       </button>

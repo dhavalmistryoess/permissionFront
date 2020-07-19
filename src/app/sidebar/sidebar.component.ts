@@ -11,11 +11,14 @@ declare var $, PerfectScrollbar: any;
 export class SidebarComponent implements OnInit {
 
  
+  menuDisplayEntity:any;
   menuEntity:any;
+  listPermission;
 
   constructor(public globals: Globals, private CommonService : CommonService) { }
 
   ngOnInit() {
+    this.listPermission =[];
     this.menuEntity = [{
       key : 'country-list',
       value : false
@@ -30,13 +33,21 @@ export class SidebarComponent implements OnInit {
     }
     ];
 
-    this.menuEntity = this.CommonService.hasAccess(this.menuEntity);
-    
-   
+    this.CommonService.checkPermission()
+    .then((data) => {
+      this.listPermission = data;
+      this.menuEntity = this.CommonService.hasAccess(this.listPermission,this.menuEntity);
+    },
+      (error) => {
+        this.globals.isLoading = false;
+        this.globals.pageNotfound(error.error.code);
+    });
+     
     setTimeout(function () {
       new PerfectScrollbar('.sidebar_box');
+      
     }, 500);
-    setTimeout(function () {
+      setTimeout(function () {
       if ($(window).width() < 1251) {
         $('.pin_toggle').hide();
         $('.sidebar_wrap').removeClass("active_menu");
@@ -73,6 +84,9 @@ export class SidebarComponent implements OnInit {
 
     }, 3000);
   }
+
+
+ 
   closecollapse() {
     $(".dropdown_menu").addClass("collapsed");
     $(".dropdown_menu").attr("aria-expanded", "false");

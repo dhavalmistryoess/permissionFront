@@ -18,6 +18,7 @@ export class StateListComponent implements OnInit {
   deleteEntity;
   exportName;
   stateList : any;
+ 
   pageSize = this.globals.pageSize;
   allowUnsort = true;
   skip = 0;
@@ -41,6 +42,9 @@ export class StateListComponent implements OnInit {
     field: 'CountryName',
     dir: 'asc'
   }];
+  menuDisplayEntity:any;
+  menuEntity:any;
+  listPermission;
   constructor(public globals: Globals, private router: Router, private route: ActivatedRoute,
     private StateService: StateService, private CommonService: CommonService) { }
 
@@ -52,6 +56,32 @@ export class StateListComponent implements OnInit {
     this.exportName = 'Assessment-StateList–' + todaysdate;
     this.globals.isLoading = true;
     this.getStateData();
+
+    this.listPermission =[];
+    this.menuEntity = [{
+      key : 'add-state',
+      value : false
+    },
+    {
+      key : 'delete-all',
+      value : false
+    },
+    {
+      key : 'state-list',
+      value : false
+    }
+    ];
+
+    this.CommonService.checkPermission()
+    .then((data) => {
+      this.listPermission = data;
+      this.menuEntity = this.CommonService.hasAccess(this.listPermission,this.menuEntity);
+    },
+      (error) => {
+        this.globals.isLoading = false;
+        this.globals.pageNotfound(error.error.code);
+    });
+
   }
 
 

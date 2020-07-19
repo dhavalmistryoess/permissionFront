@@ -65,40 +65,49 @@ export class CommonService {
   }
 
 
+  checkPermission() {
 
 
- 
-  
-  hasAccess(permission) {
-    let retrievedObject, index;
+
+    let promise = new Promise((resolve, reject) => {
+
+       if (localStorage.getItem('getUserPermission')) {
+        let retrievedObject = JSON.parse(localStorage.getItem('getUserPermission'));
+         resolve(retrievedObject);
+       }
+
+      this.http.get(this.globals.baseAPIUrl + 'Assessment/SyncDetails/getRolePermissionDetails/' + this.globals.authData.RoleId)
+        .toPromise()
+        .then(
+          res => { // Success
+            localStorage.setItem('getUserPermission', JSON.stringify(res));
+            resolve(res);
+          },
+          msg => { // Error
+            reject(msg);
+          }
+        );
+    });
+
+    return promise;
+  }
+
+
+
+  hasAccess(listPermission, currentPermission) {
+    let index;
     let permissionEnity = {};
-    // if(localStorage.getItem('getUserPermission')) {
-      retrievedObject = JSON.parse(localStorage.getItem('getUserPermission'));
-    // } else {
-    //   this.PermissionService.getUserPermission()
-    //   .then((data) => {
-    //     retrievedObject = data;
-    //     this.globals.isLoading = false;
-    //   },
-    //     (error) => {
-    //       this.globals.isLoading = false;
-    //       this.globals.pageNotfound(error.error.code);
-    //     });
-    // }
-    
-    console.log(retrievedObject);
-    
-    
-    permission.forEach(function (menu, key) {
-      index = retrievedObject.findIndex(retrievedObject=> (retrievedObject.DisplayName === menu.key && retrievedObject.HasAccess == 1 ))
-      if(index != -1) {
-        permissionEnity[menu.key] =  true;
+
+    currentPermission.forEach(function (menu, key) {
+      index = listPermission.findIndex(listPermission => (listPermission.DisplayName === menu.key && listPermission.HasAccess == 1))
+      if (index != -1) {
+        permissionEnity[menu.key] = true;
       } else {
-        permissionEnity[menu.key] =  false;
+        permissionEnity[menu.key] = false;
       }
     });
-    console.log(permissionEnity);
+
     return permissionEnity;
-  
+
   }
 }
