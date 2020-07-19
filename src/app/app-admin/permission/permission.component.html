@@ -29,13 +29,13 @@
           <div class="col-md-12 col-sm-12">
           
             <form role="form" #configurationForm="ngForm" (ngSubmit)="update(configurationForm)">
-              <div class="inner_content_block mb-5" *ngFor="let smtp of permissionEntity; let i = index">
+              <div class="inner_content_block mb-5" *ngFor="let smtp of defaultPermissionEntity; let i = index">
                 <div class="paddin_form pb-3">
                   <div class="row">
                     <div class="col-md-12 col-12 col-lg-12 col-sm-12">
-                      <h5>{{permissionEntity[i].key}}</h5>
+                      <h5>{{defaultPermissionEntity[i].key}}</h5>
                       
-                      <div class="row" *ngFor="let child of smtp[permissionEntity[i].key];let j=index;">
+                      <div class="row" *ngFor="let child of smtp[defaultPermissionEntity[i].key];let j=index;">
                         <input type="hidden" name="Permission[{{i}}][RoleId]" value="{{currentRole}}"  [(ngModel)]="child.RoleId">
                         <input type="hidden" name="Permission[{{i}}]['ModuleIDs]" value="{{child.ModuleIDs}}"  [(ngModel)]="child.ModuleIDs">
                       

@@ -19,13 +19,14 @@ export class PermissionComponent implements OnInit {
   errorEntity;
   currentRole;
   rolePermissionEntity;
-
+  defaultPermissionEntity;
   constructor(public globals: Globals, private router: Router, private route: ActivatedRoute, private PermissionService: PermissionService) { }
 
   ngOnInit() {
     this.globals.isLoading = false;
     this.globals.isLoading = true;
     this.permissionEntity = [];
+    this.defaultPermissionEntity = [];
     this.roleEntity = {};
     this.rolePermissionEntity = {};
     this.currentRole = this.globals.authData.RoleId;
@@ -52,7 +53,8 @@ export class PermissionComponent implements OnInit {
   getAllPermission(getCurrentRole) {
     this.PermissionService.getAll(getCurrentRole)
       .then((data) => {
-        this.permissionEntity = data;
+        console.log(data);
+        this.defaultPermissionEntity = data;
         this.globals.isLoading = false;
       },
         (error) => {
@@ -84,6 +86,27 @@ export class PermissionComponent implements OnInit {
 
   update(configurationForm) {
     console.log(configurationForm.value);
+    console.log(this.defaultPermissionEntity)
+    var permission = [];
+this.defaultPermissionEntity.forEach(function (menu, key) {
+  //console.log(menu.key);
+ // console.log(menu[menu.key].length);
+  for(var i=0;i<menu[menu.key].length;i++)
+  {
+    console.log(menu[menu.key][i].DisplayName);
+    var obj = {
+      "RoleId": menu[menu.key][i].RoleId,
+      "DisplayName": menu[menu.key][i].DisplayName,
+      "ModuleIDs": menu[menu.key][i].ModuleIDs,
+      "HasAccess": ((menu[menu.key][i].HasAccess == 1 || menu[menu.key][i].HasAccess == true) ? "1" : "2" ),
+      "ClassName": menu[menu.key][i].ClassName
+    }
+    permission.push(obj);
+  }
+});
+
+   console.log(permission);
+   this.permissionEntity.permission = permission;
 
     // if (configurationForm.valid) {
     //   this.btn_disable = true;
