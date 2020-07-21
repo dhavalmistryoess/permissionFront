@@ -10,10 +10,8 @@ import { HttpInterceptorClassService } from '../http-interceptor-class.service';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { CountryComponent } from './country/country.component';
 import { CountryListComponent } from './country-list/country-list.component';
-import { CountryListDummyComponent } from './country-list-dummy/country-list-dummy.component';
 import { StateComponent } from './state/state.component';
 import { StateListComponent } from './state-list/state-list.component';
-import { InquireListComponent } from './inquire-list/inquire-list.component';
 import { ActivityLogComponent } from './activity-log/activity-log.component';
 import { ErrorLogComponent } from './error-log/error-log.component';
 import { EmailLogComponent } from './email-log/email-log.component';
@@ -70,7 +68,7 @@ import { DocumentVertificationRequestComponent } from './document-vertification-
 import { UserhistoryService } from './services/userhistory.service';
 import { UserHistoryComponent } from './user-history/user-history.component';
 import { AssessmentdetailService } from './services/assessmentdetail.service';
-import { ItemOptionChangesComponent } from './item-option-changes/item-option-changes.component';
+
 import { PermissionComponent } from './permission/permission.component';
 const routes: Routes = [
     {
@@ -106,7 +104,6 @@ const routes: Routes = [
                    'state-list'
             }},
 
-            { path: 'inquire/list', component: InquireListComponent, canActivate: [AuthGuard] },
             { path: 'settings', component: ConfigurationComponent, canActivate: [AuthGuard] },
 
             { path: 'email-template/add', component: EmailTemplateComponent, canActivate: [AuthGuard], data: {

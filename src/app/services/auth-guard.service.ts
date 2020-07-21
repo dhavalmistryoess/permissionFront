@@ -66,10 +66,8 @@ export class AuthGuard implements CanActivate {
 
     }, 500);
    
-    if (route.data['permission'] != undefined) {
-      if(!permission[route.data['permission']]) {
+    if (route.data['permission'] != undefined && !permission[route.data['permission']]) {
         return this.router.navigate(["/pagenotfound/" + window.btoa("403")]);
-      }
     }
     
 
