@@ -15,7 +15,9 @@
             <div *ngIf = "(code == 400 || code == 404) && (globals.authData.RoleId != 1)">
               <h5>We are working on this we will get back to soon.</h5>
             </div>
-            
+            <div *ngIf = "code == 403">
+              <h5>You do not have permission for these.</h5>
+            </div>
             <a *ngIf="globals.authData.RoleId == 1" href="/admin/adminDashboard" class="all_btn theme_btn">Go back Home</a>
             <a *ngIf="globals.authData.RoleId == 2 || globals.authData.RoleId == 4" href="/admin/proctorDashboard" class="all_btn theme_btn">Go back Home</a>
             <a *ngIf="globals.authData.RoleId == 3" href="/admin/dashboard" class="all_btn theme_btn">Go back Home</a>
