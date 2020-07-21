@@ -66,27 +66,25 @@ export class CommonService {
 
 
   checkPermission() {
-
-
-
     let promise = new Promise((resolve, reject) => {
-
-       if (localStorage.getItem('getUserPermission')) {
-        let retrievedObject = JSON.parse(localStorage.getItem('getUserPermission'));
-         resolve(retrievedObject);
-       }
-
-      this.http.get(this.globals.baseAPIUrl + 'Assessment/SyncDetails/getRolePermissionDetails/' + this.globals.authData.RoleId)
-        .toPromise()
-        .then(
-          res => { // Success
-            localStorage.setItem('getUserPermission', JSON.stringify(res));
-            resolve(res);
-          },
-          msg => { // Error
-            reject(msg);
-          }
-        );
+      if (localStorage.getItem('getUserPermission')) {
+       let retrievedObject = JSON.parse(localStorage.getItem('getUserPermission'));
+        resolve(retrievedObject);
+      }
+      else
+      {
+        this.http.get(this.globals.baseAPIUrl + 'Assessment/SyncDetails/getRolePermissionDetails/' + this.globals.authData.RoleId)
+          .toPromise()
+          .then(
+            res => { // Success
+              localStorage.setItem('getUserPermission', JSON.stringify(res));
+              resolve(res);
+            },
+            msg => { // Error
+              reject(msg);
+            }
+          );
+      }
     });
 
     return promise;
@@ -97,7 +95,7 @@ export class CommonService {
   hasAccess(listPermission, currentPermission) {
     let index;
     let permissionEnity = {};
-
+    debugger
     currentPermission.forEach(function (menu, key) {
       index = listPermission.findIndex(listPermission => (listPermission.DisplayName === menu.key && listPermission.HasAccess == 1))
       if (index != -1) {

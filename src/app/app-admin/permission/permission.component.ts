@@ -104,17 +104,31 @@ export class PermissionComponent implements OnInit {
       }
     });
 
-   console.log(permission);
-   this.permissionEntity.permission = permission;
-   this.PermissionService.updatePermission(this.permissionEntity.permission)
-   .then((data) => {
-     this.roleEntity = data;
-     this.globals.isLoading = false;
-   },
-     (error) => {
-       this.globals.isLoading = false;
-       // this.globals.pageNotfound(error.error.code);
-     });   
+    // console.log(permission);
+    this.permissionEntity.permission = permission;
+    if(configurationForm.valid)
+    {
+      this.globals.isLoading = true;
+      this.PermissionService.updatePermission(this.permissionEntity.permission)
+      .then((data) => {
+        // this.roleEntity = data;
+        this.globals.isLoading = false;
+        swal({
+          type: this.globals.adminTranslationText.permission.alerts.permissionUpdate.type,
+          title: this.globals.adminTranslationText.permission.alerts.permissionUpdate.title,
+          text: this.globals.adminTranslationText.permission.alerts.permissionUpdate.text,
+          showConfirmButton: false,
+          timer: 2000
+        })
+        // window.location.href = '/admin/permission';
+        localStorage.removeItem('getUserPermission');
+        location.reload(true);
+      },
+      (error) => {
+        this.globals.isLoading = false;
+        // this.globals.pageNotfound(error.error.code);
+      });   
+    }
     
   }
 

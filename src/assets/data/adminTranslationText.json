@@ -2256,5 +2256,17 @@
             "title": "Top 5 Selling Certificates",
             "totalCount": "Total Count"
         }
+    },
+    "permission":
+    {
+        "title": "Permission",
+        "breadcrumbTitle": "Permission",
+        "alerts": {
+            "permissionUpdate": {
+                "type": "success",
+                "title": "Permission Updated",
+                "text": "Permission has been updated successfully"
+            }
+        }
     }
 }

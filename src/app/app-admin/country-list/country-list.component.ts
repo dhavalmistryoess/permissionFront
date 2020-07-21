@@ -57,33 +57,36 @@ export class CountryListComponent implements OnInit {
 
 
     this.listPermission =[];
-    this.menuEntity = [{
-      key : 'add-country',
-      value : false
-    },
-    {
-      key : 'delete-all',
-      value : false
-    },
-    {
-      key : 'update-all',
-      value : false
-    },
-    {
-      key : 'country-list',
-      value : false
-    }
-    ];
-
-    this.CommonService.checkPermission()
-    .then((data) => {
-      this.listPermission = data;
-      this.menuEntity = this.CommonService.hasAccess(this.listPermission,this.menuEntity);
-    },
-      (error) => {
-        this.globals.isLoading = false;
-        this.globals.pageNotfound(error.error.code);
-    });
+    // this.menuEntity = [{
+    //   key : 'add-country',
+    //   value : false
+    // },
+    // {
+    //   key : 'delete-all',
+    //   value : false
+    // },
+    // {
+    //   key : 'update-all',
+    //   value : false
+    // },
+    // {
+    //   key : 'country-list',
+    //   value : false
+    // }
+    // ];
+    debugger
+    // this.globals.hasAccess();
+    console.log(this.globals.permissions);
+    // this.CommonService.checkPermission()
+    // .then((data) => {
+    //   this.listPermission = data;
+    //   //console.log(data);
+    //   this.menuEntity = this.globals.hasAccess();
+    // },
+    //   (error) => {
+    //     this.globals.isLoading = false;
+    //     this.globals.pageNotfound(error.error.code);
+    // });
 
     setTimeout(function () {
 

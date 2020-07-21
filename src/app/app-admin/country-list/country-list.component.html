@@ -14,13 +14,13 @@
                 </a>
               </li>
               <li class="breadcrumb-item"><a
-                  routerLink="/admin/country/list" *ngIf ="menuEntity['add-country']" >{{globals.adminTranslationText.country.list.breadcrumbTitle}}</a>
+                  routerLink="/admin/country/list" >{{globals.adminTranslationText.country.list.breadcrumbTitle}}</a>
               </li>
               <li class="breadcrumb-item active" aria-current="page">
                 {{globals.adminTranslationText.country.list.breadcrumbSubTitle}}</li>
             </ol>
           </div>
-          <a routerLink="/admin/country/add"
+          <a *ngIf ="globals.permissions['add-country']" routerLink="/admin/country/add"
             class="all_btn theme_btn float-right">{{globals.adminTranslationText.country.list.buttons.add}}</a>
           <div class="clearfix"></div>
         </div>
@@ -58,7 +58,7 @@
                   </kendo-grid-column>
 
                   <kendo-grid-column title="{{globals.adminTranslationText.country.list.collumns.isActive}}"
-                    class="text-center" [width]="150"  *ngIf ="menuEntity['update-all']">
+                    class="text-center" [width]="150"  *ngIf ="globals.permissions['update-all']">
                     <ng-template kendoGridCellTemplate let-dataItem let-rowIndex="rowIndex">
                       <div class="activeyes_box">
                         <kendo-switch (valueChange)="isActiveChange(dataItem,$event)" [checked]="dataItem.IsActive==1"
@@ -70,11 +70,11 @@
                   <kendo-grid-column title="{{globals.adminTranslationText.country.list.collumns.actions}}"
                     [width]="150">
                     <ng-template kendoGridCellTemplate let-dataItem let-rowIndex="rowIndex">
-                      <button kendoButton class="edit" (click)="edit(dataItem.CountryId)" *ngIf ="menuEntity['add-country']">
+                      <button kendoButton class="edit" (click)="edit(dataItem.CountryId)" *ngIf ="globals.permissions['add-country']">
                         <i data-toggle="tooltip" data-placement="top"
                           title="{{globals.adminTranslationText.country.list.buttons.edit}}" class="fa fa-edit"></i>
                       </button>
-                      <button kendoButton class="delete" (click)="deleteItem(dataItem)"  *ngIf ="menuEntity['delete-all']">
+                      <button kendoButton class="delete" (click)="deleteItem(dataItem)"  *ngIf ="globals.permissions['delete-all']">
                         <i data-toggle="tooltip" data-placement="top" class="fa fa-trash-o"
                           title="{{globals.adminTranslationText.country.list.buttons.delete}}"></i>
                       </button>

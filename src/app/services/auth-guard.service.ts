@@ -11,12 +11,11 @@ export class AuthGuard implements CanActivate {
 
   constructor(private authService: AuthService, private router: Router, public globals: Globals) { }
 
-
   canActivate(route, state: RouterStateSnapshot) {
 
 
     this.globals.isLoading = false;
-
+    this.globals.hasAccess();
     var d = new Date();
     var curr_date = d.getDate();
     var curr_month = d.getMonth() + 1; //Months are zero based
@@ -76,7 +75,7 @@ export class AuthGuard implements CanActivate {
 
 
     $(".tooltip.show").remove();
-
+    
     //debugger
     if (state.url.split('/')[3] != undefined) {
       this.globals.currentLink = '/' + state.url.split('/')[1] + '/' + state.url.split('/')[2] + '/' + state.url.split('/')[3];
@@ -89,7 +88,6 @@ export class AuthGuard implements CanActivate {
     }
 
     if (this.authService.isLoggedIn() == true) {
-
       if (state.url == '/login' || state.url.split('/')[1] == 'login' || state.url == '/forgot-password' || state.url == '/register' || state.url.split('/')[1] == 'register' || state.url.split('/')[1] == 'reset-password') {
         this.globals.IsLoggedIn = true;
         this.router.navigate(['/dashboard']);
@@ -98,7 +96,7 @@ export class AuthGuard implements CanActivate {
         this.globals.IsLoggedIn = true;
         return true;
       }
-
+      
     } else {
 
       if (state.url == '/login' || state.url.split('/')[1] == 'login' || state.url == '/forgot-password' || state.url == '/register' || state.url.split('/')[1] == 'register' || state.url.split('/')[1] == 'reset-password') {

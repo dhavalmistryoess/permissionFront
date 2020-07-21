@@ -31,28 +31,58 @@ export class Globals {
   current_progress: number = 0;
   selectedCurrency = 'usd';
   pageSize = 15;
-
+  permissions;
+  menuEntity = [{
+    key : 'country-list',
+    value : false
+  },
+  {
+    key : 'add-country',
+    value : false
+  },
+  {
+    key : 'delete-all',
+    value : false
+  },
+  {
+    key : 'update-all',
+    value : false
+  },
+  {
+    key : 'emailtemplate-list',
+    value : false
+  },
+  {
+    key : 'state-list',
+    value : false
+  }
+  ];
   pageNotfound(code)
   {
     window.location.href = 'pagenotfound/' + window.btoa(code);
   }
 
-  hasAccess(permission) {
-    let retrievedObject, index;
-    let permissionEnity = [];
-    retrievedObject = JSON.parse(localStorage.getItem('getUserPermission'));
   
+  hasAccess() {
+    let retrievedObject1, index;
+    let permissionEnity1 = {};
+    if(this.authData != null)
+    {
+      retrievedObject1 = JSON.parse(localStorage.getItem('getUserPermission'));
     
-    permission.forEach(function (menu, key) {
-      index = retrievedObject.findIndex(retrievedObject=> (retrievedObject.DisplayName === menu.key && retrievedObject.HasAccess == 1 ))
-      if(index != -1) {
-        permissionEnity[menu.key] =  true;
-      } else {
-        permissionEnity[menu.key] =  false;
-      }
-    });
-
-    return permissionEnity;
+      
+      this.menuEntity.forEach(function (menu, key) {
+        index = retrievedObject1.findIndex(retrievedObject1=> (retrievedObject1.DisplayName === menu.key && retrievedObject1.HasAccess == 1 ))
+        if(index != -1) {
+          permissionEnity1[menu.key] =  true;
+        } else {
+          permissionEnity1[menu.key] =  false;
+        }
+      });
+      this.permissions = permissionEnity1;
+      return this.permissions;
+    }
   }
+  
   
 }
