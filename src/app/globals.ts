@@ -41,6 +41,14 @@ export class Globals {
     value : false
   },
   {
+    key : 'add-state',
+    value : false
+  },
+  {
+    key : 'add-emailtemplate',
+    value : false
+  },
+  {
     key : 'delete-all',
     value : false
   },
@@ -66,11 +74,10 @@ export class Globals {
   hasAccess() {
     let retrievedObject1, index;
     let permissionEnity1 = {};
-    if(this.authData != null)
+  
+    if(this.authData != null && this.authData.RoleId != "1")
     {
       retrievedObject1 = JSON.parse(localStorage.getItem('getUserPermission'));
-    
-      
       this.menuEntity.forEach(function (menu, key) {
         index = retrievedObject1.findIndex(retrievedObject1=> (retrievedObject1.DisplayName === menu.key && retrievedObject1.HasAccess == 1 ))
         if(index != -1) {

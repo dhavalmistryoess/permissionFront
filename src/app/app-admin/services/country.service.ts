@@ -10,7 +10,6 @@ export class CountryService {
   constructor(private http: HttpClient, private globals: Globals, private router: Router) { }
 
   addUpdate(entity) {
-    debugger
     let promise = new Promise((resolve, reject) => {
       this.http.post(this.globals.baseAPIUrl + 'Common/Country/addUpdate', entity)
         .toPromise()

@@ -10,7 +10,6 @@ export class AuthService {
   constructor(private http: HttpClient, private globals: Globals, private router: Router) { }
 
   checkLogin(loginEntity) {
-    //debugger
     let jwtHelper = new JwtHelperService();
     let promise = new Promise((resolve, reject) => {
       this.http.post(this.globals.baseAPIUrl + 'Common/Auth/login', loginEntity)
@@ -54,7 +53,6 @@ export class AuthService {
   }
 
   isLoggedIn() {
-    //debugger
     let jwtHelper = new JwtHelperService();
     let token = localStorage.getItem('token');
     let isExpired = jwtHelper.isTokenExpired(token) ? true : false;
@@ -65,7 +63,6 @@ export class AuthService {
   }
 
   getAllDefault() {
-    debugger
     let promise = new Promise((resolve, reject) => {
       this.http.get(this.globals.baseAPIUrl + 'Common/Inquiry/getAllDefault')
         .toPromise()
@@ -82,7 +79,6 @@ export class AuthService {
   }
 
   AddCertificate(entity) {
-    debugger
     let promise = new Promise((resolve, reject) => {
       this.http.post(this.globals.baseAPIUrl + 'Assessment/UserRegistration/AddCertificate', entity)
         .toPromise()
@@ -99,7 +95,6 @@ export class AuthService {
   }
 
   ActiveAccount(UserId) {
-    debugger
     let promise = new Promise((resolve, reject) => {
       this.http.get(this.globals.baseAPIUrl + 'Assessment/UserRegistration/activateAccount/'+ UserId)
         .toPromise()

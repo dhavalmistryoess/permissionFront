@@ -45,7 +45,6 @@ export class PermissionService {
   }
 
   getAllRoles() {
-    debugger
     let promise = new Promise((resolve, reject) => {
       this.http.get(this.globals.baseAPIUrl + 'Common/Common/getAllRoles')
         .toPromise()

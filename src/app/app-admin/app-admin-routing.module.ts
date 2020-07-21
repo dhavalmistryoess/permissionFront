@@ -80,21 +80,44 @@ const routes: Routes = [
             { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard] },
             { path: 'adminDashboard', component: AdminDashboardComponent, canActivate: [AuthGuard] },
 
-            { path: 'country/add', component: CountryComponent, canActivate: [AuthGuard] },
-            { path: 'country/edit/:id', component: CountryComponent, canActivate: [AuthGuard] },
-            { path: 'country/list', component: CountryListComponent, canActivate: [AuthGuard] },
-            { path: 'country-list-dummy', component: CountryListDummyComponent, canActivate: [AuthGuard] },
-
-            { path: 'state/add', component: StateComponent, canActivate: [AuthGuard] },
-            { path: 'state/edit/:id', component: StateComponent, canActivate: [AuthGuard] },
-            { path: 'state/list', component: StateListComponent, canActivate: [AuthGuard] },
+            { path: 'country/add', component: CountryComponent, canActivate: [AuthGuard] , data: {
+                permission: 
+                   'add-country'
+            }},
+            { path: 'country/edit/:id', component: CountryComponent, canActivate: [AuthGuard] , data: {
+                permission: 
+                   'add-country'
+            }},
+            { path: 'country/list', component: CountryListComponent, canActivate: [AuthGuard] , data: {
+                permission: 
+                   'country-list'
+            }},
+    
+            { path: 'state/add', component: StateComponent, canActivate: [AuthGuard] , data: {
+                permission: 
+                   'add-state'
+            } },
+            { path: 'state/edit/:id', component: StateComponent, canActivate: [AuthGuard] , data: {
+                permission: 
+                   'add-state'
+            } },
+            { path: 'state/list', component: StateListComponent, canActivate: [AuthGuard]  , data: {
+                permission: 
+                   'state-list'
+            }},
 
             { path: 'inquire/list', component: InquireListComponent, canActivate: [AuthGuard] },
             { path: 'settings', component: ConfigurationComponent, canActivate: [AuthGuard] },
 
-            { path: 'email-template/add', component: EmailTemplateComponent, canActivate: [AuthGuard] },
+            { path: 'email-template/add', component: EmailTemplateComponent, canActivate: [AuthGuard], data: {
+                permission: 
+                   'add-emailtemplate'
+            } },
             { path: 'email-template/edit/:id', component: EmailTemplateComponent, canActivate: [AuthGuard] },
-            { path: 'email-template/list', component: EmailTemplateListComponent, canActivate: [AuthGuard] },
+            { path: 'email-template/list', component: EmailTemplateListComponent, canActivate: [AuthGuard], data: {
+                permission: 
+                   'emailtemplate-list'
+            } },
 
             { path: 'error-log', component: ErrorLogComponent, canActivate: [AuthGuard] },
             { path: 'activity-log', component: ActivityLogComponent, canActivate: [AuthGuard] },
@@ -128,9 +151,7 @@ const routes: Routes = [
 
             { path: 'item/add', component: ItemComponent, canActivate: [AuthGuard] },
             { path: 'item/edit/:id', component: ItemComponent, canActivate: [AuthGuard] },
-            // { path: 'item/add', component: ItemOptionChangesComponent, canActivate: [AuthGuard] }, //new component 
-            // { path: 'item/edit/:id', component: ItemOptionChangesComponent, canActivate: [AuthGuard] },
-            { path: 'item/list', component: ItemListComponent, canActivate: [AuthGuard] },
+             { path: 'item/list', component: ItemListComponent, canActivate: [AuthGuard] },
 
             { path: 'user-invite', component: UserInviteComponent, canActivate: [AuthGuard] },
             //{ path: 'item/list', component: ItemListComponent, canActivate: [AuthGuard] },
@@ -155,11 +176,6 @@ const routes: Routes = [
 
             { path: 'examinationSheet', component: FullexaminationsheetComponent, canActivate: [AuthGuard] },
             { path: 'permission', component: PermissionComponent, canActivate: [AuthGuard] },
-
-            { path: 'fullScreen', component: FullScreenComponent, canActivate: [AuthGuard] },
-            { path: 'test', component: FullScreenComponent, canActivate: [AuthGuard] },
-            // { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
-            // { path: '**', redirectTo: 'dashboard' }
             { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
             { path: '**', redirectTo: 'dashboard' }
         ]

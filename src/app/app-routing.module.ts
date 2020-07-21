@@ -69,7 +69,6 @@ const routes: Routes = [
     { path: 'practice-result/:id', component: ResultPageComponent, canActivate: [AuthGuard] },
     { path: 'assessment-result/:id', component: AssessmentResultComponent, canActivate: [AuthGuard] },
     { path: 'assessmentPanel/:certificateid/:usercertificateid/:ScheduleAssessmentId/:UserAssessmentId/:resultStatus/:parentAssessment/:HasSubCertificate/:HasOneShotAssessment', component: AssessmentPanelComponent, canActivate: [AuthGuard] },
-    // { path: 'assessmentPanel/:certificateid/:usercertificateid/:ScheduleAssessmentId/:UserAssessmentId/:resultStatus/:parentAssessment/:HasSubCertificate/:HasOneShotAssessment', component: AssessmentPanelChangesComponent, canActivate: [AuthGuard] },
     { path: 'practice-test/:certificateid/:usercertificateid/:userpracticetestid/:flag/:HasOneShotAssessment', component: PracticeTestComponent, canActivate: [AuthGuard] },
     { path: 'proctorDashboard', component: ProctorDashboardComponent, canActivate: [AuthGuard] },
     { path: 'proctorDashboard/:id', component: ProctorDashboardComponent, canActivate: [AuthGuard] },

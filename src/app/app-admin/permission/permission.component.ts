@@ -29,10 +29,11 @@ export class PermissionComponent implements OnInit {
     this.defaultPermissionEntity = [];
     this.roleEntity = {};
     this.rolePermissionEntity = {};
-    this.currentRole = this.globals.authData.RoleId;
-  
-    this.getAllPermission(this.currentRole);
+    this.currentRole = 2;
+   
     this.getAllRoles();
+    this.getAllPermission(this.currentRole);
+   
     
     // this.getUserPermission();
   }
@@ -70,12 +71,12 @@ export class PermissionComponent implements OnInit {
     },
       (error) => {
         this.globals.isLoading = false;
-        // this.globals.pageNotfound(error.error.code);
+        this.globals.pageNotfound(error.error.code);
       });   
   }
 
-  checkValue(event: any){
-    console.log(event);
+  checkValue($event, chlidParams){
+    chlidParams.HasAccess = ($event.target.checked == true) ?  1 : 2 ;
  }
   
   changeRole(e) {
@@ -84,12 +85,8 @@ export class PermissionComponent implements OnInit {
   }
 
   update(configurationForm) {
-    console.log(configurationForm.value);
-    console.log(this.defaultPermissionEntity)
     var permission = [];
     this.defaultPermissionEntity.forEach(function (menu, key) {
-      //console.log(menu.key);
-    // console.log(menu[menu.key].length);
       for(var i=0;i<menu[menu.key].length;i++)
       {
         console.log(menu[menu.key][i].DisplayName);
@@ -104,14 +101,13 @@ export class PermissionComponent implements OnInit {
       }
     });
 
-    // console.log(permission);
+
     this.permissionEntity.permission = permission;
     if(configurationForm.valid)
     {
       this.globals.isLoading = true;
       this.PermissionService.updatePermission(this.permissionEntity.permission)
       .then((data) => {
-        // this.roleEntity = data;
         this.globals.isLoading = false;
         swal({
           type: this.globals.adminTranslationText.permission.alerts.permissionUpdate.type,
@@ -120,13 +116,11 @@ export class PermissionComponent implements OnInit {
           showConfirmButton: false,
           timer: 2000
         })
-        // window.location.href = '/admin/permission';
         localStorage.removeItem('getUserPermission');
-        location.reload(true);
       },
       (error) => {
         this.globals.isLoading = false;
-        // this.globals.pageNotfound(error.error.code);
+        this.globals.pageNotfound(error.error.code);
       });   
     }
     
