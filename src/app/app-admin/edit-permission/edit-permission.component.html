@@ -1,0 +1,81 @@
+<div class="content_block">
+  <div class="container-fluid">
+    <div class="row">
+      <!-- Content -->
+      <div class="col-md-12 col-sm-12">
+        <div class="title_block">
+          <h2 class="float-left">
+            {{globals.adminTranslationText.permission.form.title.update}}</h2>
+          <div class="breadcrumb_block float-left">
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item">
+                <a routerLink="/admin/adminDashboard">
+                  <i class="fa fa-home"></i>
+                </a>
+              </li>
+              <li class="breadcrumb-item"><a
+                  routerLink="/admin/permission-list">{{globals.adminTranslationText.permission.form.breadcrumbTitle}}</a>
+              </li>
+              <li class="breadcrumb-item active" aria-current="page">
+                {{globals.adminTranslationText.permission.form.breadcrumbSubTitle.update}}</li>
+            </ol>
+          </div>
+          <a routerLink="/admin/permission-list"
+            class="all_btn themeoption_btn  float-right">{{globals.adminTranslationText.permission.form.buttons.backToList}}</a>
+          <div class="clearfix"></div>
+        </div>
+        <div class="row d-flex justify-content-center">
+          <div class="col-md-12 col-sm-12">
+            <div class="inner_content_block">
+              <div class="paddin_form">
+                <form role="form" #permissionForm="ngForm" (ngSubmit)="update(permissionForm)">
+                  <div class="row">
+                    <div class="col-12 col-xl-4 col-lg-4 col-md-12 col-sm-12">
+                      <div class="form-group">
+                        <label>{{globals.adminTranslationText.permission.form.DisplayName.label}}</label>
+                        <label>{{permissionEntity.DisplayName}}</label>
+                        <input type="hidden" class="form-control"
+                          [(ngModel)]="permissionEntity.DisplayName"
+                          name="DisplayName" id="DisplayName" >
+                      </div>
+                    
+                      <div class="form-group">
+                        <label><span>*</span> {{globals.adminTranslationText.permission.form.FrontDisplayName.label}}</label>
+                        <input type="text" #FrontDisplayName="ngModel" class="form-control"
+                          [(ngModel)]="permissionEntity.FrontDisplayName"
+                          [ngClass]="{error: (FrontDisplayName.dirty && FrontDisplayName.invalid) || (FrontDisplayName.pristine && submitted) || errorEntity.FrontDisplayName}"
+                          name="FrontDisplayName" id="FrontDisplayName" pattern="^[a-zA-Z][\sa-zA-Z]*" maxlength="100" required>
+
+                        <span class="error_class"
+                          *ngIf="(FrontDisplayName.dirty && FrontDisplayName.invalid) || (FrontDisplayName.pristine && submitted) || errorEntity.FrontDisplayName">
+                          <span
+                            *ngIf="FrontDisplayName.errors.required || (FrontDisplayName.pristine && submitted)">{{globals.adminTranslationText.country.form.FrontDisplayName.required}}</span>
+                          <span
+                            *ngIf="FrontDisplayName.errors && FrontDisplayName.errors.pattern">{{globals.adminTranslationText.country.form.FrontDisplayName.pattern}}</span>
+                          <span *ngIf="errorEntity.FrontDisplayName != ''">
+                            {{errorEntity.FrontDisplayName}}
+                          </span>
+                        </span>
+                      </div>
+                    </div>
+                  
+                   
+                  </div>
+                  <div class="row">
+                    <div class="col-md-12 col-12 col-lg-12 col-sm-12 text-center">
+                      <button class="all_btn theme_btn" type="submit" [disabled]="btn_disable">
+                        <span>{{globals.adminTranslationText.permission.form.buttons.update}}</span>
+                      </button>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- End Content -->
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</div>

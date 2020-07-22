@@ -2267,6 +2267,57 @@
                 "title": "Permission Updated",
                 "text": "Permission has been updated successfully"
             }
+        },
+        "list": {
+            "collumns": {
+                "slug": "DisplayName",
+                "frontDisplayName": "Display Name",
+                "actions" : "Actions",
+                "edit" : "Edit"                             
+            },
+            "buttons": {
+                "edit": "Edit",
+                "delete": "Delete",
+                "active": "Active",
+                "deactive": "Deactive",
+                "export": "Export to Excel",
+                "print": "Print"
+            }
+        },
+        "form" : {
+            "title": {
+                "update": "Update a Permission"
+            },
+            "breadcrumbTitle": "Permission",
+            "breadcrumbSubTitle": {
+                "update": "Update"
+            },
+            "FrontDisplayName" : {
+                "label" : "Display Name",
+                "required": "Please enter a Display Name",
+                "pattern": "Please enter a valid Display Name"
+            },
+            "DisplayName" : {
+                "label" : "Slug",
+                "required": "Please enter a Display Name",
+                "pattern": "Please enter a valid Display Name"
+            },
+            "buttons": {
+                "update": "Update",
+                "backToList": "List of Permission"
+            },
+            "alerts": {
+                "update": {
+                    "type": "success",
+                    "title": "Display Name Updated",
+                    "text": "Permission has been updated successfully."
+                },
+                "duplicateAbbreviation": {
+                    "type": "warning",
+                    "title": "DisplayName Exist",
+                    "text": "DisplayName already exist."
+                }
+            }
         }
     }
 }

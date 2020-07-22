@@ -64,6 +64,8 @@ import { TestComponent } from './test/test.component';
 import { FullexaminationsheetComponent } from './fullexaminationsheet/fullexaminationsheet.component';
 import { ItemOptionChangesComponent } from './item-option-changes/item-option-changes.component';
 import { PermissionComponent } from './permission/permission.component';
+import { PermissionListComponent } from './permission-list/permission-list.component';
+import { EditPermissionComponent } from './edit-permission/edit-permission.component';
 
 @NgModule({
   declarations: [
@@ -112,7 +114,9 @@ import { PermissionComponent } from './permission/permission.component';
     TestComponent,
     FullexaminationsheetComponent,
     ItemOptionChangesComponent,
-    PermissionComponent
+    PermissionComponent,
+    PermissionListComponent,
+    EditPermissionComponent
   ],
   imports: [
     AppAdminRoutingModule,

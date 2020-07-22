@@ -42,7 +42,7 @@
                         <div class="check_box">
                           <input type="checkbox"  name="Permission[{{i}}][HasAccess]" 
                             id="{{child.DisplayName}}"  [checked]="child.HasAccess==1" (change)="checkValue($event, child)">
-                          <label for="{{child.DisplayName}}">{{child.DisplayName}}</label>
+                          <label for="{{child.DisplayName}}">{{child.FrontDisplayName}}</label>
                         </div>
                       </div>
                       <div class="clearfix"></div>

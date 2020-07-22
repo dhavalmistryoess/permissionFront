@@ -68,8 +68,9 @@ import { DocumentVertificationRequestComponent } from './document-vertification-
 import { UserhistoryService } from './services/userhistory.service';
 import { UserHistoryComponent } from './user-history/user-history.component';
 import { AssessmentdetailService } from './services/assessmentdetail.service';
-
 import { PermissionComponent } from './permission/permission.component';
+import { PermissionListComponent } from './permission-list/permission-list.component';
+import { EditPermissionComponent } from './edit-permission/edit-permission.component';
 const routes: Routes = [
     {
         path: '',
@@ -172,7 +173,11 @@ const routes: Routes = [
             { path: 'assessmentReport', component: AssessmentReportComponent, canActivate: [AuthGuard] },
 
             { path: 'examinationSheet', component: FullexaminationsheetComponent, canActivate: [AuthGuard] },
+            
             { path: 'permission', component: PermissionComponent, canActivate: [AuthGuard] },
+            { path: 'permission-list', component: PermissionListComponent, canActivate: [AuthGuard] },
+            { path: 'edit-permission/:permission', component: EditPermissionComponent, canActivate: [AuthGuard] },
+            
             { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
             { path: '**', redirectTo: 'dashboard' }
         ]
