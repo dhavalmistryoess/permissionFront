@@ -44,17 +44,17 @@
                     <input placeholder="Search in all columns..." kendoTextBox
                       (input)="onFilter($event.target.value)" />
                   </ng-template>
-                  <kendo-grid-column field="DisplayName"
-                    title="{{globals.adminTranslationText.permission.list.collumns.slug}}">
+                  <kendo-grid-column field="Slug"
+                    title="{{globals.adminTranslationText.permission.list.collumns.Slug}}">
                   </kendo-grid-column>
-                  <kendo-grid-column field="FrontDisplayName"
+                  <kendo-grid-column field="DisplayName"
                     title="{{globals.adminTranslationText.permission.list.collumns.frontDisplayName}}">
                   </kendo-grid-column>
                  
                   <kendo-grid-column title="{{globals.adminTranslationText.permission.list.collumns.actions}}"
                     [width]="150">
                     <ng-template kendoGridCellTemplate let-dataItem let-rowIndex="rowIndex">
-                      <button kendoButton class="edit" (click)="edit(dataItem.DisplayName)">
+                      <button kendoButton class="edit" (click)="edit(dataItem.Slug)">
                         <i data-toggle="tooltip" data-placement="top"
                           title="{{globals.adminTranslationText.permission.list.buttons.edit}}" class="fa fa-edit"></i>
                       </button>

@@ -89,10 +89,10 @@ export class PermissionComponent implements OnInit {
     this.defaultPermissionEntity.forEach(function (menu, key) {
       for(var i=0;i<menu[menu.key].length;i++)
       {
-        console.log(menu[menu.key][i].DisplayName);
+        console.log(menu[menu.key][i].Slug);
         var obj = {
           "RoleId": menu[menu.key][i].RoleId,
-          "DisplayName": menu[menu.key][i].DisplayName,
+          "Slug": menu[menu.key][i].Slug,
           "ModuleIDs": menu[menu.key][i].ModuleIDs,
           "HasAccess": ((menu[menu.key][i].HasAccess == 1 || menu[menu.key][i].HasAccess == true) ? "1" : "2" ),
           "ClassName": menu[menu.key][i].ClassName

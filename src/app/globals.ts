@@ -71,15 +71,16 @@ export class Globals {
   }
 
   
-  hasAccess() {
+  checkRoutePermission() {
+    debugger;
     let retrievedObject1, index;
     let permissionEnity1 = {};
   
-    if(this.authData != null && this.authData.RoleId != "1")
+    if(this.authData != null )
     {
       retrievedObject1 = JSON.parse(localStorage.getItem('getUserPermission'));
       this.menuEntity.forEach(function (menu, key) {
-        index = retrievedObject1.findIndex(retrievedObject1=> (retrievedObject1.DisplayName === menu.key && retrievedObject1.HasAccess == 1 ))
+        index = retrievedObject1.findIndex(retrievedObject1=> (retrievedObject1.Slug === menu.key && retrievedObject1.HasAccess == 1 ))
         if(index != -1) {
           permissionEnity1[menu.key] =  true;
         } else {

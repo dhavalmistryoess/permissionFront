@@ -32,28 +32,28 @@
                   <div class="row">
                     <div class="col-12 col-xl-4 col-lg-4 col-md-12 col-sm-12">
                       <div class="form-group">
-                        <label>{{globals.adminTranslationText.permission.form.DisplayName.label}}</label>
-                        <label>{{permissionEntity.DisplayName}}</label>
+                        <label>{{globals.adminTranslationText.permission.form.Slug.label}}</label>
+                        <label>{{permissionEntity.Slug}}</label>
                         <input type="hidden" class="form-control"
-                          [(ngModel)]="permissionEntity.DisplayName"
-                          name="DisplayName" id="DisplayName" >
+                          [(ngModel)]="permissionEntity.Slug"
+                          name="Slug" id="Slug" >
                       </div>
                     
                       <div class="form-group">
-                        <label><span>*</span> {{globals.adminTranslationText.permission.form.FrontDisplayName.label}}</label>
-                        <input type="text" #FrontDisplayName="ngModel" class="form-control"
-                          [(ngModel)]="permissionEntity.FrontDisplayName"
-                          [ngClass]="{error: (FrontDisplayName.dirty && FrontDisplayName.invalid) || (FrontDisplayName.pristine && submitted) || errorEntity.FrontDisplayName}"
-                          name="FrontDisplayName" id="FrontDisplayName" pattern="^[a-zA-Z][\sa-zA-Z]*" maxlength="100" required>
+                        <label><span>*</span> {{globals.adminTranslationText.permission.form.DisplayName.label}}</label>
+                        <input type="text" #DisplayName="ngModel" class="form-control"
+                          [(ngModel)]="permissionEntity.DisplayName"
+                          [ngClass]="{error: (DisplayName.dirty && DisplayName.invalid) || (DisplayName.pristine && submitted) || errorEntity.DisplayName}"
+                          name="DisplayName" id="DisplayName" pattern="^[a-zA-Z][\sa-zA-Z]*" maxlength="100" required>
 
                         <span class="error_class"
-                          *ngIf="(FrontDisplayName.dirty && FrontDisplayName.invalid) || (FrontDisplayName.pristine && submitted) || errorEntity.FrontDisplayName">
+                          *ngIf="(DisplayName.dirty && DisplayName.invalid) || (DisplayName.pristine && submitted) || errorEntity.DisplayName">
                           <span
-                            *ngIf="FrontDisplayName.errors.required || (FrontDisplayName.pristine && submitted)">{{globals.adminTranslationText.country.form.FrontDisplayName.required}}</span>
+                            *ngIf="DisplayName.errors.required || (DisplayName.pristine && submitted)">{{globals.adminTranslationText.country.form.DisplayName.required}}</span>
                           <span
-                            *ngIf="FrontDisplayName.errors && FrontDisplayName.errors.pattern">{{globals.adminTranslationText.country.form.FrontDisplayName.pattern}}</span>
-                          <span *ngIf="errorEntity.FrontDisplayName != ''">
-                            {{errorEntity.FrontDisplayName}}
+                            *ngIf="DisplayName.errors && DisplayName.errors.pattern">{{globals.adminTranslationText.country.form.DisplayName.pattern}}</span>
+                          <span *ngIf="errorEntity.DisplayName != ''">
+                            {{errorEntity.DisplayName}}
                           </span>
                         </span>
                       </div>

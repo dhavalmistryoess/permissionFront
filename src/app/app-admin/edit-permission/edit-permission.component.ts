@@ -85,8 +85,8 @@ export class EditPermissionComponent implements OnInit {
             } else {
               if(error.error.code == 422)
               {
-                this.errorEntity.FrontDisplayName = (error.error.message.FrontDisplayName != "") ? error.error.message.FrontDisplayName : '';
                 this.errorEntity.DisplayName = (error.error.message.DisplayName != "") ? error.error.message.DisplayName : '';
+                this.errorEntity.Slug = (error.error.message.Slug != "") ? error.error.message.Slug : '';
               }
               else
               {

@@ -30,7 +30,7 @@ export class PermissionListComponent implements OnInit {
       searchQuery : ''
     },
     sortOrder:[{
-      field: "DisplayName",
+      field: "Slug",
       dir: 'desc'
     }]
   };
@@ -39,7 +39,7 @@ export class PermissionListComponent implements OnInit {
       take: this.pageSize
   };
   sort: SortDescriptor[] = [{
-    field: 'DisplayName',
+    field: 'Slug',
     dir: 'desc'
   }];
  

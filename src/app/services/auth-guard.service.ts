@@ -13,7 +13,7 @@ export class AuthGuard implements CanActivate {
 
   canActivate(route, state: RouterStateSnapshot)  {
     this.globals.isLoading = false;
-    var permission = this.globals.hasAccess();
+    let permission = this.globals.checkRoutePermission();
 
    
     var d = new Date();
