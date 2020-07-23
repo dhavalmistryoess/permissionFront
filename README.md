@@ -100,6 +100,11 @@ In the HTML file
 For the menu permission  *ngIf ="menuEntity['country-list']"
 
 
+Copy the Permission, Permission-list, edit-permission with the service.ts file
+
+For the demo you will check the country service files
+
+
    
 
 
