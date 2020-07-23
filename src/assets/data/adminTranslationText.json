@@ -2292,12 +2292,12 @@
             "breadcrumbSubTitle": {
                 "update": "Update"
             },
-            "FrontDisplayName" : {
+            "DisplayName" : {
                 "label" : "Display Name",
                 "required": "Please enter a Display Name",
                 "pattern": "Please enter a valid Display Name"
             },
-            "DisplayName" : {
+            "Slug" : {
                 "label" : "Slug",
                 "required": "Please enter a Display Name",
                 "pattern": "Please enter a valid Display Name"
