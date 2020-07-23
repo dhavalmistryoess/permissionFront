@@ -1,8 +1,8 @@
 # Permission API
 
-Import  PermissionSQL File 
 In the API Folder 
 
+Import  PermissionSQL File 
 In the config 
 $config['enable_hooks'] = TRUE;
 
@@ -100,10 +100,7 @@ In the HTML file
 For the menu permission  *ngIf ="menuEntity['country-list']"
 
 
-
-
-
-     
+   
 
 
 
