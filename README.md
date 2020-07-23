@@ -1,5 +1,6 @@
 # Permission API
 
+Import  PermissionSQL File 
 In the API Folder 
 
 In the config 
