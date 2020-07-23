@@ -93,7 +93,6 @@ export class CommonService {
 
 
   hasAccess(listPermission, currentPermission) {
-    debugger;
     let index;
     let permissionEnity = {};
     currentPermission.forEach(function (menu, key) {

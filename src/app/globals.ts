@@ -72,7 +72,6 @@ export class Globals {
 
   
   checkRoutePermission() {
-    debugger;
     let retrievedObject1, index;
     let permissionEnity1 = {};
   
