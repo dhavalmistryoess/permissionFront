@@ -2270,8 +2270,8 @@
         },
         "list": {
             "collumns": {
-                "slug": "DisplayName",
-                "frontDisplayName": "Display Name",
+                "slug": "Slug",
+                "displayName": "Display Name",
                 "actions" : "Actions",
                 "edit" : "Edit"                             
             },
