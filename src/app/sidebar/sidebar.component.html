@@ -26,10 +26,14 @@
 
             
 
-            <li class="title"><i class="fa fa-cogs"></i><span class="text">Configuration</span></li>
-            <li [ngClass]="{'active':globals.currentLink=='/admin/permission'}"><a routerLink="/admin/permission"
+           
+            <li [ngClass]="{'active':globals.currentLink=='/admin/permission'}"  *ngIf ="globals.authData.RoleId == 1"><a routerLink="/admin/permission"
                         class="has_click">
                         <span class="text">Permissions</span></a></li>
+            <li [ngClass]="{'active':globals.currentLink=='/admin/permission-list'}"  *ngIf ="globals.authData.RoleId == 1"><a routerLink="/admin/permission-list"
+                  class="has_click">
+                  <span class="text">Permission List</span></a></li>            
+                                
            
       </ul>
     

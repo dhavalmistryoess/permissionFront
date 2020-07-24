@@ -95,9 +95,8 @@ export class CommonService {
   hasAccess(listPermission, currentPermission) {
     let index;
     let permissionEnity = {};
-    debugger
     currentPermission.forEach(function (menu, key) {
-      index = listPermission.findIndex(listPermission => (listPermission.DisplayName === menu.key && listPermission.HasAccess == 1))
+      index = listPermission.findIndex(listPermission => (listPermission.Slug === menu.key && listPermission.HasAccess == 1))
       if (index != -1) {
         permissionEnity[menu.key] = true;
       } else {

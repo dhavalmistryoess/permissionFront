@@ -112,23 +112,23 @@ export class HeaderComponent implements OnInit {
 
     this.UserId = this.globals.authData.UserId;
 
-    this.NotificationService.getRecentNotifications(this.UserId).then(
-      data => {
-        debugger;
-        this.recentNotifications = data;
-        this.PendingNotification = this.recentNotifications.length;
-      },
-      error => {
-        this.globals.isLoading = false;
-        // swal({
-        //   type: this.globals.commonTranslationText.common.alerts.somethingWrong.type,
-        //   title: this.globals.commonTranslationText.common.alerts.somethingWrong.title,
-        //   text: this.globals.commonTranslationText.common.alerts.somethingWrong.text,
-        //   showConfirmButton: false,
-        //   timer: 4000
-        // })
-      }
-    );
+    // this.NotificationService.getRecentNotifications(this.UserId).then(
+    //   data => {
+    //     debugger;
+    //     this.recentNotifications = data;
+    //     this.PendingNotification = this.recentNotifications.length;
+    //   },
+    //   error => {
+    //     this.globals.isLoading = false;
+    //     // swal({
+    //     //   type: this.globals.commonTranslationText.common.alerts.somethingWrong.type,
+    //     //   title: this.globals.commonTranslationText.common.alerts.somethingWrong.title,
+    //     //   text: this.globals.commonTranslationText.common.alerts.somethingWrong.text,
+    //     //   showConfirmButton: false,
+    //     //   timer: 4000
+    //     // })
+    //   }
+    // );
 
     this.AuditLogService.getRecentAuditLogs().then(
       data => {

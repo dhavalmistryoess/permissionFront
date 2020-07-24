@@ -51,33 +51,33 @@ export class EmailTemplateListComponent implements OnInit {
    ngOnInit() {
 
     this.listPermission =[];
-    this.menuEntity = [{
-      key : 'add-emailtemplate',
-      value : false
-    },
-    {
-      key : 'delete-all',
-      value : false
-    },
-    {
-      key : 'update-all',
-      value : false
-    },
-    {
-      key : 'emailtemplate-list',
-      value : false
-    }
-    ];
+    // this.menuEntity = [{
+    //   key : 'add-emailtemplate',
+    //   value : false
+    // },
+    // {
+    //   key : 'delete-all',
+    //   value : false
+    // },
+    // {
+    //   key : 'update-all',
+    //   value : false
+    // },
+    // {
+    //   key : 'emailtemplate-list',
+    //   value : false
+    // }
+    // ];
 
-    this.CommonService.checkPermission()
-    .then((data) => {
-      this.listPermission = data;
-      this.menuEntity = this.CommonService.hasAccess(this.listPermission,this.menuEntity);
-    },
-      (error) => {
-        this.globals.isLoading = false;
-        this.globals.pageNotfound(error.error.code);
-    });
+    // this.CommonService.checkPermission()
+    // .then((data) => {
+    //   this.listPermission = data;
+    //   this.menuEntity = this.CommonService.hasAccess(this.listPermission,this.menuEntity);
+    // },
+    //   (error) => {
+    //     this.globals.isLoading = false;
+    //     this.globals.pageNotfound(error.error.code);
+    // });
     this.globals.isLoading = true;
     let todaysdate = this.globals.todaysdate;
     this.exportName = 'Assessment–AllItems–' + todaysdate;

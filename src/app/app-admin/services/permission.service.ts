@@ -45,7 +45,6 @@ export class PermissionService {
   }
 
   getAllRoles() {
-    debugger
     let promise = new Promise((resolve, reject) => {
       this.http.get(this.globals.baseAPIUrl + 'Common/Common/getAllRoles')
         .toPromise()
@@ -76,7 +75,54 @@ export class PermissionService {
     });
     return promise;
   }
-  
+
+  getPermissionAll(entity) {
+    let promise = new Promise((resolve, reject) => {
+      this.http.post(this.globals.baseAPIUrl + 'Assessment/SyncDetails/getAllPermission', entity) // 1-Active, 2-All
+        .toPromise()
+        .then(
+          res => { 
+            resolve(res);
+          },
+          msg => { // Error
+            reject(msg);
+          }
+        );
+    });
+    return promise;
+  }
+
+  getPermissionByKey(key) {
+      let promise = new Promise((resolve, reject) => {
+        this.http.get(this.globals.baseAPIUrl + 'Assessment/SyncDetails/getPermissionByKey/' + key)
+          .toPromise()
+          .then(
+            res => { // Success
+              resolve(res);
+            },
+            msg => { // Error
+              reject(msg);
+            }
+          );
+      });
+      return promise;
+  }
+
+  updatePermissionKey(entity) {
+    let promise = new Promise((resolve, reject) => {
+      this.http.post(this.globals.baseAPIUrl + 'Assessment/SyncDetails/updatePermissionName', entity)
+        .toPromise()
+        .then(
+          res => { // Success
+            resolve(res);
+          },
+          msg => { // Error
+            reject(msg);
+          }
+        );
+    });
+    return promise;
+  }
 
 
 }

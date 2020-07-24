@@ -10,10 +10,8 @@ import { HttpInterceptorClassService } from '../http-interceptor-class.service';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { CountryComponent } from './country/country.component';
 import { CountryListComponent } from './country-list/country-list.component';
-import { CountryListDummyComponent } from './country-list-dummy/country-list-dummy.component';
 import { StateComponent } from './state/state.component';
 import { StateListComponent } from './state-list/state-list.component';
-import { InquireListComponent } from './inquire-list/inquire-list.component';
 import { ActivityLogComponent } from './activity-log/activity-log.component';
 import { ErrorLogComponent } from './error-log/error-log.component';
 import { EmailLogComponent } from './email-log/email-log.component';
@@ -70,8 +68,9 @@ import { DocumentVertificationRequestComponent } from './document-vertification-
 import { UserhistoryService } from './services/userhistory.service';
 import { UserHistoryComponent } from './user-history/user-history.component';
 import { AssessmentdetailService } from './services/assessmentdetail.service';
-import { ItemOptionChangesComponent } from './item-option-changes/item-option-changes.component';
 import { PermissionComponent } from './permission/permission.component';
+import { PermissionListComponent } from './permission-list/permission-list.component';
+import { EditPermissionComponent } from './edit-permission/edit-permission.component';
 const routes: Routes = [
     {
         path: '',
@@ -80,21 +79,43 @@ const routes: Routes = [
             { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard] },
             { path: 'adminDashboard', component: AdminDashboardComponent, canActivate: [AuthGuard] },
 
-            { path: 'country/add', component: CountryComponent, canActivate: [AuthGuard] },
-            { path: 'country/edit/:id', component: CountryComponent, canActivate: [AuthGuard] },
-            { path: 'country/list', component: CountryListComponent, canActivate: [AuthGuard] },
-            { path: 'country-list-dummy', component: CountryListDummyComponent, canActivate: [AuthGuard] },
+            { path: 'country/add', component: CountryComponent, canActivate: [AuthGuard] , data: {
+                permission: 
+                   'add-country'
+            }},
+            { path: 'country/edit/:id', component: CountryComponent, canActivate: [AuthGuard] , data: {
+                permission: 
+                   'add-country'
+            }},
+            { path: 'country/list', component: CountryListComponent, canActivate: [AuthGuard] , data: {
+                permission: 
+                   'country-list'
+            }},
+    
+            { path: 'state/add', component: StateComponent, canActivate: [AuthGuard] , data: {
+                permission: 
+                   'add-state'
+            } },
+            { path: 'state/edit/:id', component: StateComponent, canActivate: [AuthGuard] , data: {
+                permission: 
+                   'add-state'
+            } },
+            { path: 'state/list', component: StateListComponent, canActivate: [AuthGuard]  , data: {
+                permission: 
+                   'state-list'
+            }},
 
-            { path: 'state/add', component: StateComponent, canActivate: [AuthGuard] },
-            { path: 'state/edit/:id', component: StateComponent, canActivate: [AuthGuard] },
-            { path: 'state/list', component: StateListComponent, canActivate: [AuthGuard] },
-
-            { path: 'inquire/list', component: InquireListComponent, canActivate: [AuthGuard] },
             { path: 'settings', component: ConfigurationComponent, canActivate: [AuthGuard] },
 
-            { path: 'email-template/add', component: EmailTemplateComponent, canActivate: [AuthGuard] },
+            { path: 'email-template/add', component: EmailTemplateComponent, canActivate: [AuthGuard], data: {
+                permission: 
+                   'add-emailtemplate'
+            } },
             { path: 'email-template/edit/:id', component: EmailTemplateComponent, canActivate: [AuthGuard] },
-            { path: 'email-template/list', component: EmailTemplateListComponent, canActivate: [AuthGuard] },
+            { path: 'email-template/list', component: EmailTemplateListComponent, canActivate: [AuthGuard], data: {
+                permission: 
+                   'emailtemplate-list'
+            } },
 
             { path: 'error-log', component: ErrorLogComponent, canActivate: [AuthGuard] },
             { path: 'activity-log', component: ActivityLogComponent, canActivate: [AuthGuard] },
@@ -128,9 +149,7 @@ const routes: Routes = [
 
             { path: 'item/add', component: ItemComponent, canActivate: [AuthGuard] },
             { path: 'item/edit/:id', component: ItemComponent, canActivate: [AuthGuard] },
-            // { path: 'item/add', component: ItemOptionChangesComponent, canActivate: [AuthGuard] }, //new component 
-            // { path: 'item/edit/:id', component: ItemOptionChangesComponent, canActivate: [AuthGuard] },
-            { path: 'item/list', component: ItemListComponent, canActivate: [AuthGuard] },
+             { path: 'item/list', component: ItemListComponent, canActivate: [AuthGuard] },
 
             { path: 'user-invite', component: UserInviteComponent, canActivate: [AuthGuard] },
             //{ path: 'item/list', component: ItemListComponent, canActivate: [AuthGuard] },
@@ -154,12 +173,11 @@ const routes: Routes = [
             { path: 'assessmentReport', component: AssessmentReportComponent, canActivate: [AuthGuard] },
 
             { path: 'examinationSheet', component: FullexaminationsheetComponent, canActivate: [AuthGuard] },
+            
             { path: 'permission', component: PermissionComponent, canActivate: [AuthGuard] },
-
-            { path: 'fullScreen', component: FullScreenComponent, canActivate: [AuthGuard] },
-            { path: 'test', component: FullScreenComponent, canActivate: [AuthGuard] },
-            // { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
-            // { path: '**', redirectTo: 'dashboard' }
+            { path: 'permission-list', component: PermissionListComponent, canActivate: [AuthGuard] },
+            { path: 'edit-permission/:permission', component: EditPermissionComponent, canActivate: [AuthGuard] },
+            
             { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
             { path: '**', redirectTo: 'dashboard' }
         ]

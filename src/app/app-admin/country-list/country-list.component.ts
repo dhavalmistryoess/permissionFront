@@ -42,10 +42,6 @@ export class CountryListComponent implements OnInit {
     field: 'CountryName',
     dir: 'desc'
   }];
-  menuDisplayEntity:any;
-  menuEntity:any;
-  listPermission;
-
   constructor(public globals: Globals, private router: Router, private route: ActivatedRoute,
     private CountryService: CountryService, private CommonService: CommonService) { }
 
@@ -56,37 +52,8 @@ export class CountryListComponent implements OnInit {
     this.exportName = 'Assessment-CountryList–' + todaysdate;
 
 
-    this.listPermission =[];
-    // this.menuEntity = [{
-    //   key : 'add-country',
-    //   value : false
-    // },
-    // {
-    //   key : 'delete-all',
-    //   value : false
-    // },
-    // {
-    //   key : 'update-all',
-    //   value : false
-    // },
-    // {
-    //   key : 'country-list',
-    //   value : false
-    // }
-    // ];
-    debugger
-    // this.globals.hasAccess();
-    console.log(this.globals.permissions);
-    // this.CommonService.checkPermission()
-    // .then((data) => {
-    //   this.listPermission = data;
-    //   //console.log(data);
-    //   this.menuEntity = this.globals.hasAccess();
-    // },
-    //   (error) => {
-    //     this.globals.isLoading = false;
-    //     this.globals.pageNotfound(error.error.code);
-    // });
+  
+   
 
     setTimeout(function () {
 
@@ -114,7 +81,7 @@ export class CountryListComponent implements OnInit {
       },
         (error) => {
           this.globals.isLoading = false;
-          this.globals.pageNotfound(error.error.code);
+          // this.globals.pageNotfound(error.error.code);
         });
   }
 

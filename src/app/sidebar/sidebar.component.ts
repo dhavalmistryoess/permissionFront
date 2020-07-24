@@ -35,7 +35,6 @@ export class SidebarComponent implements OnInit {
 
     this.CommonService.checkPermission()
     .then((data) => {
-      // console.log(data);
       this.listPermission = data;
       this.menuEntity = this.CommonService.hasAccess(this.listPermission,this.menuEntity);
     },

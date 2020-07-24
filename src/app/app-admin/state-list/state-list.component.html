@@ -21,7 +21,7 @@
             </ol>
           </div>
           <a routerLink="/admin/state/add"
-            class="all_btn theme_btn float-right"  *ngIf ="menuEntity['add-state']">{{globals.adminTranslationText.state.list.buttons.add}}</a>
+            class="all_btn theme_btn float-right"  *ngIf ="globals.permissions['add-state']">{{globals.adminTranslationText.state.list.buttons.add}}</a>
           <div class="clearfix"></div>
         </div>
         <div class="row d-flex justify-content-center">
@@ -57,7 +57,7 @@
                   </kendo-grid-column>
 
                   <kendo-grid-column title="{{globals.adminTranslationText.state.list.collumns.isActive}}"
-                    class="text-center" [width]="150"  *ngIf ="menuEntity['update-all']">
+                    class="text-center" [width]="150"  *ngIf ="globals.permissions['update-all']">
                     <ng-template kendoGridCellTemplate let-dataItem let-rowIndex="rowIndex">
                       <div class="activeyes_box">
                         <kendo-switch (valueChange)="isActiveChange(dataItem,$event)" [checked]="dataItem.IsActive==1"
@@ -66,13 +66,13 @@
                     </ng-template>
                   </kendo-grid-column>
 
-                  <kendo-grid-column title="Actions" [width]="150">
+                  <kendo-grid-column title="Actions" [width]="150"  *ngIf ="globals.permissions['add-state'] || globals.permissions['delete-all']">
                     <ng-template kendoGridCellTemplate let-dataItem let-rowIndex="rowIndex">
-                      <button kendoButton class="edit" (click)="edit(dataItem.StateId)">
+                      <button kendoButton class="edit" (click)="edit(dataItem.StateId)"  *ngIf ="globals.permissions['add-state']">
                         <i data-toggle="tooltip" data-placement="top"
-                          title="{{globals.adminTranslationText.state.list.buttons.edit}}" class="fa fa-edit"  *ngIf ="menuEntity['add-state']"></i>
+                          title="{{globals.adminTranslationText.state.list.buttons.edit}}" class="fa fa-edit"></i>
                       </button>
-                      <button kendoButton class="delete" (click)="deleteItem(dataItem)" *ngIf ="menuEntity['delete-all']">
+                      <button kendoButton class="delete" (click)="deleteItem(dataItem)" *ngIf ="globals.permissions['delete-all']">
                         <i data-toggle="tooltip" data-placement="top" class="fa fa-trash-o"
                           title="{{globals.adminTranslationText.state.list.buttons.delete}}"></i>
                       </button>

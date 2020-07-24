@@ -11,11 +11,11 @@ export class AuthGuard implements CanActivate {
 
   constructor(private authService: AuthService, private router: Router, public globals: Globals) { }
 
-  canActivate(route, state: RouterStateSnapshot) {
-
-
+  canActivate(route, state: RouterStateSnapshot)  {
     this.globals.isLoading = false;
-    this.globals.hasAccess();
+    let permission = this.globals.checkRoutePermission();
+
+   
     var d = new Date();
     var curr_date = d.getDate();
     var curr_month = d.getMonth() + 1; //Months are zero based
@@ -65,13 +65,11 @@ export class AuthGuard implements CanActivate {
       }, "slow");
 
     }, 500);
-
-    // setTimeout(function () {
-    //   $("html, body").animate({
-    //     scrollTop: 0
-    //   }, "slow");
-    // }, 500);
-
+   
+    if (route.data['permission'] != undefined && !permission[route.data['permission']]) {
+        return this.router.navigate(["/pagenotfound/" + window.btoa("403")]);
+    }
+    
 
 
     $(".tooltip.show").remove();

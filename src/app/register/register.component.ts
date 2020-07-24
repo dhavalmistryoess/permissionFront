@@ -100,7 +100,7 @@ export class RegisterComponent implements OnInit {
       },
         (error) => {
           this.globals.isLoading = false;
-            this.globals.pageNotfound(error.error.code);
+            // this.globals.pageNotfound(error.error.code);
         });
     $("#newpassword-show").click(function () {
       $(this).toggleClass("fa-eye fa-eye-slash")
@@ -163,27 +163,7 @@ export class RegisterComponent implements OnInit {
 
   }
 
-  // documents(certificateId) {
-  //   // debugger
-  //   this.RegisterService.getById(certificateId)
-  //     .then((data) => {
-  //       this.documentList = data;
-  //       this.globals.isLoading = false;
-  //       console.log(this.documentList);
-
-  //     },
-  //       (error) => {
-  //         this.globals.isLoading = false;
-  //         if (error.text) {
-  //           swal({
-  //             //position: 'top-end',
-  //             type: 'error',
-  //             title: 'Oops...',
-  //             text: "Something went wrong!"
-  //           })
-  //         }
-  //       });
-  // }
+  
   register3(registerForm3) {
     this.globals.isLoading = true;
     this.submitted2 = true;
@@ -196,11 +176,6 @@ export class RegisterComponent implements OnInit {
       this.registerEntity.CertificateFor = 0;
     }
     if (this.registerEntity.CertificateId == '') {
-      // $("#certificate-tab").addClass("complete");
-      // $("#certificate").removeClass("show active");
-      // $("#document-tab").removeClass("disabled");
-      // $("#document-tab").addClass("active");
-      // $("#document").addClass("show active");
       this.globals.isLoading = false;
       swal({
         type: this.globals.commonTranslationText.registerPage.form.alerts.type,

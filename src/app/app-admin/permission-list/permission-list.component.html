@@ -1,0 +1,74 @@
+<div class="content_block">
+  <div class="container-fluid">
+    <div class="row">
+      <!-- Content -->
+      <div class="col-md-12 col-sm-12">
+        <div class="title_block">
+          <h2 class="float-left">
+            {{globals.adminTranslationText.permission.title}}</h2>
+          <div class="breadcrumb_block float-left">
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item">
+                <a routerLink="/admin/adminDashboard">
+                  <i class="fa fa-home"></i>
+                </a>
+              </li>
+              <li class="breadcrumb-item"><a
+                  routerLink="/admin/permission-list" >{{globals.adminTranslationText.permission.breadcrumbTitle}}</a>
+              </li>
+              <li class="breadcrumb-item active" aria-current="page">
+                {{globals.adminTranslationText.permission.breadcrumbTitle}}</li>
+            </ol>
+          </div>
+          <div class="clearfix"></div>
+        </div>
+        <div class="row d-flex justify-content-center">
+          <div class="col-md-12 col-sm-12">
+            <div class="inner_content_block">
+              <div class="table_block">
+                    <kendo-grid
+                    [data]="permissionList"
+                    [pageSize]="pageSize"
+                    [skip]="skip"
+                    [pageable]="true"
+                    (pageChange)="pageChange($event)"
+                    [sort]="sort"
+                    [sortable]="{
+                      allowUnsort: allowUnsort,
+                      mode: 'single'
+                      }"
+                    (sortChange)="sortChange($event)"
+                  >
+
+                  <ng-template kendoGridToolbarTemplate>
+                    <input placeholder="Search in all columns..." kendoTextBox
+                      (input)="onFilter($event.target.value)" />
+                  </ng-template>
+                  <kendo-grid-column field="Slug"
+                    title="{{globals.adminTranslationText.permission.list.collumns.slug}}">
+                  </kendo-grid-column>
+                  <kendo-grid-column field="DisplayName"
+                    title="{{globals.adminTranslationText.permission.list.collumns.displayName}}">
+                  </kendo-grid-column>
+                 
+                  <kendo-grid-column title="{{globals.adminTranslationText.permission.list.collumns.actions}}"
+                    [width]="150">
+                    <ng-template kendoGridCellTemplate let-dataItem let-rowIndex="rowIndex">
+                      <button kendoButton class="edit" (click)="edit(dataItem.Slug)">
+                        <i data-toggle="tooltip" data-placement="top"
+                          title="{{globals.adminTranslationText.permission.list.buttons.edit}}" class="fa fa-edit"></i>
+                      </button>
+                     
+                    </ng-template>
+                  </kendo-grid-column>
+                </kendo-grid>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- End Content -->
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</div>
